@@ -1,0 +1,326 @@
+{{ 'sticky-atc-bar.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign container = section.settings.container
+  assign show_on_desktop = section.settings.show_on_desktop
+  assign show_on_mobile = section.settings.show_on_mobile
+  assign show_atc_button = section.settings.show_atc_button
+  assign show_dynamic_checkout_buttons = section.settings.show_dynamic_checkout_buttons
+  assign show_quantity = section.settings.show_quantity
+  assign class = ''
+  if show_on_desktop and show_on_mobile == false
+    assign class = 'sm-down:hidden'
+  endif
+  if show_on_mobile and show_on_desktop == false
+    assign class = 'sm:hidden'
+  endif
+  if show_on_desktop and show_on_mobile == false
+    assign class = 'sm-down:hidden'
+  endif
+  if show_on_mobile == false and show_on_desktop == false
+    assign class = 'f-hidden'
+  endif
+  # Quote-only products. This has to match the is_gvm_package test the main
+  # form uses in snippets/main-product-blocks.liquid, or the two disagree: the
+  # form says "Request a Quote" while the bar offers a working Add to cart on
+  # the same product. The suffix test alone missed product.gvm-package.json,
+  # product.gvm-stage-alt.json and product.gvm-stages-template.json, none of
+  # which use the gvm-stage suffix, plus any default-template product carrying
+  # the type:gvm-upgrade tag.
+  assign is_gvm_stage = false
+  if template.suffix == 'gvm-stage'
+    assign is_gvm_stage = true
+  endif
+  if product.type == 'GVM Package' or product.type == 'GCM Package'
+    assign is_gvm_stage = true
+  endif
+  unless is_gvm_stage
+    for tag in product.tags
+      assign tag_d = tag | downcase | strip
+      if tag_d == 'type:gvm-upgrade' or tag_d == 'type:gcm-upgrade'
+        assign is_gvm_stage = true
+        break
+      endif
+    endfor
+  endunless
+
+  # Mirror the tagged Pre-Order / Special Order flow from the main product form.
+  # Without this the bar offered a working Add to cart as soon as the customer
+  # scrolled, on a product whose main form deliberately opens an enquiry modal
+  # instead of taking money, so the page presented two contradictory actions.
+  #
+  # This is the tag driven flow only. The inventory driven one that used to sit
+  # beside it was reverted on 23 Aug 2026 at the client's request.
+  assign so_type = ''
+  for t in product.tags
+    assign td = t | downcase | strip
+    if td == 'pre-order' or td == 'preorder' or td == 'pre order'
+      assign so_type = 'pre'
+    elsif td == 'special order' or td == 'special-order'
+      if so_type == ''
+        assign so_type = 'special'
+      endif
+    endif
+  endfor
+-%}
+<script src="{{ 'sticky-atc-bar.js' | asset_url }}" defer="defer"></script>
+<div
+  class="sticky-atc-bar fixed bottom-0 left-0 right-0 w-full translate-y-100 {{ class }}{% if show_dynamic_checkout_buttons %} sticky-atc-bar--with-dynamic-buttons{% endif %}"
+  data-section-type="sticky-atc-bar"
+>
+  <div class="{{ container }}">
+    <sticky-atc-bar
+      class="sticky-atc-bar__inner flex items-center justify-between"
+      data-product-id="{{ product.id }}"
+      data-section="{{ section.id }}"
+      data-url="{{ product.url }}"
+      data-show-on-desktop="{{ show_on_desktop }}"
+      data-show-on-mobile="{{ show_on_mobile }}"
+    >
+      <div class="sticky-atc-bar__product hidden sm:flex sm:items-center">
+        <div class="sticky-atc-bar__product-image">
+          {%- if product.featured_image -%}
+            {% render 'responsive-image', image: product.featured_image, sizes: '100x', aspect_ratio: 1 %}
+          {%- else -%}
+            {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          {%- endif -%}
+        </div>
+        <div class="sticky-atc-bar__product-info">
+          <h3 class="sticky-atc-bar__product-title h6">
+            {{ product.title }}
+          </h3>
+          {%- unless is_gvm_stage -%}{%- render 'price', product: product, use_variant: true -%}{%- endunless -%}
+        </div>
+      </div>
+      <div class="sticky-atc-bar__form">
+        {%- if is_gvm_stage -%}
+        <div class="sticky-atc-bar__gvm-ctas flex items-center" style="gap:10px;">
+          {%- comment -%}
+            Same popup as the hero button. Wired here too because this is the
+            same call to action reappearing on scroll, and having one open a
+            popup while the other navigated away would read as a bug.
+          {%- endcomment -%}
+          {%- if section.settings.gvm_quote_popup_id != blank -%}
+            <modal-opener data-modal="#PopupModal-{{ section.settings.gvm_quote_popup_id | handle }}">
+              <button type="button" class="btn btn--primary" aria-haspopup="dialog">Request Quote</button>
+            </modal-opener>
+          {%- else -%}
+            <a href="{{ section.settings.gvm_quote_url | default: '/pages/contact-us' }}" class="btn btn--primary">Request Quote</a>
+          {%- endif -%}
+          <a href="{{ section.settings.gvm_book_url | default: '/pages/contact-us' }}" class="btn btn--outline">Book Installation</a>
+        </div>
+        {%- else -%}
+        {%- assign product_form_id = 'product-form-' | append: section.id -%}
+        <product-form class="f-product-form" data-notification-type="toast">
+          {%- form 'product',
+            product,
+            id: product_form_id,
+            class: 'sticky-atc-form',
+            novalidate: 'novalidate',
+            data-type: 'add-to-cart-form'
+          -%}
+            <select
+              name="id"
+              class="sticky-atc-bar__variant-select text-sm form-control{% if product.has_only_default_variant %} f-hidden{% endif %}"
+            >
+              {% for variant in product.variants %}
+                {% assign selected = false %}
+                {%- if variant.id == product.selected_or_first_available_variant.id -%}
+                  {% assign selected = true %}
+                {%- endif -%}
+                <option
+                  value="{{ variant.id }}"
+                  {% if selected %}
+                    selected="true"
+                  {% endif %}
+                >
+                  {{ variant.title }}
+                </option>
+              {% endfor %}
+            </select>
+            {% if show_quantity %}
+              {%- assign cart_qty = cart | item_count_for_variant: product.selected_or_first_available_variant.id -%}
+              <div class="f-quantity__wrapper hidden md:block" id="QuantitySticky-{{ section.id }}">
+                <quantity-input class="f-quantity" data-product-id="{{ product.id }}" data-section-id="{{ section.id }}">
+                <button class="f-quantity__button btn btn--plain no-js-hidden" name="minus" type="button">
+                  <span class="visually-hidden">
+                    {{- 'products.product.quantity.decrease' | t: product: product.title | escape -}}
+                  </span>
+                  <svg width="16" height="16" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2.6875 7H12.3125" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+                <input
+                  id="Quantity-{{ section.id }}-{{ product.id }}"
+                  class="f-quantity__input quantity__input form-control"
+                  type="number"
+                  name="quantity"
+                  inputmode="numeric"
+                  autocomplete="off"
+                  data-quantity-variant-id="{{ product.selected_or_first_available_variant.id }}"
+                  data-cart-quantity="{{ cart_qty }}"
+                  data-min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+                  min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+                  {% if product.selected_or_first_available_variant.quantity_rule.max != null %}
+                    data-max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
+                    max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
+                  {% endif %}
+                  step="{{ product.selected_or_first_available_variant.quantity_rule.increment }}"
+                  value="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+                  form="{{ product_form_id }}"
+                >
+                <button class="f-quantity__button btn btn--plain no-js-hidden" name="plus" type="button">
+                  <span class="visually-hidden">
+                    {{- 'products.product.quantity.increase' | t: product: product.title | escape -}}
+                  </span>
+                  <svg width="16" height="16" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2.6875 7H12.3125" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M7.5 2.1875V11.8125" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </quantity-input>
+              </div>
+              
+            {% endif %}
+            <div class="f-product-form__buttons flex items-center">
+              {% if show_atc_button %}
+                {%- if so_type != '' -%}
+                  {%- comment -%}
+                    Matches the main form's tagged special order button. The
+                    click handler in so-special-order.js is delegated from the
+                    document and reads the variant from the enclosing form, so
+                    this needs no extra JS.
+                  {%- endcomment -%}
+                  <button
+                    type="button"
+                    class="f-product-form__submit btn btn--primary w-full"
+                    data-so-trigger
+                    data-order-type="{{ so_type }}"
+                    data-product-title="{{ product.title | escape }}"
+                    data-product-url="{{ shop.url }}{{ product.url }}"
+                    data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+                  >
+                    <span>
+                      {%- if so_type == 'pre' -%}Pre-Order{%- else -%}Special Order{%- endif -%}
+                    </span>
+                  </button>
+                {%- else -%}
+                  <button
+                    type="submit"
+                    name="add"
+                    class="f-product-form__submit btn {% if show_dynamic_checkout_buttons and product.selling_plan_groups == empty %}btn--secondary{% else %}btn--primary{% endif %} w-full"
+                    {% if product.selected_or_first_available_variant.available == false %}
+                      disabled
+                    {% endif %}
+                  >
+                    <span>
+                      {%- if product.selected_or_first_available_variant.available -%}
+                        {{ 'products.product.add_to_cart' | t }}
+                      {%- else -%}
+                        {{ 'products.product.sold_out' | t }}
+                      {%- endif -%}
+                    </span>
+                    {% comment %} theme-check-disable {% endcomment %}
+                    {{ 'icon-spinner.svg' | inline_asset_content }}
+                    {% comment %} theme-check-enable {% endcomment %}
+                  </button>
+                {%- endif -%}
+              {% endif %}
+              {%- if show_dynamic_checkout_buttons and so_type == '' -%}
+                <div class="f-product-form__button-dynamic hidden md:block">
+                  {{ form | payment_button }}
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endform -%}
+        </product-form>
+        {%- endif -%}
+      </div>
+    </sticky-atc-bar>
+    <script type="application/json">
+      {{ product.variants | json }}
+    </script>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "t:sections.sticky-atc-bar.name",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "select",
+      "id": "container",
+      "options": [
+        {
+          "value": "container",
+          "label": "t:sections.common.container.fixed"
+        },
+        {
+          "value": "container-fluid",
+          "label": "t:sections.common.container.stretched"
+        },
+        {
+          "value": "container-full",
+          "label": "t:sections.common.container.fullwidth"
+        }
+      ],
+      "default": "container",
+      "label": "t:sections.common.container.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_on_desktop",
+      "label": "t:sections.common.visibility.desktop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_on_mobile",
+      "label": "t:sections.common.visibility.mobile",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:sections.sticky-atc-bar.settings.header.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_atc_button",
+      "label": "t:sections.sticky-atc-bar.settings.show_atc_button.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dynamic_checkout_buttons",
+      "label": "t:sections.sticky-atc-bar.settings.show_dynamic_checkout_buttons.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quantity",
+      "label": "t:sections.sticky-atc-bar.settings.show_quantity.label",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "GVM stage template"
+    },
+    {
+      "type": "url",
+      "id": "gvm_quote_url",
+      "label": "Request Quote URL (GVM stage template)",
+      "info": "Ignored when a Popup ID is set below."
+    },
+    {
+      "type": "text",
+      "id": "gvm_quote_popup_id",
+      "label": "Request Quote popup ID",
+      "info": "Opens a Contact form v4 section set to Popup with this same ID. Use the same value as the ORI GVM Product section so both buttons behave alike."
+    },
+    {
+      "type": "url",
+      "id": "gvm_book_url",
+      "label": "Book Installation URL (GVM stage template)"
+    }
+  ]
+}
+{% endschema %}

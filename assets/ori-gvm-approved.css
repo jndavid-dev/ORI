@@ -1,0 +1,121 @@
+/* ─── ORI GVM Approved ────────────────────────────────────────────────────
+   Wrapper only. The injected section brings its own styles, which is why the
+   source section's stylesheet is enqueued alongside this one. */
+
+.ori-gvm-approved {
+  display: block;
+}
+
+/* ── Full width ──
+   Replaces the theme container so the pulled section's own background reaches
+   the screen edges instead of sitting in a letterbox. The pulled section keeps
+   its inner max-width, so the cards stay readable and only the background runs
+   full bleed - which is the usual intent behind "make it full width". */
+.ori-gvm-approved__full {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* .ori-gvm-product__band sets 52px, dropping to 40px under a media query. The
+   inline style already beats both, so this is a backstop for the case where
+   the band class is applied without it. */
+.ori-gvm-approved__band--bleed {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* Dropping this section's own container is not enough on its own: the pulled
+   section has a container of its own inside it, and that is what actually
+   holds the content at 1280px and centres it. Both known wrappers are widened
+   here, with the theme's large desktop gutter replaced by a settable one.
+
+   Two class selectors beat the single-class .container and .f-section-padding
+   rules they override, including inside media queries, since a media query
+   adds no specificity. No !important needed. */
+.ori-gvm-approved__band--bleed .ori-installer-network > .container,
+.ori-gvm-approved__band--bleed .ori-installer-network > .container-narrow,
+.ori-gvm-approved__band--bleed .ori-installer-network > .container-fluid,
+.ori-gvm-approved__band--bleed .dealer-locator__inner {
+  max-width: none;
+  width: 100%;
+  padding-left: var(--approved-gutter, 24px);
+  padding-right: var(--approved-gutter, 24px);
+}
+
+/* Opt in. Left off, the pulled section keeps the top and bottom padding set on
+   its own page, which is usually what stops the heading touching the edge. */
+.ori-gvm-approved__band--flush .ori-installer-network,
+.ori-gvm-approved__band--flush .dealer-locator {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* The fallback link is the default state in the markup, so it is present for
+   anyone whose fetch never completes. It is hidden as soon as the real
+   content lands. */
+.ori-gvm-approved__fallback {
+  margin: 0;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.ori-gvm-approved__fallback a {
+  color: var(--brand-teal, #56bdc2);
+  text-underline-offset: 3px;
+}
+[data-state='loaded'] .ori-gvm-approved__fallback {
+  display: none;
+}
+
+/* Block, never grid. This element holds the injected section, and a grid
+   parent with place-items:center shrink-wraps its child: the pulled section
+   sized to its own content, around 650px, and sat centred no matter what the
+   full-width rules above said. It also made the layout depend on the JS having
+   set data-state, which is not something layout should ever wait on.
+
+   min-height only reserves space so the page does not jump on arrival. */
+.ori-gvm-approved__placeholder {
+  display: block;
+  min-height: 220px;
+}
+[data-state='loaded'] .ori-gvm-approved__placeholder {
+  min-height: 0;
+}
+/* Belt and braces: whatever gets injected fills the width it is given. */
+.ori-gvm-approved__placeholder > * {
+  width: 100%;
+}
+
+.ori-gvm-approved__spinner {
+  width: 26px;
+  height: 26px;
+  /* Centred on its own rather than by the parent, now the parent is a plain
+     block. Vertical margin roughly centres it in the reserved height. */
+  margin: 97px auto;
+  border: 2px solid color-mix(in srgb, currentColor 22%, transparent);
+  border-top-color: var(--brand-teal, #56bdc2);
+  border-radius: 50%;
+  animation: ori-gvm-approved-spin 0.8s linear infinite;
+}
+/* Only while actually fetching: an idle spinner reads as a stuck page. */
+.ori-gvm-approved__spinner {
+  display: none;
+}
+[data-state='loading'] .ori-gvm-approved__spinner {
+  display: block;
+}
+
+@keyframes ori-gvm-approved-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ori-gvm-approved__spinner {
+    animation: none;
+  }
+}

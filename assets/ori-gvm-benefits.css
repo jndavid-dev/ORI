@@ -1,0 +1,126 @@
+/* ─── ORI GVM Key Benefits ────────────────────────────────────────────────
+   Outlined cards, icon over an uppercase title over supporting copy. Own
+   namespace so the older numbered-register treatment in ori-gvm-product.css
+   cannot reach in.
+
+   Tokens fall back for the Classic layout: --tp-* only exist under
+   .ori-gvm-product--editorial, so the second value in each var() is what
+   Classic uses. */
+
+.ori-gvm-bnf {
+  /* Border is deliberately stronger than the usual hairline: the cards carry no
+     fill, so the outline is the only thing holding them together. */
+  --bnf-line: color-mix(in srgb, var(--tp-ink, currentColor) 42%, transparent);
+  --bnf-ink: var(--tp-ink, currentColor);
+  --bnf-soft: var(--tp-soft, color-mix(in srgb, currentColor 58%, transparent));
+  --bnf-gap: clamp(16px, 2vw, 26px);
+
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--bnf-gap);
+  align-items: stretch;
+}
+
+.ori-gvm-bnf__heading {
+  margin: 0 0 22px;
+  /* Sized here rather than left to .h3, which runs a good deal larger than the
+     approved design. Kept in step with the other GVM section headings. */
+  font-size: clamp(20px, 2.1vw, 26px);
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+.ori-gvm-bnf__heading--left {
+  text-align: left;
+}
+.ori-gvm-bnf__heading--center {
+  text-align: center;
+}
+
+.ori-gvm-bnf__card {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 20px 22px;
+  border: 1px solid var(--bnf-line);
+  /* Near-square corners, not the rounded card of the previous build. */
+  border-radius: 2px;
+  background: transparent;
+  min-width: 0;
+}
+
+.ori-gvm-bnf__icon-wrap {
+  display: flex;
+  margin-bottom: 14px;
+  color: var(--bnf-ink);
+}
+.ori-gvm-bnf__icon {
+  width: 19px;
+  height: 19px;
+  display: block;
+}
+
+.ori-gvm-bnf__title {
+  margin: 0 0 16px;
+  font-size: 18px;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--bnf-ink);
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+.ori-gvm-bnf__note {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--bnf-soft);
+  text-wrap: pretty;
+  overflow-wrap: break-word;
+}
+
+/* Two up on tablet, then the merchant's column count on desktop. Both are
+   capped by the number of cards so two benefits never stretch across three
+   columns. */
+@media (min-width: 640px) {
+  .ori-gvm-bnf {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 990px) {
+  .ori-gvm-bnf {
+    grid-template-columns: repeat(var(--bnf-cols, 3), minmax(0, 1fr));
+  }
+}
+
+/* ── Row alignment across cards ──
+   Each card hands its three rows (icon, title, copy) back to the parent grid,
+   so all three cards in a row share the same track heights. Every title then
+   starts on the same line and every paragraph starts on the same line, however
+   many lines the title above it happens to take.
+
+   Flex could only ever align one end of the copy, never both, which is what
+   produced the ragged first lines the client picked up on.
+
+   Guarded by @supports: without subgrid the cards keep the flex layout above,
+   where the copy simply follows the title. That degrades to slightly uneven
+   paragraph tops only when one title wraps and another does not, which is
+   still better than the bottom-pushed version it replaces. */
+@supports (grid-template-rows: subgrid) {
+  @media (min-width: 640px) {
+    .ori-gvm-bnf__card {
+      display: grid;
+      grid-template-rows: subgrid;
+      /* Icon, title, copy. All three are always emitted so every card
+         contributes the same number of tracks; a card missing one just leaves
+         its track empty rather than shifting the rows below it up. */
+      grid-row: span 3;
+    }
+    /* No icons anywhere in the section: two tracks, and no blank strip above
+       the titles. */
+    .ori-gvm-bnf--no-icons .ori-gvm-bnf__card {
+      grid-row: span 2;
+    }
+  }
+}

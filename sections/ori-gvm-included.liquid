@@ -1,0 +1,529 @@
+{%- comment -%}
+  ORI GVM What's Included.
+
+  Two columns: the item list on one side, up to four images on the other. The
+  image grid changes shape with how many images are added, so the block always
+  fills its column without letterboxing:
+
+    1 image  - one wide frame
+    2 images - one row of two
+    3 images - two on top, one spanning underneath
+    4 images - two by two
+
+  Under 750px the columns stack (content first, then images) and the image grid
+  becomes a scroll-snap carousel driven by assets/ori-gvm-included.js.
+
+  The Image blocks are section settings, so every product on the template shares
+  them. A product that needs its own photos gets them from a File list product
+  metafield instead, named by the "Per-product image metafield" setting. The
+  blocks are the fallback: they are what shows for every product that has no
+  files in that metafield, which is why they should stay filled in.
+
+  The outer wrapper keeps the .ori-gvm-product and layout classes so the band
+  background and typography match the sections above and below it. The list and
+  media use their own .ori-gvm-incl namespace, deliberately not the shared
+  __cards / __card classes, so the old single-section styling cannot reach in.
+{%- endcomment -%}
+
+{{ 'ori-gvm-product.css' | asset_url | stylesheet_tag }}
+{{ 'ori-gvm-included.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'ori-gvm-included.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign section_id = section.settings.custom_id | default: section.id
+  assign container = section.settings.container | default: 'container'
+  assign included = section.blocks | where: 'type', 'included'
+
+  # The rows come from the blocks above. Each GVM product has its own template
+  # now, so the blocks are per-product already and there is nothing to override
+  # them with - the custom.included_items metafield this used to read has been
+  # deleted.
+  assign incl_rows = included
+
+  # Four is the ceiling. The media column only has grid shapes for one to
+  # four frames, so a fifth row leaves the list running past the images with
+  # nothing beside it. The editor limit stops new blocks being added; this
+  # covers a template already saved with more, and a product pointing at
+  # more than four metaobject entries.
+  if incl_rows.size > 4
+    assign incl_rows = incl_rows | slice: 0, 4
+  endif
+  assign images = section.blocks | where: 'type', 'image'
+  assign brand_logos = section.blocks | where: 'type', 'brand_logo'
+
+  # Only images that actually hold a file count towards the layout, otherwise an
+  # empty block would leave a hole in the grid.
+  assign img_count = 0
+  for block in images
+    if block.settings.image != blank
+      assign img_count = img_count | plus: 1
+    endif
+  endfor
+
+  # Per-product images. Every product sharing this template also shares the one
+  # set of Image blocks, so a product metafield holding its own image files
+  # takes over the grid for that product, and the blocks stay as the fallback
+  # for every product that has not been given any.
+  #
+  # The metafield wants to be a File list restricted to images. Anything in it
+  # that is not an image has no width, so it is skipped rather than rendered as
+  # an empty frame, and if nothing usable survives the blocks are used instead.
+  # Capped at four to match the block limit and the grid shapes in the CSS.
+  assign use_mf_images = false
+  assign incl_mf = section.settings.images_metafield | default: 'custom.included_images' | split: '.'
+  if product != blank and incl_mf.size == 2
+    assign mf_images = product.metafields[incl_mf[0]][incl_mf[1]].value
+    assign mf_count = 0
+    for file in mf_images
+      if file.width > 0 and mf_count < 4
+        assign mf_count = mf_count | plus: 1
+      endif
+    endfor
+    if mf_count > 0
+      assign use_mf_images = true
+      assign img_count = mf_count
+    endif
+  endif
+
+  assign autoplay_ms = section.settings.autoplay_seconds | times: 1000
+
+  # Logo box and logo are sized separately. The box is square unless a wider one
+  # is asked for; the scale is how much of that box the artwork fills, and it can
+  # go past 100% to crop the empty margin most supplied logo files carry.
+  assign frame_h = section.settings.item_logo_height | default: 64
+  assign frame_w = frame_h
+  if section.settings.item_logo_box_width > 0
+    assign frame_w = section.settings.item_logo_box_width
+  endif
+  assign logo_scale_pct = section.settings.item_logo_scale | default: 100
+  assign logo_scale = logo_scale_pct | divided_by: 100.0
+
+  # Padding is inside the border and inside the box size, so the artwork is
+  # scaled against what is left over rather than the full box.
+  assign frame_pad = section.settings.item_logo_box_padding | default: 3
+  assign frame_inner = frame_w | minus: frame_pad | minus: frame_pad
+  if frame_inner < 1
+    assign frame_inner = 1
+  endif
+
+  # sizes has to describe the real rendered width. It used to be a hardcoded
+  # 40px, which pinned the artwork to 40px however large the box was set.
+  assign logo_px = frame_inner | times: logo_scale_pct | divided_by: 100
+  if logo_px < 40
+    assign logo_px = 40
+  endif
+  assign logo_px_css = logo_px | append: 'px'
+-%}
+
+{%- if included.size > 0 or img_count > 0 or brand_logos.size > 0 -%}
+  <div
+    id="{{ section_id }}"
+    class="ori-gvm-product ori-gvm-product--{{ section.settings.layout | default: 'classic' }} color-{{ section.settings.color_schema }}"
+    data-section-type="ori-gvm-included"
+    style="--gvm-tint: {{ section.settings.tint_color | default: '#f3f6f7' }}; --gvm-frame-h: {{ frame_h }}px; --gvm-frame-w: {{ frame_w }}px; --gvm-frame-pad: {{ frame_pad }}px; --gvm-logo-scale: {{ logo_scale }}; --incl-row-pad: {{ section.settings.row_spacing | default: 10 }}px; --gvm-brand-logo-h: {{ section.settings.brand_logo_height | default: 72 }}px;"
+  >
+    <div
+      class="ori-gvm-product__band ori-gvm-product__band--included{% if section.settings.alt_background %} ori-gvm-product__band--alt{% endif %}"
+      style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;"
+    >
+      <div class="{{ container }}">
+        <div
+          class="ori-gvm-incl{% if img_count == 0 %} ori-gvm-incl--no-media{% endif %}{% if section.settings.media_position == 'left' %} ori-gvm-incl--media-left{% endif %}{% unless section.settings.logo_frame %} ori-gvm-incl--no-frame{% endunless %}"
+        >
+          <div class="ori-gvm-incl__content">
+            {%- if section.settings.heading != blank -%}
+              <h2 class="ori-gvm-product__block-title h3">{{ section.settings.heading }}</h2>
+            {%- endif -%}
+
+            {%- if incl_rows.size > 0 -%}
+              <ul class="ori-gvm-incl__list" role="list">
+                {%- for row in incl_rows -%}
+                  {%- liquid
+                    assign row_logo = row.settings.logo
+                    assign row_icon = row.settings.icon
+                    assign row_brand = row.settings.brand
+                    assign row_title = row.settings.text
+                    assign row_note = row.settings.note
+                    assign row_sku = row.settings.sku
+                    assign row_attrs = row.shopify_attributes
+
+                    # A File field can hold something that is not an image, and
+                    # that has no width, so it would draw an empty logo frame.
+                    assign has_logo = false
+                    if row_logo != blank and row_logo.width > 0
+                      assign has_logo = true
+                    endif
+                    assign has_icon = false
+                    if has_logo == false and row_icon != 'none' and row_icon != blank
+                      assign has_icon = true
+                    endif
+                  -%}
+                  <li class="ori-gvm-incl__item{% if has_logo == false and has_icon == false %} ori-gvm-incl__item--bare{% endif %}" {{ row_attrs }}>
+                    {%- if has_logo or has_icon -%}
+                      <span class="ori-gvm-incl__figure">
+                        {%- if has_logo -%}
+                          {{-
+                            row_logo
+                            | image_url: width: 900
+                            | image_tag:
+                              loading: 'lazy',
+                              class: 'ori-gvm-incl__logo',
+                              widths: '120,180,240,360,480,720,900',
+                              sizes: logo_px_css,
+                              alt: row_brand | default: row_title | escape
+                          -}}
+                        {%- else -%}
+                          {%- render 'ori-gvm-icon', icon: row_icon, class: 'ori-gvm-incl__icon' -%}
+                        {%- endif -%}
+                      </span>
+                    {%- endif -%}
+
+                    <span class="ori-gvm-incl__body">
+                      {%- if row_brand != blank -%}
+                        <span class="ori-gvm-incl__eyebrow">{{ row_brand }}</span>
+                      {%- endif -%}
+                      <span class="ori-gvm-incl__title">{{ row_title }}</span>
+                      {%- if row_note != blank -%}
+                        <span class="ori-gvm-incl__note">{{ row_note }}</span>
+                      {%- endif -%}
+                      {%- if row_sku != blank -%}
+                        <span class="ori-gvm-incl__sku">{{ row_sku }}</span>
+                      {%- endif -%}
+                    </span>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+          </div>
+
+          {%- if img_count > 0 -%}
+            <ori-gvm-gallery
+              class="ori-gvm-incl__gallery"
+              data-autoplay="{{ autoplay_ms }}"
+            >
+              <div
+                class="ori-gvm-incl__media"
+                data-count="{{ img_count }}"
+                {%- comment -%}
+                  Which source filled the grid, so "why is this product still
+                  showing the shared photos" can be answered from the page
+                  itself rather than by guessing at the metafield.
+                {%- endcomment -%}
+                data-image-source="{% if use_mf_images %}metafield{% else %}blocks{% endif %}"
+                data-gallery-track
+                role="group"
+                aria-label="{{ section.settings.heading | default: "What's included" | escape }} images"
+              >
+                {%- comment -%}
+                  A frame spans the whole gallery when it is the only image, or
+                  when it is the third of three - the grid gives that one
+                  grid-column: 1 / -1. The snippet needs to know, because a
+                  spanning frame is twice as wide and has to ask for a bigger
+                  source image.
+                {%- endcomment -%}
+                {%- if use_mf_images -%}
+                  {%- assign incl_n = 0 -%}
+                  {%- for file in mf_images -%}
+                    {%- if file.width > 0 and incl_n < 4 -%}
+                      {%- liquid
+                        assign incl_span = false
+                        if img_count == 1
+                          assign incl_span = true
+                        elsif img_count == 3
+                          if incl_n == 2
+                            assign incl_span = true
+                          endif
+                        endif
+                      -%}
+                      {%- render 'ori-gvm-incl-image', image: file, span: incl_span -%}
+                      {%- assign incl_n = incl_n | plus: 1 -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- else -%}
+                  {%- for block in images -%}
+                    {%- liquid
+                      assign incl_span = false
+                      if img_count == 1
+                        assign incl_span = true
+                      elsif img_count == 3
+                        if forloop.index == 3
+                          assign incl_span = true
+                        endif
+                      endif
+                    -%}
+                    {%- render 'ori-gvm-incl-image',
+                      image: block.settings.image,
+                      alt: block.settings.alt,
+                      attrs: block.shopify_attributes,
+                      span: incl_span
+                    -%}
+                  {%- endfor -%}
+                {%- endif -%}
+              </div>
+
+              {%- if img_count > 1 -%}
+                <div class="ori-gvm-incl__dots" data-gallery-dots>
+                  {%- comment -%}
+                    One dot per rendered frame. Counted off img_count rather
+                    than the blocks, so it stays right whichever source filled
+                    the grid.
+                  {%- endcomment -%}
+                  {%- for i in (1..img_count) -%}
+                    <button
+                      type="button"
+                      class="ori-gvm-incl__dot{% if forloop.first %} is-active{% endif %}"
+                      data-gallery-dot="{{ forloop.index0 }}"
+                      aria-label="Show image {{ forloop.index }} of {{ img_count }}"
+                    ></button>
+                  {%- endfor -%}
+                </div>
+              {%- endif -%}
+            </ori-gvm-gallery>
+          {%- endif -%}
+        </div>
+
+        {%- if brand_logos.size > 0 -%}
+          <div class="ori-gvm-product__brands">
+            {%- if section.settings.brands_heading != blank -%}
+              <p class="ori-gvm-product__brands-title">{{ section.settings.brands_heading }}</p>
+            {%- endif -%}
+            <ul class="ori-gvm-product__brands-row" role="list">
+              {%- for block in brand_logos -%}
+                <li class="ori-gvm-product__brand" {{ block.shopify_attributes }}>
+                  {%- if block.settings.logo != blank -%}
+                    {%- capture brand_img -%}
+                      {{-
+                        block.settings.logo
+                        | image_url: width: 320
+                        | image_tag:
+                          loading: 'lazy',
+                          class: 'ori-gvm-product__brand-img',
+                          widths: '160,240,320',
+                          sizes: '150px',
+                          alt: block.settings.name | default: 'Brand' | escape
+                      -}}
+                    {%- endcapture -%}
+                    {%- if block.settings.link_url != blank -%}
+                      <a href="{{ block.settings.link_url }}" class="ori-gvm-product__brand-link">{{ brand_img }}</a>
+                    {%- else -%}
+                      {{ brand_img }}
+                    {%- endif -%}
+                  {%- elsif block.settings.name != blank -%}
+                    <span class="ori-gvm-product__brand-text">{{ block.settings.name }}</span>
+                  {%- endif -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "ORI GVM Included",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "What's included" },
+    { "type": "header", "content": "Layout style" },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout style",
+      "info": "Match this to the ORI GVM Product section on the same page.",
+      "options": [
+        { "value": "classic", "label": "Classic (light, centred)" },
+        { "value": "editorial", "label": "Technical (engineering plate)" }
+      ],
+      "default": "classic"
+    },
+    {
+      "type": "select",
+      "id": "media_position",
+      "label": "Image column position",
+      "options": [
+        { "value": "right", "label": "Right of the list" },
+        { "value": "left", "label": "Left of the list" }
+      ],
+      "default": "right"
+    },
+    { "type": "header", "content": "Images" },
+    {
+      "type": "text",
+      "id": "images_metafield",
+      "label": "Per-product image metafield",
+      "info": "namespace.key of a product metafield of type File (list, images only). Any product with files in it shows those instead of the Image blocks below. Every other product falls back to the Image blocks, so this only needs filling in for products that want their own photos. Leave as custom.included_images unless the metafield was created under another name.",
+      "default": "custom.included_images"
+    },
+    { "type": "header", "content": "Image carousel (mobile)" },
+    {
+      "type": "range",
+      "id": "autoplay_seconds",
+      "label": "Slide every",
+      "info": "Set to 0 to turn autoplay off. Visitors can always swipe left or right, and autoplay pauses as soon as they do.",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "unit": "s",
+      "default": 5
+    },
+    { "type": "header", "content": "Logo sizes" },
+    {
+      "type": "range",
+      "id": "row_spacing",
+      "label": "Row spacing",
+      "info": "Space above and below each item in the list.",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "item_logo_height",
+      "label": "Logo box size",
+      "info": "Size of the box beside each item.",
+      "min": 24,
+      "max": 240,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "item_logo_scale",
+      "label": "Logo size in box",
+      "info": "How much of the box the logo fills. Most logo files are square images with the mark floating in the middle, so go above 100% to trim that empty margin and make the mark itself look bigger.",
+      "min": 40,
+      "max": 400,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "item_logo_box_padding",
+      "label": "Logo box padding",
+      "info": "Space between the box edge and the logo. Raising it also makes the logo smaller, so set this first and then use Logo size in box.",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "item_logo_box_width",
+      "label": "Logo box width",
+      "info": "Only needed for a wide box. Leave at 0 to keep it square.",
+      "min": 0,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "logo_frame",
+      "label": "Show box around logos",
+      "info": "Turn off for logos that already sit on their own background.",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "brand_logo_height",
+      "label": "Partner logo height",
+      "info": "Logos in the brand strip. Scales down proportionally on mobile so the row still fits.",
+      "min": 30,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 72
+    },
+    { "type": "header", "content": "Brand strip" },
+    { "type": "text", "id": "brands_heading", "label": "Brand strip heading", "info": "Shown above the logo row. Add Brand logo blocks to populate it.", "default": "Built with" },
+    { "type": "header", "content": "Appearance" },
+    { "type": "checkbox", "id": "alt_background", "label": "Use tinted background", "default": false },
+    { "type": "color", "id": "tint_color", "label": "Tint colour", "default": "#f3f6f7" },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container width",
+      "options": [
+        { "value": "container", "label": "Fixed (1200px)" },
+        { "value": "container-narrow", "label": "Narrow" },
+        { "value": "container-full", "label": "Full width" }
+      ],
+      "default": "container"
+    },
+    { "type": "range", "id": "padding_top", "label": "Padding top", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 52 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 52 },
+    { "type": "text", "id": "custom_id", "label": "Custom HTML ID" },
+    { "type": "text", "id": "color_schema", "label": "Color scheme class" }
+  ],
+  "blocks": [
+    {
+      "type": "included",
+      "name": "Included item",
+      "limit": 4,
+      "settings": [
+        { "type": "text", "id": "text", "label": "Item", "default": "Fox shocks" },
+        { "type": "image_picker", "id": "logo", "label": "Brand logo", "info": "Optional. Used instead of the icon below. PNG or WebP with a transparent background (Shopify's picker will not accept an SVG)." },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon (used when no logo)",
+          "options": [
+            { "value": "none", "label": "No icon" },
+            { "value": "check", "label": "Tick" },
+            { "value": "shield", "label": "Shield" },
+            { "value": "certificate", "label": "Certificate" },
+            { "value": "wrench", "label": "Wrench" },
+            { "value": "cog", "label": "Cog" },
+            { "value": "suspension", "label": "Suspension" },
+            { "value": "truck", "label": "Truck" }
+          ],
+          "default": "check"
+        },
+        { "type": "text", "id": "brand", "label": "Brand name", "info": "Optional small line above the item, e.g. FOX." },
+        { "type": "textarea", "id": "note", "label": "Description", "info": "Optional supporting copy under the item." },
+        { "type": "text", "id": "sku", "label": "Part number", "info": "Optional, e.g. CS-F45-PT25." }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Image",
+      "limit": 4,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "alt", "label": "Alt text", "info": "Optional. Falls back to the image's own alt text." }
+      ]
+    },
+    {
+      "type": "brand_logo",
+      "name": "Brand logo",
+      "limit": 8,
+      "settings": [
+        { "type": "image_picker", "id": "logo", "label": "Logo", "info": "PNG or WebP with a transparent background. SVG is not accepted by Shopify's image picker." },
+        { "type": "text", "id": "name", "label": "Brand name", "info": "Used as the image alt text, and shown as text if no logo is set." },
+        { "type": "url", "id": "link_url", "label": "Links to", "info": "Optional." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "ORI GVM Included",
+      "blocks": [
+        { "type": "included", "settings": { "text": "Fox Suspensions" } },
+        { "type": "included", "settings": { "text": "BDS components" } },
+        { "type": "included", "settings": { "text": "ORI Leaf Springs" } },
+        { "type": "included", "settings": { "text": "Engineering certification", "icon": "shield" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

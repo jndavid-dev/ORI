@@ -1,0 +1,481 @@
+{% comment %}
+  Section: GVM Comparison / Specification
+  - Desktop: table-style grid with bottom borders only (no outer border)
+  - Mobile: STACKED cards (no horizontal scrolling)
+  - Updated to support up to 10 comparison columns
+{% endcomment %}
+
+{%- liquid
+  assign max_cols = 10
+  assign cols = section.settings.columns | plus: 0
+
+  if cols < 2
+    assign cols = 2
+  endif
+
+  if cols > max_cols
+    assign cols = max_cols
+  endif
+
+  assign container_width = section.settings.container_width | default: '1200px'
+  assign max_cap = section.settings.max_cap | default: '1600px'
+  assign anchor_id = section.settings.anchor_id | strip
+
+  comment
+    Build the desktop track list here rather than with
+    repeat(var(--gvm-cols), ...) in CSS. Safari < 16 does not accept a custom
+    property as the repeat() count, which is the same reason
+    wheel-comparison-grid.liquid builds its own string, and the total width has
+    to be known in Liquid so the scroll wrapper can be given a matching
+    min-width. The thresholds below are the ones the CSS already used.
+  endcomment
+  if cols >= 8
+    assign label_w = 200
+    assign col_min = 95
+    assign gap = 18
+  elsif cols >= 6
+    assign label_w = 220
+    assign col_min = 110
+    assign gap = 24
+  else
+    assign label_w = 240
+    assign col_min = 140
+    assign gap = 40
+  endif
+
+  comment
+    Widen the value columns to fit their longest unbreakable run of text.
+    Browsers break at spaces and at hyphens, so ORI-RAM2500-Mudflaps and
+    CHV-2500-Stage1-GVM wrap cleanly by themselves. A value with neither has
+    nowhere to break, and in too narrow a column it either collides with the
+    next one or splits mid-token.
+
+    This began as a fix for the RAM part numbers, which were written
+    RAM62500Stage1GVM: a single 17 character run. Those have since been
+    hyphenated to match every other vehicle, so nothing currently needs the
+    extra width, and this now stands as the safety net that stops any future
+    unbreakable value from breaking the table.
+
+    Roughly 10px per character, measured on the live table: 17 characters
+    rendered 169px at the size these tables use. Capped so one freak value
+    cannot blow the whole table out, and only applied where it is needed, so
+    tables of short values keep their existing width.
+  endcomment
+  assign longest_token = 0
+
+  for i in (1..cols)
+    assign tkey = 'col_title_' | append: i
+    assign t_words = section.settings[tkey] | default: '' | strip_html | replace: '-', ' ' | split: ' '
+    for w in t_words
+      assign wl = w | size
+      if wl > longest_token
+        assign longest_token = wl
+      endif
+    endfor
+  endfor
+
+  for block in section.blocks
+    if block.type == 'row'
+      for i in (1..cols)
+        assign vkey = 'value_' | append: i
+        assign v_words = block.settings[vkey] | default: '' | strip_html | replace: '-', ' ' | split: ' '
+        for w in v_words
+          assign wl = w | size
+          if wl > longest_token
+            assign longest_token = wl
+          endif
+        endfor
+      endfor
+    endif
+  endfor
+
+  assign needed = longest_token | times: 10
+  if needed > col_min
+    assign col_min = needed
+  endif
+  if col_min > 200
+    assign col_min = 200
+  endif
+
+  assign col_widths = ''
+  for i in (1..cols)
+    assign col_widths = col_widths | append: ' minmax(' | append: col_min | append: 'px, 1fr)'
+  endfor
+
+  comment
+    Tracks are the label column plus one per comparison column, so the number
+    of gaps equals cols.
+  endcomment
+  assign table_min_width = col_min | times: cols | plus: label_w
+  assign gaps_total = gap | times: cols
+  assign table_min_width = table_min_width | plus: gaps_total
+-%}
+
+<section
+  class="gvm-compare gvm-compare--{{ section.id }}"
+  {% if anchor_id != blank %}id="{{ anchor_id | escape }}"{% endif %}
+  style="
+    --gvm-max-width: {{ container_width }};
+    --gvm-max-cap: {{ max_cap }};
+    --gvm-text: {{ section.settings.text_color }};
+    --gvm-line: {{ section.settings.line_color }};
+    --gvm-heading: {{ section.settings.heading_color }};
+    --gvm-card-bg: {{ section.settings.mobile_card_bg }};
+    --gvm-card-text: {{ section.settings.mobile_card_text }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <div class="gvm-compare__container">
+    {% if section.settings.heading != blank %}
+      <h2 class="gvm-compare__heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    <div class="gvm-compare__table-scroll">
+    <div class="gvm-compare__table" data-cols="{{ cols }}" style="--gvm-cols: {{ cols }};">
+      <!-- Header Row (hidden on mobile via CSS) -->
+      <div class="gvm-compare__row gvm-compare__row--head">
+        <div class="gvm-compare__cell gvm-compare__cell--label gvm-compare__cell--head">
+          {{ section.settings.details_heading }}
+        </div>
+
+        {%- for i in (1..10) -%}
+          {%- if i <= cols -%}
+            {%- assign key = 'col_title_' | append: i -%}
+            <div class="gvm-compare__cell gvm-compare__cell--head">
+              {{ section.settings[key] }}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      <!-- Body Rows -->
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+
+          {%- when 'divider' -%}
+            <div class="gvm-compare__divider" {{ block.shopify_attributes }}></div>
+
+          {%- when 'row' -%}
+            {%- liquid
+              assign label = block.settings.label | strip
+            -%}
+            <div class="gvm-compare__row" {{ block.shopify_attributes }}>
+              <!-- Row label becomes the "card header" on mobile -->
+              <div class="gvm-compare__cell gvm-compare__cell--label gvm-compare__cell--rowhead">
+                {% if label != blank %}
+                  {{ label | newline_to_br }}
+                {% endif %}
+              </div>
+
+              {%- for i in (1..10) -%}
+                {%- if i <= cols -%}
+                  {%- assign tkey = 'col_title_' | append: i -%}
+                  {%- assign col_title = section.settings[tkey] | strip -%}
+                  {%- if col_title == blank -%}
+                    {%- assign col_title = 'Column ' | append: i -%}
+                  {%- endif -%}
+
+                  {%- assign vkey = 'value_' | append: i -%}
+                  {%- assign raw = block.settings[vkey] | default: '' -%}
+                  {%- assign val = raw | strip -%}
+
+                  {%- comment -%}
+                    Only the paired values need the compact treatment, so the
+                    marker goes on those cells rather than the whole column. A
+                    pipe is what makes a value a pair here: "37x12.5R18 |
+                    37x12.5R20", "Pos 12 | 18 | Zero". Everything else already
+                    fits and keeps the table's normal size.
+                  {%- endcomment -%}
+                  {%- assign dense = false -%}
+                  {%- if section.settings.compact_values and val contains '|' -%}
+                    {%- assign dense = true -%}
+                  {%- endif -%}
+
+                  <div class="gvm-compare__cell gvm-compare__cell--val{% if dense %} gvm-compare__cell--dense{% endif %}" data-label="{{ col_title | escape }}">
+                    {% render 'gvm-compare-value', value: val, literal_text: section.settings.literal_yes_no %}
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+    </div>
+
+  </div>
+</section>
+
+{% style %}
+  .gvm-compare { color: var(--gvm-text); }
+
+  .gvm-compare__container {
+    max-width: min(var(--gvm-max-width), var(--gvm-max-cap));
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .gvm-compare__heading {
+    margin: 0 0 24px;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--gvm-heading);
+  }
+
+  .gvm-compare__table { width: 100%; }
+
+  /* Desktop grid. Track list and gap come from Liquid above. */
+  .gvm-compare__row {
+    display: grid;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--gvm-line);
+  }
+
+  .gvm-compare--{{ section.id }} .gvm-compare__row {
+    grid-template-columns: {{ label_w }}px{{ col_widths }};
+    column-gap: {{ gap }}px;
+  }
+
+  /* Let the table scroll inside its own box.
+
+     .site-wrapper sets overflow-x: clip, so without this an oversized table
+     produced no scrollbar and simply lost its right-hand columns. This table
+     needs {{ table_min_width }}px, so on tablet landscape and 1366px laptops the last
+     stage columns were being cut off with no way to reach them.
+
+     Desktop only: below 990px the rows become stacked cards, and a min-width
+     there would push them straight back off the screen. */
+  @media (min-width: 990px) {
+    .gvm-compare__table-scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .gvm-compare--{{ section.id }} .gvm-compare__table {
+      min-width: {{ table_min_width }}px;
+    }
+  }
+
+  .gvm-compare__row--head { padding-top: 0; padding-bottom: 14px; }
+
+  .gvm-compare__cell {
+    font-size: 16px;
+    line-height: 1.5;
+    /* Grid items default to min-width: auto, so one long unbroken value could
+       widen its track past the computed min-width above. */
+    min-width: 0;
+    overflow-wrap: break-word;
+  }
+
+  .gvm-compare__table[data-cols="8"] .gvm-compare__cell,
+  .gvm-compare__table[data-cols="9"] .gvm-compare__cell,
+  .gvm-compare__table[data-cols="10"] .gvm-compare__cell {
+    font-size: 15px;
+  }
+
+  .gvm-compare__cell--head {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-size: 13px;
+  }
+
+  .gvm-compare__table[data-cols="10"] .gvm-compare__cell--head {
+    font-size: 12px;
+  }
+
+  .gvm-compare__cell--label { font-weight: 600; }
+
+  .gvm-compare__divider {
+    height: 26px;
+    border-bottom: 1px solid var(--gvm-line);
+  }
+
+  .gvm-compare__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    line-height: 1;
+    transform: translateY(1px);
+  }
+  .gvm-compare__icon--check { color: #6b7b2a; }
+  .gvm-compare__icon--cross { color: currentColor; }
+
+  /* =========================
+     MOBILE: stacked cards
+  ========================= */
+  @media (max-width: 989px) {
+    .gvm-compare__row--head { display: none !important; }
+
+    .gvm-compare__row {
+      display: block;
+      padding: 0;
+      margin: 0 0 14px;
+      border: 1px solid rgba(0,0,0,0.15);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--gvm-card-bg);
+      color: var(--gvm-card-text);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    }
+
+    .gvm-compare__divider { height: 10px; border: 0; }
+
+    .gvm-compare__cell {
+      padding: 10px 14px;
+      font-size: 14px;
+      border: 0;
+      white-space: normal;
+    }
+
+    .gvm-compare__cell--rowhead {
+      background: rgba(0,0,0,0.06);
+      font-weight: 800;
+      font-size: 15px;
+      padding: 12px 14px;
+    }
+
+    .gvm-compare__cell--val {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      border-top: 1px solid rgba(0,0,0,0.12);
+      text-align: right;
+    }
+
+    .gvm-compare__cell--val::before {
+      content: attr(data-label);
+      font-weight: 600;
+      color: rgba(0,0,0,0.72);
+      min-width: 110px;
+      text-align: left;
+    }
+  }
+  {%- if section.settings.compact_values -%}
+    {% comment %}
+      Opt-in, for tables whose values are long paired strings: the tyre sizes on
+      the SSM pages are written "37x12.5R18 | 37x12.5R20", about 195px wide at
+      16px. That is right on the 200px column cap computed above, so the browser
+      takes the break opportunity at the space beside the pipe and one cell
+      renders as four stacked lines where the source sheet shows two pairs on
+      two lines. It reads as different data even though the characters match.
+
+      Smaller text puts a pair back inside the column. nowrap holds one together
+      if a longer pair ever turns up; the explicit newlines are <br> so they
+      still break between pairs, and the table already scrolls sideways if it
+      has to. Desktop only, so the stacked mobile cards are untouched.
+    {% endcomment %}
+    @media (min-width: 990px) {
+      .gvm-compare--{{ section.id }} .gvm-compare__cell--dense {
+        font-size: 13px;
+        white-space: nowrap;
+      }
+    }
+  {%- endif -%}
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "GVM Comparison",
+  "settings": [
+    { "type": "text", "id": "anchor_id", "label": "Anchor ID (optional)", "default": "compare" },
+
+    { "type": "text", "id": "heading", "label": "Heading", "default": "GVM Upgrade Comparison" },
+    { "type": "text", "id": "details_heading", "label": "Details column heading", "default": "DETAILS" },
+
+    {
+      "type": "select",
+      "id": "columns",
+      "label": "Number of comparison columns",
+      "default": "4",
+      "options": [
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" },
+        { "value": "5", "label": "5" },
+        { "value": "6", "label": "6" },
+        { "value": "7", "label": "7" },
+        { "value": "8", "label": "8" },
+        { "value": "9", "label": "9" },
+        { "value": "10", "label": "10" }
+      ]
+    },
+
+    { "type": "text", "id": "col_title_1", "label": "Column 1 title", "default": "FACTORY" },
+    { "type": "text", "id": "col_title_2", "label": "Column 2 title", "default": "STAGE 1" },
+    { "type": "text", "id": "col_title_3", "label": "Column 3 title", "default": "STAGE 2" },
+    { "type": "text", "id": "col_title_4", "label": "Column 4 title", "default": "STAGE 3" },
+    { "type": "text", "id": "col_title_5", "label": "Column 5 title", "default": "STAGE 4" },
+    { "type": "text", "id": "col_title_6", "label": "Column 6 title", "default": "STAGE 5" },
+    { "type": "text", "id": "col_title_7", "label": "Column 7 title", "default": "STAGE 6" },
+    { "type": "text", "id": "col_title_8", "label": "Column 8 title", "default": "STAGE 7" },
+    { "type": "text", "id": "col_title_9", "label": "Column 9 title", "default": "STAGE 8" },
+    { "type": "text", "id": "col_title_10", "label": "Column 10 title", "default": "STAGE 9" },
+
+    { "type": "text", "id": "container_width", "label": "Container width (e.g. 1200px or 100%)", "default": "1200px" },
+    { "type": "text", "id": "max_cap", "label": "Maximum width on large screens", "info": "Stops a percentage width stretching on ultra-wide displays. e.g. 1600px", "default": "1600px" },
+
+    {
+      "type": "checkbox",
+      "id": "compact_values",
+      "label": "Compact wide values",
+      "info": "Smaller desktop text so long paired values like \"37x12.5R18 | 37x12.5R20\" stay on one line instead of splitting in two.",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "literal_yes_no",
+      "label": "Show Yes / No as written",
+      "info": "Off, a cell reading Yes or No is drawn as a tick or a cross. On, the word is shown as typed, for tables that must read exactly like the source spec sheet.",
+      "default": false
+    },
+
+    { "type": "color", "id": "heading_color", "label": "Heading color", "default": "#111111" },
+    { "type": "color", "id": "text_color", "label": "Desktop text color", "default": "#111111" },
+    { "type": "color", "id": "line_color", "label": "Desktop line color", "default": "#111111" },
+
+    { "type": "color", "id": "mobile_card_bg", "label": "Mobile card background", "default": "#f5f3ee" },
+    { "type": "color", "id": "mobile_card_text", "label": "Mobile card text", "default": "#111111" },
+
+    { "type": "range", "id": "padding_top", "label": "Padding top", "min": 0, "max": 120, "step": 4, "default": 40 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 120, "step": 4, "default": 40 }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Row",
+      "settings": [
+        { "type": "textarea", "id": "label", "label": "Left label (DETAILS)", "default": "GVM" },
+
+        { "type": "textarea", "id": "value_1", "label": "Value (Column 1)", "default": "3,300kg" },
+        { "type": "textarea", "id": "value_2", "label": "Value (Column 2)", "default": "3,650kg" },
+        { "type": "textarea", "id": "value_3", "label": "Value (Column 3)", "default": "3,650kg" },
+        { "type": "textarea", "id": "value_4", "label": "Value (Column 4)", "default": "3,850kg" },
+        { "type": "textarea", "id": "value_5", "label": "Value (Column 5)" },
+        { "type": "textarea", "id": "value_6", "label": "Value (Column 6)" },
+        { "type": "textarea", "id": "value_7", "label": "Value (Column 7)" },
+        { "type": "textarea", "id": "value_8", "label": "Value (Column 8)" },
+        { "type": "textarea", "id": "value_9", "label": "Value (Column 9)" },
+        { "type": "textarea", "id": "value_10", "label": "Value (Column 10)" }
+      ]
+    },
+    {
+      "type": "divider",
+      "name": "Divider",
+      "settings": []
+    }
+  ],
+  "presets": [
+    {
+      "name": "GVM Comparison",
+      "blocks": [
+        { "type": "row" }
+      ]
+    }
+  ]
+}
+{% endschema %}

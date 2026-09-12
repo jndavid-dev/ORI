@@ -1,0 +1,280 @@
+/* ─── ORI GVM What's Included ─────────────────────────────────────────────
+   Item list beside an image grid whose shape follows the image count. Own
+   namespace on purpose: the shared .ori-gvm-product__card rules carry the
+   older single-column treatment and must not reach in here.
+
+   Tokens fall back for the Classic layout. --tp-* only exist under
+   .ori-gvm-product--editorial, so the second value in each var() is what
+   Classic actually uses. */
+
+.ori-gvm-incl {
+  --incl-line: var(--tp-line, color-mix(in srgb, currentColor 15%, transparent));
+  --incl-soft: var(--tp-soft, color-mix(in srgb, currentColor 62%, transparent));
+  --incl-frame-line: var(--tp-line, color-mix(in srgb, currentColor 20%, transparent));
+  --incl-frame-bg: #fff;
+  --incl-accent: var(--gvm-accent, var(--brand-teal, #56bdc2));
+  --incl-gap: clamp(28px, 4vw, 56px);
+  --incl-media-gap: 12px;
+
+  display: grid;
+  gap: var(--incl-gap);
+}
+
+/* Matched to the other GVM section headings; .h3 alone runs larger than the
+   approved design. */
+.ori-gvm-incl .ori-gvm-product__block-title,
+.ori-gvm-incl__content > .ori-gvm-product__block-title {
+  font-size: clamp(20px, 2.1vw, 26px);
+  line-height: 1.1;
+}
+
+/* ── Content column ── */
+.ori-gvm-incl__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+/* Centred rather than top aligned: the logo box is now taller than the two
+   lines of text beside it, and top aligning left the text stranded at the top
+   of the row, which read as dead space. */
+.ori-gvm-incl__item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  padding: var(--incl-row-pad, 10px) 0;
+  border-top: 1px solid var(--incl-line);
+}
+.ori-gvm-incl__item:first-child {
+  border-top: 0;
+  padding-top: 2px;
+}
+.ori-gvm-incl__item:last-child {
+  padding-bottom: 2px;
+}
+/* An item with neither a logo nor an icon has no figure cell to fill, so it
+   takes the full width instead of leaving the auto column collapsed. The class
+   comes from Liquid rather than :has() so the layout does not depend on
+   selector support. */
+.ori-gvm-incl__item--bare {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* The box has definite dimensions so it stays put, and the logo is sized as a
+   share of it. That separation matters because most of the supplied logo files
+   are square canvases with the mark floating in the middle (the ORI one is a
+   420x420 JPEG holding a wide wordmark). Fitting such a file to the box renders
+   the visible mark small no matter how large the box gets, which is why a width
+   cap alone appeared to do nothing.
+
+   --gvm-logo-scale above 1 lets the image run past the box, and overflow:hidden
+   trims the baked-in padding rather than the mark. */
+.ori-gvm-incl__figure {
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  width: var(--gvm-frame-w, 64px);
+  height: var(--gvm-frame-h, 64px);
+  /* Inset between the border and the artwork, set from the section settings.
+     It eats into the content box, so raising it shrinks the logo as well as
+     moving it inward - which is the point, but it means padding and the scale
+     setting pull against each other and are best adjusted one at a time. */
+  padding: var(--gvm-frame-pad, 3px);
+  overflow: hidden;
+  border: 1px solid var(--incl-frame-line);
+  border-radius: 4px;
+  background: var(--incl-frame-bg);
+}
+/* No frame: the logo stands on its own, which suits marks that already carry
+   their own container or sit on a transparent background. */
+.ori-gvm-incl--no-frame .ori-gvm-incl__figure {
+  border: 0;
+  background: none;
+  padding: 0;
+}
+/* width/height rather than max-width/max-height, deliberately. The img carries
+   a srcset, and with a srcset the browser takes its intrinsic layout width from
+   the sizes attribute. Under width:auto that intrinsic size is what lays out,
+   and a max-* can only ever shrink it, so the logo stayed pinned at the sizes
+   value however large the box or the scale was set. Giving the element a real
+   width and letting object-fit keep the aspect ratio takes the intrinsic size
+   out of the equation entirely. */
+.ori-gvm-incl__logo {
+  width: calc(100% * var(--gvm-logo-scale, 1));
+  height: calc(100% * var(--gvm-logo-scale, 1));
+  object-fit: contain;
+  display: block;
+}
+/* Sized off what the padding leaves behind, not the whole box, so a generous
+   padding setting cannot push the icon under the overflow clip. */
+.ori-gvm-incl__icon {
+  width: calc((var(--gvm-frame-h, 64px) - (var(--gvm-frame-pad, 3px) * 2)) * 0.5);
+  height: calc((var(--gvm-frame-h, 64px) - (var(--gvm-frame-pad, 3px) * 2)) * 0.5);
+  color: var(--incl-accent);
+}
+
+.ori-gvm-incl__body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.ori-gvm-incl__eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--incl-soft);
+  overflow-wrap: break-word;
+}
+.ori-gvm-incl__title {
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.35;
+  overflow-wrap: break-word;
+}
+.ori-gvm-incl__note {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--incl-soft);
+  overflow-wrap: break-word;
+}
+.ori-gvm-incl__sku {
+  margin-top: 2px;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--incl-soft);
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+/* ── Image grid ──
+   Frames are sized by aspect-ratio per count rather than by equal grid rows,
+   because the 3-up layout wants a shorter full-width frame underneath two
+   taller ones - matching the approved design. */
+.ori-gvm-incl__gallery {
+  display: block;
+  min-width: 0;
+}
+.ori-gvm-incl__media {
+  display: grid;
+  gap: var(--incl-media-gap);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.ori-gvm-incl__media[data-count='1'] {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.ori-gvm-incl__frame {
+  margin: 0;
+  /* border: 1px solid var(--incl-frame-line);
+  background: var(--incl-frame-bg); */
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+}
+.ori-gvm-incl__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.ori-gvm-incl__media[data-count='1'] .ori-gvm-incl__frame {
+  aspect-ratio: 16 / 10;
+}
+.ori-gvm-incl__media[data-count='3'] .ori-gvm-incl__frame:nth-child(1),
+.ori-gvm-incl__media[data-count='3'] .ori-gvm-incl__frame:nth-child(2) {
+  aspect-ratio: 5 / 4;
+}
+.ori-gvm-incl__media[data-count='3'] .ori-gvm-incl__frame:nth-child(3) {
+  grid-column: 1 / -1;
+  aspect-ratio: 2.7 / 1;
+}
+
+/* Dots belong to the mobile carousel only. */
+.ori-gvm-incl__dots {
+  display: none;
+}
+
+/* ── Two columns once there is room ── */
+@media (min-width: 990px) {
+  .ori-gvm-incl {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.28fr);
+    align-items: start;
+  }
+  .ori-gvm-incl--no-media {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ori-gvm-incl--media-left .ori-gvm-incl__content {
+    order: 2;
+  }
+  .ori-gvm-incl--media-left .ori-gvm-incl__gallery {
+    order: 1;
+  }
+  .ori-gvm-incl--media-left {
+    grid-template-columns: minmax(0, 1.28fr) minmax(0, 1fr);
+  }
+}
+
+/* ── Mobile: stack, then run the images as a carousel ──
+   One frame per view with scroll snapping, so a swipe always lands on a whole
+   image. The grid shape overrides are reset here or the 3-up spanning frame
+   would still try to take two columns. */
+@media (max-width: 749px) {
+  .ori-gvm-incl__media {
+    grid-auto-flow: column;
+    grid-auto-columns: 100%;
+    grid-template-columns: none;
+    gap: 10px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .ori-gvm-incl__media::-webkit-scrollbar {
+    display: none;
+  }
+  .ori-gvm-incl__media .ori-gvm-incl__frame,
+  .ori-gvm-incl__media[data-count='1'] .ori-gvm-incl__frame,
+  .ori-gvm-incl__media[data-count='3'] .ori-gvm-incl__frame:nth-child(1),
+  .ori-gvm-incl__media[data-count='3'] .ori-gvm-incl__frame:nth-child(2),
+  .ori-gvm-incl__media[data-count='3'] .ori-gvm-incl__frame:nth-child(3) {
+    grid-column: auto;
+    aspect-ratio: 4 / 3;
+    scroll-snap-align: center;
+    min-width: 0;
+  }
+
+  .ori-gvm-incl__dots {
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+    margin-top: 14px;
+  }
+  .ori-gvm-incl__dot {
+    width: 7px;
+    height: 7px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: color-mix(in srgb, currentColor 28%, transparent);
+    cursor: pointer;
+    transition: background 0.18s ease, transform 0.18s ease;
+  }
+  .ori-gvm-incl__dot.is-active {
+    background: var(--incl-accent);
+    transform: scale(1.35);
+  }
+  .ori-gvm-incl__dot:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ori-gvm-incl__dot {
+    transition: none;
+  }
+}

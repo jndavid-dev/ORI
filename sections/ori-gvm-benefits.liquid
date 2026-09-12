@@ -1,0 +1,182 @@
+{%- comment -%}
+  ORI GVM Key Benefits.
+
+  A row of outlined cards, each with an icon, an uppercase title and supporting
+  copy, matching the approved design. Icons come from the shared ori-gvm-icon
+  snippet so this section and What's Included draw on one set.
+
+  Three across on desktop, two on tablet, one on mobile. Cards stretch to equal
+  height so the row keeps a straight baseline whatever the copy length.
+
+  The outer wrapper keeps the .ori-gvm-product and layout classes so the band
+  background matches its neighbours; everything inside uses .ori-gvm-bnf, well
+  away from the shared __card rules.
+{%- endcomment -%}
+
+{{ 'ori-gvm-product.css' | asset_url | stylesheet_tag }}
+{{ 'ori-gvm-benefits.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign section_id = section.settings.custom_id | default: section.id
+  assign container = section.settings.container | default: 'container'
+  assign benefits = section.blocks | where: 'type', 'benefit'
+
+  # Subgrid lines the cards' rows up with each other, which needs every card to
+  # contribute the same number of tracks. So the icon row is either present on
+  # all of them or on none, decided by whether any card actually has an icon
+  # rather than card by card. Without this a single icon-less card would pull
+  # its own title and copy a row higher than its neighbours.
+  assign any_icon = false
+  for block in benefits
+    if block.settings.icon != 'none' and block.settings.icon != blank
+      assign any_icon = true
+      break
+    endif
+  endfor
+-%}
+
+{%- if benefits.size > 0 -%}
+  <div
+    id="{{ section_id }}"
+    class="ori-gvm-product ori-gvm-product--{{ section.settings.layout | default: 'classic' }} color-{{ section.settings.color_schema }}"
+    data-section-type="ori-gvm-benefits"
+    style="--gvm-tint: {{ section.settings.tint_color | default: '#f3f6f7' }};"
+  >
+    <div
+      class="ori-gvm-product__band ori-gvm-product__band--benefits{% if section.settings.alt_background %} ori-gvm-product__band--alt{% endif %}"
+      style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;"
+    >
+      <div class="{{ container }}">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="ori-gvm-bnf__heading h3 ori-gvm-bnf__heading--{{ section.settings.heading_align | default: 'left' }}">
+            {{ section.settings.heading }}
+          </h2>
+        {%- endif -%}
+
+        <ul
+          class="ori-gvm-bnf{% unless any_icon %} ori-gvm-bnf--no-icons{% endunless %}"
+          style="--bnf-cols: {{ section.settings.cards_per_row | default: 3 }};"
+          role="list"
+        >
+          {%- for block in benefits -%}
+            <li class="ori-gvm-bnf__card" {{ block.shopify_attributes }}>
+              {%- comment -%}
+                Title and copy are emitted whether or not they hold anything, so
+                the track count per card stays constant for subgrid. An empty
+                one collapses to nothing; it just holds its place in the row.
+              {%- endcomment -%}
+              {%- if any_icon -%}
+                <span class="ori-gvm-bnf__icon-wrap" {% if block.settings.icon == 'none' %}aria-hidden="true"{% endif %}>
+                  {%- if block.settings.icon != 'none' -%}
+                    {%- render 'ori-gvm-icon', icon: block.settings.icon, class: 'ori-gvm-bnf__icon', stroke: 1.6 -%}
+                  {%- endif -%}
+                </span>
+              {%- endif -%}
+              <h3 class="ori-gvm-bnf__title">{{ block.settings.text }}</h3>
+              <p class="ori-gvm-bnf__note">{{ block.settings.note }}</p>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "ORI GVM Key Benefits",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Key benefits" },
+    {
+      "type": "select",
+      "id": "heading_align",
+      "label": "Heading alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Centred" }
+      ],
+      "default": "left"
+    },
+    { "type": "header", "content": "Layout style" },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout style",
+      "info": "Match this to the ORI GVM Product section on the same page.",
+      "options": [
+        { "value": "classic", "label": "Classic (light, centred)" },
+        { "value": "editorial", "label": "Technical (engineering plate)" }
+      ],
+      "default": "classic"
+    },
+    {
+      "type": "range",
+      "id": "cards_per_row",
+      "label": "Cards per row (desktop)",
+      "info": "Drops to two on tablet and one on mobile whatever this is set to.",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    { "type": "header", "content": "Appearance" },
+    { "type": "checkbox", "id": "alt_background", "label": "Use tinted background", "default": true },
+    { "type": "color", "id": "tint_color", "label": "Tint colour", "default": "#f3f6f7" },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container width",
+      "options": [
+        { "value": "container", "label": "Fixed (1200px)" },
+        { "value": "container-narrow", "label": "Narrow" },
+        { "value": "container-full", "label": "Full width" }
+      ],
+      "default": "container"
+    },
+    { "type": "range", "id": "padding_top", "label": "Padding top", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 52 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 52 },
+    { "type": "text", "id": "custom_id", "label": "Custom HTML ID" },
+    { "type": "text", "id": "color_schema", "label": "Color scheme class" }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Key benefit",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Benefit", "default": "Increased legal payload" },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "none", "label": "No icon" },
+            { "value": "weight", "label": "Weight" },
+            { "value": "suspension", "label": "Suspension" },
+            { "value": "seal", "label": "Approval seal" },
+            { "value": "shield", "label": "Shield" },
+            { "value": "certificate", "label": "Certificate" },
+            { "value": "wrench", "label": "Wrench" },
+            { "value": "cog", "label": "Cog" },
+            { "value": "truck", "label": "Truck" },
+            { "value": "check", "label": "Tick" }
+          ],
+          "default": "check"
+        },
+        { "type": "textarea", "id": "note", "label": "Description", "info": "Optional supporting copy under the benefit." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "ORI GVM Key Benefits",
+      "blocks": [
+        { "type": "benefit", "settings": { "text": "Increased legal payload capacity", "icon": "weight" } },
+        { "type": "benefit", "settings": { "text": "Upgraded Fox / BDS suspension", "icon": "suspension" } },
+        { "type": "benefit", "settings": { "text": "Federal engineering approval", "icon": "seal" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

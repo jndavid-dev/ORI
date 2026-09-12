@@ -1,0 +1,712 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "ori-gvm-product",
+      "settings": {
+        "eyebrow": "GVM Upgrade Package",
+        "fallback_title": "GVM Upgrade Package",
+        "subtitle": "",
+        "gvm_value": "",
+        "gcm_value": "",
+        "payload_value": "",
+        "show_price": true,
+        "price": "",
+        "price_note": "Installed & engineered",
+        "quote_label": "Request Quote",
+        "quote_url": "/pages/contact-us",
+        "book_label": "Book Installation",
+        "book_url": "/pages/contact-us",
+        "benefits_heading": "Key benefits",
+        "included_heading": "What's included",
+        "specs_heading": "Specifications",
+        "install_heading": "Installation process",
+        "stage_cards_heading": "GVM Upgrades by Vehicle",
+        "brands_heading": "Built with",
+        "cards_per_row": 3,
+        "acc_heading": "Build Your GVM Upgrade",
+        "acc_subheading": "Add the gear that makes the most of your new payload.",
+        "acc_btn_label": "View product",
+        "acc_columns": 4,
+        "acc_all_label": "",
+        "acc_all_url": "",
+        "spec_original_gvm": "",
+        "spec_upgraded_gvm": "",
+        "spec_payload_gain": "",
+        "spec_gcm": "",
+        "tint_color": "#f3f6f7",
+        "container": "container",
+        "custom_id": "",
+        "color_schema": "",
+        "hero_media_width": 48,
+        "quote_popup_id": "gvm-quote"
+      }
+    },
+    "gvm_benefits": {
+      "type": "ori-gvm-benefits",
+      "blocks": {
+        "benefit_payload": {
+          "type": "benefit",
+          "settings": {
+            "text": "Increased legal payload capacity",
+            "note": "",
+            "icon": "weight"
+          }
+        },
+        "benefit_suspension": {
+          "type": "benefit",
+          "settings": {
+            "text": "Upgraded Fox / BDS suspension",
+            "note": "",
+            "icon": "suspension"
+          }
+        },
+        "benefit_approval": {
+          "type": "benefit",
+          "settings": {
+            "text": "Federal engineering approval",
+            "note": "",
+            "icon": "seal"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_payload",
+        "benefit_suspension",
+        "benefit_approval"
+      ],
+      "settings": {
+        "heading": "Key benefits",
+        "layout": "classic",
+        "cards_per_row": 3,
+        "alt_background": true,
+        "tint_color": "#f3f6f7",
+        "container": "container",
+        "padding_top": 52,
+        "padding_bottom": 52,
+        "custom_id": "",
+        "color_schema": "",
+        "heading_align": "left"
+      }
+    },
+    "gvm_included": {
+      "type": "ori-gvm-included",
+      "blocks": {
+        "included_fox": {
+          "type": "included",
+          "settings": {
+            "text": "Fox shocks",
+            "logo": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__FOX.jpg",
+            "brand": "",
+            "note": "",
+            "icon": "check"
+          }
+        },
+        "included_bds": {
+          "type": "included",
+          "settings": {
+            "text": "BDS components",
+            "brand": "",
+            "note": "",
+            "icon": "check"
+          }
+        },
+        "included_springs": {
+          "type": "included",
+          "settings": {
+            "text": "ORI springs",
+            "brand": "",
+            "note": "",
+            "icon": "check"
+          }
+        },
+        "included_cert": {
+          "type": "included",
+          "settings": {
+            "text": "Engineering certification",
+            "brand": "",
+            "note": "",
+            "icon": "shield"
+          }
+        },
+        "incl_image_1": {
+          "type": "image",
+          "settings": {
+            "alt": ""
+          }
+        },
+        "incl_image_2": {
+          "type": "image",
+          "settings": {
+            "alt": ""
+          }
+        },
+        "incl_image_3": {
+          "type": "image",
+          "settings": {
+            "alt": ""
+          }
+        }
+      },
+      "block_order": [
+        "included_fox",
+        "included_bds",
+        "included_springs",
+        "included_cert",
+        "incl_image_1",
+        "incl_image_2",
+        "incl_image_3"
+      ],
+      "settings": {
+        "heading": "What's included",
+        "layout": "classic",
+        "item_logo_height": 88,
+        "brand_logo_height": 72,
+        "brands_heading": "Built with",
+        "alt_background": false,
+        "tint_color": "#f3f6f7",
+        "container": "container",
+        "padding_top": 52,
+        "padding_bottom": 52,
+        "custom_id": "",
+        "color_schema": "",
+        "media_position": "right",
+        "images_metafield": "custom.included_images",
+        "autoplay_seconds": 5,
+        "logo_frame": true,
+        "item_logo_scale": 160,
+        "item_logo_box_width": 0,
+        "row_spacing": 8
+      }
+    },
+    "gvm_steps": {
+      "type": "ori-gvm-steps",
+      "blocks": {
+        "step_quote": {
+          "type": "step",
+          "settings": {
+            "heading": "Request a quote",
+            "text": "Send us your vehicle details and we prepare a package quote."
+          }
+        },
+        "step_book": {
+          "type": "step",
+          "settings": {
+            "heading": "Book your install",
+            "text": "Choose an approved installer near you and book a date."
+          }
+        },
+        "step_certify": {
+          "type": "step",
+          "settings": {
+            "heading": "Get certified",
+            "text": "We complete the upgrade and issue engineering certification."
+          }
+        }
+      },
+      "block_order": [
+        "step_quote",
+        "step_book",
+        "step_certify"
+      ],
+      "settings": {
+        "heading": "Installation process",
+        "layout": "classic",
+        "alt_background": false,
+        "tint_color": "#f3f6f7",
+        "container": "container",
+        "padding_top": 52,
+        "padding_bottom": 52,
+        "custom_id": "",
+        "color_schema": "",
+        "heading_align": "center",
+        "dot_size": 54
+      }
+    },
+    "weight_chart": {
+      "type": "ori-gvm-weight-chart",
+      "blocks": {
+        "segment_8ctd34": {
+          "type": "segment",
+          "settings": {
+            "label": "Kerb weight",
+            "weight": 100,
+            "note": ""
+          }
+        },
+        "seg_kerb": {
+          "type": "segment",
+          "settings": {
+            "label": "Kerb weight",
+            "weight": 12,
+            "note": ""
+          }
+        },
+        "seg_people": {
+          "type": "segment",
+          "settings": {
+            "label": "Passengers & gear",
+            "weight": 43,
+            "note": ""
+          }
+        },
+        "seg_acc": {
+          "type": "segment",
+          "settings": {
+            "label": "Accessories",
+            "weight": 46,
+            "note": ""
+          }
+        },
+        "seg_payload": {
+          "type": "segment",
+          "settings": {
+            "label": "Remaining payload",
+            "weight": 10,
+            "note": ""
+          }
+        }
+      },
+      "block_order": [
+        "segment_8ctd34",
+        "seg_kerb",
+        "seg_people",
+        "seg_acc",
+        "seg_payload"
+      ],
+      "settings": {
+        "heading": "Where Your GVM Goes",
+        "subheading": "A breakdown of how the upgraded Gross Vehicle Mass is used.",
+        "total_label": "Upgraded GVM",
+        "unit": "kg",
+        "show_table": true,
+        "table_label": "View as table",
+        "footnote": "Figures are indicative and vary by build. Confirm against your vehicle compliance plate.",
+        "container": "container",
+        "color_schema": "",
+        "bg_color": "",
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "custom_id": ""
+      }
+    },
+    "ori_package_grid_RVbeB9": {
+      "type": "ori-package-grid",
+      "blocks": {
+        "package_card_LUGFhE": {
+          "type": "package_card",
+          "settings": {
+            "image": "shopify://shop_images/Chevy-Silverado-1500--tile-ad---20260505-4_753e16ce-f09c-454c-8683-7edc168f4eae.png",
+            "vehicle_label": "Chevrolet Silverado 1500",
+            "title": "Stage 1 GVM Upgrade",
+            "gvm_figure": "3,650 KG",
+            "gcm_figure": "8,150 KG",
+            "payload_gain": "8,150 KG",
+            "stage_label": "Stage 1",
+            "badge": "",
+            "btn_text": "View Package",
+            "btn_url": "shopify://pages/chevrolet-silverado-1500-gvm-package",
+            "btn_style": "btn--primary"
+          }
+        },
+        "package_card_Untxy9": {
+          "type": "package_card",
+          "settings": {
+            "image": "shopify://shop_images/Chevy-2500--tile-ad---20260505-4_7ce36d9a-1565-4823-b14a-b3e36018df11.png",
+            "vehicle_label": "Chevrolet Silverado 2500HD",
+            "title": "Stage 1 GVM Upgrade",
+            "gvm_figure": "5,500 KG",
+            "gcm_figure": "12,474 KG",
+            "payload_gain": "+1,708 KG",
+            "stage_label": "Stage 1",
+            "badge": "",
+            "btn_text": "View Package",
+            "btn_url": "shopify://pages/ori-gvm-upgrade-chevrolet-silverado-2500hd-5-9t-2020",
+            "btn_style": "btn--primary"
+          }
+        },
+        "package_card_zphDTW": {
+          "type": "package_card",
+          "settings": {
+            "image": "shopify://shop_images/FORD-F150---tile-ad---20260505-4-1_9dcaeba0-a747-4777-a6b3-eb3685b3b98f.png",
+            "vehicle_label": "Ford F-150",
+            "title": "Stage 1 GVM Upgrade",
+            "gvm_figure": "3,700 KG",
+            "gcm_figure": "8,200 KG",
+            "payload_gain": "+455 KG",
+            "stage_label": "Stage 1",
+            "badge": "",
+            "btn_text": "View Package",
+            "btn_url": "shopify://pages/ford-150-gvm-packages",
+            "btn_style": "btn--primary"
+          }
+        },
+        "package_card_AXLXAD": {
+          "type": "package_card",
+          "settings": {
+            "image": "shopify://shop_images/Toyota-Tundra--tile-ad---20260505-4-1.png",
+            "vehicle_label": "Toyota Tundra",
+            "title": "Stage 2 GVM Upgrade",
+            "gvm_figure": "3,850 KG",
+            "gcm_figure": "8,350 KG",
+            "payload_gain": "",
+            "stage_label": "Stage 1",
+            "badge": "Most Popular",
+            "btn_text": "View Package",
+            "btn_url": "shopify://pages/toyota-tundra",
+            "btn_style": "btn--primary"
+          }
+        },
+        "package_card_VN4q3N": {
+          "type": "package_card",
+          "settings": {
+            "image": "shopify://shop_images/RAM_2500_TILE.webp",
+            "vehicle_label": "RAM 2500 6th Gen",
+            "title": "Stage 1 GVM Upgrade",
+            "gvm_figure": "TBC",
+            "gcm_figure": "TBC",
+            "payload_gain": "",
+            "stage_label": "Stage 1",
+            "badge": "",
+            "btn_text": "View Package",
+            "btn_url": "shopify://pages/ram-2500-6th-gen-gvm",
+            "btn_style": "btn--primary"
+          }
+        }
+      },
+      "block_order": [
+        "package_card_LUGFhE",
+        "package_card_Untxy9",
+        "package_card_zphDTW",
+        "package_card_AXLXAD",
+        "package_card_VN4q3N"
+      ],
+      "disabled": true,
+      "name": "ORI Package Grid",
+      "settings": {
+        "heading": "GVM & GCM Upgrade Packages",
+        "heading_size": "h2",
+        "subheading": "",
+        "source": "manual",
+        "collection": "",
+        "products_limit": 12,
+        "gvm_metafield": "custom.gvm",
+        "gcm_metafield": "custom.upgraded_gcm",
+        "payload_metafield": "custom.payload_gain",
+        "stage_metafield": "custom.stage",
+        "product_btn_text": "View Package",
+        "product_btn_style": "btn--primary",
+        "view_all_text": "",
+        "view_all_url": "",
+        "view_all_style": "btn--outline",
+        "columns": 5,
+        "container": "container",
+        "color_schema": "",
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "custom_id": "",
+        "custom_class": ""
+      }
+    },
+    "installers": {
+      "type": "ori-installer-network",
+      "blocks": {
+        "installer_vic": {
+          "type": "installer",
+          "settings": {
+            "state": "VIC",
+            "name": "ORI Offroad Industries (HQ)",
+            "suburb": "Melbourne",
+            "phone": "TBC",
+            "website": ""
+          }
+        },
+        "installer_nsw": {
+          "type": "installer",
+          "settings": {
+            "state": "NSW",
+            "name": "NSW Installer — add via theme editor",
+            "suburb": "Sydney",
+            "phone": "",
+            "website": ""
+          }
+        },
+        "installer_qld": {
+          "type": "installer",
+          "settings": {
+            "state": "QLD",
+            "name": "QLD Installer — add via theme editor",
+            "suburb": "Brisbane",
+            "phone": "",
+            "website": ""
+          }
+        }
+      },
+      "block_order": [
+        "installer_vic",
+        "installer_nsw",
+        "installer_qld"
+      ],
+      "settings": {
+        "heading": "Approved Installers",
+        "heading_size": "h2",
+        "subheading": "This package is fitted by certified specialists across Australia.",
+        "cta_text": "",
+        "cta_url": "",
+        "cta_style": "btn--outline",
+        "container": "container",
+        "color_schema": "",
+        "bg_color": "#f3f6f7",
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "custom_id": "",
+        "custom_class": ""
+      }
+    },
+    "faq": {
+      "type": "ori-faq",
+      "blocks": {
+        "faq_included": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is included in this package?",
+            "answer": "<p>Fox shocks, BDS components, ORI springs, and full engineering certification.</p>"
+          }
+        },
+        "faq_legal": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is this a legal GVM upgrade?",
+            "answer": "<p>Yes. It is federally approved under the Second Stage of Manufacture (SSM) process.</p>"
+          }
+        },
+        "faq_quote": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How do I get a quote?",
+            "answer": "<p>Use the Request Quote button above and send us your vehicle details.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_included",
+        "faq_legal",
+        "faq_quote"
+      ],
+      "settings": {
+        "heading": "Frequently Asked Questions",
+        "heading_size": "h2",
+        "subheading": "",
+        "open_first": true,
+        "emit_schema": true,
+        "container": "container-narrow",
+        "color_schema": "",
+        "bg_color": "",
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "custom_id": "",
+        "custom_class": ""
+      }
+    },
+    "product_recently_viewed_4ecpYd": {
+      "type": "product-recently-viewed",
+      "name": "t:sections.product-recently-viewed.name",
+      "settings": {
+        "section_header_padding_bottom": "medium",
+        "section_header_content_spacing": "medium",
+        "heading": "Recently viewed products",
+        "highlight_style": "none",
+        "enable_highlight_text_color": false,
+        "heading_size": "h2",
+        "heading_color": "",
+        "description": "",
+        "container": "container",
+        "color_schema": "",
+        "columns": 4,
+        "column_gap": "medium",
+        "row_gap": "medium",
+        "enable_slider": true,
+        "show_nav": true,
+        "show_dots": false,
+        "enable_swipe_mobile": true,
+        "column_mobile": "1",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "show_section_divider": false,
+        "divider_width": "container",
+        "animations": "inherit"
+      }
+    },
+    "gvm_quote_popup": {
+      "type": "contact-form-v4",
+      "blocks": {
+        "f_name": {
+          "type": "name",
+          "settings": {
+            "label": "Name",
+            "field_name": "Name",
+            "placeholder": "Enter your name",
+            "field_width": "full",
+            "hide_label": true,
+            "required": true
+          }
+        },
+        "f_email": {
+          "type": "email",
+          "settings": {
+            "label": "Email",
+            "placeholder": "Enter your email",
+            "field_width": "full",
+            "hide_label": true
+          }
+        },
+        "f_phone": {
+          "type": "phone",
+          "settings": {
+            "label": "Phone number",
+            "placeholder": "Enter your phone number",
+            "field_width": "full",
+            "hide_label": true,
+            "required": true
+          }
+        },
+        "f_rego": {
+          "type": "rego_status",
+          "settings": {
+            "label": "Pre or Post rego",
+            "field_name": "Pre or Post rego",
+            "placeholder": "Select one",
+            "options": "Pre rego, Post rego",
+            "field_width": "full",
+            "hide_label": true,
+            "required": true
+          }
+        },
+        "f_vehicle": {
+          "type": "custom_select",
+          "settings": {
+            "label": "Which Vehicle",
+            "field_name": "Which Vehicle",
+            "placeholder": "Which Vehicle",
+            "options": "Ford F150, Chevy 1500, Chevy 2500HD, Toyota Tundra, RAM 2500 (5th Gen), RAM 2500 (6th Gen), Toyota LC300",
+            "field_width": "100",
+            "hide_label": true,
+            "required": true
+          }
+        },
+        "f_stage": {
+          "type": "custom_select",
+          "settings": {
+            "label": "What Stage GVM Package",
+            "field_name": "What Stage GVM Package",
+            "placeholder": "What Stage GVM Package",
+            "options": "Stage 1, Stage 2, Stage 3, Stage 3.5, Stage 4, Stage 5, Stage 6, Stage 6.5",
+            "field_width": "100",
+            "hide_label": true,
+            "required": true,
+            "depends_on": "Which Vehicle",
+            "options_map": "Ford F150 | Stage 1, Stage 2, Stage 3, Stage 4, Stage 5, Stage 6\nChevy 1500 | Stage 1, Stage 2, Stage 3, Stage 4, Stage 5\nChevy 2500HD | Stage 1, Stage 2, Stage 3, Stage 3.5, Stage 4, Stage 5, Stage 6, Stage 6.5\nToyota Tundra | Stage 1, Stage 2, Stage 3, Stage 4\nRAM 2500 (5th Gen) | Stage 1, Stage 2, Stage 3, Stage 4, Stage 5\nRAM 2500 (6th Gen) | Stage 1, Stage 2, Stage 3, Stage 4, Stage 5\nToyota LC300 | Stage 1, Stage 2",
+            "empty_text": "Choose your vehicle first"
+          }
+        },
+        "f_location": {
+          "type": "location",
+          "settings": {
+            "label": "What is your location",
+            "field_name": "Location",
+            "placeholder": "What is your location?",
+            "field_width": "full",
+            "hide_label": true,
+            "required": true
+          }
+        },
+        "f_message": {
+          "type": "message",
+          "settings": {
+            "label": "Message",
+            "placeholder": "Which GVM Package do you want further information on?",
+            "rows": 3,
+            "field_width": "100",
+            "hide_label": true
+          }
+        },
+        "s1": {
+          "type": "step",
+          "settings": {
+            "title": "Your details",
+            "caption": "So we know who to send the quote to."
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "title": "Your vehicle",
+            "caption": "Helps us match the right GVM package."
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "title": "Your enquiry",
+            "caption": "Anything else we should know."
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "f_name",
+        "f_email",
+        "f_phone",
+        "s2",
+        "f_rego",
+        "f_vehicle",
+        "f_stage",
+        "s3",
+        "f_location",
+        "f_message"
+      ],
+      "settings": {
+        "container": "container",
+        "color_schema": "",
+        "heading": "GVM Enquiry? Contact us Now",
+        "subheading": "",
+        "description": "",
+        "display_mode": "popup",
+        "popup_id": "gvm-quote",
+        "popup_width": 560,
+        "form_design": "design-1",
+        "form_width": 500,
+        "form_alignment": "center",
+        "button_label": "Send",
+        "button_style": "btn--primary",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "show_section_divider": false,
+        "divider_width": "container",
+        "custom_id": "",
+        "custom_class": "",
+        "animations": "inherit"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "gvm_benefits",
+    "gvm_included",
+    "gvm_steps",
+    "weight_chart",
+    "ori_package_grid_RVbeB9",
+    "installers",
+    "faq",
+    "product_recently_viewed_4ecpYd",
+    "gvm_quote_popup"
+  ]
+}
