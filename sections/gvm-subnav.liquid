@@ -1,0 +1,145 @@
+{%- comment -%}
+  GVM Subnav — second nav bar sitting directly under the main header,
+  site-wide (lives in header-group.json). Static content for now;
+  B2B-only visibility and the "only this nav stays sticky for B2B
+  customers" behavior are deferred to a later pass.
+
+  Each parent item is its own block with up to 4 child links --
+  Shopify sections can't nest blocks inside blocks, so children are
+  plain settings (child_1_label/child_1_link ... child_4) rather than
+  a separate block type. Every link field uses the native "url" type,
+  which gives the full Page/Product/Collection/custom-URL picker in
+  the theme editor -- same as every other link field in this theme.
+
+  Sticky behavior matches gvm-tabs.js/css on the Silverado template:
+  this theme's .site-wrapper has overflow:clip, which silently
+  breaks position:sticky everywhere, so this uses position:fixed
+  instead, computed from the header's live --f-header-height and
+  body.header-pinned (same mechanism, reused as-is -- it already
+  resolves to "stick right at the top" automatically once header
+  stickiness is turned off, no special-casing needed here).
+{%- endcomment -%}
+
+{{ 'gvm-subnav.css' | asset_url | stylesheet_tag }}
+
+<div
+  class="gvm-subnav"
+  style="--gvm-subnav-bg: {{ section.settings.bg_color }}; --gvm-subnav-color: {{ section.settings.text_color }};"
+>
+  <div class="gvm-subnav__placeholder" aria-hidden="true"></div>
+
+  <nav class="gvm-subnav__bar" aria-label="Secondary navigation">
+    <div class="container">
+      <ul class="gvm-subnav__list">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign has_children = false
+            if block.settings.child_1_label != blank or block.settings.child_2_label != blank or block.settings.child_3_label != blank or block.settings.child_4_label != blank
+              assign has_children = true
+            endif
+          -%}
+          <li class="gvm-subnav__item" {{ block.shopify_attributes }}>
+            {%- if has_children -%}
+              <details class="gvm-subnav__dropdown">
+                <summary class="gvm-subnav__parent">
+                  {%- render 'gvm-subnav-icon', icon: block.settings.icon -%}
+                  <span>{{ block.settings.label }}</span>
+                  <svg class="gvm-subnav__chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="6 9 12 15 18 9"/>
+                  </svg>
+                </summary>
+                <ul class="gvm-subnav__children">
+                  {%- if block.settings.child_1_label != blank -%}
+                    <li><a href="{{ block.settings.child_1_link | default: '#' }}">{{ block.settings.child_1_label }}</a></li>
+                  {%- endif -%}
+                  {%- if block.settings.child_2_label != blank -%}
+                    <li><a href="{{ block.settings.child_2_link | default: '#' }}">{{ block.settings.child_2_label }}</a></li>
+                  {%- endif -%}
+                  {%- if block.settings.child_3_label != blank -%}
+                    <li><a href="{{ block.settings.child_3_link | default: '#' }}">{{ block.settings.child_3_label }}</a></li>
+                  {%- endif -%}
+                  {%- if block.settings.child_4_label != blank -%}
+                    <li><a href="{{ block.settings.child_4_link | default: '#' }}">{{ block.settings.child_4_label }}</a></li>
+                  {%- endif -%}
+                </ul>
+              </details>
+            {%- else -%}
+              <a class="gvm-subnav__parent gvm-subnav__parent--link" href="{{ block.settings.link | default: '#' }}">
+                {%- render 'gvm-subnav-icon', icon: block.settings.icon -%}
+                <span>{{ block.settings.label }}</span>
+              </a>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </nav>
+</div>
+
+<script src="{{ 'gvm-subnav.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "GVM Subnav",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#56bdc2"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "nav_item",
+      "name": "Nav item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "truck", "label": "Truck" },
+            { "value": "tag", "label": "Price tag" },
+            { "value": "megaphone", "label": "Megaphone" },
+            { "value": "book", "label": "Book" },
+            { "value": "user", "label": "User" }
+          ],
+          "default": "none"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "Only used if this item has no child links below"
+        },
+        {
+          "type": "header",
+          "content": "Dropdown children (optional)"
+        },
+        { "type": "text", "id": "child_1_label", "label": "Child 1 label" },
+        { "type": "url", "id": "child_1_link", "label": "Child 1 link" },
+        { "type": "text", "id": "child_2_label", "label": "Child 2 label" },
+        { "type": "url", "id": "child_2_link", "label": "Child 2 link" },
+        { "type": "text", "id": "child_3_label", "label": "Child 3 label" },
+        { "type": "url", "id": "child_3_link", "label": "Child 3 link" },
+        { "type": "text", "id": "child_4_label", "label": "Child 4 label" },
+        { "type": "url", "id": "child_4_link", "label": "Child 4 link" }
+      ]
+    }
+  ],
+  "max_blocks": 8
+}
+{% endschema %}

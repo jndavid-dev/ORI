@@ -617,12 +617,109 @@
         "mm_bg_opacity": 85,
         "mm_text_color": "#ffffff"
       }
+    },
+    "gvm-subnav": {
+      "type": "gvm-subnav",
+      "blocks": {
+        "nav_vehicles": {
+          "type": "nav_item",
+          "settings": {
+            "icon": "truck",
+            "label": "GVM Vehicles",
+            "link": "",
+            "child_1_label": "Chevy Silverado",
+            "child_1_link": "#",
+            "child_2_label": "Toyota Tundra",
+            "child_2_link": "#",
+            "child_3_label": "Ford F150",
+            "child_3_link": "#",
+            "child_4_label": "",
+            "child_4_link": ""
+          }
+        },
+        "nav_pricing": {
+          "type": "nav_item",
+          "settings": {
+            "icon": "tag",
+            "label": "Pricing",
+            "link": "",
+            "child_1_label": "Price List PDF",
+            "child_1_link": "#",
+            "child_2_label": "Recommended Retail Price",
+            "child_2_link": "#",
+            "child_3_label": "",
+            "child_3_link": "",
+            "child_4_label": "",
+            "child_4_link": ""
+          }
+        },
+        "nav_marketing": {
+          "type": "nav_item",
+          "settings": {
+            "icon": "megaphone",
+            "label": "Marketing Materials",
+            "link": "",
+            "child_1_label": "Assets",
+            "child_1_link": "#",
+            "child_2_label": "",
+            "child_2_link": "",
+            "child_3_label": "",
+            "child_3_link": "",
+            "child_4_label": "",
+            "child_4_link": ""
+          }
+        },
+        "nav_resources": {
+          "type": "nav_item",
+          "settings": {
+            "icon": "book",
+            "label": "Helpful Resources",
+            "link": "",
+            "child_1_label": "Tips and Tricks",
+            "child_1_link": "#",
+            "child_2_label": "Technical Resources",
+            "child_2_link": "#",
+            "child_3_label": "Videos",
+            "child_3_link": "#",
+            "child_4_label": "",
+            "child_4_link": ""
+          }
+        },
+        "nav_account": {
+          "type": "nav_item",
+          "settings": {
+            "icon": "user",
+            "label": "My Account",
+            "link": "",
+            "child_1_label": "Profile",
+            "child_1_link": "#",
+            "child_2_label": "Orders",
+            "child_2_link": "#",
+            "child_3_label": "",
+            "child_3_link": "",
+            "child_4_label": "",
+            "child_4_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "nav_vehicles",
+        "nav_pricing",
+        "nav_marketing",
+        "nav_resources",
+        "nav_account"
+      ],
+      "settings": {
+        "bg_color": "#56bdc2",
+        "text_color": "#ffffff"
+      }
     }
   },
   "order": [
     "announcement-bar",
     "secondary-header",
     "header",
+    "gvm-subnav",
     "mega_menu_1_9eGFTp",
     "mega_menu_1_3iAP83",
     "mega_menu_1_pQJFf4",
