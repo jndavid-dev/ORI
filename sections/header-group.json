@@ -157,7 +157,7 @@
           "settings": {
             "heading": "Domestic Vehicles",
             "container": "container-fluid",
-            "menu": "domestic-vehicles",
+            "menu": "",
             "min_col_width": 130,
             "columns": "3",
             "header_font_size": "40",
@@ -175,7 +175,7 @@
         "color_schema": "accent",
         "layout": "design-6",
         "container": "container-fluid",
-        "sticky_header": true,
+        "sticky_header": false,
         "sticky_type": "always",
         "transparent_header": false,
         "logo": "shopify://shop_images/ORI_Teal_SMALL_4f1a73a1-2c8a-4cbf-95a1-a4165c060141.png",
@@ -215,6 +215,102 @@
         "v6_help_phone_size": 18
       }
     },
+    "gvm-subnav": {
+      "type": "gvm-subnav",
+      "blocks": {
+        "nav_vehicles": {
+          "type": "nav_item",
+          "settings": {
+            "icon": "truck",
+            "label": "GVM Vehicles",
+            "link": "",
+            "child_1_label": "Chevy Silverado",
+            "child_1_link": "#",
+            "child_2_label": "Toyota Tundra",
+            "child_2_link": "#",
+            "child_3_label": "Ford F150",
+            "child_3_link": "#",
+            "child_4_label": "",
+            "child_4_link": ""
+          }
+        },
+        "nav_pricing": {
+          "type": "nav_item",
+          "settings": {
+            "icon": "tag",
+            "label": "Pricing",
+            "link": "",
+            "child_1_label": "Price List PDF",
+            "child_1_link": "#",
+            "child_2_label": "Recommended Retail Price",
+            "child_2_link": "#",
+            "child_3_label": "",
+            "child_3_link": "",
+            "child_4_label": "",
+            "child_4_link": ""
+          }
+        },
+        "nav_marketing": {
+          "type": "nav_item",
+          "settings": {
+            "icon": "megaphone",
+            "label": "Marketing Materials",
+            "link": "",
+            "child_1_label": "Assets",
+            "child_1_link": "#",
+            "child_2_label": "",
+            "child_2_link": "",
+            "child_3_label": "",
+            "child_3_link": "",
+            "child_4_label": "",
+            "child_4_link": ""
+          }
+        },
+        "nav_resources": {
+          "type": "nav_item",
+          "settings": {
+            "icon": "book",
+            "label": "Helpful Resources",
+            "link": "",
+            "child_1_label": "Tips and Tricks",
+            "child_1_link": "#",
+            "child_2_label": "Technical Resources",
+            "child_2_link": "#",
+            "child_3_label": "Videos",
+            "child_3_link": "#",
+            "child_4_label": "",
+            "child_4_link": ""
+          }
+        },
+        "nav_account": {
+          "type": "nav_item",
+          "settings": {
+            "icon": "user",
+            "label": "My Account",
+            "link": "",
+            "child_1_label": "Profile",
+            "child_1_link": "#",
+            "child_2_label": "Orders",
+            "child_2_link": "#",
+            "child_3_label": "",
+            "child_3_link": "",
+            "child_4_label": "",
+            "child_4_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "nav_vehicles",
+        "nav_pricing",
+        "nav_marketing",
+        "nav_resources",
+        "nav_account"
+      ],
+      "settings": {
+        "bg_color": "#008faf",
+        "text_color": "#ffffff"
+      }
+    },
     "mega_menu_1_9eGFTp": {
       "type": "mega-menu-1",
       "blocks": {
@@ -225,9 +321,9 @@
             "image_top": "shopify://shop_images/2024-Chevy-Silverado-2500-Phantom-Winch-Front-Bumper-3.png",
             "image_caption_top": "",
             "image_link_top": "shopify://collections/chevrolet-silverado-1500",
-            "menu_1": "chevrolet",
+            "menu_1": "",
             "menu_1_link": "",
-            "menu_2": "chevrolet-silverado-2500-3500hd",
+            "menu_2": "",
             "menu_2_link": "",
             "menu_3": "",
             "menu_3_link": "",
@@ -245,9 +341,9 @@
             "image_top": "shopify://shop_images/2023-Ford-F-250-350-Phantom-Winch-Front-Bumper-Studio-3_1800x1800_1.png",
             "image_caption_top": "",
             "image_link_top": "",
-            "menu_1": "ford-f150",
+            "menu_1": "",
             "menu_1_link": "",
-            "menu_2": "ford-f250-f350-f450",
+            "menu_2": "",
             "menu_2_link": "",
             "menu_3": "",
             "menu_3_link": "",
@@ -265,9 +361,9 @@
             "image_top": "shopify://shop_images/dodge-ram-rebel-1500-trx_1800x1800_0ce02a9b-9e79-46b0-8c66-5f58ee143be9.png",
             "image_caption_top": "",
             "image_link_top": "",
-            "menu_1": "ram-1500",
+            "menu_1": "",
             "menu_1_link": "",
-            "menu_2": "ram-2500-3500",
+            "menu_2": "",
             "menu_2_link": "",
             "menu_3": "",
             "menu_3_link": "",
@@ -285,7 +381,7 @@
             "image_top": "shopify://shop_images/gmc-hd-phantom-winch-front-bumper-studio-8.png",
             "image_caption_top": "",
             "image_link_top": "",
-            "menu_1": "gmc",
+            "menu_1": "",
             "menu_1_link": "",
             "menu_2": "",
             "menu_2_link": "",
@@ -305,7 +401,7 @@
             "image_top": "shopify://shop_images/4th-gen-toyota-tundra-winch-front-bumper-stealth-fighter_1800x1800_49541ff7-4fd2-432b-89e5-dbe39398aa87.png",
             "image_caption_top": "",
             "image_link_top": "",
-            "menu_1": "toyota-tundra",
+            "menu_1": "",
             "menu_1_link": "",
             "menu_2": "",
             "menu_2_link": "",
@@ -616,102 +712,6 @@
         "mm_bg_color": "#0b0b0b",
         "mm_bg_opacity": 85,
         "mm_text_color": "#ffffff"
-      }
-    },
-    "gvm-subnav": {
-      "type": "gvm-subnav",
-      "blocks": {
-        "nav_vehicles": {
-          "type": "nav_item",
-          "settings": {
-            "icon": "truck",
-            "label": "GVM Vehicles",
-            "link": "",
-            "child_1_label": "Chevy Silverado",
-            "child_1_link": "#",
-            "child_2_label": "Toyota Tundra",
-            "child_2_link": "#",
-            "child_3_label": "Ford F150",
-            "child_3_link": "#",
-            "child_4_label": "",
-            "child_4_link": ""
-          }
-        },
-        "nav_pricing": {
-          "type": "nav_item",
-          "settings": {
-            "icon": "tag",
-            "label": "Pricing",
-            "link": "",
-            "child_1_label": "Price List PDF",
-            "child_1_link": "#",
-            "child_2_label": "Recommended Retail Price",
-            "child_2_link": "#",
-            "child_3_label": "",
-            "child_3_link": "",
-            "child_4_label": "",
-            "child_4_link": ""
-          }
-        },
-        "nav_marketing": {
-          "type": "nav_item",
-          "settings": {
-            "icon": "megaphone",
-            "label": "Marketing Materials",
-            "link": "",
-            "child_1_label": "Assets",
-            "child_1_link": "#",
-            "child_2_label": "",
-            "child_2_link": "",
-            "child_3_label": "",
-            "child_3_link": "",
-            "child_4_label": "",
-            "child_4_link": ""
-          }
-        },
-        "nav_resources": {
-          "type": "nav_item",
-          "settings": {
-            "icon": "book",
-            "label": "Helpful Resources",
-            "link": "",
-            "child_1_label": "Tips and Tricks",
-            "child_1_link": "#",
-            "child_2_label": "Technical Resources",
-            "child_2_link": "#",
-            "child_3_label": "Videos",
-            "child_3_link": "#",
-            "child_4_label": "",
-            "child_4_link": ""
-          }
-        },
-        "nav_account": {
-          "type": "nav_item",
-          "settings": {
-            "icon": "user",
-            "label": "My Account",
-            "link": "",
-            "child_1_label": "Profile",
-            "child_1_link": "#",
-            "child_2_label": "Orders",
-            "child_2_link": "#",
-            "child_3_label": "",
-            "child_3_link": "",
-            "child_4_label": "",
-            "child_4_link": ""
-          }
-        }
-      },
-      "block_order": [
-        "nav_vehicles",
-        "nav_pricing",
-        "nav_marketing",
-        "nav_resources",
-        "nav_account"
-      ],
-      "settings": {
-        "bg_color": "#008faf",
-        "text_color": "#ffffff"
       }
     }
   },
