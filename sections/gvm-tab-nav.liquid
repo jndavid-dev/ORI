@@ -1,0 +1,58 @@
+{{ 'gvm-tabs.css' | asset_url | stylesheet_tag }}
+
+<div class="gvm-tab-nav__placeholder" aria-hidden="true"></div>
+<div class="gvm-tab-nav" role="tablist" aria-label="GVM package sections">
+  {% for block in section.blocks %}
+    <button
+      type="button"
+      class="gvm-tab-nav__btn{% if forloop.first %} is-active{% endif %}"
+      data-tab-target="{{ block.settings.tab_id }}"
+      role="tab"
+      aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+      {{ block.shopify_attributes }}
+    >
+      {{ block.settings.label }}
+    </button>
+  {% endfor %}
+</div>
+
+<script src="{{ 'gvm-tabs.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "GVM Tab Navigation",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "tab_button",
+      "name": "Tab Button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Tab label",
+          "default": "Tab"
+        },
+        {
+          "type": "text",
+          "id": "tab_id",
+          "label": "Tab target ID",
+          "info": "Must exactly match the tab-N value used by the panels for this tab (e.g. tab-1). Set on each section via its Custom Class field.",
+          "default": "tab-1"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "GVM Tab Navigation",
+      "blocks": [
+        { "type": "tab_button", "settings": { "label": "Instructions", "tab_id": "tab-1" } },
+        { "type": "tab_button", "settings": { "label": "Pricing", "tab_id": "tab-2" } },
+        { "type": "tab_button", "settings": { "label": "Marketing & Assets", "tab_id": "tab-3" } },
+        { "type": "tab_button", "settings": { "label": "Request a Kit", "tab_id": "tab-4" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

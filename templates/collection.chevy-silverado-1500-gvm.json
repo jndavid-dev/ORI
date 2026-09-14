@@ -1,0 +1,882 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "slideshow_CtnG98": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_bW6A4P": {
+          "type": "slide",
+          "settings": {
+            "background": "shopify://shop_images/2000x560_-_CHEVY_1500.png",
+            "image_overlay_opacity": 0,
+            "content_position": "center",
+            "text_alignment": "center",
+            "text_color": "#000000",
+            "title": "",
+            "heading_size": "h2",
+            "heading_color": "",
+            "subheading": "",
+            "description": "",
+            "desc_size": "text-desc-base",
+            "button_text_1": "",
+            "button_link_1": "",
+            "button_style_1": "btn--primary",
+            "button_size_1": "",
+            "button_text_2": "",
+            "button_link_2": "",
+            "button_style_2": "btn--primary",
+            "button_size_2": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide_bW6A4P"
+      ],
+      "name": "t:sections.slideshow.name",
+      "settings": {
+        "container": "container-full",
+        "slideshow_height": "adapt",
+        "show_dots": false,
+        "show_nav": false,
+        "autoplay": false,
+        "defer_autoplay_until_interaction": false,
+        "autorotate_speed": 3,
+        "pagination_background": "light",
+        "controls_position": "center",
+        "pagination_style": "dots",
+        "show_text_below": false,
+        "text_alignment_mobile": "center",
+        "accessibility_info": "Slideshow about our brand",
+        "custom_id": "",
+        "custom_class": "",
+        "enable_bg_zoom_effect": false
+      }
+    },
+    "gvm_tab_nav_main": {
+      "type": "gvm-tab-nav",
+      "blocks": {
+        "tab_1": {
+          "type": "tab_button",
+          "settings": {
+            "label": "Instructions",
+            "tab_id": "tab-1"
+          }
+        },
+        "tab_2": {
+          "type": "tab_button",
+          "settings": {
+            "label": "Pricing",
+            "tab_id": "tab-2"
+          }
+        },
+        "tab_3": {
+          "type": "tab_button",
+          "settings": {
+            "label": "Marketing & Assets",
+            "tab_id": "tab-3"
+          }
+        },
+        "tab_4": {
+          "type": "tab_button",
+          "settings": {
+            "label": "Request a Kit",
+            "tab_id": "tab-4"
+          }
+        }
+      },
+      "block_order": [
+        "tab_1",
+        "tab_2",
+        "tab_3",
+        "tab_4"
+      ],
+      "settings": {}
+    },
+    "rich_text_GbXVUF": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_XhCLHT": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Unleash the Full Potential of Your Chevy Silverado 1500 2019 - 2026</strong>",
+            "highlight_style": "none",
+            "enable_highlight_text_color": true,
+            "heading_size": "h1",
+            "heading_color": "#56bdc2"
+          }
+        },
+        "text_CfcJd4": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Stop worrying about weight limits and start adventuring with confidence. <strong>Offroad Industries (ORI)</strong> offers the most comprehensive, Federally Approved GVM (Gross Vehicle Mass) upgrades for the Chevy Silverado 1500 (LTZ, Trail Boss, and ZR2). </p><p>By bundling the <strong>ORI GVM Packages & </strong> <strong>GCM testing</strong> and the combination of <strong>LS16 certification</strong>, you are offering a legal \"Super-Truck\" status. The <strong>LS16 code</strong> is the secret sauce here: it’s the specific modification code for <strong>Gross Combination Mass Re-rating</strong>, ensuring the truck, the gear, and the massive 4.5T trailer are all </p><p>100% legal together for either PRE or Post Rego</p><p>Whether you’re a weekend explorer, a tradie with a heavy load, or a serious tourer towing a 4.5T caravan, our staged packages transform your truck’s legality, safety, and performance.</p><p>*<strong>Please note that some workshops may apply additional discretionary administration fees to the quoted installation and engineering price. Additionally, all Post-Registration GVM upgrades will incur additional local fees. Shipping is not included in the price.</strong></p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_XhCLHT",
+        "text_CfcJd4"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "container": "container",
+        "color_schema": "",
+        "text_alignment": "left",
+        "padding_top": 40,
+        "padding_bottom": 0,
+        "show_section_divider": false,
+        "divider_width": "container",
+        "custom_id": "",
+        "custom_class": "gvm-tab-panel gvm-tab-panel--1 gvm-container-1360",
+        "animations": "inherit"
+      }
+    },
+    "rich_text_PtmRiF": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_mpxUJy": {
+          "type": "heading",
+          "settings": {
+            "heading": "ORI Chevy Silverado 1500 GVM & GCM PACKAGES",
+            "highlight_style": "underline",
+            "enable_highlight_text_color": true,
+            "heading_size": "h1",
+            "heading_color": "#56bdc2"
+          }
+        }
+      },
+      "block_order": [
+        "heading_mpxUJy"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "container": "container",
+        "color_schema": "",
+        "text_alignment": "left",
+        "padding_top": 40,
+        "padding_bottom": 0,
+        "show_section_divider": false,
+        "divider_width": "container",
+        "custom_id": "",
+        "custom_class": "gvm-tab-panel gvm-tab-panel--1 gvm-container-1360",
+        "animations": "inherit"
+      }
+    },
+    "image_with_text_WcaAiR": {
+      "type": "image-with-text",
+      "blocks": {
+        "subheading_JVKNjL": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Stage 1: $11,500* - Installed & Engineered",
+            "subheading_size": "h5"
+          }
+        },
+        "heading_f9G7kD": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Stage 1: The Weekender Family Getaway (3650 KG GVM + GCM 8150 KG)</strong>",
+            "highlight_style": "none",
+            "enable_highlight_text_color": false,
+            "heading_size": "h2"
+          }
+        },
+        "text_fRRw7g": {
+          "type": "text",
+          "settings": {
+            "text": "<p><em>The perfect entry point for those needing a legal payload boost without a major lift.</em></p><ul><li><strong>GVM Increase:</strong> Up to 3650 KG (approx. 1077 KG payload).</li><li><strong>Key Features:</strong> Fox 2.5 Performance Series shocks and ORI 200 KG heavy-duty leaf packs matched with heavy duty BDS control arms.</li><li><strong>Best For:</strong> Daily drivers and light towing where you need to clear the \"one-tonne\" mark for tax purposes (ATO compliance) or carry extra tools/gear legally.</li><li><strong>Benefit:</strong> Maintains a lifted stance with premium USA-made shocks,  while significantly improving stability under load without the need of purchasing load rated wheels.</li><li><strong>Part Number:</strong> CHV-1500-Stage1-GVM</li></ul>"
+          }
+        }
+      },
+      "block_order": [
+        "subheading_JVKNjL",
+        "heading_f9G7kD",
+        "text_fRRw7g"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "container": "container",
+        "color_schema": "",
+        "image": "shopify://shop_images/STAGE_1_CHEVY_1500_all_products_8fbb7dca-ab4d-4468-9a99-a9e4909364c8.png",
+        "enable_lightbox": true,
+        "image_width": "50%",
+        "image_position": "left",
+        "vertical_alignment": "center",
+        "align_content_container": "none",
+        "show_image_padding": true,
+        "column_gap": "medium",
+        "row_gap": "medium",
+        "padding_left": 0,
+        "padding_right": 0,
+        "mobile_padding_left": 15,
+        "mobile_padding_right": 15,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_top_mobile": 60,
+        "padding_bottom_mobile": 60,
+        "show_section_divider": false,
+        "divider_width": "container",
+        "custom_id": "",
+        "custom_class": "gvm-tab-panel gvm-tab-panel--1 gvm-container-1360",
+        "animations": "inherit"
+      }
+    },
+    "image_with_text_pR9RXR": {
+      "type": "image-with-text",
+      "blocks": {
+        "subheading_nNBqbG": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Stage 2: $7,800* - Installed & Engineered",
+            "subheading_size": "h5"
+          }
+        },
+        "heading_dHpa9y": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Stage 2:  ZR2 Only Performance Level-Up (3650 KG GVM + GCM up to 7850 KG)</strong>",
+            "highlight_style": "none",
+            "enable_highlight_text_color": false,
+            "heading_size": "h2"
+          }
+        },
+        "text_eiTTm6": {
+          "type": "text",
+          "settings": {
+            "text": "<p><em>Increased strength without the cost of replacing all your suspension + legal one tonne payload.</em></p><ul><li><strong>GVM Increase:</strong> 3650 KG.</li><li><strong>Key Features:</strong> Adds <strong>BDS Upper Control Arms</strong> and a leveling kit (or 2\" lift options) retains the factory Multimatic Suspension</li><li><strong>Best For:</strong> Chevy Silverado ZR2 owners only need to clear the \"one-tonne\" mark for tax purposes (ATO compliance) or carry extra tools/gear legally.</li><li><strong>Benefit:</strong> Enhanced front-end strength and wheel travel, ideal for ZR2 owner who retain the OEM suspension yet get 1 tonne payload.</li><li><strong>Part Number:</strong> CHV-1500-Stage2-GVM</li></ul><p></p>"
+          }
+        }
+      },
+      "block_order": [
+        "subheading_nNBqbG",
+        "heading_dHpa9y",
+        "text_eiTTm6"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "container": "container",
+        "color_schema": "",
+        "image": "shopify://shop_images/STAGE_2_CHEVY_1500_all_products.png",
+        "enable_lightbox": true,
+        "image_width": "50%",
+        "image_position": "right",
+        "vertical_alignment": "center",
+        "align_content_container": "none",
+        "show_image_padding": true,
+        "column_gap": "medium",
+        "row_gap": "medium",
+        "padding_left": 0,
+        "padding_right": 0,
+        "mobile_padding_left": 15,
+        "mobile_padding_right": 15,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_top_mobile": 60,
+        "padding_bottom_mobile": 60,
+        "show_section_divider": false,
+        "divider_width": "container",
+        "custom_id": "",
+        "custom_class": "gvm-tab-panel gvm-tab-panel--1 gvm-container-1360",
+        "animations": "inherit"
+      }
+    },
+    "image_with_text_M8ykcj": {
+      "type": "image-with-text",
+      "blocks": {
+        "subheading_p3JeNT": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Stage 3: $15,999* - Installed & Engineered",
+            "subheading_size": "h5"
+          }
+        },
+        "heading_KMefdY": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Stage 3: The Ultimate Tourer (3850 KG GVM + GCM up to 8350 KG)</strong>",
+            "highlight_style": "none",
+            "enable_highlight_text_color": false,
+            "heading_size": "h2"
+          }
+        },
+        "text_aVwiWh": {
+          "type": "text",
+          "settings": {
+            "text": "<p><em>Engineered for the ultimate suspension, </em></p><ul><li><strong>GVM Increase:</strong> 3850 KG (approx. 1272 KG payload). GCM Increase 8050 KG ZR2 or 8350 LTZ</li><li><strong>Key Features:</strong> Premium <strong>Fox 2.5 DSC (Dual Speed Compression)</strong> adjustable shocks.</li><li><strong>Best For:</strong> Heavy-duty touring. If you have a bull bar, and a heavy tow ball weight from a large caravan, this is your sweet spot without having to upgrade your wheel and tyre package.</li><li><strong>Benefit:</strong> The DSC adjustability allows you to \"dial in\" your ride—stiffen it for the highway and soften it for the tracks at the turn of a knob. Fox’s premium shocks setup for the Chevy Silverado 1500.</li><li><strong>Part Number: </strong>CHV-1500-Stage3-GVM<br/><br/></li></ul>"
+          }
+        }
+      },
+      "block_order": [
+        "subheading_p3JeNT",
+        "heading_KMefdY",
+        "text_aVwiWh"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "container": "container",
+        "color_schema": "",
+        "image": "shopify://shop_images/STAGE_3_CHEVY_1500_all_products.png",
+        "enable_lightbox": true,
+        "image_width": "50%",
+        "image_position": "left",
+        "vertical_alignment": "center",
+        "align_content_container": "none",
+        "show_image_padding": true,
+        "column_gap": "medium",
+        "row_gap": "medium",
+        "padding_left": 0,
+        "padding_right": 0,
+        "mobile_padding_left": 15,
+        "mobile_padding_right": 15,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_top_mobile": 60,
+        "padding_bottom_mobile": 60,
+        "show_section_divider": false,
+        "divider_width": "container",
+        "custom_id": "",
+        "custom_class": "gvm-tab-panel gvm-tab-panel--1 gvm-container-1360",
+        "animations": "inherit"
+      }
+    },
+    "image_with_text_pcJYGC": {
+      "type": "image-with-text",
+      "blocks": {
+        "subheading_UXFBYE": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Stage 4: $16,999* - Installed & Engineered",
+            "subheading_size": "h5"
+          }
+        },
+        "heading_wfcybN": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Stage 4: The Heavy Hauler (4250 KG GVM + GCM 8750 KG)</strong>",
+            "highlight_style": "none",
+            "enable_highlight_text_color": false,
+            "heading_size": "h2"
+          }
+        },
+        "text_giGN6b": {
+          "type": "text",
+          "settings": {
+            "text": "<p><em>Maximum legal capacity for the most demanding builds. Ideal for Tray Canopy builds and for the customer who wants to run 35\" Tyres legally.</em></p><ul><li><strong>GVM Increase:</strong> 4250 KG (approx. 1672 KG payload) upto <strong>GCM Increase</strong> rating  8750 KG * ZR2 8450 KG.</li><li><strong>Key Features:</strong> Fox 2.5 Performance Elite suspension, ORI 400 KG leaf packs, and <strong>required load-rated wheels/tyres</strong>.</li><li><strong>Best For:</strong> Fully built rigs with rear drawer systems, rooftop tents, and long-range tanks or the ultimate tourer with Tray and Canopies fitted.</li><li><strong>Benefit:</strong> Massive payload increase that transforms the Silverado into a true heavy-duty platform while retaining 4.5T braking towing capacity.</li><li><em><strong>Note: Chevy Silverado ZR2 has reduced GCM due to the 4.2T towing capacity.</strong></em></li><li><strong>Part Number 200 KG Leaf Pack: </strong>CHV-1500-Stage4-GVM-200</li><li><strong>Part Number 400 KG Leaf Pack: </strong>CHV-1500-Stage4-GVM-400</li></ul>"
+          }
+        }
+      },
+      "block_order": [
+        "subheading_UXFBYE",
+        "heading_wfcybN",
+        "text_giGN6b"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "container": "container",
+        "color_schema": "",
+        "image": "shopify://shop_images/STAGE_4_CHEVY_1500_all_products.png",
+        "enable_lightbox": true,
+        "image_width": "50%",
+        "image_position": "right",
+        "vertical_alignment": "center",
+        "align_content_container": "none",
+        "show_image_padding": true,
+        "column_gap": "medium",
+        "row_gap": "medium",
+        "padding_left": 0,
+        "padding_right": 0,
+        "mobile_padding_left": 15,
+        "mobile_padding_right": 15,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_top_mobile": 60,
+        "padding_bottom_mobile": 60,
+        "show_section_divider": false,
+        "divider_width": "container",
+        "custom_id": "",
+        "custom_class": "gvm-tab-panel gvm-tab-panel--1 gvm-container-1360",
+        "animations": "inherit"
+      }
+    },
+    "image_with_text_8GKk7C": {
+      "type": "image-with-text",
+      "blocks": {
+        "subheading_drUinH": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Stage 5: $26,999* - Installed & Engineered",
+            "subheading_size": "h5"
+          }
+        },
+        "heading_FGMkek": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Stage 5: The \"No Compromise\" Build (4250 KG GVM + GCM 8750 KG)</strong>",
+            "highlight_style": "none",
+            "enable_highlight_text_color": false,
+            "heading_size": "h2"
+          }
+        },
+        "text_AHtUHA": {
+          "type": "text",
+          "settings": {
+            "text": "<p><em>The pinnacle of Silverado suspension engineering.</em></p><ul><li><strong>GVM Increase:</strong> 4250 KG.</li><li><strong>Key Features:</strong> <strong>Fox 3.0 Internal Bypass Race Series Shocks</strong> (front and rear).</li><li><strong>Best For:</strong> The enthusiast who wants it all—maximum legal payload combined with race-bred suspension technology.</li><li><strong>Benefit:</strong> The 3.0 Bypass shocks offer unparalleled heat dissipation and damping control. It’s the ultimate \"go-anywhere\" setup that remains legally compliant across Australia.</li><li><strong>Part Number 200 KG Leaf Pack: </strong>CHV-1500-Stage5-GVM-200</li><li><strong>Part Number 400 KG Leaf Pack: </strong>CHV-1500-Stage5-GVM-400</li></ul><p><em><strong>Note: Chevy Silverado ZR2 has reduced GCM due to the 4.2T towing capacity.</strong></em><br/><br/></p>"
+          }
+        }
+      },
+      "block_order": [
+        "subheading_drUinH",
+        "heading_FGMkek",
+        "text_AHtUHA"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "container": "container",
+        "color_schema": "",
+        "image": "shopify://shop_images/STAGE_5_CHEVY_1500_all_products.png",
+        "enable_lightbox": true,
+        "image_width": "50%",
+        "image_position": "left",
+        "vertical_alignment": "center",
+        "align_content_container": "none",
+        "show_image_padding": true,
+        "column_gap": "medium",
+        "row_gap": "medium",
+        "padding_left": 0,
+        "padding_right": 0,
+        "mobile_padding_left": 15,
+        "mobile_padding_right": 15,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_top_mobile": 60,
+        "padding_bottom_mobile": 60,
+        "show_section_divider": false,
+        "divider_width": "container",
+        "custom_id": "",
+        "custom_class": "gvm-tab-panel gvm-tab-panel--1 gvm-container-1360",
+        "animations": "inherit"
+      }
+    },
+    "rich_text_rnLAPH": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_YjLxhA": {
+          "type": "heading",
+          "settings": {
+            "heading": "Chevy Silverado 1500 GVM Pricing",
+            "highlight_style": "underline",
+            "enable_highlight_text_color": true,
+            "heading_size": "h1",
+            "heading_color": "#56bdc2"
+          }
+        }
+      },
+      "block_order": [
+        "heading_YjLxhA"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "container": "container",
+        "color_schema": "",
+        "text_alignment": "left",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "show_section_divider": false,
+        "divider_width": "container",
+        "custom_id": "",
+        "custom_class": "gvm-tab-panel gvm-tab-panel--2 gvm-container-1360",
+        "animations": "inherit"
+      }
+    },
+    "gvm_comparison_FfmTMw": {
+      "type": "gvm-comparison",
+      "blocks": {
+        "row_rrp": {
+          "type": "row",
+          "settings": {
+            "label": "Recommended Retail Price (RRP)",
+            "value_1": "$0",
+            "value_2": "$11,500*",
+            "value_3": "$7,800*",
+            "value_4": "$15,999*",
+            "value_5": "$16,999*",
+            "value_6": "$26,999*",
+            "value_7": "",
+            "value_8": "",
+            "value_9": "",
+            "value_10": ""
+          }
+        },
+        "row_trade": {
+          "type": "row",
+          "settings": {
+            "label": "Your Trade Price",
+            "value_1": "TBC",
+            "value_2": "TBC",
+            "value_3": "TBC",
+            "value_4": "TBC",
+            "value_5": "TBC",
+            "value_6": "TBC",
+            "value_7": "",
+            "value_8": "",
+            "value_9": "",
+            "value_10": ""
+          }
+        }
+      },
+      "block_order": [
+        "row_rrp",
+        "row_trade"
+      ],
+      "name": "GVM Comparison",
+      "settings": {
+        "anchor_id": "",
+        "heading": "",
+        "details_heading": "",
+        "columns": "6",
+        "col_title_1": "OEM",
+        "col_title_2": "Stage 1",
+        "col_title_3": "Stage 2",
+        "col_title_4": "Stage 3",
+        "col_title_5": "Stage 4",
+        "col_title_6": "Stage 5",
+        "col_title_7": "STAGE 6",
+        "col_title_8": "STAGE 7",
+        "col_title_9": "STAGE 8",
+        "col_title_10": "STAGE 9",
+        "container_width": "1360px",
+        "compact_values": false,
+        "literal_yes_no": false,
+        "heading_color": "#111111",
+        "text_color": "#111111",
+        "line_color": "#111111",
+        "mobile_card_bg": "#f5f3ee",
+        "mobile_card_text": "#111111",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "custom_content_gvm_assets": {
+      "type": "custom-content",
+      "blocks": {
+        "btn_download_assets": {
+          "type": "text",
+          "settings": {
+            "color_scheme": "",
+            "title": "",
+            "highlight_style": "none",
+            "enable_highlight_text_color": false,
+            "heading_size": "h2",
+            "heading_color": "",
+            "subheading": "",
+            "text": "",
+            "alignment": "center",
+            "align_text": "center",
+            "padding_left": 0,
+            "padding_right": 0,
+            "align_content_container": "none",
+            "button_label": "Download Assets",
+            "button_link": "#",
+            "button_style": "btn--primary",
+            "width": "50%",
+            "mobile_color_scheme": "",
+            "mobile_padding_left": 0,
+            "mobile_padding_right": 0,
+            "block_custom_class": "",
+            "animations": "inherit"
+          }
+        },
+        "btn_download_social": {
+          "type": "text",
+          "settings": {
+            "color_scheme": "",
+            "title": "",
+            "highlight_style": "none",
+            "enable_highlight_text_color": false,
+            "heading_size": "h2",
+            "heading_color": "",
+            "subheading": "",
+            "text": "",
+            "alignment": "center",
+            "align_text": "center",
+            "padding_left": 0,
+            "padding_right": 0,
+            "align_content_container": "none",
+            "button_label": "Download Social Media Banners",
+            "button_link": "#",
+            "button_style": "btn--outline",
+            "width": "50%",
+            "mobile_color_scheme": "",
+            "mobile_padding_left": 0,
+            "mobile_padding_right": 0,
+            "block_custom_class": "",
+            "animations": "inherit"
+          }
+        }
+      },
+      "block_order": [
+        "btn_download_assets",
+        "btn_download_social"
+      ],
+      "custom_css": [],
+      "settings": {
+        "container": "container",
+        "color_schema": "",
+        "section_header_padding_bottom": "medium",
+        "section_header_content_spacing": "medium",
+        "heading": "Marketing & Assets",
+        "highlight_style": "none",
+        "enable_highlight_text_color": false,
+        "heading_size": "h2",
+        "heading_color": "",
+        "subheading": "",
+        "description": "<p>Downloadable assets for this vehicle — placeholders until real files are supplied.</p>",
+        "column_gap": "medium",
+        "row_gap": "medium",
+        "enable_swipe_mobile": false,
+        "column_mobile": "1",
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "show_section_divider": false,
+        "divider_width": "container",
+        "custom_id": "",
+        "custom_class": "gvm-tab-panel gvm-tab-panel--3 gvm-container-1360"
+      }
+    },
+    "contact_form_v4_x8r3EB": {
+      "type": "contact-form-v4",
+      "blocks": {
+        "step_your_details_x8r3EB": {
+          "type": "step",
+          "settings": {
+            "title": "Your details",
+            "caption": "So we know who to send the quote to."
+          }
+        },
+        "name_8kii3W": {
+          "type": "name",
+          "settings": {
+            "label": "Name",
+            "field_name": "Name",
+            "placeholder": "Enter your name",
+            "field_width": "full",
+            "hide_label": true,
+            "required": true
+          }
+        },
+        "email_pEVk6j": {
+          "type": "email",
+          "settings": {
+            "label": "Email",
+            "placeholder": "Enter your email",
+            "field_width": "full",
+            "hide_label": true
+          }
+        },
+        "phone_atX8MW": {
+          "type": "phone",
+          "settings": {
+            "label": "Phone number",
+            "placeholder": "Enter your phone number",
+            "field_width": "full",
+            "hide_label": true,
+            "required": true
+          }
+        },
+        "step_your_vehicle_x8r3EB": {
+          "type": "step",
+          "settings": {
+            "title": "Your vehicle",
+            "caption": "Helps us match the right GVM package."
+          }
+        },
+        "rego_status_YKHXBe": {
+          "type": "rego_status",
+          "settings": {
+            "label": "Pre or Post rego",
+            "field_name": "Pre or Post rego",
+            "placeholder": "Select one",
+            "options": "Pre rego, Post rego",
+            "field_width": "full",
+            "hide_label": true,
+            "required": true
+          }
+        },
+        "custom_select_rebt6m": {
+          "type": "custom_select",
+          "settings": {
+            "label": "Which Vehicle",
+            "field_name": "Which Vehicle",
+            "placeholder": "Which Vehicle",
+            "options": "Ford F150, Chevy 1500, Chevy 2500HD, Toyota Tundra, RAM 2500 (5th Gen), RAM 2500 (6th Gen), Toyota LC300",
+            "depends_on": "",
+            "options_map": "",
+            "empty_text": "Select the field above first",
+            "field_width": "100",
+            "hide_label": true,
+            "required": true
+          }
+        },
+        "custom_select_stage_x8r3EB": {
+          "type": "custom_select",
+          "settings": {
+            "label": "What Stage GVM Package",
+            "field_name": "What Stage GVM Package",
+            "placeholder": "What Stage GVM Package",
+            "options": "Stage 1, Stage 2, Stage 3, Stage 3.5, Stage 4, Stage 5, Stage 6, Stage 6.5",
+            "depends_on": "Which Vehicle",
+            "options_map": "Ford F150 | Stage 1, Stage 2, Stage 3, Stage 4, Stage 5, Stage 6\nChevy 1500 | Stage 1, Stage 2, Stage 3, Stage 4, Stage 5\nChevy 2500HD | Stage 1, Stage 2, Stage 3, Stage 3.5, Stage 4, Stage 5, Stage 6, Stage 6.5\nToyota Tundra | Stage 1, Stage 2, Stage 3, Stage 4\nRAM 2500 (5th Gen) | Stage 1, Stage 2, Stage 3\nRAM 2500 (6th Gen) | Stage 1, Stage 2, Stage 3, Stage 4, Stage 5, Stage 6\nToyota LC300 | Stage 1, Stage 2",
+            "empty_text": "Choose your vehicle first",
+            "field_width": "100",
+            "hide_label": true,
+            "required": true
+          }
+        },
+        "step_your_enquiry_x8r3EB": {
+          "type": "step",
+          "settings": {
+            "title": "Your enquiry",
+            "caption": "Anything else we should know."
+          }
+        },
+        "location_FiKmdb": {
+          "type": "location",
+          "settings": {
+            "label": "What is your location",
+            "field_name": "Location",
+            "placeholder": "What is your location?",
+            "field_width": "full",
+            "hide_label": true,
+            "required": true
+          }
+        },
+        "message_rpD3xU": {
+          "type": "message",
+          "settings": {
+            "label": "Message",
+            "placeholder": "Which GVM Package do you want further information on?",
+            "rows": 3,
+            "field_width": "100",
+            "hide_label": true
+          }
+        }
+      },
+      "block_order": [
+        "step_your_details_x8r3EB",
+        "name_8kii3W",
+        "email_pEVk6j",
+        "phone_atX8MW",
+        "step_your_vehicle_x8r3EB",
+        "rego_status_YKHXBe",
+        "custom_select_rebt6m",
+        "custom_select_stage_x8r3EB",
+        "step_your_enquiry_x8r3EB",
+        "location_FiKmdb",
+        "message_rpD3xU"
+      ],
+      "name": "Contact form v4",
+      "settings": {
+        "container": "container",
+        "color_schema": "",
+        "heading": "GVM Enquiry? Contact us Now",
+        "subheading": "",
+        "description": "",
+        "display_mode": "inline",
+        "popup_id": "gvm-quote",
+        "popup_width": 560,
+        "form_design": "design-1",
+        "form_width": 500,
+        "form_alignment": "center",
+        "button_label": "Send",
+        "button_style": "btn--primary",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "show_section_divider": false,
+        "divider_width": "container",
+        "custom_id": "",
+        "custom_class": "gvm-tab-panel gvm-tab-panel--4 gvm-container-1360",
+        "animations": "inherit"
+      }
+    },
+    "ori_gvm_hero_chevy1500": {
+      "type": "ori-gvm-hero",
+      "blocks": {
+        "trust_1": {
+          "type": "trust_item",
+          "settings": {
+            "text": "Federal / SSM Certification",
+            "icon": "✓"
+          }
+        },
+        "trust_2": {
+          "type": "trust_item",
+          "settings": {
+            "text": "ADR-Tested & Approved",
+            "icon": "✓"
+          }
+        },
+        "trust_3": {
+          "type": "trust_item",
+          "settings": {
+            "text": "Australia-Wide Installer Network",
+            "icon": "✓"
+          }
+        }
+      },
+      "block_order": [
+        "trust_1",
+        "trust_2",
+        "trust_3"
+      ],
+      "settings": {
+        "badge_text": "Federally Approved | ADR-Tested | SSM Certified",
+        "heading": "Chevrolet Silverado 1500 GVM Upgrades Australia",
+        "heading_size": "h1",
+        "subheading": "<p>Federally approved GVM upgrade packages for the Chevrolet Silverado 1500. Every stage is ADR-tested, SSM-certified, and installed by our national network of approved specialists.</p>",
+        "btn_1_text": "",
+        "btn_1_url": "",
+        "btn_1_style": "btn--primary",
+        "btn_2_text": "",
+        "btn_2_url": "",
+        "btn_2_style": "btn--outline",
+        "overlay_opacity": 45,
+        "container": "container",
+        "color_schema": "",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "custom_id": "",
+        "custom_class": "gvm-container-1360"
+      }
+    },
+    "gvm_pricing_grid_chevy1500": {
+      "type": "gvm-pricing-grid",
+      "settings": {
+        "custom_class": "gvm-tab-panel gvm-tab-panel--2 gvm-container-1360"
+      }
+    }
+  },
+  "order": [
+    "slideshow_CtnG98",
+    "ori_gvm_hero_chevy1500",
+    "gvm_tab_nav_main",
+    "rich_text_GbXVUF",
+    "rich_text_PtmRiF",
+    "image_with_text_WcaAiR",
+    "image_with_text_pR9RXR",
+    "image_with_text_M8ykcj",
+    "image_with_text_pcJYGC",
+    "image_with_text_8GKk7C",
+    "rich_text_rnLAPH",
+    "gvm_comparison_FfmTMw",
+    "gvm_pricing_grid_chevy1500",
+    "custom_content_gvm_assets",
+    "contact_form_v4_x8r3EB"
+  ]
+}

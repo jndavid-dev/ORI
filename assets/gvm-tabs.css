@@ -1,0 +1,140 @@
+/* ==========================================================
+   GVM Vehicle Hub — Tab Navigation & Panel Styling
+   Used on collection.chevy-silverado-1500-gvm.json (and reused
+   as-is for the other 6 vehicle hubs later -- nothing here is
+   vehicle-specific).
+   ========================================================== */
+
+/* --- Shared 1360px width for the GVM page ---
+   Applies to every section except the hero slideshow, via a shared
+   class added to each section's Custom Class field.
+
+   Two rules are needed, not one: custom_class lands on a section's
+   OUTER wrapper div, but the actual width constraint on native
+   sections (rich-text, image-with-text, custom-content, etc.) lives
+   on a separate INNER .container div nested below it -- confirmed by
+   checking sections/rich-text.liquid directly. The first rule below
+   covers sections (like gvm-pricing-grid) that constrain their own
+   outer element directly; the second covers every native section
+   that nests its real content inside .container. */
+.gvm-container-1360 {
+  max-width: 1360px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.gvm-container-1360 .container {
+  max-width: 1360px;
+}
+
+/* --- Tab nav bar ---
+   NOTE: this theme wraps every page in <div class="site-wrapper">,
+   and assets/base.css sets `.site-wrapper { overflow: clip; }`.
+   That silently disables position:sticky on every descendant
+   (a real, unavoidable CSS behavior, not a bug) -- which is why
+   this uses position:fixed instead, toggled by gvm-tabs.js,
+   matching how the site's own header does it (position: fixed,
+   not sticky, per assets/header.css). */
+
+.gvm-tab-nav__placeholder {
+  /* Collapsed by default. JS sets this to the nav's real height
+     and shows it the moment the nav switches to position:fixed,
+     so removing the nav from flow doesn't cause page content to
+     jump upward. */
+  display: none;
+  height: 0;
+}
+
+.gvm-tab-nav__placeholder.is-active {
+  display: block;
+}
+
+.gvm-tab-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  border-bottom: 1px solid #e2e2e2;
+  padding: 0 0px;
+  margin: 0 auto;
+  max-width: 1360px;
+  background: #ffffff;
+  transition: background-color 0.15s ease;
+  position: relative; /* normal document flow until JS marks it fixed */
+}
+
+.gvm-tab-nav.is-fixed {
+  position: fixed;
+  left: 0;
+  right: 0;
+  /* max-width + margin:auto above still center it correctly even
+     though left/right:0 spans the full viewport width -- same as
+     any other block-level element. */
+  z-index: 90; /* header itself sits at z-index: 98 -- stay under it */
+  background: #f2f2f2; /* the "stuck" gray */
+
+  /* `top` is set inline by gvm-tabs.js, computed live from the
+     header's actual current height -- not hardcoded here, since
+     the header's height/pinned state can change at runtime. */
+}
+
+.gvm-tab-nav__btn {
+  -webkit-appearance: none;
+  appearance: none;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  padding: 28px 18px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #555;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.gvm-tab-nav__btn:hover {
+  color: #1f1f1f;
+}
+
+.gvm-tab-nav__btn.is-active {
+  color: #1f1f1f;
+  border-bottom-color: #56bdc2;
+}
+
+/* --- Tab panels ---
+   Hidden by default; JS reveals the active group. The default-visible
+   rule for --1 means Tab 1 still shows even if JS fails to load
+   (progressive enhancement, not a hard dependency on JS). */
+.gvm-tab-panel {
+  display: none;
+}
+
+.gvm-tab-panel--1 {
+  display: block;
+}
+
+/* Exception: the gvm-comparison section type has no custom_class
+   setting, so it can't carry .gvm-tab-panel--2 -- targeted directly
+   by a suffix match on its Shopify-generated section ID instead.
+   Keep this rule in sync with gvm-tabs.js if that section's key
+   ever changes. */
+[id$="gvm_comparison_FfmTMw"] {
+  display: none;
+}
+
+/* 28px vertical padding and 18px type are noticeably larger than the
+   original build -- scaled proportionally for mobile rather than
+   reusing the old fixed values, so the tap targets stay comfortable
+   without eating too much vertical space on small screens. */
+@media (max-width: 749px) {
+  .gvm-tab-nav {
+    padding: 0 15px;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+
+  .gvm-tab-nav__btn {
+    flex: 0 0 auto;
+    padding: 16px 14px;
+    font-size: 15px;
+  }
+}

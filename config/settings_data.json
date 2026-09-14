@@ -124,55 +124,6 @@
       }
     },
     "content_for_index": [],
-    "blocks": {
-      "11599650373883811531": {
-        "type": "shopify://apps/easysearch-ymm/blocks/easysearch-embed-widgets/6d82686b-b68a-4b5e-98e3-e07b2b53d810",
-        "disabled": false,
-        "settings": {
-          "placement_main_selector": "",
-          "placement_fitment_selector": "",
-          "placement_ft_selector": "",
-          "insert_method": "prepend"
-        }
-      },
-      "2878693861365564508": {
-        "type": "shopify://apps/easysearch-ymm/blocks/easysearch-embed-garage/6d82686b-b68a-4b5e-98e3-e07b2b53d810",
-        "disabled": false,
-        "settings": {}
-      },
-      "pagefly-page-builder": {
-        "type": "shopify://apps/pagefly-page-builder/blocks/app-embed/83e179f7-59a0-4589-8c66-c0dddf959200",
-        "disabled": false,
-        "settings": {}
-      },
-      "11432920177897217407": {
-        "type": "shopify://apps/epa-easy-product-addons/blocks/speedup_link/0099190e-a0cb-49e7-8d26-026c9d26f337",
-        "disabled": false,
-        "settings": {}
-      },
-      "7297205921758642463": {
-        "type": "shopify://apps/mappy-store-locator/blocks/bss-sl-script/edfca2bd-82ad-413c-b32c-580d239b17ab",
-        "disabled": false,
-        "settings": {}
-      },
-      "855628211100114053": {
-        "type": "shopify://apps/klaviyo-email-marketing-sms/blocks/klaviyo-onsite-embed/2632fe16-c075-4321-a88b-50b567f42507",
-        "disabled": false,
-        "settings": {}
-      },
-      "10142937387702430166": {
-        "type": "shopify://apps/timesact-pre-order/blocks/app-embed/bf6c109b-79b5-457c-8752-0e5e9e9676e7",
-        "disabled": false,
-        "settings": {}
-      },
-      "18228966181090706294": {
-        "type": "shopify://apps/selleasy/blocks/app-embed/790c1a03-a71f-4bc1-9869-00dad526d3c2",
-        "disabled": false,
-        "settings": {
-          "storefrontAccessToken": ""
-        }
-      }
-    },
     "color_schemes": {
       "background-1": {
         "settings": {

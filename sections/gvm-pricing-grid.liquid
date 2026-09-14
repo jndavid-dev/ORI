@@ -1,0 +1,125 @@
+{%- comment -%}
+  GVM Pricing Grid — pure display of a collection's products (image,
+  vendor, title, SKU, RRP, real price, B2B stock badge). No sorting,
+  filtering, links, or buttons by design.
+
+  Matches the same data points as this theme's native product-card
+  snippet (vendor / title / SKU / reviews / price / B2B stock badge)
+  plus RRP, but without that snippet's links, quick-add, quick-view,
+  and swatch markup, since none of that applies to a pure display grid.
+
+  Uses the current collection object automatically, so this same
+  section works unmodified when placed on any of the other 6
+  vehicle hub templates later -- each just shows its own products.
+
+  Price block reuses snippets/price.liquid directly (not
+  hand-rolled), so it automatically stays in sync with however the
+  theme renders regular/sale pricing everywhere else -- including
+  the B2B catalog price, which product.price already reflects
+  natively, same as everywhere else in this project.
+
+  RRP comes from the custom.rrp metafield (Money type).
+{%- endcomment -%}
+
+{%- liquid
+  assign custom_class = section.settings.custom_class
+  unless custom_class == blank
+    assign custom_class = custom_class | prepend: ' '
+  endunless
+-%}
+
+<div class="gvm-pricing-grid{{ custom_class }}">
+  <div class="container">
+    {%- if collection.products.size == 0 -%}
+      <p class="gvm-pricing-grid__empty">No products found in this collection yet.</p>
+    {%- else -%}
+      <div class="product-grid f-grid f-grid-2-cols md:f-grid-3-cols lg:f-grid-4-cols f-grid--gap-medium f-grid--row-gap-medium">
+        {%- for product in collection.products -%}
+          {%- liquid
+            assign card_variant = product.selected_or_first_available_variant
+
+            assign b2b_stock_class = 'b2b-stock-badge'
+            assign b2b_stock_label = 'In Stock'
+            if card_variant.inventory_management == 'shopify'
+              if card_variant.inventory_quantity <= 0
+                assign b2b_stock_class = 'b2b-stock-badge b2b-stock-badge--out'
+                assign b2b_stock_label = 'Out of Stock'
+              elsif card_variant.inventory_quantity <= 5
+                assign b2b_stock_class = 'b2b-stock-badge b2b-stock-badge--low'
+                assign b2b_stock_label = card_variant.inventory_quantity | append: ' left in stock'
+              else
+                assign b2b_stock_label = card_variant.inventory_quantity | append: ' in stock'
+              endif
+            elsif product.available == false
+              assign b2b_stock_class = 'b2b-stock-badge b2b-stock-badge--out'
+              assign b2b_stock_label = 'Out of Stock'
+            endif
+          -%}
+          <div class="f-column gvm-pricing-card">
+            <div class="product-card__image-wrapper f-card">
+              {%- if product.featured_image -%}
+                <img
+                  src="{{ product.featured_image | image_url: width: 533 }}"
+                  alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                  loading="lazy"
+                  decoding="async"
+                  width="533"
+                  height="{{ 533 | divided_by: product.featured_image.aspect_ratio | round }}"
+                >
+              {%- endif -%}
+            </div>
+
+            <div class="product-card__info text-left">
+              {%- if settings.pcard_show_vendor -%}
+                <span class="product-card__vendor text-upper">{{ product.vendor }}</span>
+              {%- endif -%}
+
+              <h3 class="product-card__title text-product-title font-body">
+                {{- product.title -}}
+              </h3>
+
+              {%- if card_variant.sku != blank -%}
+                <div class="product-card__sku" style="margin-top:4px; font-size:12px; opacity:0.8;">
+                  SKU: {{ card_variant.sku }}
+                </div>
+              {%- endif -%}
+
+              {%- if settings.pcard_show_review_badge -%}
+                <div class="product-card__reviews">
+                  {%- render 'product-rating', product: product -%}
+                </div>
+              {%- endif -%}
+
+              {%- if product.metafields.custom.rrp.value -%}
+                <div class="gvm-pricing-card__rrp">
+                  RRP price: {{ product.metafields.custom.rrp.value | money }}
+                </div>
+              {%- endif -%}
+
+              {%- render 'price', product: product, alignment: 'left' -%}
+
+              <div class="{{ b2b_stock_class }}">{{ b2b_stock_label }}</div>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "GVM Pricing Grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom Class",
+      "info": "Used for tab grouping and width, e.g. gvm-tab-panel gvm-tab-panel--2 gvm-container-1360"
+    }
+  ],
+  "presets": [
+    { "name": "GVM Pricing Grid" }
+  ]
+}
+{% endschema %}

@@ -132,7 +132,7 @@
         "slide_TDWPqa": {
           "type": "slide",
           "settings": {
-            "background": "{{ collection.metafields.custom.banner_image.value }}",
+            "background": "",
             "mb_background": "{{ collection.image }}",
             "image_overlay_opacity": 45,
             "content_position": "center-bottom",
@@ -187,8 +187,8 @@
           "type": "banner",
           "settings": {
             "collection": "",
-            "image": "{{ block.settings.collection.metafields.custom.banner_image.value }}",
-            "image_mobile": "{{ block.settings.collection.metafields.custom.banner_image.value }}"
+            "image": "",
+            "image_mobile": ""
           }
         }
       },
@@ -222,7 +222,7 @@
         "text_Cc9PEV": {
           "type": "text",
           "settings": {
-            "text": "{{ collection.metafields.custom.collection_summary | metafield_tag }}"
+            "text": ""
           }
         }
       },
@@ -304,7 +304,7 @@
         "image_4bQHdK": {
           "type": "image",
           "settings": {
-            "image": "{{ collection.metafields.custom.collection_additional_information.value.collection_image_1.value }}",
+            "image": "",
             "link": "",
             "width": "50%",
             "alignment": "center",
@@ -316,20 +316,20 @@
           "type": "text",
           "settings": {
             "color_scheme": "",
-            "title": "{{ collection.metafields.custom.collection_additional_information.value.collection_title_1.value }}",
+            "title": "",
             "highlight_style": "none",
             "enable_highlight_text_color": false,
             "heading_size": "h2",
             "heading_color": "",
             "subheading": "",
-            "text": "{{ collection.metafields.custom.collection_additional_information.value.collection_description_1 | metafield_tag }}",
+            "text": "",
             "alignment": "center",
             "align_text": "left",
             "padding_left": 0,
             "padding_right": 0,
             "align_content_container": "none",
-            "button_label": "{{ collection.metafields.custom.collection_additional_information.value.collection_button_label_1.value }}",
-            "button_link": "{{ collection.metafields.custom.collection_additional_information.value.collection_button_url_1.value }}",
+            "button_label": "",
+            "button_link": "",
             "button_style": "btn--primary",
             "width": "50%",
             "mobile_color_scheme": "",
@@ -376,20 +376,20 @@
           "type": "text",
           "settings": {
             "color_scheme": "",
-            "title": "{{ collection.metafields.custom.collection_additional_information.value.collection_title_2.value }}",
+            "title": "",
             "highlight_style": "none",
             "enable_highlight_text_color": false,
             "heading_size": "h2",
             "heading_color": "",
             "subheading": "",
-            "text": "{{ collection.metafields.custom.collection_additional_information.value.collection_description_2 | metafield_tag }}",
+            "text": "",
             "alignment": "center",
             "align_text": "left",
             "padding_left": 0,
             "padding_right": 0,
             "align_content_container": "none",
-            "button_label": "{{ collection.metafields.custom.collection_additional_information.value.collection_button_label_2.value }}",
-            "button_link": "{{ collection.metafields.custom.collection_additional_information.value.collection_button_url_2.value }}",
+            "button_label": "",
+            "button_link": "",
             "button_style": "btn--primary",
             "width": "50%",
             "mobile_color_scheme": "",
@@ -402,7 +402,7 @@
         "image_Xp7kFF": {
           "type": "image",
           "settings": {
-            "image": "{{ collection.metafields.custom.collection_additional_information.value.collection_image_2.value }}",
+            "image": "",
             "link": "",
             "width": "50%",
             "alignment": "center",
@@ -446,8 +446,8 @@
       "settings": {
         "faq_mf_namespace": "custom",
         "faq_mf_key": "collection_faq",
-        "container_title": "{{ collection.metafields.custom.faq_title.value }}",
-        "container_subtitle": "{{ collection.metafields.custom.faq_subtitle | metafield_tag }}",
+        "container_title": "",
+        "container_subtitle": "",
         "bg_color": "#ffffff",
         "card_bg": "#ffffff",
         "border_color": "#e6e6e6",

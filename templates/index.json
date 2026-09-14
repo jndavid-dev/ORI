@@ -41,7 +41,6 @@
           "type": "video",
           "disabled": true,
           "settings": {
-            "shopify_video": "shopify://files/videos/ORI Short YouTube Insta Live Valve.mp4",
             "video_alt_text": "",
             "image_overlay_opacity": 0,
             "content_position": "center",
@@ -194,38 +193,6 @@
     },
     "1770092251a8cb32bd": {
       "type": "apps",
-      "blocks": {
-        "tinyseo_heading_one_block_dgpt3L": {
-          "type": "shopify://apps/tinyseo-seo-speed/blocks/heading-one-block/0605268f-f7c4-4e95-b560-e43df7d59ae4",
-          "settings": {
-            "heading_one": "Choose Your OFFRoad Vehicle",
-            "text_align": "center",
-            "font_size": 36,
-            "font_weight": "normal",
-            "line_height": 36,
-            "color": "#ffffff",
-            "margin_top": 20,
-            "margin_right": 5,
-            "margin_bottom": 20,
-            "margin_left": 5,
-            "custom_css": ""
-          }
-        },
-        "easysearch_ymm_easysearch_widget_3eeiFK": {
-          "type": "shopify://apps/easysearch-ymm/blocks/easysearch-widget/6d82686b-b68a-4b5e-98e3-e07b2b53d810",
-          "settings": {
-            "show_at": "custom",
-            "placement_selector": "",
-            "insert_method": "prepend",
-            "padding_top": 0,
-            "padding_bottom": 0
-          }
-        }
-      },
-      "block_order": [
-        "tinyseo_heading_one_block_dgpt3L",
-        "easysearch_ymm_easysearch_widget_3eeiFK"
-      ],
       "custom_css": [
         ".f-apps-wrapper {min-height: 440px;}",
         "@media (min-width: 768px) {.f-apps-wrapper {min-height: 218px; }}"

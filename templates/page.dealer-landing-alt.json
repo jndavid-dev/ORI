@@ -194,18 +194,6 @@
     },
     "mappy_alt": {
       "type": "apps",
-      "blocks": {
-        "mappy_store_locator_page_embed_block_alt": {
-          "type": "shopify://apps/ta-mappy-store-locator-maps/blocks/page-embed-block/edfca2bd-82ad-413c-b32c-580d239b17ab",
-          "settings": {
-            "is_show_heading_map": true,
-            "is_show_description_map": false
-          }
-        }
-      },
-      "block_order": [
-        "mappy_store_locator_page_embed_block_alt"
-      ],
       "settings": {
         "container": "container",
         "color_schema": "",
