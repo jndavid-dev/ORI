@@ -87,22 +87,6 @@
   transform: rotate(180deg);
 }
 
-/* Hover-to-open, for real pointer devices only (excludes touch, where
-   the native <details> tap-to-toggle behavior below still applies).
-   Shows the children visually on hover regardless of the <details>
-   element's actual open/closed state -- native click/keyboard
-   behavior keeps working underneath this for accessibility, this is
-   purely a visual layer on top for mouse users. */
-@media (hover: hover) {
-  .gvm-subnav__dropdown:hover .gvm-subnav__children {
-    display: block;
-  }
-
-  .gvm-subnav__dropdown:hover .gvm-subnav__chevron {
-    transform: rotate(180deg);
-  }
-}
-
 .gvm-subnav__children {
   position: absolute;
   top: 100%;

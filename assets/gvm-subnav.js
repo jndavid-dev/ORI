@@ -18,6 +18,29 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  /* --- Open on hover, real pointer devices only ---
+     A pure-CSS hover trick doesn't work here: closed <details>
+     content gets `content-visibility: hidden` applied internally by
+     the browser (part of the HTML spec's rendering for <details>,
+     not just display:none), which a CSS `display` override can't
+     undo. Actually toggling the `open` property on hover sidesteps
+     that entirely, since it uses the real native open state instead
+     of trying to fake it visually while staying closed underneath.
+
+     matchMedia gate keeps this off touch devices, where mouseenter
+     can fire on tap and cause confusing sticky-hover behavior --
+     those keep the native tap-to-toggle behavior instead. */
+  if (window.matchMedia('(hover: hover)').matches) {
+    dropdowns.forEach(function (dropdown) {
+      dropdown.addEventListener('mouseenter', function () {
+        dropdown.open = true;
+      });
+      dropdown.addEventListener('mouseleave', function () {
+        dropdown.open = false;
+      });
+    });
+  }
+
   /* --- Fixed-nav-on-scroll ---
      Same mechanism as gvm-tabs.js on the Silverado template,
      reused directly: this theme's .site-wrapper has
