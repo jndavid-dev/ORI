@@ -95,13 +95,23 @@ document.addEventListener('DOMContentLoaded', function () {
           ) || 80
         : 0;
 
-      var shouldBeFixed = window.pageYOffset + headerHeight >= naturalTop;
+      // gvm-subnav.js publishes this while its own bar is fixed, so
+      // this tab-nav stacks directly below it instead of both
+      // landing on top: 0 and overlapping. 0 if the subnav isn't
+      // fixed (or isn't present at all -- fine either way).
+      var subnavHeight =
+        parseFloat(
+          getComputedStyle(document.documentElement).getPropertyValue('--gvm-subnav-height')
+        ) || 0;
+
+      var totalOffset = headerHeight + subnavHeight;
+      var shouldBeFixed = window.pageYOffset + totalOffset >= naturalTop;
 
       if (shouldBeFixed && !tabNav.classList.contains('is-fixed')) {
         placeholder.style.height = tabNav.offsetHeight + 'px';
         placeholder.classList.add('is-active');
         tabNav.classList.add('is-fixed');
-        tabNav.style.top = headerHeight + 'px';
+        tabNav.style.top = totalOffset + 'px';
       } else if (!shouldBeFixed && tabNav.classList.contains('is-fixed')) {
         tabNav.classList.remove('is-fixed');
         tabNav.style.top = '';
@@ -109,9 +119,9 @@ document.addEventListener('DOMContentLoaded', function () {
         placeholder.style.height = '0px';
         measureNaturalTop(); // back in flow -- refresh its natural position
       } else if (shouldBeFixed) {
-        // Still fixed, but the header's pinned state or height may
-        // have changed since the last frame -- keep top in sync.
-        tabNav.style.top = headerHeight + 'px';
+        // Still fixed, but the header's pinned state, its height, or
+        // the subnav's height may have changed since the last frame.
+        tabNav.style.top = totalOffset + 'px';
       }
 
       ticking = false;
