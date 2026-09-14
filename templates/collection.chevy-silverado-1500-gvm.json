@@ -858,7 +858,9 @@
     "gvm_pricing_grid_chevy1500": {
       "type": "gvm-pricing-grid",
       "settings": {
-        "custom_class": "gvm-tab-panel gvm-tab-panel--2 gvm-container-1360"
+        "custom_class": "gvm-tab-panel gvm-tab-panel--2 gvm-container-1360",
+        "padding_top": 0,
+        "padding_bottom": 60
       }
     }
   },
