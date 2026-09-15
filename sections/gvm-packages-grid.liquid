@@ -1,0 +1,107 @@
+{%- comment -%}
+  GVM Packages Grid -- for the dedicated ori-knowledge-base page.
+  Each card is a single <a> wrapping the whole thing (image, title,
+  text) -- neither of this theme's existing card sections
+  (multicolumn: image-only link; vehicle-cards: button-only link)
+  make the full card clickable, so this is purpose-built rather
+  than reusing either with a partial fix bolted on.
+{%- endcomment -%}
+
+{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
+
+<div class="gvm-packages-grid f-section-padding" style="--section-padding-top: {{ section.settings.padding_top }}px; --section-padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="container">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="gvm-packages-grid__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    <div class="gvm-packages-grid__list">
+      {%- for block in section.blocks -%}
+        <a
+          href="{{ block.settings.link | default: '#' }}"
+          class="gvm-packages-grid__card"
+          {{ block.shopify_attributes }}
+        >
+          {%- if block.settings.image != blank -%}
+            <div class="gvm-packages-grid__image-wrap">
+              <img
+                src="{{ block.settings.image | image_url: width: 600 }}"
+                alt="{{ block.settings.title | escape }}"
+                loading="lazy"
+                width="600"
+                height="600"
+              >
+            </div>
+          {%- endif -%}
+
+          <div class="gvm-packages-grid__body">
+            {%- if block.settings.title != blank -%}
+              <h3 class="gvm-packages-grid__title">{{ block.settings.title }}</h3>
+            {%- endif -%}
+            {%- if block.settings.text != blank -%}
+              <p class="gvm-packages-grid__text">{{ block.settings.text }}</p>
+            {%- endif -%}
+          </div>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "GVM Packages Grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "GVM Packages"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "default": 40,
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "default": 40,
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "package_card",
+      "name": "Package card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "text", "label": "Text" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "GVM Packages Grid",
+      "blocks": [
+        { "type": "package_card", "settings": { "title": "Ford F150 GVM Packages", "text": "Click here to learn more about ORI GVM GCM packages for the Ford F150", "link": "#" } },
+        { "type": "package_card", "settings": { "title": "Toyota Tundra GVM Packages", "text": "Click here to learn more about ORI GVM GCM packages for the Toyota Tundra", "link": "#" } },
+        { "type": "package_card", "settings": { "title": "Chevy Silverado 1500 GVM Packages", "text": "Click here to learn more about ORI GVM GCM packages for the Chevy Silverado 1500", "link": "https://ori-staging.myshopify.com/collections/chevrolet-silverado-1500-ltz-zr2-trailboss-gvm-upgrade" } },
+        { "type": "package_card", "settings": { "title": "Chevy Silverado 2500HD GVM Packages", "text": "Click here to learn more about ORI GVM GCM packages for the Chevy Silverado 2500HD", "link": "#" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
