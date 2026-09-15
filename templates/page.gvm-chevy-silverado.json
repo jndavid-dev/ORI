@@ -1,0 +1,57 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "gvm_packages_grid_main": {
+      "type": "gvm-packages-grid",
+      "blocks": {
+        "card_f150": {
+          "type": "package_card",
+          "settings": {
+            "title": "Ford F150 GVM Packages",
+            "text": "Click here to learn more about ORI GVM GCM packages for the Ford F150",
+            "link": "#"
+          }
+        },
+        "card_tundra": {
+          "type": "package_card",
+          "settings": {
+            "title": "Toyota Tundra GVM Packages",
+            "text": "Click here to learn more about ORI GVM GCM packages for the Toyota Tundra",
+            "link": "#"
+          }
+        },
+        "card_silverado1500": {
+          "type": "package_card",
+          "settings": {
+            "title": "Chevy Silverado 1500 GVM Packages",
+            "text": "Click here to learn more about ORI GVM GCM packages for the Chevy Silverado 1500",
+            "link": "https://ori-staging.myshopify.com/collections/chevrolet-silverado-1500-ltz-zr2-trailboss-gvm-upgrade"
+          }
+        },
+        "card_silverado2500": {
+          "type": "package_card",
+          "settings": {
+            "title": "Chevy Silverado 2500HD GVM Packages",
+            "text": "Click here to learn more about ORI GVM GCM packages for the Chevy Silverado 2500HD",
+            "link": "#"
+          }
+        }
+      },
+      "block_order": ["card_f150", "card_tundra", "card_silverado1500", "card_silverado2500"],
+      "settings": {
+        "heading": "GVM Packages",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    }
+  },
+  "order": ["gvm_packages_grid_main"]
+}
