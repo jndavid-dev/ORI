@@ -46,15 +46,21 @@
         "subheading": "<p>Federally approved GVM upgrade packages for America's most popular trucks and 4WDs. Every stage is ADR-tested, SSM-certified, and installed by our national network of approved specialists. Apply below for wholesale trade access, or log in if you're already an approved partner.</p>",
         "btn_1_text": "",
         "btn_1_url": "",
+        "btn_1_opens_quote": false,
+        "quote_popup_id": "gvm-quote",
         "btn_1_style": "btn--primary",
         "btn_2_text": "",
         "btn_2_url": "",
         "btn_2_style": "btn--outline",
+        "btn_3_text": "",
+        "btn_3_url": "",
+        "btn_3_style": "quiet",
+        "btn_3_show_icon": true,
         "overlay_opacity": 45,
         "container": "container",
         "color_schema": "",
         "padding_top": 80,
-        "padding_bottom": 80,
+        "padding_bottom": 0,
         "custom_id": "",
         "custom_class": ""
       }
@@ -65,14 +71,36 @@
         "c3ff3c52-83ed-43fa-9fe1-a69340aef55d": {
           "type": "shopify://apps/forms/blocks/inline/8744a304-fcb1-4347-b211-bb6b4759a76a",
           "settings": {
-            "form_id": "1155026"
+            "form_id": "1155026",
+            "text_color": "#202020",
+            "button_background_color": "#202020",
+            "button_label_color": "#ffffff",
+            "links_color": "#1878b9",
+            "errors_color": "#e02229",
+            "text_alignment": "center",
+            "form_alignment": "center",
+            "padding_top": 0,
+            "padding_bottom": 24,
+            "padding_right": 0,
+            "padding_left": 0
           }
         }
       },
       "block_order": [
         "c3ff3c52-83ed-43fa-9fe1-a69340aef55d"
       ],
-      "settings": {}
+      "settings": {
+        "container": "container",
+        "color_schema": "",
+        "heading": "",
+        "highlight_style": "none",
+        "enable_highlight_text_color": false,
+        "heading_size": "h2",
+        "heading_color": "",
+        "description": "",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
     }
   },
   "order": [
