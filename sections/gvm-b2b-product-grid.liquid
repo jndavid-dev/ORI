@@ -77,6 +77,11 @@
   style="--section-padding-top: {{ section.settings.padding_top }}px; --section-padding-bottom: {{ section.settings.padding_bottom }}px;"
 >
   <div class="main-collection__container">
+    {%- if section.settings.heading != blank -%}
+      <div class="{{ container }}">
+        <h2 class="gvm-b2b-grid__heading">{{ section.settings.heading }}</h2>
+      </div>
+    {%- endif -%}
     {%- assign _no_paginate = true -%}
       <div>
       <div class="{{ container }}">
@@ -176,6 +181,12 @@
       "id": "shop_collection",
       "label": "Collection",
       "info": "Adapted from the native product grid for use on a Page template -- pagination is disabled (see top of file) since only the native collection-page paginate tag is confirmed to work correctly."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "GVM Wholesale Catalog"
     },
     { "type": "header", "content": "t:sections.common.general.name" },
     { "type": "paragraph", "content": "[Read How-to](https://foxecom.link/PKu2OBi)" },

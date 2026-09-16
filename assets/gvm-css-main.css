@@ -403,3 +403,9 @@
   color: #555;
   margin-top: 4px;
 }
+
+.gvm-b2b-grid__heading {
+  font-size: 34px;
+  margin: 0 0 24px;
+  text-align: center;
+}

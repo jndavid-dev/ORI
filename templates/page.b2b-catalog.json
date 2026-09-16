@@ -12,14 +12,14 @@
     "gvm_b2b_shop_grid_main": {
       "type": "gvm-b2b-product-grid",
       "settings": {
-        "shop_collection": "b2b-gvm-collection",
+        "shop_collection": "",
         "container": "container",
         "products_per_page": 30,
         "columns": 4,
         "column_gap": "medium",
         "row_gap": "medium",
         "enable_product_count": true,
-        "enable_filtering": true,
+        "enable_filtering": false,
         "enable_sorting": true,
         "sidebar_position": "left",
         "group_collapsible": true,
@@ -29,10 +29,6 @@
         "show_results_count": true,
         "filter_color_type": "list",
         "enable_tag_filter": false,
-        "show_tag_filter_with_facets": false,
-        "tag_filter_heading": "By Vehicle",
-        "tag_filter_exclude_prefixes": "spo-,filter-",
-        "tag_filter_include_prefixes": "",
         "paginate_type": "number",
         "padding_top": 0,
         "padding_bottom": 60
