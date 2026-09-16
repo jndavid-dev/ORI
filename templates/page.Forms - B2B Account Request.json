@@ -9,6 +9,56 @@
  */
 {
   "sections": {
+    "ori_gvm_hero_wholesaler": {
+      "type": "ori-gvm-hero",
+      "blocks": {
+        "trust_1": {
+          "type": "trust_item",
+          "settings": {
+            "text": "Federal / SSM Certification",
+            "icon": "✓"
+          }
+        },
+        "trust_2": {
+          "type": "trust_item",
+          "settings": {
+            "text": "ADR-Tested & Approved",
+            "icon": "✓"
+          }
+        },
+        "trust_3": {
+          "type": "trust_item",
+          "settings": {
+            "text": "Australia-Wide Installer Network",
+            "icon": "✓"
+          }
+        }
+      },
+      "block_order": [
+        "trust_1",
+        "trust_2",
+        "trust_3"
+      ],
+      "settings": {
+        "badge_text": "Federally Approved | ADR-Tested | SSM Certified",
+        "heading": "ORI GVM Wholesale Partner Portal",
+        "heading_size": "h1",
+        "subheading": "<p>Federally approved GVM upgrade packages for America's most popular trucks and 4WDs. Every stage is ADR-tested, SSM-certified, and installed by our national network of approved specialists. Apply below for wholesale trade access, or log in if you're already an approved partner.</p>",
+        "btn_1_text": "",
+        "btn_1_url": "",
+        "btn_1_style": "btn--primary",
+        "btn_2_text": "",
+        "btn_2_url": "",
+        "btn_2_style": "btn--outline",
+        "overlay_opacity": 45,
+        "container": "container",
+        "color_schema": "",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "custom_id": "",
+        "custom_class": ""
+      }
+    },
     "forms": {
       "type": "apps",
       "blocks": {
@@ -23,14 +73,10 @@
         "c3ff3c52-83ed-43fa-9fe1-a69340aef55d"
       ],
       "settings": {}
-    },
-    "fe57dbad-508f-4eb0-b6e2-b3982de13120": {
-      "type": "main-page",
-      "settings": {}
     }
   },
   "order": [
-    "fe57dbad-508f-4eb0-b6e2-b3982de13120",
+    "ori_gvm_hero_wholesaler",
     "forms"
   ]
 }
