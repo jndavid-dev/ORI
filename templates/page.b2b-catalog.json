@@ -10,12 +10,28 @@
 {
   "sections": {
     "gvm_b2b_shop_grid_main": {
-      "type": "gvm-b2b-shop-grid",
+      "type": "gvm-b2b-product-grid",
       "settings": {
-        "collection": "b2b-gvm-collection",
-        "heading": "Shop GVM Wholesale",
-        "padding_top": 60,
-        "padding_bottom": 40
+        "shop_collection": "",
+        "container": "container",
+        "paginate_type": "number",
+        "products_per_page": 30,
+        "columns": 4,
+        "column_gap": "medium",
+        "row_gap": "medium",
+        "enable_product_count": true,
+        "enable_filtering": true,
+        "enable_sorting": true,
+        "sidebar_position": "left",
+        "group_collapsible": true,
+        "default_state_collapsible": "expanded",
+        "open_first_group": true,
+        "filter_group_heading_size": "h6",
+        "show_results_count": true,
+        "filter_color_type": "list",
+        "enable_tag_filter": false,
+        "padding_top": 0,
+        "padding_bottom": 60
       }
     },
     "gvm_packages_grid_main": {
