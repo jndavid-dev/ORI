@@ -1,0 +1,107 @@
+{%- comment -%}
+  GVM B2B Shop Grid -- for the /pages/b2b-catalog page (the fixed
+  destination of the native B2B "Shop now" welcome-card button,
+  which isn't customizable, so this page is built to match it
+  instead of fighting to redirect it).
+
+  Unlike gvm-pricing-grid.liquid (deliberately link-free, pure
+  display for Tab 2), this grid is meant to actually be shopped
+  from -- every card links to its real product page.
+
+  References the collection via a picker setting rather than a
+  hardcoded handle, since "B2B GVM Collection" will keep growing
+  as more products are added -- this section never needs editing
+  again as that happens.
+{%- endcomment -%}
+
+{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
+
+<div class="gvm-b2b-shop-grid f-section-padding" style="--section-padding-top: {{ section.settings.padding_top }}px; --section-padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="container">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="gvm-b2b-shop-grid__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    {%- assign shop_collection = section.settings.collection -%}
+    {%- if shop_collection == blank or shop_collection.products.size == 0 -%}
+      <p class="gvm-b2b-shop-grid__empty">No products available yet.</p>
+    {%- else -%}
+      <div class="product-grid f-grid f-grid-2-cols md:f-grid-3-cols lg:f-grid-4-cols f-grid--gap-medium f-grid--row-gap-medium">
+        {%- for product in shop_collection.products -%}
+          <a href="{{ product.url }}" class="gvm-b2b-shop-card">
+            <div class="product-card__image-wrapper f-card">
+              {%- if product.featured_image -%}
+                <img
+                  src="{{ product.featured_image | image_url: width: 533 }}"
+                  alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                  loading="lazy"
+                  decoding="async"
+                  width="533"
+                  height="{{ 533 | divided_by: product.featured_image.aspect_ratio | round }}"
+                >
+              {%- endif -%}
+            </div>
+
+            <div class="product-card__info text-left">
+              <span class="product-card__vendor text-upper">{{ product.vendor }}</span>
+              <h3 class="product-card__title text-product-title font-body">
+                {{- product.title -}}
+              </h3>
+
+              {%- if product.metafields.custom.rrp.value -%}
+                <div class="gvm-pricing-card__rrp">
+                  RRP price: {{ product.metafields.custom.rrp.value | money }}
+                </div>
+              {%- endif -%}
+
+              {%- render 'price', product: product, alignment: 'left' -%}
+            </div>
+          </a>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "GVM B2B Shop Grid",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "Grows automatically as you add more products to this collection -- no need to edit this section again"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop GVM Wholesale"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "default": 40,
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "default": 40,
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    { "name": "GVM B2B Shop Grid" }
+  ]
+}
+{% endschema %}

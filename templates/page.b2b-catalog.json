@@ -9,31 +9,29 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "b2b-catalog-page",
+    "gvm_b2b_shop_grid_main": {
+      "type": "gvm-b2b-shop-grid",
       "settings": {
-        "container": "container-fluid",
-        "catalog_collection": "",
-        "heading": "Product Catalog",
-        "subheading": "Stock availability and your wholesale pricing are shown below. Open any product to order online.",
-        "per_page": 50,
-        "grid_columns": "5",
-        "bulk_discount_enabled": false,
-        "bulk_discount_qty": 5,
-        "bulk_discount_pct": 10,
-        "gate_heading": "Wholesale Portal",
-        "gate_body": "Log in with your wholesale account to access pricing, stock availability, and the full product catalog.",
-        "gate_btn_label": "Log In to View Catalog",
-        "show_cta": true,
-        "cta_text": "Need a hand with an order, or after something you cannot see here?",
-        "cta_label": "Contact Us",
-        "cta_link": "/pages/contact-us",
+        "collection": "",
+        "heading": "Shop GVM Wholesale",
+        "padding_top": 60,
+        "padding_bottom": 40
+      }
+    },
+    "gvm_packages_grid_main": {
+      "type": "gvm-packages-grid",
+      "settings": {
+        "image_f150": "shopify://shop_images/image_-_2026-02-17T205945.442.png",
+        "image_tundra": "shopify://shop_images/image_-_2026-02-17T210005.244.png",
+        "image_silverado1500": "shopify://shop_images/image_-_2026-02-17T205900.998.png",
+        "image_silverado2500": "shopify://shop_images/image_-_2026-02-17T205935.011.png",
         "padding_top": 40,
-        "padding_bottom": 60
+        "padding_bottom": 40
       }
     }
   },
   "order": [
-    "main"
+    "gvm_b2b_shop_grid_main",
+    "gvm_packages_grid_main"
   ]
 }

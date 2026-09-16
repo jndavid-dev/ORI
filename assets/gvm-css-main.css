@@ -361,3 +361,31 @@
     grid-template-columns: 1fr;
   }
 }
+
+
+/* ==========================================================
+   5. GVM B2B Shop Grid
+   Shoppable product grid on /pages/b2b-catalog, the fixed
+   destination of the native B2B "Shop now" welcome-card button.
+   Whole card is a real link (unlike the pricing grid in section
+   2's tab system, which is deliberately link-free).
+   ========================================================== */
+
+.gvm-b2b-shop-grid__heading {
+  text-align: center;
+  font-size: 34px;
+  margin: 0 0 32px;
+}
+
+.gvm-b2b-shop-card {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+  border-radius: 10px;
+}
+
+.gvm-b2b-shop-card:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
