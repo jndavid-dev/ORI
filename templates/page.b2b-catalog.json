@@ -12,7 +12,7 @@
     "gvm_b2b_shop_grid_main": {
       "type": "gvm-b2b-shop-grid",
       "settings": {
-        "collection": "",
+        "collection": "b2b-gvm-collection",
         "heading": "Shop GVM Wholesale",
         "padding_top": 60,
         "padding_bottom": 40
