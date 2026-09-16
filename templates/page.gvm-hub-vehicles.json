@@ -11,52 +11,11 @@
   "sections": {
     "gvm_packages_grid_main": {
       "type": "gvm-packages-grid",
-      "blocks": {
-        "card_f150": {
-          "type": "package_card",
-          "settings": {
-            "title": "Ford F150 GVM Packages",
-            "text": "Click here to learn more about ORI GVM GCM packages for the Ford F150",
-            "link": "#",
-            "image": "shopify://shop_images/image_-_2026-02-17T205945.442.png"
-          }
-        },
-        "card_tundra": {
-          "type": "package_card",
-          "settings": {
-            "title": "Toyota Tundra GVM Packages",
-            "text": "Click here to learn more about ORI GVM GCM packages for the Toyota Tundra",
-            "link": "#",
-            "image": "shopify://shop_images/image_-_2026-02-17T210005.244.png"
-          }
-        },
-        "card_silverado1500": {
-          "type": "package_card",
-          "settings": {
-            "title": "Chevy Silverado 1500 GVM Packages",
-            "text": "Click here to learn more about ORI GVM GCM packages for the Chevy Silverado 1500",
-            "link": "https://ori-staging.myshopify.com/collections/chevrolet-silverado-1500-ltz-zr2-trailboss-gvm-upgrade",
-            "image": "shopify://shop_images/image_-_2026-02-17T205900.998.png"
-          }
-        },
-        "card_silverado2500": {
-          "type": "package_card",
-          "settings": {
-            "title": "Chevy Silverado 2500HD GVM Packages",
-            "text": "Click here to learn more about ORI GVM GCM packages for the Chevy Silverado 2500HD",
-            "link": "#",
-            "image": "shopify://shop_images/image_-_2026-02-17T205935.011.png"
-          }
-        }
-      },
-      "block_order": [
-        "card_f150",
-        "card_tundra",
-        "card_silverado1500",
-        "card_silverado2500"
-      ],
       "settings": {
-        "heading": "GVM Packages",
+        "image_f150": "shopify://shop_images/image_-_2026-02-17T205945.442.png",
+        "image_tundra": "shopify://shop_images/image_-_2026-02-17T210005.244.png",
+        "image_silverado1500": "shopify://shop_images/image_-_2026-02-17T205900.998.png",
+        "image_silverado2500": "shopify://shop_images/image_-_2026-02-17T205935.011.png",
         "padding_top": 40,
         "padding_bottom": 40
       }
