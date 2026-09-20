@@ -1,0 +1,121 @@
+{%- comment -%}
+  GVM Kit Request Form -- Tab 4 on the vehicle hub collection template.
+  Uses the native `collection` object (this section lives on a
+  collection template, same as the Tab 2 pricing grid), so prices
+  shown here are server-rendered at page load and already reflect
+  B2B catalog pricing correctly -- same proven mechanism as Tab 2,
+  not the async/bulk-listing path that showed inconsistent pricing
+  on the b2b-catalog page investigation.
+
+  Submission flow: adds the selected variant to cart with VIN /
+  Vehicle Build Date / Required Delivery Date as native Shopify
+  line item properties (no custom backend needed -- these travel
+  automatically from cart through checkout onto the resulting
+  order), then sends the customer straight to checkout. The
+  company's "Submit all orders as drafts for review" setting
+  handles the rest natively -- Shopify converts it to a draft
+  automatically, no Admin API call required.
+
+  Kit/variant data is embedded as JSON at render time so the JS
+  never needs a follow-up fetch for pricing -- avoids any risk of
+  hitting the same caching inconsistency seen on the collection
+  browsing investigation.
+{%- endcomment -%}
+
+{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
+
+<div class="gvm-kit-request">
+  {%- if collection.products.size == 0 -%}
+    <p class="gvm-kit-request__empty">No kits available to request yet.</p>
+  {%- else -%}
+    <form id="gvm-kit-request-form" class="gvm-kit-request__form">
+      <div class="gvm-kit-request__field">
+        <label for="gvm-kit-select">Select GVM Kit</label>
+        <select id="gvm-kit-select" name="kit" required>
+          <option value="" disabled selected>Choose a kit&hellip;</option>
+          {%- for product in collection.products -%}
+            <option value="{{ product.id }}">{{ product.title }}</option>
+          {%- endfor -%}
+        </select>
+      </div>
+
+      <div class="gvm-kit-request__field">
+        <label for="gvm-variant-select">Select Variant</label>
+        <select id="gvm-variant-select" name="variant" required disabled>
+          <option value="" disabled selected>Choose a kit above first&hellip;</option>
+        </select>
+      </div>
+
+      <div class="gvm-kit-request__price" id="gvm-kit-price" hidden>
+        <span class="gvm-kit-request__price-label">Your price:</span>
+        <span class="gvm-kit-request__price-value" id="gvm-kit-price-value"></span>
+      </div>
+
+      <div class="gvm-kit-request__field">
+        <label for="gvm-vin">Vehicle Identification Number (VIN)</label>
+        <input type="text" id="gvm-vin" name="properties[VIN]" required>
+      </div>
+
+      <div class="gvm-kit-request__field">
+        <label for="gvm-build-date">Vehicle Build Date</label>
+        <input type="date" id="gvm-build-date" name="properties[Vehicle Build Date]" required>
+      </div>
+
+      <div class="gvm-kit-request__field">
+        <label for="gvm-delivery-date">Required Delivery/Kit Date</label>
+        <input type="date" id="gvm-delivery-date" name="properties[Required Delivery Date]" required>
+      </div>
+
+      <input type="hidden" id="gvm-variant-id" name="id" value="">
+
+      <button type="submit" class="btn btn--primary" id="gvm-kit-submit" disabled>
+        Request Kit
+      </button>
+
+      <p class="gvm-kit-request__note">
+        Submitting this request does not charge your account immediately.
+        Your order will be reviewed by our team, who will confirm final
+        shipping and send a secure payment link once approved.
+      </p>
+    </form>
+  {%- endif -%}
+</div>
+
+<script type="application/json" id="gvm-kit-data">
+  {
+    {%- for product in collection.products -%}
+      "{{ product.id }}": {
+        "title": {{ product.title | json }},
+        "variants": [
+          {%- for variant in product.variants -%}
+            {
+              "id": {{ variant.id }},
+              "title": {{ variant.title | json }},
+              "price": {{ variant.price | money | json }},
+              "price_raw": {{ variant.price }},
+              "available": {{ variant.available }}
+            }{% unless forloop.last %},{% endunless %}
+          {%- endfor -%}
+        ]
+      }{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  }
+</script>
+
+<script src="{{ 'gvm-kit-request.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "GVM Kit Request Form",
+  "settings": [
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom Class"
+    }
+  ],
+  "presets": [
+    { "name": "GVM Kit Request Form" }
+  ]
+}
+{% endschema %}

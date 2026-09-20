@@ -409,3 +409,61 @@
   margin: 0 0 24px;
   text-align: center;
 }
+
+
+/* ==========================================================
+   7. GVM Kit Request Form
+   Tab 4 -- kit/variant selection, VIN/date fields, submit.
+   ========================================================== */
+
+.gvm-kit-request {
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.gvm-kit-request__field {
+  margin-bottom: 20px;
+}
+
+.gvm-kit-request__field label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.gvm-kit-request__field select,
+.gvm-kit-request__field input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.gvm-kit-request__price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  background: #f2f2f2;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.gvm-kit-request__price-value {
+  font-size: 18px;
+  color: #008faf;
+}
+
+.gvm-kit-request__note {
+  font-size: 13px;
+  color: #666;
+  margin-top: 16px;
+}
+
+.gvm-kit-request__empty {
+  text-align: center;
+  color: #666;
+}
