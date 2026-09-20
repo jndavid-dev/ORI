@@ -417,15 +417,22 @@
    ========================================================== */
 
 .gvm-kit-request {
-  max-width: 560px;
+  max-width: 960px;
   margin: 0 auto;
+}
+
+.gvm-kit-request__layout {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 40px;
+  align-items: start;
 }
 
 .gvm-kit-request__field {
   margin-bottom: 20px;
 }
 
-.gvm-kit-request__field label {
+.gvm-kit-request__field > label {
   display: block;
   font-weight: 600;
   margin-bottom: 6px;
@@ -466,4 +473,59 @@
 .gvm-kit-request__empty {
   text-align: center;
   color: #666;
+}
+
+/* Live preview card -- a mini product-page-style summary that
+   populates once a kit is selected, sitting beside the form
+   rather than thumbnails inside the dropdown itself. */
+.gvm-kit-preview {
+  border: 1px solid #e2e2e2;
+  border-radius: 10px;
+  padding: 20px;
+  position: sticky;
+  top: 20px;
+}
+
+.gvm-kit-preview__placeholder {
+  color: #888;
+  font-size: 14px;
+  text-align: center;
+  padding: 40px 10px;
+}
+
+.gvm-kit-preview__image-wrap {
+  aspect-ratio: 1 / 1;
+  background: #f2f2f2;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+
+.gvm-kit-preview__image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.gvm-kit-preview__title {
+  font-size: 18px;
+  margin: 0 0 8px;
+}
+
+.gvm-kit-preview__description {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.5;
+  margin: 0;
+}
+
+@media (max-width: 749px) {
+  .gvm-kit-request__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .gvm-kit-preview {
+    position: static;
+  }
 }

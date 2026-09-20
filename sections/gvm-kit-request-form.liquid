@@ -16,68 +16,102 @@
   handles the rest natively -- Shopify converts it to a draft
   automatically, no Admin API call required.
 
-  Kit/variant data is embedded as JSON at render time so the JS
-  never needs a follow-up fetch for pricing -- avoids any risk of
-  hitting the same caching inconsistency seen on the collection
-  browsing investigation.
+  Layout: plain select dropdowns on the left; selecting a kit
+  populates a live preview card on the right (image, title, short
+  description) -- a mini product-page-style summary, not thumbnails
+  inside the dropdown itself.
+
+  Kit/variant data (including image + description) is embedded as
+  JSON at render time so the JS never needs a follow-up fetch --
+  avoids any risk of hitting the same caching inconsistency seen on
+  the collection browsing investigation.
 {%- endcomment -%}
+
+{%- liquid
+  assign custom_class = section.settings.custom_class
+  unless custom_class == blank
+    assign custom_class = custom_class | prepend: ' '
+  endunless
+-%}
 
 {{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
 
-<div class="gvm-kit-request">
+<div
+  class="gvm-kit-request f-section-padding{{ custom_class }}"
+  style="--section-padding-top: {{ section.settings.padding_top }}px; --section-padding-bottom: {{ section.settings.padding_bottom }}px;"
+>
   {%- if collection.products.size == 0 -%}
     <p class="gvm-kit-request__empty">No kits available to request yet.</p>
   {%- else -%}
-    <form id="gvm-kit-request-form" class="gvm-kit-request__form">
-      <div class="gvm-kit-request__field">
-        <label for="gvm-kit-select">Select GVM Kit</label>
-        <select id="gvm-kit-select" name="kit" required>
-          <option value="" disabled selected>Choose a kit&hellip;</option>
-          {%- for product in collection.products -%}
-            <option value="{{ product.id }}">{{ product.title }}</option>
-          {%- endfor -%}
-        </select>
+    <div class="gvm-kit-request__layout">
+      <div class="gvm-kit-request__form-col">
+        <form id="gvm-kit-request-form" class="gvm-kit-request__form">
+          <div class="gvm-kit-request__field">
+            <label for="gvm-kit-select">Select GVM Kit</label>
+            <select id="gvm-kit-select" name="kit" required>
+              <option value="" disabled selected>Choose a kit&hellip;</option>
+              {%- for product in collection.products -%}
+                <option value="{{ product.id }}">{{ product.title }}</option>
+              {%- endfor -%}
+            </select>
+          </div>
+
+          <div class="gvm-kit-request__field">
+            <label for="gvm-variant-select">Select Variant</label>
+            <select id="gvm-variant-select" name="variant" required disabled>
+              <option value="" disabled selected>Choose a kit above first&hellip;</option>
+            </select>
+          </div>
+
+          <div class="gvm-kit-request__price" id="gvm-kit-price" hidden>
+            <span class="gvm-kit-request__price-label">Your price:</span>
+            <span class="gvm-kit-request__price-value" id="gvm-kit-price-value"></span>
+          </div>
+
+          <div class="gvm-kit-request__field">
+            <label for="gvm-vin">Vehicle Identification Number (VIN)</label>
+            <input type="text" id="gvm-vin" name="properties[VIN]" required>
+          </div>
+
+          <div class="gvm-kit-request__field">
+            <label for="gvm-build-date">Vehicle Build Date</label>
+            <input type="date" id="gvm-build-date" name="properties[Vehicle Build Date]" required>
+          </div>
+
+          <div class="gvm-kit-request__field">
+            <label for="gvm-delivery-date">Required Delivery/Kit Date</label>
+            <input type="date" id="gvm-delivery-date" name="properties[Required Delivery Date]" required>
+          </div>
+
+          <input type="hidden" id="gvm-variant-id" name="id" value="">
+
+          <button type="submit" class="btn btn--primary" id="gvm-kit-submit" disabled>
+            Request Kit
+          </button>
+
+          <p class="gvm-kit-request__note">
+            Submitting this request does not charge your account immediately.
+            Your order will be reviewed by our team, who will confirm final
+            shipping and send a secure payment link once approved.
+          </p>
+        </form>
       </div>
 
-      <div class="gvm-kit-request__field">
-        <label for="gvm-variant-select">Select Variant</label>
-        <select id="gvm-variant-select" name="variant" required disabled>
-          <option value="" disabled selected>Choose a kit above first&hellip;</option>
-        </select>
+      <div class="gvm-kit-request__preview-col">
+        <div class="gvm-kit-preview" id="gvm-kit-preview">
+          <div class="gvm-kit-preview__placeholder" id="gvm-kit-preview-placeholder">
+            Select a kit to see details here.
+          </div>
+          <div class="gvm-kit-preview__content" id="gvm-kit-preview-content" hidden>
+            <div class="gvm-kit-preview__image-wrap">
+              <img id="gvm-kit-preview-image" src="" alt="">
+            </div>
+            <h3 class="gvm-kit-preview__title" id="gvm-kit-preview-title"></h3>
+            <p class="gvm-kit-preview__description" id="gvm-kit-preview-description"></p>
+          </div>
+        </div>
       </div>
-
-      <div class="gvm-kit-request__price" id="gvm-kit-price" hidden>
-        <span class="gvm-kit-request__price-label">Your price:</span>
-        <span class="gvm-kit-request__price-value" id="gvm-kit-price-value"></span>
-      </div>
-
-      <div class="gvm-kit-request__field">
-        <label for="gvm-vin">Vehicle Identification Number (VIN)</label>
-        <input type="text" id="gvm-vin" name="properties[VIN]" required>
-      </div>
-
-      <div class="gvm-kit-request__field">
-        <label for="gvm-build-date">Vehicle Build Date</label>
-        <input type="date" id="gvm-build-date" name="properties[Vehicle Build Date]" required>
-      </div>
-
-      <div class="gvm-kit-request__field">
-        <label for="gvm-delivery-date">Required Delivery/Kit Date</label>
-        <input type="date" id="gvm-delivery-date" name="properties[Required Delivery Date]" required>
-      </div>
-
-      <input type="hidden" id="gvm-variant-id" name="id" value="">
-
-      <button type="submit" class="btn btn--primary" id="gvm-kit-submit" disabled>
-        Request Kit
-      </button>
-
-      <p class="gvm-kit-request__note">
-        Submitting this request does not charge your account immediately.
-        Your order will be reviewed by our team, who will confirm final
-        shipping and send a secure payment link once approved.
-      </p>
-    </form>
+    </div>
   {%- endif -%}
 </div>
 
@@ -86,6 +120,8 @@
     {%- for product in collection.products -%}
       "{{ product.id }}": {
         "title": {{ product.title | json }},
+        "description": {{ product.description | strip_html | truncatewords: 30 | json }},
+        "image": {{ product.featured_image | image_url: width: 500 | json }},
         "variants": [
           {%- for variant in product.variants -%}
             {
@@ -108,6 +144,26 @@
 {
   "name": "GVM Kit Request Form",
   "settings": [
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "default": 40,
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "default": 40,
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px"
+    },
     {
       "type": "text",
       "id": "custom_class",
