@@ -30,10 +30,13 @@
   products that have not had RRP filled in yet still show something.
 
   Accepts:
-  - product:    {Object} required
-  - target:     {Object} product or variant the displayed price came from (optional)
-  - style:      {String} 'inline' (default) or 'box'
-  - price_html: {String} captured theme price markup, required for style: 'box'
+  - product:     {Object} required
+  - target:      {Object} product or variant the displayed price came from (optional)
+  - style:       {String} 'inline' (default) or 'box'
+  - price_html:  {String} captured theme price markup, required for style: 'box'
+  - hide_saving: {Boolean} drop the "You save" line. Used by sections that swap
+                 the price client-side (ori-gvm-product), where a server-rendered
+                 saving would go stale as soon as the shopper changes variant.
 {%- endcomment -%}
 
 {%- liquid
@@ -91,7 +94,7 @@
         <div class="gvm-b2b-pricebox__rrp">
           <span class="gvm-b2b-pricebox__rrp-label">RRP</span>
           <s class="gvm-b2b-pricebox__rrp-value">{{ money_rrp }}</s>
-          {%- if saving_percent > 0 -%}
+          {%- if saving_percent > 0 and hide_saving != true -%}
             <span class="gvm-b2b-pricebox__saving">
               You save {{ money_saving }} ({{ saving_percent }}%)
             </span>

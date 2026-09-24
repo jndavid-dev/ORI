@@ -247,12 +247,34 @@
           {%- endif -%}
 
           {%- if section.settings.show_price -%}
-            <div class="ori-gvm-product__price" data-gvm-price-wrap{% if price_display == blank %} hidden{% endif %}>
-              <span class="ori-gvm-product__price-amount" data-gvm-price>{{ price_display }}</span>
-              {%- if section.settings.price_note != blank -%}
-                <span class="ori-gvm-product__price-note">{{ section.settings.price_note }}</span>
-              {%- endif -%}
-            </div>
+            {%- comment -%}
+              This section renders its own price instead of the theme's price
+              snippet, so the wholesale price box is applied here directly.
+              The markup below is captured and handed to gvm-b2b-price, which
+              returns it untouched for retail shoppers and wrapped in the
+              wholesale box (with RRP) for company contacts. data-gvm-price
+              stays intact either way, so the variant switching JS further down
+              keeps working.
+
+              hide_saving: this section swaps the price with JS rather than
+              re-rendering server-side, so a "You save" figure calculated here
+              would be wrong the moment someone picks a different Step.
+            {%- endcomment -%}
+            {%- capture ori_gvm_price_html -%}
+              <div class="ori-gvm-product__price" data-gvm-price-wrap{% if price_display == blank %} hidden{% endif %}>
+                <span class="ori-gvm-product__price-amount" data-gvm-price>{{ price_display }}</span>
+                {%- if section.settings.price_note != blank -%}
+                  <span class="ori-gvm-product__price-note">{{ section.settings.price_note }}</span>
+                {%- endif -%}
+              </div>
+            {%- endcapture -%}
+            {%- render 'gvm-b2b-price',
+              product: product,
+              target: current_variant,
+              price_html: ori_gvm_price_html,
+              style: 'box',
+              hide_saving: true
+            -%}
           {%- endif -%}
 
           <div class="ori-gvm-product__ctas">

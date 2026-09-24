@@ -536,9 +536,13 @@
    customers only -- retail markup is untouched.
    ========================================================== */
 
-/* --- Compact RRP line under the price on product cards --- */
+/* --- Compact RRP line under the price on product cards ---
+   .f-price is an inline-flex row with wrapping, so the RRP has to claim a
+   full row of its own or it sits beside the price. */
 .gvm-rrp {
-  margin-top: 4px;
+  flex: 0 0 100%;
+  width: 100%;
+  margin-top: 2px;
   font-size: 13px;
   line-height: 1.3;
   color: #6b6b6b;
