@@ -1,0 +1,110 @@
+{%- comment -%}
+  B2B price display -- single source of truth for how wholesale pricing is
+  presented anywhere on the site.
+
+  Two jobs, one file:
+
+  1. style: 'inline' (default) -- a compact "RRP $x" line rendered under the
+     price on every product card/grid site-wide. Hooked in from
+     snippets/price.liquid, so it reaches collections, search, quickview,
+     related products, sliders, etc. without touching each of those.
+
+  2. style: 'box' -- the highlighted wholesale price box on the product page.
+     Hooked in from the 'price' block in snippets/main-product-blocks.liquid.
+     The theme's own price markup is passed in as `price_html` and rendered
+     inside the box unchanged, so sale/sold-out badges, unit pricing and the
+     f-price classes the theme's JS looks for all survive.
+
+  Nothing here calculates a discount. A wholesaler's price is already the
+  B2B catalog price Shopify resolved server-side -- this only adds the RRP
+  alongside it.
+
+  Who sees it: company contacts only (`customer.b2b?`). Deliberately NOT the
+  `customer.tags contains 'b2b'` fallback the rest of the theme uses -- a
+  tagged customer with no company still pays retail, so showing them an RRP
+  comparison would be wrong. Change the one assignment below if that needs
+  to widen, or narrow it later to GVM-approved companies only.
+
+  RRP source: the custom.rrp metafield (Money) first, falling back to the
+  variant's compare_at_price when it is higher than what they pay -- so
+  products that have not had RRP filled in yet still show something.
+
+  Accepts:
+  - product:    {Object} required
+  - target:     {Object} product or variant the displayed price came from (optional)
+  - style:      {String} 'inline' (default) or 'box'
+  - price_html: {String} captured theme price markup, required for style: 'box'
+{%- endcomment -%}
+
+{%- liquid
+  assign b2b_price_visible = false
+  if customer.b2b?
+    assign b2b_price_visible = true
+  endif
+
+  if target == blank
+    assign target = product.selected_or_first_available_variant
+  endif
+
+  assign current_price = target.price | default: product.price
+
+  comment
+    A Money metafield reads back as an amount in dollars, while every price on
+    the storefront is in cents -- normalise to cents so the money filter and
+    the savings maths below both behave.
+  endcomment
+  assign rrp_cents = 0
+  assign rrp_metafield = product.metafields.custom.rrp.value
+  if rrp_metafield != blank
+    assign rrp_amount = rrp_metafield.amount | default: rrp_metafield
+    assign rrp_cents = rrp_amount | times: 100 | round
+  elsif target.compare_at_price > current_price
+    assign rrp_cents = target.compare_at_price
+  endif
+
+  assign money_rrp = rrp_cents | money
+  if settings.currency_code_enabled
+    assign money_rrp = rrp_cents | money_with_currency
+  endif
+
+  assign saving_cents = rrp_cents | minus: current_price
+  assign saving_percent = 0
+  if rrp_cents > 0 and saving_cents > 0
+    assign saving_percent = saving_cents | times: 100 | divided_by: rrp_cents
+  endif
+  assign money_saving = saving_cents | money
+
+  assign has_rrp = false
+  if b2b_price_visible and rrp_cents > 0
+    assign has_rrp = true
+  endif
+-%}
+
+{%- if style == 'box' -%}
+  {%- if b2b_price_visible -%}
+    <div class="gvm-b2b-pricebox{% unless has_rrp %} gvm-b2b-pricebox--no-rrp{% endunless %}">
+      <span class="gvm-b2b-pricebox__label">Your wholesale price</span>
+      <div class="gvm-b2b-pricebox__price">
+        {{ price_html }}
+      </div>
+      {%- if has_rrp -%}
+        <div class="gvm-b2b-pricebox__rrp">
+          <span class="gvm-b2b-pricebox__rrp-label">RRP</span>
+          <s class="gvm-b2b-pricebox__rrp-value">{{ money_rrp }}</s>
+          {%- if saving_percent > 0 -%}
+            <span class="gvm-b2b-pricebox__saving">
+              You save {{ money_saving }} ({{ saving_percent }}%)
+            </span>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  {%- else -%}
+    {{ price_html }}
+  {%- endif -%}
+{%- elsif has_rrp -%}
+  <div class="gvm-rrp">
+    <span class="gvm-rrp__label">RRP</span>
+    <s class="gvm-rrp__value">{{ money_rrp }}</s>
+  </div>
+{%- endif -%}

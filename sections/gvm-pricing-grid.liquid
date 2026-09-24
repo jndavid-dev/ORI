@@ -93,12 +93,10 @@
                 </div>
               {%- endif -%}
 
-              {%- if product.metafields.custom.rrp.value -%}
-                <div class="gvm-pricing-card__rrp">
-                  RRP price: {{ product.metafields.custom.rrp.value | money }}
-                </div>
-              {%- endif -%}
-
+              {%- comment -%}
+                RRP is no longer printed here -- snippets/price.liquid renders it
+                for every product card site-wide via snippets/gvm-b2b-price.liquid.
+              {%- endcomment -%}
               {%- render 'price', product: product, alignment: 'left' -%}
 
               <div class="{{ b2b_stock_class }}">{{ b2b_stock_label }}</div>

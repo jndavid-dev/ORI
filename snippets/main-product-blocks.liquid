@@ -111,13 +111,30 @@
           </{{ tag }}>
         {%- when 'price' -%}
           <div id="Price-{{ section.id }}" role="status">
-            {%- render 'price',
+            {%- comment -%}
+              Wholesale customers get the theme's own price markup wrapped in a
+              highlighted box with their RRP alongside it; everyone else gets the
+              markup unchanged. Logic lives in snippets/gvm-b2b-price.liquid.
+              This block is re-rendered per variant by the Section Rendering API
+              (assets/product-info.js), so the box follows variant changes with
+              no JS of its own.
+            {%- endcomment -%}
+            {%- capture b2b_price_html -%}
+              {%- render 'price',
+                product: product,
+                use_variant: true,
+                show_sale_badge: block.settings.show_sale_badge,
+                sale_badge_type: block.settings.sale_badge_type,
+                show_soldout_badge: true,
+                price_class: 'f-price--large text-lg sm:text-xl',
+                suppress_b2b_rrp: true
+              -%}
+            {%- endcapture -%}
+            {%- render 'gvm-b2b-price',
               product: product,
-              use_variant: true,
-              show_sale_badge: block.settings.show_sale_badge,
-              sale_badge_type: block.settings.sale_badge_type,
-              show_soldout_badge: true,
-              price_class: 'f-price--large text-lg sm:text-xl'
+              target: product.selected_or_first_available_variant,
+              price_html: b2b_price_html,
+              style: 'box'
             -%}
           </div>
           {% comment %} {%- if shop.taxes_included -%}

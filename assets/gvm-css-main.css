@@ -529,3 +529,93 @@
     position: static;
   }
 }
+
+/* ==========================================================
+   8. B2B Price Display (RRP on cards + product page price box)
+   Rendered by snippets/gvm-b2b-price.liquid. Wholesale
+   customers only -- retail markup is untouched.
+   ========================================================== */
+
+/* --- Compact RRP line under the price on product cards --- */
+.gvm-rrp {
+  margin-top: 4px;
+  font-size: 13px;
+  line-height: 1.3;
+  color: #6b6b6b;
+}
+
+.gvm-rrp__label {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  font-size: 11px;
+  opacity: 0.85;
+}
+
+.gvm-rrp__value {
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+
+/* --- Product page wholesale price box --- */
+.gvm-b2b-pricebox {
+  border: 1px solid #b9e3e8;
+  border-left: 4px solid #008faf;
+  border-radius: 6px;
+  background: #f4fbfc;
+  padding: 14px 18px;
+  margin: 4px 0 12px;
+}
+
+.gvm-b2b-pricebox__label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #00708a;
+  margin-bottom: 4px;
+}
+
+/* The theme's own price markup sits inside the box untouched; only the
+   native strike-through compare-at price is hidden, so the RRP is not
+   stated twice in two different styles. */
+.gvm-b2b-pricebox__price .f-price__sale s.f-price-item--regular {
+  display: none;
+}
+
+.gvm-b2b-pricebox__rrp {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #d9eef2;
+  font-size: 14px;
+  color: #555;
+}
+
+.gvm-b2b-pricebox__rrp-label {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  font-size: 11px;
+  color: #6b6b6b;
+}
+
+.gvm-b2b-pricebox__rrp-value {
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+
+.gvm-b2b-pricebox__saving {
+  font-weight: 600;
+  color: #00708a;
+}
+
+@media (max-width: 749px) {
+  .gvm-b2b-pricebox {
+    padding: 12px 14px;
+  }
+}

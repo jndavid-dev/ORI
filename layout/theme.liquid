@@ -343,6 +343,14 @@
     {{ 'b2b-portal.css' | asset_url | stylesheet_tag }}
   {%- endif -%}
   {%- comment -%}
+    GVM/B2B styles. The GVM sections load this file themselves, but the
+    wholesale price box and the RRP line on product cards appear on ordinary
+    product and collection pages too, so wholesale customers need it site-wide.
+  {%- endcomment -%}
+  {%- if b2b_user -%}
+    {{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
+  {%- endif -%}
+  {%- comment -%}
     Wholesale customers used to be bounced to /pages/b2b-catalog from the home
     page and from their account page. That made sense while they could not
     order, since the catalog was the only thing built for them. Now that they

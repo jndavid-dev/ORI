@@ -119,4 +119,14 @@
       {% endif %}
     </div>
   {% endif %}
+
+  {%- comment -%}
+    B2B RRP line. Hooked in here rather than in each grid so every product
+    card site-wide gets it from one place -- see snippets/gvm-b2b-price.liquid.
+    Callers that present RRP themselves (the product page price box) pass
+    suppress_b2b_rrp to avoid showing it twice.
+  {%- endcomment -%}
+  {%- unless suppress_b2b_rrp -%}
+    {%- render 'gvm-b2b-price', product: product, target: target -%}
+  {%- endunless -%}
 </div>

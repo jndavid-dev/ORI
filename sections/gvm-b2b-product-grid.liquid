@@ -152,11 +152,11 @@
                         section_index: 1,
                         index: forloop.index
                       -%}
-                      {%- if product.metafields.custom.rrp.value -%}
-                        <div class="gvm-b2b-grid__rrp">
-                          RRP price: {{ product.metafields.custom.rrp.value | money }}
-                        </div>
-                      {%- endif -%}
+                      {%- comment -%}
+                        RRP used to be appended under the card here. It now comes
+                        from snippets/price.liquid via snippets/gvm-b2b-price.liquid,
+                        which puts it inside the card next to the price instead.
+                      {%- endcomment -%}
                     </div>
                   {%- endfor -%}
                 </grid-list>
