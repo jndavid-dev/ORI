@@ -112,7 +112,7 @@
 -%}
 
 <section
-  class="gvm-compare gvm-compare--{{ section.id }}"
+  class="gvm-compare gvm-compare--{{ section.id }}{% if section.settings.custom_class != blank %} {{ section.settings.custom_class }}{% endif %}"
   {% if anchor_id != blank %}id="{{ anchor_id | escape }}"{% endif %}
   style="
     --gvm-max-width: {{ container_width }};
@@ -415,6 +415,8 @@
     { "type": "text", "id": "col_title_8", "label": "Column 8 title", "default": "STAGE 7" },
     { "type": "text", "id": "col_title_9", "label": "Column 9 title", "default": "STAGE 8" },
     { "type": "text", "id": "col_title_10", "label": "Column 10 title", "default": "STAGE 9" },
+
+    { "type": "text", "id": "custom_class", "label": "Custom Class", "info": "Extra class on the section wrapper. Used by the GVM vehicle hubs to group this section into a tab, e.g. gvm-tab-panel gvm-tab-panel--2 gvm-container-1360." },
 
     { "type": "text", "id": "container_width", "label": "Container width (e.g. 1200px or 100%)", "default": "1200px" },
     { "type": "text", "id": "max_cap", "label": "Maximum width on large screens", "info": "Stops a percentage width stretching on ultra-wide displays. e.g. 1600px", "default": "1600px" },

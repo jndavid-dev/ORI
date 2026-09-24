@@ -10,39 +10,43 @@
    "gvm-tab-panel gvm-tab-panel--1". Clicking a nav button shows
    the matching group and hides the rest.
 
-   EXCEPTION: the gvm-comparison section type has no Custom
-   Class field in its schema, so it's targeted directly by its
-   Shopify section ID below instead of a class. If you swap out
-   which section holds Tab 2's pricing table later, update the
-   ID here (and in gvm-tabs.css) to match.
+   Nothing here is vehicle-specific or template-specific: the tab
+   list comes from whatever nav buttons exist, and a button
+   targeting "tab-N" shows ".gvm-tab-panel--N". Clone the template
+   for another vehicle, or add a fifth tab, and this keeps working
+   with no edits — every section just needs the right class.
+
+   That includes gvm-comparison, which now has a Custom Class
+   field of its own. It used to be hidden by a hardcoded section
+   ID here and in the CSS, which would have meant a new bespoke
+   selector for each of the seven vehicle hubs.
    ========================================================== */
 
 document.addEventListener('DOMContentLoaded', function () {
-  var tabGroups = {
-    'tab-1': ['.gvm-tab-panel--1'],
-    'tab-2': ['.gvm-tab-panel--2', '[id$="gvm_comparison_FfmTMw"]'],
-    'tab-3': ['.gvm-tab-panel--3'],
-    'tab-4': ['.gvm-tab-panel--4']
-  };
-
   var navButtons = document.querySelectorAll('.gvm-tab-nav__btn');
 
+  // "tab-2" -> ".gvm-tab-panel--2". Anything after the last dash is
+  // used as-is, so tab ids like "tab-pricing" work too, as long as
+  // the sections carry the matching gvm-tab-panel--pricing class.
+  function panelSelector(targetId) {
+    if (!targetId) return null;
+    var key = String(targetId).replace(/^tab-/, '');
+    return '.gvm-tab-panel--' + key;
+  }
+
   function showTab(targetId) {
-    // Hide every panel in every group first
-    Object.keys(tabGroups).forEach(function (tabId) {
-      tabGroups[tabId].forEach(function (selector) {
-        document.querySelectorAll(selector).forEach(function (el) {
-          el.style.display = 'none';
-        });
-      });
+    // Hide every panel on the page first, whichever tab it belongs to
+    document.querySelectorAll('.gvm-tab-panel').forEach(function (el) {
+      el.style.display = 'none';
     });
 
-    // Show only the panels belonging to the clicked tab
-    (tabGroups[targetId] || []).forEach(function (selector) {
+    // Then show only the panels belonging to the clicked tab
+    var selector = panelSelector(targetId);
+    if (selector) {
       document.querySelectorAll(selector).forEach(function (el) {
         el.style.display = 'block';
       });
-    });
+    }
 
     // Update active state on the nav buttons themselves
     navButtons.forEach(function (btn) {

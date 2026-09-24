@@ -125,14 +125,10 @@
   display: block;
 }
 
-/* Exception: the gvm-comparison section type has no custom_class
-   setting, so it can't carry .gvm-tab-panel--2 -- targeted directly
-   by a suffix match on its Shopify-generated section ID instead.
-   Keep this rule in sync with gvm-tabs.js if that section's key
-   ever changes. */
-[id$="gvm_comparison_FfmTMw"] {
-  display: none;
-}
+/* gvm-comparison used to need a hardcoded section-ID rule here,
+   because its schema had no Custom Class field. It has one now, so
+   it groups into a tab with .gvm-tab-panel like every other section
+   and no per-vehicle selector is needed. */
 
 /* 28px vertical padding and 18px type are noticeably larger than the
    original build -- scaled proportionally for mobile rather than
@@ -632,5 +628,151 @@
 @media (max-width: 749px) {
   .gvm-b2b-pricebox {
     padding: 12px 14px;
+  }
+}
+
+/* ==========================================================
+   9. GVM Downloads (Tab 1 instructions / Tab 3 assets)
+   Rendered by sections/gvm-downloads.liquid.
+   ========================================================== */
+
+.gvm-downloads__heading {
+  font-size: 28px;
+  margin: 0 0 8px;
+}
+
+.gvm-downloads__intro {
+  color: #555;
+  margin-bottom: 20px;
+  max-width: 70ch;
+}
+
+.gvm-downloads__empty {
+  color: #777;
+  font-style: italic;
+  margin: 0;
+}
+
+.gvm-downloads__grid {
+  display: grid;
+  grid-template-columns: repeat(var(--gvm-downloads-cols, 2), minmax(0, 1fr));
+  gap: 14px;
+}
+
+/* Whole card is the link, so the hit area matches what it looks like. */
+.gvm-downloads__card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 18px;
+  border: 1px solid #e2e2e2;
+  border-radius: 6px;
+  background: #fff;
+  color: inherit;
+  text-decoration: none;
+  transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+}
+
+.gvm-downloads__card:hover {
+  border-color: #008faf;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px);
+}
+
+/* An item with no file attached yet still renders, so the layout can be
+   reviewed before content arrives -- it just does not look clickable. */
+.gvm-downloads__card--empty {
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.gvm-downloads__type {
+  flex: 0 0 auto;
+  min-width: 42px;
+  padding: 4px 7px;
+  border-radius: 3px;
+  background: #e7f3f8;
+  color: #00708a;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.gvm-downloads__type--zip {
+  background: #f1eaf7;
+  color: #6b3fa0;
+}
+
+.gvm-downloads__type--img {
+  background: #eaf7ee;
+  color: #2f7d4a;
+}
+
+.gvm-downloads__type--link {
+  background: #f2f2f2;
+  color: #555;
+}
+
+.gvm-downloads__card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.gvm-downloads__title {
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.gvm-downloads__description {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.45;
+}
+
+.gvm-downloads__meta {
+  font-size: 12px;
+  color: #8a8a8a;
+}
+
+.gvm-downloads__action {
+  flex: 0 0 auto;
+  color: #008faf;
+  margin-top: 2px;
+}
+
+/* --- Embedded PDF viewer --- */
+.gvm-downloads__embed {
+  grid-column: 1 / -1;
+}
+
+.gvm-downloads__embed-title {
+  font-size: 18px;
+  margin: 0 0 10px;
+}
+
+.gvm-downloads__embed-frame {
+  width: 100%;
+  border: 1px solid #e2e2e2;
+  border-radius: 6px;
+}
+
+.gvm-downloads__embed-fallback {
+  padding: 20px;
+  margin: 0;
+  color: #555;
+}
+
+@media (max-width: 749px) {
+  .gvm-downloads__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gvm-downloads__embed-frame {
+    height: 420px !important;
   }
 }
