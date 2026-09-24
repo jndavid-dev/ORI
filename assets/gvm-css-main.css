@@ -776,3 +776,27 @@
     height: 420px !important;
   }
 }
+
+/* ==========================================================
+   10. "Request this kit" button on the pricing grid
+   Sits on each pricing card and hands off to the kit request
+   form -- see assets/gvm-kit-request.js.
+   ========================================================== */
+
+.gvm-pricing-card__request {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px 14px;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+/* The button ships with the hidden attribute and is revealed by JS only
+   when the kit request form is on the page. Without this, the theme's
+   display rules on .btn would override hidden and show it regardless. */
+.gvm-pricing-card__request[hidden] {
+  display: none;
+}
