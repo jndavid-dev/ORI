@@ -52,15 +52,14 @@
   assign current_price = target.price | default: product.price
 
   comment
-    A Money metafield reads back as an amount in dollars, while every price on
-    the storefront is in cents -- normalise to cents so the money filter and
-    the savings maths below both behave.
+    A Money metafield already coerces to cents in arithmetic -- the same unit
+    every storefront price uses -- so it needs no conversion. Multiplying by
+    100 here inflated $32,999 to $3,299,900.
   endcomment
   assign rrp_cents = 0
   assign rrp_metafield = product.metafields.custom.rrp.value
   if rrp_metafield != blank
-    assign rrp_amount = rrp_metafield.amount | default: rrp_metafield
-    assign rrp_cents = rrp_amount | times: 100 | round
+    assign rrp_cents = rrp_metafield | times: 1 | round
   elsif target.compare_at_price > current_price
     assign rrp_cents = target.compare_at_price
   endif
@@ -91,12 +90,16 @@
         {{ price_html }}
       </div>
       {%- if has_rrp -%}
+        {%- comment -%}
+          Not struck through: RRP is the price this wholesaler sells the
+          product on at, not a was-price they are being discounted from.
+        {%- endcomment -%}
         <div class="gvm-b2b-pricebox__rrp">
-          <span class="gvm-b2b-pricebox__rrp-label">RRP</span>
-          <s class="gvm-b2b-pricebox__rrp-value">{{ money_rrp }}</s>
+          <span class="gvm-b2b-pricebox__rrp-label">Suggested retail (RRP)</span>
+          <span class="gvm-b2b-pricebox__rrp-value">{{ money_rrp }}</span>
           {%- if saving_percent > 0 and hide_saving != true -%}
             <span class="gvm-b2b-pricebox__saving">
-              You save {{ money_saving }} ({{ saving_percent }}%)
+              Margin {{ money_saving }} ({{ saving_percent }}%)
             </span>
           {%- endif -%}
         </div>
@@ -107,7 +110,9 @@
   {%- endif -%}
 {%- elsif has_rrp -%}
   <div class="gvm-rrp">
-    <span class="gvm-rrp__label">RRP</span>
-    <s class="gvm-rrp__value">{{ money_rrp }}</s>
+    <span class="gvm-rrp__badge">
+      <span class="gvm-rrp__label">RRP</span>
+      <span class="gvm-rrp__value">{{ money_rrp }}</span>
+    </span>
   </div>
 {%- endif -%}
