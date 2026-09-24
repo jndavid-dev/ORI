@@ -381,8 +381,14 @@
               } catch (e) {}
               localStorage.removeItem('b2b_redirect');
             }
+            {%- comment -%}
+              Wholesale customers land on the GVM hub after logging in, not the
+              product catalog. The hub is the portal's front page -- intro,
+              vehicle packages and their own pricing -- with the GVM subnav
+              above it, so everything else is one click away from here.
+            {%- endcomment -%}
             {%- if customer.b2b? -%}
-              window.location.replace('/pages/b2b-catalog');
+              window.location.replace('/pages/gvm-hub');
             {%- endif -%}
             return;
           }
