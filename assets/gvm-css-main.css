@@ -175,13 +175,16 @@
   display: none;
 }
 
+/* The buttons are moved out of the nav bar and sit as direct children
+   of the page's section flow, which has no side padding of its own --
+   so the inset has to come from here, matching .container's 1.5rem. */
 .gvm-tab-nav__btn--accordion {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 14px;
-  width: 100%;
-  margin: 0 0 10px;
+  width: auto;
+  margin: 0 1.5rem 10px;
   padding: 17px 18px;
   font-size: 15px;
   letter-spacing: 0.04em;
@@ -1412,6 +1415,8 @@
   }
 
   .gvm-tab-nav__btn--accordion {
+    margin-left: 1rem;
+    margin-right: 1rem;
     padding: 15px 14px;
     font-size: 14px;
   }

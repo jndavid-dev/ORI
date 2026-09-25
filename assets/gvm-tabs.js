@@ -140,7 +140,11 @@ document.addEventListener('DOMContentLoaded', function () {
       firstPanel.parentNode.insertBefore(btn, firstPanel);
     });
 
-    openAccordionSection(currentTab || navButtons[0].getAttribute('data-tab-target'), false);
+    // Everything starts collapsed on mobile, unlike the desktop tabs
+    // where the first tab is always open: on a phone an open first
+    // section pushes the other headers off-screen, so the reader can't
+    // see what else is there without scrolling past a long panel.
+    collapseAccordion();
   }
 
   function exitAccordion() {
