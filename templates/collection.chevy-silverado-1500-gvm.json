@@ -127,7 +127,7 @@
         "show_section_divider": false,
         "divider_width": "container",
         "custom_id": "",
-        "custom_class": "gvm-tab-panel gvm-tab-panel--1 gvm-container-1360",
+        "custom_class": "gvm-tab-panel gvm-tab-panel--1 gvm-container-1360 gvm-tab-heading",
         "animations": "inherit"
       }
     },
@@ -453,7 +453,7 @@
         "show_section_divider": false,
         "divider_width": "container",
         "custom_id": "",
-        "custom_class": "gvm-tab-panel gvm-tab-panel--2 gvm-container-1360",
+        "custom_class": "gvm-tab-panel gvm-tab-panel--2 gvm-container-1360 gvm-tab-heading",
         "animations": "inherit"
       }
     },
@@ -576,7 +576,7 @@
         "band_heading": "Unleash the Full Potential of Your Chevy Silverado 1500 2019 - 2026",
         "band_background": "#000000",
         "band_text_color": "#56bdc2",
-        "body": "<p>Stop worrying about weight limits and start adventuring with confidence. <strong>Offroad Industries (ORI)</strong> offers the most comprehensive, Federally Approved GVM (Gross Vehicle Mass) upgrades for the Chevy Silverado 1500 (LTZ, Trail Boss, and ZR2). </p><p>By bundling the <strong>ORI GVM Packages & </strong> <strong>GCM testing</strong> and the combination of <strong>LS16 certification</strong>, you are offering a legal \"Super-Truck\" status. The <strong>LS16 code</strong> is the secret sauce here: it’s the specific modification code for <strong>Gross Combination Mass Re-rating</strong>, ensuring the truck, the gear, and the massive 4.5T trailer are all </p><p>100% legal together for either PRE or Post Rego</p><p>Whether you’re a weekend explorer, a tradie with a heavy load, or a serious tourer towing a 4.5T caravan, our staged packages transform your truck’s legality, safety, and performance.</p><p>*<strong>Please note that some workshops may apply additional discretionary administration fees to the quoted installation and engineering price. Additionally, all Post-Registration GVM upgrades will incur additional local fees. Shipping is not included in the price.</strong></p>",
+        "body": "<p>Stop worrying about weight limits and start adventuring with confidence. <strong>Offroad Industries (ORI)</strong> offers the most comprehensive, Federally Approved GVM (Gross Vehicle Mass) upgrades for the Chevy Silverado 1500 (LTZ, Trail Boss, and ZR2).</p><p>Whether you&rsquo;re a weekend explorer, a tradie with a heavy load, or a serious tourer towing a 4.5T caravan, our staged packages transform your truck&rsquo;s legality, safety, and performance.</p>",
         "disclaimer": "<p>*Please note that some workshops may apply additional discretionary administration fees to the quoted installation and engineering price. Additionally, all Post-Registration GVM upgrades will incur additional local fees. Shipping is not included in the price.</p>",
         "accent_color": "#56bdc2",
         "padding_top": 56,

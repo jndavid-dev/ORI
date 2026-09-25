@@ -47,19 +47,19 @@
           <h2 class="gvm-download-banner__heading">{{ section.settings.heading }}</h2>
         {%- endif -%}
 
-        {%- if file_href != blank -%}
-          <a
-            class="gvm-download-banner__btn"
-            href="{{ file_href }}"
-            {% if is_shopify_file %}download{% else %}target="_blank" rel="noopener"{% endif %}
-          >
-            {{ section.settings.button_label }}
-          </a>
-        {%- else -%}
-          <span class="gvm-download-banner__btn gvm-download-banner__btn--empty" aria-disabled="true">
-            {{ section.settings.button_label }}
-          </span>
-        {%- endif -%}
+        {%- comment -%}
+          Always a real link, falling back to # until a file is attached --
+          a greyed-out button reads as broken in a client review. Uses the
+          theme's own .btn classes so it matches every other button on the
+          site rather than inventing a second button style.
+        {%- endcomment -%}
+        <a
+          class="btn btn--primary btn--large gvm-download-banner__btn"
+          href="{{ file_href | default: '#' }}"
+          {% if is_shopify_file %}download{% elsif file_href != blank %}target="_blank" rel="noopener"{% endif %}
+        >
+          {{ section.settings.button_label }}
+        </a>
       </div>
 
       {%- if section.settings.text != blank -%}

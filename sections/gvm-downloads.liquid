@@ -90,7 +90,7 @@
                   before real artwork exists.
                 {%- endcomment -%}
                 <div
-                  class="gvm-downloads__asset{% if file_href == blank %} gvm-downloads__asset--empty{% endif %}"
+                  class="gvm-downloads__asset"
                   {{ block.shopify_attributes }}
                 >
                   <div class="gvm-downloads__asset-media">
@@ -114,23 +114,22 @@
                     <p class="gvm-downloads__asset-description">{{ block.settings.description }}</p>
                   {%- endif -%}
 
-                  {%- if file_href != blank -%}
-                    <a
-                      class="gvm-downloads__asset-btn"
-                      href="{{ file_href }}"
-                      {% if is_shopify_file %}download{% else %}target="_blank" rel="noopener"{% endif %}
-                    >
-                      {{ block.settings.button_label | default: 'Download' }}
-                    </a>
-                  {%- else -%}
-                    <span class="gvm-downloads__asset-btn gvm-downloads__asset-btn--empty" aria-disabled="true">
-                      {{ block.settings.button_label | default: 'Download' }}
-                    </span>
-                  {%- endif -%}
+                  {%- comment -%}
+                    Always a real link (# until a file is attached) and the
+                    theme's own .btn classes, so these match every other
+                    button on the site.
+                  {%- endcomment -%}
+                  <a
+                    class="btn btn--primary btn--small gvm-downloads__asset-btn"
+                    href="{{ file_href | default: '#' }}"
+                    {% if is_shopify_file %}download{% elsif file_href != blank %}target="_blank" rel="noopener"{% endif %}
+                  >
+                    {{ block.settings.button_label | default: 'Download' }}
+                  </a>
                 </div>
               {%- else -%}
               <a
-                class="gvm-downloads__card{% if file_href == blank %} gvm-downloads__card--empty{% endif %}"
+                class="gvm-downloads__card"
                 href="{{ file_href | default: '#' }}"
                 {% if is_shopify_file %}download{% else %}target="_blank" rel="noopener"{% endif %}
                 {{ block.shopify_attributes }}
