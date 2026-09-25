@@ -1,0 +1,219 @@
+{%- comment -%}
+  GVM Vehicle Hub Intro -- the block that sits directly under the hero
+  slideshow on a vehicle hub, above the tab navigation.
+
+  Covers the whole introduction in one section: certification badge,
+  two-tone headline, optional subheading, trust markers, the dark
+  headline band, the body copy and the fine print. Built as one
+  section rather than four stacked ones so the vertical rhythm between
+  those parts is fixed here instead of depending on whoever sets the
+  padding on each section in the editor -- the other six vehicle hubs
+  reuse this as-is with their own copy.
+
+  Nothing here is Silverado-specific.
+{%- endcomment -%}
+
+{%- liquid
+  assign custom_class = section.settings.custom_class
+  unless custom_class == blank
+    assign custom_class = custom_class | prepend: ' '
+  endunless
+-%}
+
+{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
+
+<div
+  class="gvm-intro{{ custom_class }}"
+  style="
+    --gvm-intro-accent: {{ section.settings.accent_color }};
+    --gvm-intro-band-bg: {{ section.settings.band_background }};
+    --gvm-intro-band-text: {{ section.settings.band_text_color }};
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <div class="gvm-intro__head">
+    <div class="container">
+      {%- if section.settings.badge_text != blank -%}
+        <span class="gvm-intro__badge">{{ section.settings.badge_text }}</span>
+      {%- endif -%}
+
+      {%- if section.settings.heading_line_1 != blank or section.settings.heading_line_2 != blank -%}
+        <h1 class="gvm-intro__heading">
+          {%- if section.settings.heading_line_1 != blank -%}
+            <span class="gvm-intro__heading-accent">{{ section.settings.heading_line_1 }}</span>
+          {%- endif -%}
+          {%- if section.settings.heading_line_2 != blank -%}
+            <span class="gvm-intro__heading-main">{{ section.settings.heading_line_2 }}</span>
+          {%- endif -%}
+        </h1>
+      {%- endif -%}
+
+      {%- if section.settings.subheading != blank -%}
+        <div class="gvm-intro__sub rte">{{ section.settings.subheading }}</div>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <ul class="gvm-intro__trust" role="list">
+          {%- for block in section.blocks -%}
+            <li class="gvm-intro__trust-item" {{ block.shopify_attributes }}>
+              <span class="gvm-intro__trust-check" aria-hidden="true">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </span>
+              <span class="gvm-intro__trust-text">{{ block.settings.text }}</span>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- if section.settings.band_heading != blank -%}
+    <div class="gvm-intro__band">
+      <div class="container">
+        <h2 class="gvm-intro__band-heading">{{ section.settings.band_heading }}</h2>
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- if section.settings.body != blank or section.settings.disclaimer != blank -%}
+    <div class="gvm-intro__body-wrap">
+      <div class="container">
+        {%- if section.settings.body != blank -%}
+          <div class="gvm-intro__body rte">{{ section.settings.body }}</div>
+        {%- endif -%}
+        {%- if section.settings.disclaimer != blank -%}
+          <div class="gvm-intro__disclaimer rte">{{ section.settings.disclaimer }}</div>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "GVM Hub Intro",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "Federally Approved | ADR-Tested | SSM Certified"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_1",
+      "label": "Heading line 1 (accent colour)",
+      "default": "Chevrolet Silverado 1500"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_2",
+      "label": "Heading line 2",
+      "default": "GVM Upgrades Australia"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "header",
+      "content": "Headline band"
+    },
+    {
+      "type": "text",
+      "id": "band_heading",
+      "label": "Band heading"
+    },
+    {
+      "type": "color",
+      "id": "band_background",
+      "label": "Band background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "band_text_color",
+      "label": "Band text",
+      "default": "#56bdc2"
+    },
+    {
+      "type": "header",
+      "content": "Body"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body copy"
+    },
+    {
+      "type": "richtext",
+      "id": "disclaimer",
+      "label": "Fine print",
+      "info": "Smaller muted text under the body copy."
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent colour",
+      "default": "#56bdc2"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom Class"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust_item",
+      "name": "Trust marker",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "ADR-Tested & Approved"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "GVM Hub Intro",
+      "blocks": [
+        { "type": "trust_item" },
+        { "type": "trust_item" },
+        { "type": "trust_item" }
+      ]
+    }
+  ]
+}
+{% endschema %}

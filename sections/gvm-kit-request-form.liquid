@@ -40,6 +40,10 @@
   class="gvm-kit-request f-section-padding{{ custom_class }}"
   style="--section-padding-top: {{ section.settings.padding_top }}px; --section-padding-bottom: {{ section.settings.padding_bottom }}px;"
 >
+  {%- if section.settings.heading != blank -%}
+    <h2 class="gvm-section-heading">{{ section.settings.heading }}</h2>
+  {%- endif -%}
+
   {%- if collection.products.size == 0 -%}
     <p class="gvm-kit-request__empty">No kits available to request yet.</p>
   {%- else -%}
@@ -144,6 +148,12 @@
 {
   "name": "GVM Kit Request Form",
   "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Request a Kit"
+    },
     {
       "type": "range",
       "id": "padding_top",

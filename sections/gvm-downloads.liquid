@@ -1,0 +1,348 @@
+{%- comment -%}
+  GVM Downloads -- shared component for Tab 1 (technical instructions,
+  stage PDFs) and Tab 3 (marketing material and social assets) on every
+  vehicle hub.
+
+  Deliberately neutral about where files live, because that decision is
+  still open with the client. Each item takes either:
+    - Shopify file: the exact filename as uploaded in Settings > Files
+      (resolved through the file_url filter), or
+    - External URL: a Dropbox / Google Drive / any other link.
+  If both are filled in, the Shopify file wins.
+
+  The brief also asks for embedded PDF viewers, so a block can render the
+  PDF inline instead of as a download card. Browsers that cannot display
+  a PDF inline fall back to a download link automatically, which is why
+  the <object> carries one inside it.
+
+  Carries a Custom Class field so it can be grouped into a tab exactly
+  like every other section on the hubs -- see assets/gvm-tabs.js.
+{%- endcomment -%}
+
+{%- liquid
+  assign custom_class = section.settings.custom_class
+  unless custom_class == blank
+    assign custom_class = custom_class | prepend: ' '
+  endunless
+-%}
+
+{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
+
+<div
+  class="gvm-downloads f-section-padding{{ custom_class }}"
+  style="--section-padding-top: {{ section.settings.padding_top }}px; --section-padding-bottom: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="{{ section.settings.container }}">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="gvm-downloads__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.intro != blank -%}
+      <div class="gvm-downloads__intro rte">{{ section.settings.intro }}</div>
+    {%- endif -%}
+
+    {%- if section.blocks.size == 0 -%}
+      <p class="gvm-downloads__empty">No files have been added to this section yet.</p>
+    {%- else -%}
+      <div
+        class="gvm-downloads__grid gvm-downloads__grid--{{ section.settings.layout }}"
+        style="--gvm-downloads-cols: {{ section.settings.columns }};"
+      >
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign file_href = block.settings.external_url
+            assign is_shopify_file = false
+            if block.settings.shopify_file != blank
+              assign file_href = block.settings.shopify_file | file_url
+              assign is_shopify_file = true
+            endif
+          -%}
+
+          {%- case block.type -%}
+            {%- when 'pdf_embed' -%}
+              <div class="gvm-downloads__embed" {{ block.shopify_attributes }}>
+                {%- if block.settings.title != blank -%}
+                  <h3 class="gvm-downloads__embed-title">{{ block.settings.title }}</h3>
+                {%- endif -%}
+                {%- if file_href != blank -%}
+                  <object
+                    class="gvm-downloads__embed-frame"
+                    data="{{ file_href }}"
+                    type="application/pdf"
+                    style="height: {{ block.settings.embed_height }}px;"
+                  >
+                    <p class="gvm-downloads__embed-fallback">
+                      This PDF can't be displayed in your browser.
+                      <a href="{{ file_href }}" target="_blank" rel="noopener">Open it in a new tab instead.</a>
+                    </p>
+                  </object>
+                {%- else -%}
+                  <p class="gvm-downloads__empty">No file selected for this embed yet.</p>
+                {%- endif -%}
+              </div>
+
+            {%- when 'download' -%}
+              {%- if section.settings.layout == 'cards' -%}
+                {%- comment -%}
+                  Card layout: image on top, title, then a button -- the
+                  marketing assets treatment. The image slot falls back to a
+                  neutral placeholder block so a card still reads correctly
+                  before real artwork exists.
+                {%- endcomment -%}
+                <div
+                  class="gvm-downloads__asset{% if file_href == blank %} gvm-downloads__asset--empty{% endif %}"
+                  {{ block.shopify_attributes }}
+                >
+                  <div class="gvm-downloads__asset-media">
+                    {%- if block.settings.image != blank -%}
+                      {{
+                        block.settings.image
+                        | image_url: width: 600
+                        | image_tag:
+                          loading: 'lazy',
+                          class: 'gvm-downloads__asset-img',
+                          alt: block.settings.title
+                      }}
+                    {%- else -%}
+                      <span class="gvm-downloads__asset-placeholder" aria-hidden="true"></span>
+                    {%- endif -%}
+                  </div>
+
+                  <h3 class="gvm-downloads__asset-title">{{ block.settings.title }}</h3>
+
+                  {%- if block.settings.description != blank -%}
+                    <p class="gvm-downloads__asset-description">{{ block.settings.description }}</p>
+                  {%- endif -%}
+
+                  {%- if file_href != blank -%}
+                    <a
+                      class="gvm-downloads__asset-btn"
+                      href="{{ file_href }}"
+                      {% if is_shopify_file %}download{% else %}target="_blank" rel="noopener"{% endif %}
+                    >
+                      {{ block.settings.button_label | default: 'Download' }}
+                    </a>
+                  {%- else -%}
+                    <span class="gvm-downloads__asset-btn gvm-downloads__asset-btn--empty" aria-disabled="true">
+                      {{ block.settings.button_label | default: 'Download' }}
+                    </span>
+                  {%- endif -%}
+                </div>
+              {%- else -%}
+              <a
+                class="gvm-downloads__card{% if file_href == blank %} gvm-downloads__card--empty{% endif %}"
+                href="{{ file_href | default: '#' }}"
+                {% if is_shopify_file %}download{% else %}target="_blank" rel="noopener"{% endif %}
+                {{ block.shopify_attributes }}
+              >
+                <span class="gvm-downloads__type gvm-downloads__type--{{ block.settings.file_type }}">
+                  {{ block.settings.file_type | upcase }}
+                </span>
+
+                <span class="gvm-downloads__card-body">
+                  <span class="gvm-downloads__title">{{ block.settings.title }}</span>
+                  {%- if block.settings.description != blank -%}
+                    <span class="gvm-downloads__description">{{ block.settings.description }}</span>
+                  {%- endif -%}
+                  {%- if block.settings.file_size != blank -%}
+                    <span class="gvm-downloads__meta">{{ block.settings.file_size }}</span>
+                  {%- endif -%}
+                </span>
+
+                <span class="gvm-downloads__action" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    {%- if block.settings.file_type == 'link' -%}
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+                    {%- else -%}
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                    {%- endif -%}
+                  </svg>
+                </span>
+              </a>
+              {%- endif -%}
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "GVM Downloads",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Downloads"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Intro text"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        { "value": "list", "label": "File list (compact rows)" },
+        { "value": "cards", "label": "Asset cards (image + button)" }
+      ],
+      "default": "list",
+      "info": "File list suits technical documents; asset cards suit marketing material."
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "Columns (desktop)",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container width",
+      "options": [
+        { "value": "container", "label": "Fixed" },
+        { "value": "container-fluid", "label": "Stretched" }
+      ],
+      "default": "container"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom Class",
+      "info": "Use gvm-tab-panel gvm-tab-panel--N gvm-container-1360 to place this inside a tab on a vehicle hub."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "download",
+      "name": "Download",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Stage 1 fitting instructions"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Card layout only. A neutral placeholder is shown when empty."
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "info": "Card layout only.",
+          "default": "Download"
+        },
+        {
+          "type": "text",
+          "id": "shopify_file",
+          "label": "Shopify file name",
+          "info": "Exact filename as uploaded in Settings > Files, e.g. stage-1-instructions.pdf. Takes priority over the external URL below."
+        },
+        {
+          "type": "url",
+          "id": "external_url",
+          "label": "External URL",
+          "info": "Dropbox, Google Drive or any other link. Used when no Shopify file name is set."
+        },
+        {
+          "type": "select",
+          "id": "file_type",
+          "label": "File type",
+          "options": [
+            { "value": "pdf", "label": "PDF" },
+            { "value": "zip", "label": "ZIP" },
+            { "value": "img", "label": "Image" },
+            { "value": "doc", "label": "Document" },
+            { "value": "link", "label": "External link" }
+          ],
+          "default": "pdf"
+        },
+        {
+          "type": "text",
+          "id": "file_size",
+          "label": "File size",
+          "info": "Optional, shown under the title. e.g. 2.4 MB"
+        }
+      ]
+    },
+    {
+      "type": "pdf_embed",
+      "name": "Embedded PDF",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "shopify_file",
+          "label": "Shopify file name",
+          "info": "Exact filename as uploaded in Settings > Files, e.g. stage-1-instructions.pdf."
+        },
+        {
+          "type": "url",
+          "id": "external_url",
+          "label": "External URL",
+          "info": "Used when no Shopify file name is set. The host must allow embedding, which Dropbox and Drive preview links often do not."
+        },
+        {
+          "type": "range",
+          "id": "embed_height",
+          "label": "Viewer height",
+          "min": 300,
+          "max": 1200,
+          "step": 20,
+          "unit": "px",
+          "default": 700
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "GVM Downloads",
+      "blocks": [
+        { "type": "download" },
+        { "type": "download" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -100,44 +100,6 @@
       ],
       "settings": {}
     },
-    "rich_text_GbXVUF": {
-      "type": "rich-text",
-      "blocks": {
-        "heading_XhCLHT": {
-          "type": "heading",
-          "settings": {
-            "heading": "<strong>Unleash the Full Potential of Your Chevy Silverado 1500 2019 - 2026</strong>",
-            "highlight_style": "none",
-            "enable_highlight_text_color": true,
-            "heading_size": "h1",
-            "heading_color": "#56bdc2"
-          }
-        },
-        "text_CfcJd4": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Stop worrying about weight limits and start adventuring with confidence. <strong>Offroad Industries (ORI)</strong> offers the most comprehensive, Federally Approved GVM (Gross Vehicle Mass) upgrades for the Chevy Silverado 1500 (LTZ, Trail Boss, and ZR2). </p><p>By bundling the <strong>ORI GVM Packages & </strong> <strong>GCM testing</strong> and the combination of <strong>LS16 certification</strong>, you are offering a legal \"Super-Truck\" status. The <strong>LS16 code</strong> is the secret sauce here: it’s the specific modification code for <strong>Gross Combination Mass Re-rating</strong>, ensuring the truck, the gear, and the massive 4.5T trailer are all </p><p>100% legal together for either PRE or Post Rego</p><p>Whether you’re a weekend explorer, a tradie with a heavy load, or a serious tourer towing a 4.5T caravan, our staged packages transform your truck’s legality, safety, and performance.</p><p>*<strong>Please note that some workshops may apply additional discretionary administration fees to the quoted installation and engineering price. Additionally, all Post-Registration GVM upgrades will incur additional local fees. Shipping is not included in the price.</strong></p>"
-          }
-        }
-      },
-      "block_order": [
-        "heading_XhCLHT",
-        "text_CfcJd4"
-      ],
-      "name": "t:sections.rich-text.presets.name",
-      "settings": {
-        "container": "container",
-        "color_schema": "",
-        "text_alignment": "left",
-        "padding_top": 40,
-        "padding_bottom": 0,
-        "show_section_divider": false,
-        "divider_width": "container",
-        "custom_id": "",
-        "custom_class": "gvm-tab-panel gvm-tab-panel--1 gvm-container-1360",
-        "animations": "inherit"
-      }
-    },
     "rich_text_PtmRiF": {
       "type": "rich-text",
       "blocks": {
@@ -564,143 +526,6 @@
         "custom_class": "gvm-tab-panel gvm-tab-panel--2"
       }
     },
-    "custom_content_gvm_assets": {
-      "type": "custom-content",
-      "blocks": {
-        "btn_download_assets": {
-          "type": "text",
-          "settings": {
-            "color_scheme": "",
-            "title": "",
-            "highlight_style": "none",
-            "enable_highlight_text_color": false,
-            "heading_size": "h2",
-            "heading_color": "",
-            "subheading": "",
-            "text": "",
-            "alignment": "center",
-            "align_text": "center",
-            "padding_left": 0,
-            "padding_right": 0,
-            "align_content_container": "none",
-            "button_label": "Download Assets",
-            "button_link": "#",
-            "button_style": "btn--primary",
-            "width": "50%",
-            "mobile_color_scheme": "",
-            "mobile_padding_left": 0,
-            "mobile_padding_right": 0,
-            "block_custom_class": "",
-            "animations": "inherit"
-          }
-        },
-        "btn_download_social": {
-          "type": "text",
-          "settings": {
-            "color_scheme": "",
-            "title": "",
-            "highlight_style": "none",
-            "enable_highlight_text_color": false,
-            "heading_size": "h2",
-            "heading_color": "",
-            "subheading": "",
-            "text": "",
-            "alignment": "center",
-            "align_text": "center",
-            "padding_left": 0,
-            "padding_right": 0,
-            "align_content_container": "none",
-            "button_label": "Download Social Media Banners",
-            "button_link": "#",
-            "button_style": "btn--outline",
-            "width": "50%",
-            "mobile_color_scheme": "",
-            "mobile_padding_left": 0,
-            "mobile_padding_right": 0,
-            "block_custom_class": "",
-            "animations": "inherit"
-          }
-        }
-      },
-      "block_order": [
-        "btn_download_assets",
-        "btn_download_social"
-      ],
-      "custom_css": [],
-      "settings": {
-        "container": "container",
-        "color_schema": "",
-        "section_header_padding_bottom": "medium",
-        "section_header_content_spacing": "medium",
-        "heading": "Marketing & Assets",
-        "highlight_style": "none",
-        "enable_highlight_text_color": false,
-        "heading_size": "h2",
-        "heading_color": "",
-        "subheading": "",
-        "description": "<p>Downloadable assets for this vehicle — placeholders until real files are supplied.</p>",
-        "column_gap": "medium",
-        "row_gap": "medium",
-        "enable_swipe_mobile": false,
-        "column_mobile": "1",
-        "padding_top": 60,
-        "padding_bottom": 60,
-        "show_section_divider": false,
-        "divider_width": "container",
-        "custom_id": "",
-        "custom_class": "gvm-tab-panel gvm-tab-panel--3 gvm-container-1360"
-      }
-    },
-    "ori_gvm_hero_chevy1500": {
-      "type": "ori-gvm-hero",
-      "blocks": {
-        "trust_1": {
-          "type": "trust_item",
-          "settings": {
-            "text": "Federal / SSM Certification",
-            "icon": "✓"
-          }
-        },
-        "trust_2": {
-          "type": "trust_item",
-          "settings": {
-            "text": "ADR-Tested & Approved",
-            "icon": "✓"
-          }
-        },
-        "trust_3": {
-          "type": "trust_item",
-          "settings": {
-            "text": "Australia-Wide Installer Network",
-            "icon": "✓"
-          }
-        }
-      },
-      "block_order": [
-        "trust_1",
-        "trust_2",
-        "trust_3"
-      ],
-      "settings": {
-        "badge_text": "Federally Approved | ADR-Tested | SSM Certified",
-        "heading": "Chevrolet Silverado 1500 GVM Upgrades Australia",
-        "heading_size": "h1",
-        "subheading": "<p>Federally approved GVM upgrade packages for the Chevrolet Silverado 1500. Every stage is ADR-tested, SSM-certified, and installed by our national network of approved specialists.</p>",
-        "btn_1_text": "",
-        "btn_1_url": "",
-        "btn_1_style": "btn--primary",
-        "btn_2_text": "",
-        "btn_2_url": "",
-        "btn_2_style": "btn--outline",
-        "overlay_opacity": 45,
-        "container": "container",
-        "color_schema": "",
-        "padding_top": 80,
-        "padding_bottom": 80,
-        "custom_id": "",
-        "custom_class": "gvm-container-1360"
-      }
-    },
     "gvm_pricing_grid_chevy1500": {
       "type": "gvm-pricing-grid",
       "settings": {
@@ -712,15 +537,149 @@
     "gvm_kit_request_main": {
       "type": "gvm-kit-request-form",
       "settings": {
-        "custom_class": "gvm-tab-panel gvm-tab-panel--4 gvm-container-1360"
+        "custom_class": "gvm-tab-panel gvm-tab-panel--4 gvm-container-1360",
+        "heading": "Request a Kit"
+      }
+    },
+    "gvm_intro_main": {
+      "type": "gvm-intro",
+      "blocks": {
+        "trust_1": {
+          "type": "trust_item",
+          "settings": {
+            "text": "Federal / SSM Certification"
+          }
+        },
+        "trust_2": {
+          "type": "trust_item",
+          "settings": {
+            "text": "ADR-Tested & Approved"
+          }
+        },
+        "trust_3": {
+          "type": "trust_item",
+          "settings": {
+            "text": "Australia-Wide Installer Network"
+          }
+        }
+      },
+      "block_order": [
+        "trust_1",
+        "trust_2",
+        "trust_3"
+      ],
+      "settings": {
+        "badge_text": "Federally Approved | ADR-Tested | SSM Certified",
+        "heading_line_1": "Chevrolet Silverado 1500",
+        "heading_line_2": "GVM Upgrades Australia",
+        "subheading": "",
+        "band_heading": "Unleash the Full Potential of Your Chevy Silverado 1500 2019 - 2026",
+        "band_background": "#000000",
+        "band_text_color": "#56bdc2",
+        "body": "<p>Stop worrying about weight limits and start adventuring with confidence. <strong>Offroad Industries (ORI)</strong> offers the most comprehensive, Federally Approved GVM (Gross Vehicle Mass) upgrades for the Chevy Silverado 1500 (LTZ, Trail Boss, and ZR2). </p><p>By bundling the <strong>ORI GVM Packages & </strong> <strong>GCM testing</strong> and the combination of <strong>LS16 certification</strong>, you are offering a legal \"Super-Truck\" status. The <strong>LS16 code</strong> is the secret sauce here: it’s the specific modification code for <strong>Gross Combination Mass Re-rating</strong>, ensuring the truck, the gear, and the massive 4.5T trailer are all </p><p>100% legal together for either PRE or Post Rego</p><p>Whether you’re a weekend explorer, a tradie with a heavy load, or a serious tourer towing a 4.5T caravan, our staged packages transform your truck’s legality, safety, and performance.</p><p>*<strong>Please note that some workshops may apply additional discretionary administration fees to the quoted installation and engineering price. Additionally, all Post-Registration GVM upgrades will incur additional local fees. Shipping is not included in the price.</strong></p>",
+        "disclaimer": "<p>*Please note that some workshops may apply additional discretionary administration fees to the quoted installation and engineering price. Additionally, all Post-Registration GVM upgrades will incur additional local fees. Shipping is not included in the price.</p>",
+        "accent_color": "#56bdc2",
+        "padding_top": 56,
+        "padding_bottom": 40,
+        "custom_class": "gvm-container-1360"
+      }
+    },
+    "gvm_instructions_banner": {
+      "type": "gvm-download-banner",
+      "settings": {
+        "heading": "Installation Instructions",
+        "text": "<p>Step-by-step fitting instructions for every stage of this vehicle's GVM upgrade, including torque specs and compliance notes. Download the current revision before starting any install.</p>",
+        "button_label": "Download PDF",
+        "shopify_file": "",
+        "external_url": "",
+        "background_color": "#000000",
+        "text_color": "#ffffff",
+        "button_color": "#56bdc2",
+        "button_text_color": "#ffffff",
+        "padding_top": 56,
+        "padding_bottom": 56,
+        "custom_class": "gvm-tab-panel gvm-tab-panel--1 gvm-container-1360"
+      }
+    },
+    "gvm_marketing_assets": {
+      "type": "gvm-downloads",
+      "blocks": {
+        "asset_1": {
+          "type": "download",
+          "settings": {
+            "title": "Product Brochure",
+            "description": "",
+            "image": "",
+            "button_label": "Download PDF",
+            "shopify_file": "",
+            "external_url": "",
+            "file_type": "pdf",
+            "file_size": ""
+          }
+        },
+        "asset_2": {
+          "type": "download",
+          "settings": {
+            "title": "Print Banners",
+            "description": "",
+            "image": "",
+            "button_label": "View Banners",
+            "shopify_file": "",
+            "external_url": "",
+            "file_type": "pdf",
+            "file_size": ""
+          }
+        },
+        "asset_3": {
+          "type": "download",
+          "settings": {
+            "title": "Social Media",
+            "description": "",
+            "image": "",
+            "button_label": "View Assets",
+            "shopify_file": "",
+            "external_url": "",
+            "file_type": "pdf",
+            "file_size": ""
+          }
+        },
+        "asset_4": {
+          "type": "download",
+          "settings": {
+            "title": "Product Imagery",
+            "description": "",
+            "image": "",
+            "button_label": "View Product Imagery",
+            "shopify_file": "",
+            "external_url": "",
+            "file_type": "pdf",
+            "file_size": ""
+          }
+        }
+      },
+      "block_order": [
+        "asset_1",
+        "asset_2",
+        "asset_3",
+        "asset_4"
+      ],
+      "settings": {
+        "heading": "Marketing Assets",
+        "intro": "",
+        "layout": "cards",
+        "columns": 4,
+        "container": "container",
+        "padding_top": 40,
+        "padding_bottom": 60,
+        "custom_class": "gvm-tab-panel gvm-tab-panel--3 gvm-container-1360"
       }
     }
   },
   "order": [
     "slideshow_CtnG98",
-    "ori_gvm_hero_chevy1500",
+    "gvm_intro_main",
     "gvm_tab_nav_main",
-    "rich_text_GbXVUF",
+    "gvm_instructions_banner",
     "rich_text_PtmRiF",
     "image_with_text_WcaAiR",
     "image_with_text_pR9RXR",
@@ -730,7 +689,7 @@
     "rich_text_rnLAPH",
     "gvm_comparison_FfmTMw",
     "gvm_pricing_grid_chevy1500",
-    "custom_content_gvm_assets",
+    "gvm_marketing_assets",
     "gvm_kit_request_main"
   ]
 }
