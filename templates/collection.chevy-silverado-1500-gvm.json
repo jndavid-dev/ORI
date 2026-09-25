@@ -107,10 +107,10 @@
           "type": "heading",
           "settings": {
             "heading": "ORI Chevy Silverado 1500 GVM & GCM PACKAGES",
-            "highlight_style": "underline",
-            "enable_highlight_text_color": true,
-            "heading_size": "h1",
-            "heading_color": "#56bdc2"
+            "highlight_style": "none",
+            "enable_highlight_text_color": false,
+            "heading_size": "h2",
+            "heading_color": "#1f1f1f"
           }
         }
       },
@@ -433,10 +433,10 @@
           "type": "heading",
           "settings": {
             "heading": "Chevy Silverado 1500 GVM Pricing",
-            "highlight_style": "underline",
-            "enable_highlight_text_color": true,
-            "heading_size": "h1",
-            "heading_color": "#56bdc2"
+            "highlight_style": "none",
+            "enable_highlight_text_color": false,
+            "heading_size": "h2",
+            "heading_color": "#1f1f1f"
           }
         }
       },

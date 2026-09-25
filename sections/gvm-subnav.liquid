@@ -30,7 +30,28 @@
 
   <nav class="gvm-subnav__bar" aria-label="Secondary navigation">
     <div class="container">
-      <ul class="gvm-subnav__list">
+      {%- comment -%}
+        Mobile toggle. On a phone this bar used to scroll sideways, which
+        hides most of the menu and is easy to miss entirely -- below 767px
+        the list collapses behind this button and opens as a stacked menu
+        instead, with each parent expanding its own children in place.
+        Hidden on desktop via CSS, where the full row is shown.
+      {%- endcomment -%}
+      <button
+        class="gvm-subnav__toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="gvm-subnav-list"
+      >
+        <span class="gvm-subnav__toggle-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </span>
+        <span>{{ section.settings.mobile_label | default: 'GVM Portal Menu' }}</span>
+      </button>
+
+      <ul class="gvm-subnav__list" id="gvm-subnav-list">
         {%- for block in section.blocks -%}
           {%- liquid
             assign has_children = false
@@ -82,6 +103,13 @@
 {
   "name": "GVM Subnav",
   "settings": [
+    {
+      "type": "text",
+      "id": "mobile_label",
+      "label": "Mobile menu label",
+      "info": "Shown on the button that opens this nav below 767px.",
+      "default": "GVM Portal Menu"
+    },
     {
       "type": "color",
       "id": "bg_color",

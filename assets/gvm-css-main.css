@@ -66,8 +66,8 @@
 .gvm-tab-nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  border-bottom: 1px solid #e2e2e2;
+  justify-content: center;
+  gap: 6px;
   padding: 0 0px;
   margin: 0 auto;
   max-width: 1360px;
@@ -84,34 +84,54 @@
      though left/right:0 spans the full viewport width -- same as
      any other block-level element. */
   z-index: 90; /* main header is z-index: 98 -- stay under it */
-  background: #f2f2f2; /* the "stuck" gray */
+  /* Background/shadow for the stuck state live with the button styles
+     below, so the filled tabs and their backdrop stay in one place. */
 
   /* `top` is set inline by gvm-tabs.js, computed live from the
      header's + subnav's actual current heights -- not hardcoded
      here, since both can change at runtime. */
 }
 
+/* Solid tabs rather than an underline: at this size the underline read
+   as a faint detail on a page full of heavy uppercase headings. Each
+   tab is a filled block -- muted grey when idle, solid accent when
+   active -- so the current tab is obvious at a glance and the bar
+   holds its own against the hero above it. */
 .gvm-tab-nav__btn {
   -webkit-appearance: none;
   appearance: none;
-  background: none;
   border: none;
-  border-bottom: 3px solid transparent;
-  padding: 28px 18px;
-  font-size: 18px;
-  font-weight: 600;
-  color: #555;
+  flex: 1 1 0;
+  min-width: max-content;
+  padding: 26px 30px;
+  background: #f1f1f1;
+  color: #4a4a4a;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: color 0.15s ease, border-color 0.15s ease;
+  transition: color 0.18s ease, background-color 0.18s ease;
 }
 
 .gvm-tab-nav__btn:hover {
+  background: #e4e4e4;
   color: #1f1f1f;
 }
 
-.gvm-tab-nav__btn.is-active {
-  color: #1f1f1f;
-  border-bottom-color: #56bdc2;
+.gvm-tab-nav__btn.is-active,
+.gvm-tab-nav__btn.is-active:hover {
+  background: var(--gvm-tab-active-bg, #56bdc2);
+  color: #ffffff;
+}
+
+/* Filled tabs need separating from the page when the bar is stuck to
+   the top, so it keeps a white backdrop and picks up a soft edge
+   instead of the flat grey band the underline version used. */
+.gvm-tab-nav.is-fixed {
+  background: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
 }
 
 /* Tab panels -- hidden by default; JS reveals the active group. The
@@ -130,21 +150,61 @@
    it groups into a tab with .gvm-tab-panel like every other section
    and no per-vehicle selector is needed. */
 
-/* 28px vertical padding and 18px type are noticeably larger than the
-   original build -- scaled proportionally for mobile rather than
-   reusing the old fixed values, so the tap targets stay comfortable
-   without eating too much vertical space on small screens. */
-@media (max-width: 749px) {
+/* Tablet: keep the row, tighten it so four labels still fit without
+   sideways scrolling. */
+@media (max-width: 989px) and (min-width: 768px) {
   .gvm-tab-nav {
+    gap: 4px;
     padding: 0 15px;
-    overflow-x: auto;
-    flex-wrap: nowrap;
   }
 
   .gvm-tab-nav__btn {
-    flex: 0 0 auto;
-    padding: 16px 14px;
-    font-size: 15px;
+    padding: 20px 14px;
+    font-size: 14px;
+    letter-spacing: 0.03em;
+  }
+}
+
+/* --- Accordion mode (<=767px) ---
+   gvm-tabs.js moves each button out of the bar and in front of its own
+   panel group, then hides the (now empty) bar. The buttons become
+   full-width headers with a +/- affordance. */
+.gvm-tab-nav.is-accordion,
+.gvm-tab-nav.is-accordion + .gvm-tab-nav__placeholder,
+.gvm-tab-nav__placeholder:has(+ .gvm-tab-nav.is-accordion) {
+  display: none;
+}
+
+.gvm-tab-nav__btn--accordion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  width: 100%;
+  margin: 0 0 10px;
+  padding: 17px 18px;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  text-align: left;
+}
+
+.gvm-tab-nav__btn--accordion::after {
+  content: "+";
+  flex: 0 0 auto;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.gvm-tab-nav__btn--accordion.is-active::after {
+  content: "–";
+}
+
+/* A panel group sits between two headers, so it needs a little air
+   under it before the next one starts. */
+@media (max-width: 767px) {
+  .gvm-tab-panel {
+    margin-bottom: 10px;
   }
 }
 
@@ -260,23 +320,101 @@
   background: #f2f2f2;
 }
 
-@media (max-width: 749px) {
+/* Toggle button is mobile-only; the full row shows from 768px up. */
+.gvm-subnav__toggle {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 0;
+  border: none;
+  background: none;
+  color: var(--gvm-subnav-color, #ffffff);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.gvm-subnav__toggle-icon svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+/* Tablet: shrink to fit rather than scroll sideways. */
+@media (max-width: 989px) and (min-width: 768px) {
+  .gvm-subnav__parent {
+    padding: 12px 10px;
+    font-size: 13px;
+    gap: 6px;
+  }
+
+  .gvm-subnav__icon {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+/* --- Mobile: stacked menu, no horizontal scrolling ---
+   The old bar scrolled sideways, which left most of the menu
+   off-screen with nothing to indicate it existed. Now the list
+   collapses behind the toggle and each parent opens its children
+   in place, so everything is reachable by scrolling down the page
+   as normal. */
+@media (max-width: 767px) {
+  .gvm-subnav__toggle {
+    display: flex;
+  }
+
   .gvm-subnav__list {
-    flex-wrap: nowrap;
-    overflow-x: auto;
+    display: none;
+    flex-direction: column;
+    padding-bottom: 8px;
+  }
+
+  .gvm-subnav.is-menu-open .gvm-subnav__list {
+    display: flex;
   }
 
   .gvm-subnav__item {
-    flex: 0 0 auto;
+    width: 100%;
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
   }
 
   .gvm-subnav__parent {
-    padding: 12px 14px;
-    font-size: 13px;
+    justify-content: space-between;
+    padding: 14px 2px;
+    font-size: 14px;
   }
 
+  /* The child list is a normal block on mobile, not a floating
+     dropdown -- absolute positioning would put it over the page
+     rather than pushing the menu open. */
   .gvm-subnav__children {
-    min-width: 200px;
+    position: static;
+    min-width: 0;
+    padding: 0 0 6px;
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  .gvm-subnav__children a {
+    padding: 11px 2px 11px 26px;
+    color: var(--gvm-subnav-color, #ffffff);
+    opacity: 0.92;
+  }
+
+  .gvm-subnav__children a:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  /* Chevron sits at the right edge of a full-width row, so the whole
+     row reads as the tap target. */
+  .gvm-subnav__parent .gvm-subnav__chevron {
+    margin-left: auto;
   }
 }
 
@@ -412,15 +550,32 @@
    Tab 4 -- kit/variant selection, VIN/date fields, submit.
    ========================================================== */
 
+/* Full width of its tab container, matching every other tab panel --
+   the old 960px cap left the form floating in the middle of the page
+   while the pricing grid and instructions ran the full 1360px.
+
+   This section renders without the theme's .container wrapper, so it
+   has to carry the same side padding itself or it runs edge to edge
+   on a phone while every neighbouring section is inset. Values match
+   .container in critical-bundle.css. */
 .gvm-kit-request {
-  max-width: 960px;
+  width: 100%;
   margin: 0 auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 1200px) {
+  .gvm-kit-request {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
 }
 
 .gvm-kit-request__layout {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 40px;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
   align-items: start;
 }
 
@@ -799,4 +954,469 @@
    display rules on .btn would override hidden and show it regardless. */
 .gvm-pricing-card__request[hidden] {
   display: none;
+}
+
+/* ==========================================================
+   11. Shared tab section heading
+   One heading treatment for every tab panel -- pricing, marketing,
+   request a kit -- so the tabs read as one page rather than three
+   separately-styled ones. Sizes use clamp() so the same rule holds
+   from phone to desktop without a stack of breakpoints.
+   ========================================================== */
+
+.gvm-section-heading {
+  margin: 0 0 28px;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.gvm-downloads__heading,
+.gvm-pricing-grid__heading {
+  margin: 0 0 28px;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.gvm-downloads__intro {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+/* For tab headings that come from an ordinary rich-text section rather
+   than one of the GVM sections -- add gvm-tab-heading to that section's
+   Custom Class and its heading picks up the same treatment, without
+   needing the copy moved into a custom section. */
+.gvm-tab-heading h1,
+.gvm-tab-heading h2,
+.gvm-tab-heading h3 {
+  margin: 0 0 28px;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.gvm-tab-heading .rich-text__blocks,
+.gvm-tab-heading .container {
+  text-align: center;
+}
+
+
+/* ==========================================================
+   12. GVM Hub Intro
+   Badge, two-tone headline, trust markers, headline band, body.
+   Sits between the hero slideshow and the tab nav.
+   ========================================================== */
+
+.gvm-intro__head {
+  padding-top: var(--section-padding-top, 56px);
+  padding-bottom: 28px;
+  text-align: center;
+}
+
+.gvm-intro__badge {
+  display: inline-block;
+  padding: 11px 22px;
+  border: 1px solid #d5d5d5;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.gvm-intro__heading {
+  margin: 26px 0 0;
+  font-size: clamp(34px, 6.4vw, 76px);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+/* Each line owns a row, so the colour split always lands where the
+   copy says it should rather than wherever the text happens to wrap. */
+.gvm-intro__heading-accent,
+.gvm-intro__heading-main {
+  display: block;
+}
+
+.gvm-intro__heading-accent {
+  color: var(--gvm-intro-accent, #56bdc2);
+}
+
+.gvm-intro__sub {
+  max-width: 76ch;
+  margin: 18px auto 0;
+  color: #444;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.gvm-intro__trust {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px 34px;
+  margin: 26px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gvm-intro__trust-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.gvm-intro__trust-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #e6e6e6;
+  color: #1f1f1f;
+  flex: 0 0 auto;
+}
+
+/* Full-bleed band: the section sits inside the page container, so it
+   is pulled out to the viewport edges with margin rather than being
+   moved out of the section in the markup. */
+.gvm-intro__band {
+  margin: 34px calc(50% - 50vw) 0;
+  padding: 26px calc(50vw - 50%);
+  background: var(--gvm-intro-band-bg, #000);
+}
+
+.gvm-intro__band-heading {
+  margin: 0;
+  color: var(--gvm-intro-band-text, #56bdc2);
+  font-size: clamp(22px, 3.2vw, 38px);
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.gvm-intro__body-wrap {
+  padding-top: 44px;
+  padding-bottom: var(--section-padding-bottom, 40px);
+}
+
+.gvm-intro__body {
+  max-width: 78ch;
+  margin: 0 auto;
+  color: #333;
+  font-size: 17px;
+  line-height: 1.7;
+  text-align: center;
+}
+
+.gvm-intro__body p + p {
+  margin-top: 18px;
+}
+
+.gvm-intro__disclaimer {
+  max-width: 88ch;
+  margin: 22px auto 0;
+  color: #8a8a8a;
+  font-size: 11px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+@media (max-width: 749px) {
+  .gvm-intro__badge {
+    white-space: normal;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+
+  .gvm-intro__trust {
+    gap: 12px 20px;
+  }
+
+  .gvm-intro__body {
+    font-size: 16px;
+    text-align: left;
+  }
+}
+
+
+/* ==========================================================
+   13. GVM Download Banner
+   Dark band with heading + single download CTA, used at the top
+   of the Instructions tab.
+   ========================================================== */
+
+/* Sits inside the tab container rather than bleeding to the viewport
+   edges: the pull-out trick mis-centres once this is nested inside the
+   1360px tab wrapper, and the margin-top keeps it clear of the tab bar
+   instead of butting up against it. */
+.gvm-download-banner {
+  margin: 40px auto 0;
+  padding: var(--section-padding-top, 56px) 48px var(--section-padding-bottom, 56px);
+  background: var(--gvm-banner-bg, #000);
+  color: var(--gvm-banner-text, #fff);
+}
+
+.gvm-download-banner__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 40px;
+  align-items: start;
+}
+
+.gvm-download-banner__heading {
+  margin: 0 0 26px;
+  color: var(--gvm-banner-text, #fff);
+  font-size: clamp(26px, 3.4vw, 40px);
+  font-weight: 800;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+/* Styling comes from the theme's .btn/.btn--primary, so these buttons
+   match the rest of the site. Only the width is set here. */
+.gvm-download-banner__btn {
+  min-width: 320px;
+}
+
+.gvm-download-banner__text {
+  color: var(--gvm-banner-text, #fff);
+  font-size: 16px;
+  line-height: 1.65;
+  opacity: 0.92;
+}
+
+@media (max-width: 749px) {
+  .gvm-download-banner__inner {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .gvm-download-banner__btn {
+    min-width: 0;
+    width: 100%;
+    font-size: 16px;
+  }
+}
+
+
+/* ==========================================================
+   14. GVM Downloads — asset card layout
+   Marketing material treatment: image, title, button.
+   ========================================================== */
+
+.gvm-downloads__grid--cards {
+  gap: 24px;
+}
+
+.gvm-downloads__asset {
+  display: flex;
+  flex-direction: column;
+  padding: 14px 14px 20px;
+  background: #f4f4f4;
+  text-align: center;
+}
+
+.gvm-downloads__asset-media {
+  margin-bottom: 16px;
+}
+
+.gvm-downloads__asset-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  aspect-ratio: 1 / 1;
+}
+
+/* Neutral stand-in so a card still reads as a card before artwork
+   exists -- deliberately flat grey rather than a stock image, so it
+   is obvious at a glance that it is not final content. */
+.gvm-downloads__asset-placeholder {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #c4c4c4;
+}
+
+.gvm-downloads__asset-title {
+  margin: 0 0 14px;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.gvm-downloads__asset-description {
+  margin: -6px 0 14px;
+  color: #666;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Theme .btn classes do the styling; this only pins it to the bottom of
+   the card so buttons line up across a row of uneven titles. */
+.gvm-downloads__asset-btn {
+  margin-top: auto;
+  width: 100%;
+}
+
+@media (max-width: 989px) {
+  .gvm-downloads__grid--cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .gvm-downloads__grid--cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================
+   15. Responsive + contrast fixes
+   Collected here rather than scattered through each section so
+   the breakpoints for this page stay readable in one place.
+   Breakpoints: 989px tablet, 767px accordion/mobile menu, 480px
+   small phone.
+   ========================================================== */
+
+/* --- Button on the dark instructions banner ---
+   The theme's .btn--primary hover slides a dark panel across the
+   button, which is invisible against a black background. Inverting
+   to a white fill reads correctly on the dark band while keeping the
+   theme's size, font and radius. */
+.gvm-download-banner .btn--primary::before,
+.gvm-download-banner .btn--primary::after {
+  display: none;
+}
+
+.gvm-download-banner .btn--primary {
+  background: var(--gvm-banner-btn-bg, #56bdc2);
+  color: var(--gvm-banner-btn-text, #ffffff);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.gvm-download-banner .btn--primary:hover,
+.gvm-download-banner .btn--primary:focus-visible {
+  background: #ffffff;
+  color: #111111;
+}
+
+@media (max-width: 989px) {
+  .gvm-intro__head {
+    padding-top: 40px;
+    padding-bottom: 22px;
+  }
+
+  .gvm-intro__band {
+    margin-top: 28px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .gvm-intro__body-wrap {
+    padding-top: 32px;
+  }
+
+  .gvm-download-banner {
+    margin-top: 28px;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  .gvm-section-heading,
+  .gvm-downloads__heading,
+  .gvm-tab-heading h1,
+  .gvm-tab-heading h2,
+  .gvm-tab-heading h3 {
+    margin-bottom: 22px;
+  }
+}
+
+@media (max-width: 767px) {
+  .gvm-intro__heading {
+    margin-top: 20px;
+  }
+
+  .gvm-intro__trust {
+    margin-top: 20px;
+  }
+
+  .gvm-intro__band {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .gvm-download-banner {
+    margin-top: 0; /* the accordion header above it already spaces it */
+    padding: 32px 20px;
+  }
+
+  .gvm-download-banner__heading {
+    margin-bottom: 18px;
+  }
+
+  /* Tighter, left-aligned headings on a phone: full-width centred
+     uppercase blocks eat too much vertical space at this size. */
+  .gvm-section-heading,
+  .gvm-downloads__heading,
+  .gvm-tab-heading h1,
+  .gvm-tab-heading h2,
+  .gvm-tab-heading h3 {
+    margin-bottom: 18px;
+    font-size: clamp(22px, 6vw, 28px);
+  }
+
+  .gvm-kit-request__layout {
+    gap: 28px;
+  }
+
+  .gvm-kit-preview {
+    order: -1; /* show the chosen kit above the fields, not below */
+  }
+
+  .gvm-downloads__grid {
+    gap: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .gvm-intro__badge {
+    padding: 9px 14px;
+    letter-spacing: 0.06em;
+  }
+
+  .gvm-intro__trust {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: 10px;
+  }
+
+  .gvm-tab-nav__btn--accordion {
+    padding: 15px 14px;
+    font-size: 14px;
+  }
+
+  .gvm-download-banner {
+    padding: 28px 16px;
+  }
 }
