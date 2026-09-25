@@ -1425,3 +1425,185 @@
     padding: 28px 16px;
   }
 }
+
+/* ==========================================================
+   16. GVM Hub page — dark intro banner, packages framing,
+   How It Works steps
+   ========================================================== */
+
+/* --- Dark banner variant of the intro section ---
+   Used on the hub page: the whole head area is filled, the band and
+   body copy are left off, and the badge and text invert. The default
+   (light, on-page) treatment is untouched. */
+.gvm-intro--filled {
+  background: var(--gvm-intro-bg, transparent);
+  color: var(--gvm-intro-text, #1f1f1f);
+}
+
+.gvm-intro--filled .gvm-intro__head {
+  padding-bottom: var(--section-padding-bottom, 40px);
+}
+
+.gvm-intro--filled .gvm-intro__heading-main,
+.gvm-intro--filled .gvm-intro__sub,
+.gvm-intro--filled .gvm-intro__body,
+.gvm-intro--filled .gvm-intro__trust-item {
+  color: var(--gvm-intro-text, #ffffff);
+}
+
+/* Badge keeps its pill shape but picks up the banner's text colour,
+   so it reads on a dark fill instead of disappearing into it. */
+.gvm-intro--filled .gvm-intro__badge {
+  border-color: currentColor;
+  color: var(--gvm-intro-text, #ffffff);
+  opacity: 0.95;
+}
+
+.gvm-intro--filled .gvm-intro__trust-check {
+  background: rgba(255, 255, 255, 0.18);
+  color: var(--gvm-intro-text, #ffffff);
+}
+
+/* --- Packages grid framing --- */
+.gvm-packages-grid__intro {
+  max-width: 88ch;
+  margin: -12px auto 28px;
+  color: #555;
+  text-align: center;
+}
+
+/* Not a real <a> -- the whole card is already the link, so this is a
+   span styled as a button purely as a visual affordance. */
+.gvm-packages-grid__btn {
+  margin-top: 14px;
+  width: 100%;
+  pointer-events: none;
+}
+
+.gvm-packages-grid__card:hover .gvm-packages-grid__btn {
+  filter: brightness(0.94);
+}
+
+/* --- How It Works --- */
+.gvm-steps__intro {
+  max-width: 80ch;
+  margin: -12px auto 32px;
+  color: #555;
+  text-align: center;
+}
+
+.gvm-steps__list {
+  display: grid;
+  grid-template-columns: repeat(var(--gvm-steps-cols, 3), minmax(0, 1fr));
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: none;
+}
+
+.gvm-steps__item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 34px 28px 30px;
+  border: 1px solid #e4e4e4;
+  border-top: 4px solid var(--gvm-steps-accent, #56bdc2);
+  background: #fafafa;
+  overflow: hidden;
+}
+
+/* Oversized, low-contrast number in the corner: reads as sequence at a
+   glance without competing with the step title for attention. */
+.gvm-steps__number {
+  position: absolute;
+  top: 6px;
+  right: 16px;
+  font-size: 86px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--gvm-steps-accent, #56bdc2);
+  opacity: 0.16;
+  pointer-events: none;
+}
+
+.gvm-steps__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 18px;
+  border-radius: 50%;
+  background: var(--gvm-steps-accent, #56bdc2);
+  color: #ffffff;
+  flex: 0 0 auto;
+}
+
+.gvm-steps__icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.gvm-steps__title {
+  margin: 0 0 10px;
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.gvm-steps__text {
+  color: #555;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.gvm-steps__text p + p {
+  margin-top: 10px;
+}
+
+@media (max-width: 989px) {
+  .gvm-steps__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .gvm-steps__list {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .gvm-steps__item {
+    padding: 26px 20px 24px;
+  }
+
+  .gvm-steps__number {
+    font-size: 64px;
+  }
+
+  .gvm-packages-grid__intro,
+  .gvm-steps__intro {
+    margin-bottom: 22px;
+    text-align: left;
+  }
+}
+
+/* The B2B product grid's own heading joins the shared treatment, so
+   "Your GVM Wholesale Pricing" matches every other section heading. */
+.gvm-b2b-grid__heading {
+  margin: 0 0 28px;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+@media (max-width: 767px) {
+  .gvm-b2b-grid__heading {
+    margin-bottom: 18px;
+    font-size: clamp(22px, 6vw, 28px);
+  }
+}

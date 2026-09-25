@@ -1,0 +1,165 @@
+{%- comment -%}
+  GVM How It Works -- numbered process steps in boxes.
+
+  Built as a real section rather than a rich-text block so the steps
+  carry actual structure: a large step number, an icon, a title and a
+  short description, laid out as equal boxes. As plain rich text this
+  content read as a stray paragraph in the middle of the hub page.
+
+  Step count is whatever blocks exist, so the same section covers the
+  three-step wholesale flow on the hub and any longer sequence later.
+{%- endcomment -%}
+
+{%- liquid
+  assign custom_class = section.settings.custom_class
+  unless custom_class == blank
+    assign custom_class = custom_class | prepend: ' '
+  endunless
+-%}
+
+{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
+
+<div
+  class="gvm-steps f-section-padding{{ custom_class }}"
+  style="
+    --gvm-steps-accent: {{ section.settings.accent_color }};
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <div class="container">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="gvm-steps__heading gvm-section-heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.intro != blank -%}
+      <div class="gvm-steps__intro rte">{{ section.settings.intro }}</div>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <ol class="gvm-steps__list" style="--gvm-steps-cols: {{ section.blocks.size }};">
+        {%- for block in section.blocks -%}
+          <li class="gvm-steps__item" {{ block.shopify_attributes }}>
+            <span class="gvm-steps__number" aria-hidden="true">{{ forloop.index }}</span>
+
+            <span class="gvm-steps__icon" aria-hidden="true">
+              {%- case block.settings.icon -%}
+                {%- when 'truck' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                {%- when 'form' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                {%- when 'check' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                {%- when 'tag' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                {%- when 'card' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                {%- else -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              {%- endcase -%}
+            </span>
+
+            <h3 class="gvm-steps__title">{{ block.settings.title }}</h3>
+
+            {%- if block.settings.text != blank -%}
+              <div class="gvm-steps__text rte">{{ block.settings.text }}</div>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ol>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "GVM How It Works",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "How Ordering Works"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Intro text"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent colour",
+      "default": "#56bdc2"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom Class"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Choose the vehicle and stage"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "search", "label": "Browse" },
+            { "value": "truck", "label": "Vehicle" },
+            { "value": "form", "label": "Form" },
+            { "value": "tag", "label": "Pricing" },
+            { "value": "check", "label": "Approved" },
+            { "value": "card", "label": "Payment" }
+          ],
+          "default": "search"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "GVM How It Works",
+      "blocks": [
+        { "type": "step" },
+        { "type": "step" },
+        { "type": "step" }
+      ]
+    }
+  ]
+}
+{% endschema %}

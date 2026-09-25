@@ -9,103 +9,11 @@
  */
 {
   "sections": {
-    "ori_gvm_hero_hub": {
-      "type": "ori-gvm-hero",
-      "blocks": {
-        "trust_1": {
-          "type": "trust_item",
-          "settings": {
-            "text": "Federal / SSM Certification",
-            "icon": "✓"
-          }
-        },
-        "trust_2": {
-          "type": "trust_item",
-          "settings": {
-            "text": "ADR-Tested & Approved",
-            "icon": "✓"
-          }
-        },
-        "trust_3": {
-          "type": "trust_item",
-          "settings": {
-            "text": "Australia-Wide Installer Network",
-            "icon": "✓"
-          }
-        }
-      },
-      "block_order": [
-        "trust_1",
-        "trust_2",
-        "trust_3"
-      ],
-      "settings": {
-        "badge_text": "Federally Approved | ADR-Tested | SSM Certified",
-        "heading": "ORI GVM Wholesale Portal",
-        "heading_size": "h1",
-        "subheading": "<p>Your trade access to ORI's federally approved GVM upgrade packages. Browse every vehicle hub for stage-by-stage instructions, your wholesale pricing, marketing assets, and kit ordering — all in one place.</p>",
-        "btn_1_text": "",
-        "btn_1_url": "",
-        "btn_1_opens_quote": false,
-        "quote_popup_id": "gvm-quote",
-        "btn_1_style": "btn--primary",
-        "btn_2_text": "",
-        "btn_2_url": "",
-        "btn_2_style": "btn--outline",
-        "btn_3_text": "",
-        "btn_3_url": "",
-        "btn_3_style": "quiet",
-        "btn_3_show_icon": true,
-        "overlay_opacity": 45,
-        "container": "container",
-        "color_schema": "",
-        "padding_top": 80,
-        "padding_bottom": 0,
-        "custom_id": "",
-        "custom_class": "gvm-container-1360"
-      }
-    },
-    "rich_text_about": {
-      "type": "rich-text",
-      "blocks": {
-        "heading_about": {
-          "type": "heading",
-          "settings": {
-            "heading": "<strong>About ORI GVM Packages</strong>",
-            "highlight_style": "none",
-            "enable_highlight_text_color": true,
-            "heading_size": "h2",
-            "heading_color": "#56bdc2"
-          }
-        },
-        "text_about": {
-          "type": "text",
-          "settings": {
-            "text": "<p><strong>Offroad Industries (ORI)</strong> builds federally approved GVM (Gross Vehicle Mass) and GCM upgrade packages for Australia's most popular American trucks and 4WDs. Every package is ADR-tested and SSM-certified, so your customer drives away legal — no state-by-state guesswork, no engineering surprises.</p><p>Each vehicle is offered in stages, from entry-level suspension and re-rating through to full lift and tyre packages. Open a vehicle hub below to see the full stage breakdown, technical instructions, your trade pricing against RRP, marketing assets, and to submit a kit request for that build.</p><p><em>Placeholder copy — to be replaced once final content is supplied.</em></p>"
-          }
-        }
-      },
-      "block_order": [
-        "heading_about",
-        "text_about"
-      ],
-      "name": "t:sections.rich-text.presets.name",
-      "settings": {
-        "container": "container",
-        "color_schema": "",
-        "text_alignment": "left",
-        "padding_top": 40,
-        "padding_bottom": 20,
-        "show_section_divider": false,
-        "divider_width": "container",
-        "custom_id": "",
-        "custom_class": "gvm-container-1360",
-        "animations": "inherit"
-      }
-    },
     "gvm_packages_grid_main": {
       "type": "gvm-packages-grid",
       "settings": {
+        "heading": "Browse by Vehicle",
+        "intro": "<p>Each vehicle hub covers that model&rsquo;s full stage range — technical instructions, your trade pricing alongside RRP, marketing assets, and kit ordering, all in one place.</p>",
         "image_f150": "shopify://shop_images/image_-_2026-02-17T205945.442.png",
         "image_tundra": "shopify://shop_images/image_-_2026-02-17T210005.244.png",
         "image_silverado1500": "shopify://shop_images/image_-_2026-02-17T205900.998.png",
@@ -140,50 +48,73 @@
         "padding_bottom": 40
       }
     },
-    "rich_text_how_to_order": {
-      "type": "rich-text",
+    "gvm_intro_hub": {
+      "type": "gvm-intro",
+      "settings": {
+        "badge_text": "Federally Approved | ADR-Tested | SSM Certified",
+        "heading_line_1": "GVM Hub",
+        "heading_line_2": "GVM Packages & Resources",
+        "subheading": "<p>Find the right GVM upgrade for your vehicle. Browse available packages, kit information, installation instructions and workshop tips.</p>",
+        "band_heading": "",
+        "band_background": "#000000",
+        "band_text_color": "#56bdc2",
+        "body": "",
+        "disclaimer": "",
+        "accent_color": "#56bdc2",
+        "background_color": "#000000",
+        "text_color": "#ffffff",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "custom_class": ""
+      }
+    },
+    "gvm_how_it_works": {
+      "type": "gvm-how-it-works",
       "blocks": {
-        "heading_how": {
-          "type": "heading",
+        "step_1": {
+          "type": "step",
           "settings": {
-            "heading": "<strong>How Ordering Works</strong>",
-            "highlight_style": "none",
-            "enable_highlight_text_color": true,
-            "heading_size": "h2",
-            "heading_color": "#56bdc2"
+            "title": "Choose the vehicle and stage",
+            "text": "<p>Open the vehicle hub and review the stage instructions and pricing. Your trade price is shown alongside the recommended retail price on every product.</p>",
+            "icon": "truck"
           }
         },
-        "text_how": {
-          "type": "text",
+        "step_2": {
+          "type": "step",
           "settings": {
-            "text": "<p><strong>1. Choose the vehicle and stage.</strong> Open the vehicle hub and review the stage instructions and pricing. Your trade price is shown alongside the recommended retail price on every product.</p><p><strong>2. Submit a kit request.</strong> Use the Request a Kit tab to select the kit, enter the VIN, vehicle build date and the date you need it, and submit.</p><p><strong>3. We confirm and invoice.</strong> Your request reaches our team as a draft order for review. We confirm stock, finalise freight, and send a secure payment link — nothing is charged to your account at the point of request.</p><p><em>Placeholder copy — to be replaced once final content is supplied.</em></p>"
+            "title": "Submit a kit request",
+            "text": "<p>Use the Request a Kit tab to select the kit, enter the VIN, vehicle build date and the date you need it, then submit.</p>",
+            "icon": "form"
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "We confirm and invoice",
+            "text": "<p>Your request reaches our team as a draft order for review. We confirm stock, finalise freight and send a secure payment link — nothing is charged when you submit.</p>",
+            "icon": "check"
           }
         }
       },
       "block_order": [
-        "heading_how",
-        "text_how"
+        "step_1",
+        "step_2",
+        "step_3"
       ],
-      "name": "t:sections.rich-text.presets.name",
       "settings": {
-        "container": "container",
-        "color_schema": "",
-        "text_alignment": "left",
-        "padding_top": 20,
-        "padding_bottom": 60,
-        "show_section_divider": false,
-        "divider_width": "container",
-        "custom_id": "",
-        "custom_class": "gvm-container-1360",
-        "animations": "inherit"
+        "heading": "How Ordering Works",
+        "intro": "",
+        "accent_color": "#56bdc2",
+        "padding_top": 40,
+        "padding_bottom": 72,
+        "custom_class": "gvm-container-1360"
       }
     }
   },
   "order": [
-    "ori_gvm_hero_hub",
-    "rich_text_about",
+    "gvm_intro_hub",
     "gvm_packages_grid_main",
     "gvm_b2b_product_grid_hub",
-    "rich_text_how_to_order"
+    "gvm_how_it_works"
   ]
 }
