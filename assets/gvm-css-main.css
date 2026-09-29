@@ -3513,9 +3513,8 @@
    on landing pages like the GVM hub. The ridge itself is shared
    with the cut-out style above.
    ========================================================== */
-/* Centred, with a smaller heading than the vehicle heroes: the copy is
-   the whole banner here, so it shouldn't shout. The ridge background is
-   the intended default for landing-page heroes. */
+/* Centred, with a slightly smaller heading than the vehicle heroes.
+   The ridge background is the intended default for landing-page heroes. */
 .ori-hero--plain .ori-hero__in {
   justify-content: center;
   text-align: center;
@@ -3525,14 +3524,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 880px;
+  max-width: min(1200px, 100%);
+}
+
+.ori-hero--plain .ori-hero__sub {
+  max-width: 680px;
 }
 
 .ori .ori-hero--plain .ori-hero__title,
 .ori-hero--plain .ori-hero__title {
-  margin-bottom: 20px;
-  font-size: clamp(38px, 4.2vw, 68px);
-  line-height: 0.95;
+  margin-bottom: 22px;
+  /* Always clearly above section headings (.ori-h2: 38–60px). */
+  font-size: clamp(50px, 6vw, 88px);
+  line-height: 0.92;
 }
 
 .ori-hero--plain .ori-hero__l2,
