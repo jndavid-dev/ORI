@@ -2518,6 +2518,9 @@
     }
   },
   "platform_customizations": {
-    "custom_css": []
+    "custom_css": [
+      ".cart-link .f-icon-svg + .cart-link__count {background: #fff;}",
+      ".f-mobile-nav .f-drawer__close svg {color: #000;}"
+    ]
   }
 }
