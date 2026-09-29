@@ -1,0 +1,193 @@
+{%- comment -%}
+  ORI redesign — site footer. Lives in footer-group.json next to the
+  theme's original "footer" section, which is kept (disabled) so the old
+  footer can be switched back on from the editor if needed.
+
+  Blocks, laid out left to right:
+  - Brand: logo, a line of copy and the newsletter sign-up (Shopify's
+    native customer form, same as the old footer — no app).
+  - Link list: heading + any navigation menu.
+  - Contact: phone, email and a short line.
+  Bottom row: copyright, policy links, currency, plus social icons (the
+  theme's Social media settings) and payment icons when switched on.
+{%- endcomment -%}
+{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
+{%- render 'ori-fonts' -%}
+
+<footer class="ori ori-footer">
+  <div class="ori-wrap">
+    <div class="ori-footer__grid">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'brand' -%}
+            <div class="ori-footer__brand" {{ block.shopify_attributes }}>
+              <a class="ori-footer__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
+                {%- if block.settings.logo != blank -%}
+                  {{
+                    block.settings.logo
+                    | image_url: width: 400
+                    | image_tag: loading: 'lazy', widths: '200, 300, 400', sizes: '200px', alt: shop.name
+                  }}
+                {%- else -%}
+                  <span class="ori-footer__wordmark">{{ shop.name }}</span>
+                {%- endif -%}
+              </a>
+              {%- if block.settings.text != blank -%}
+                <p>{{ block.settings.text }}</p>
+              {%- endif -%}
+              {%- if block.settings.show_newsletter -%}
+                {%- form 'customer', id: 'ori-footer-newsletter', class: 'ori-footer__sub' -%}
+                  <input type="hidden" name="contact[tags]" value="newsletter">
+                  {%- if form.posted_successfully? -%}
+                    <p class="ori-footer__msg" role="status">Thanks — you're subscribed.</p>
+                  {%- else -%}
+                    <label class="ori-sr" for="ori-footer-email">Email</label>
+                    <input
+                      id="ori-footer-email"
+                      type="email"
+                      name="contact[email]"
+                      autocomplete="email"
+                      placeholder="{{ block.settings.placeholder | escape }}"
+                      required
+                    >
+                    <button type="submit">{{ block.settings.button_label }}</button>
+                  {%- endif -%}
+                  {%- if form.errors -%}
+                    <p class="ori-footer__msg ori-footer__msg--error" role="alert">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
+                  {%- endif -%}
+                {%- endform -%}
+                {%- if block.settings.legal != blank -%}
+                  <div class="ori-footer__legal">{{ block.settings.legal }}</div>
+                {%- endif -%}
+              {%- endif -%}
+            </div>
+
+          {%- when 'link_list' -%}
+            <div {{ block.shopify_attributes }}>
+              {%- if block.settings.heading != blank -%}
+                <h2 class="ori-footer__h">{{ block.settings.heading }}</h2>
+              {%- endif -%}
+              {%- assign menu = linklists[block.settings.menu] -%}
+              {%- if menu.links.size > 0 -%}
+                <ul class="ori-footer__links">
+                  {%- for link in menu.links -%}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                  {%- endfor -%}
+                </ul>
+              {%- endif -%}
+            </div>
+
+          {%- when 'contact' -%}
+            <div {{ block.shopify_attributes }}>
+              {%- if block.settings.heading != blank -%}
+                <h2 class="ori-footer__h">{{ block.settings.heading }}</h2>
+              {%- endif -%}
+              <ul class="ori-footer__links">
+                {%- if block.settings.phone != blank -%}
+                  <li><a href="tel:{{ block.settings.phone | remove: ' ' }}">{{ block.settings.phone }}</a></li>
+                {%- endif -%}
+                {%- if block.settings.email != blank -%}
+                  <li><a href="mailto:{{ block.settings.email }}">{{ block.settings.email }}</a></li>
+                {%- endif -%}
+                {%- if block.settings.text != blank -%}
+                  <li class="ori-footer__note">{{ block.settings.text }}</li>
+                {%- endif -%}
+              </ul>
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+
+    <div class="ori-footer__bottom">
+      <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}</span>
+
+      {%- if section.settings.show_social -%}
+        <div class="ori-footer__social">{% render 'social-links', icon_size: 'small' %}</div>
+      {%- endif -%}
+
+      <span class="ori-footer__policies">
+        {%- for policy in shop.policies -%}
+          {%- if policy != blank -%}
+            <a href="{{ policy.url }}">{{ policy.title }}</a>
+          {%- endif -%}
+        {%- endfor -%}
+        <span>{{ localization.country.name }} ({{ localization.country.currency.iso_code }} {{ localization.country.currency.symbol }})</span>
+      </span>
+    </div>
+
+    {%- if section.settings.show_payments and shop.enabled_payment_types.size > 0 -%}
+      <ul class="ori-footer__payments" aria-label="Payment methods">
+        {%- for type in shop.enabled_payment_types -%}
+          <li>{{ type | payment_type_svg_tag }}</li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "ORI Footer",
+  "tag": "section",
+  "class": "ori-footer-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_social",
+      "label": "Show social icons",
+      "info": "Links come from Theme settings > Social media.",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payments",
+      "label": "Show payment icons",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "brand",
+      "name": "Brand & newsletter",
+      "limit": 1,
+      "settings": [
+        { "type": "image_picker", "id": "logo", "label": "Logo" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Subscribe for store updates and discounts." },
+        { "type": "checkbox", "id": "show_newsletter", "label": "Show newsletter sign-up", "default": true },
+        { "type": "text", "id": "placeholder", "label": "Email placeholder", "default": "Your email" },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "Subscribe" },
+        { "type": "richtext", "id": "legal", "label": "Small print under the form" }
+      ]
+    },
+    {
+      "type": "link_list",
+      "name": "Menu",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Information" },
+        { "type": "link_list", "id": "menu", "label": "Menu", "default": "footer" }
+      ]
+    },
+    {
+      "type": "contact",
+      "name": "Contact",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Contact" },
+        { "type": "text", "id": "phone", "label": "Phone" },
+        { "type": "text", "id": "email", "label": "Email" },
+        { "type": "text", "id": "text", "label": "Extra line" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "ORI Footer",
+      "blocks": [
+        { "type": "brand" },
+        { "type": "link_list" },
+        { "type": "contact" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,174 @@
+{%- comment -%}
+  ORI redesign product card — the one card for every product grid on the
+  site (GVM hub pricing now; home, collections and search as the redesign
+  rolls out). Needs the ORI REDESIGN — PRODUCT CARD block in
+  assets/gvm-css-main.css and a parent with the .ori class.
+
+  States, all decided here from the product and customer:
+  - Price: product.price is already the B2B catalog price for company
+    contacts, so nothing is calculated. "From" when variants differ.
+  - Sale (retail): compare-at above price → red price, struck compare-at,
+    "-20%" flag.
+  - B2B (customer.b2b?): every card gets a price label ("Your price", or
+    "Trade price" when discounted) so prices line up across a row, plus a
+    highlighted RRP pill from custom.rrp (Money), falling back to
+    compare-at — same source as snippets/gvm-b2b-price.liquid. RRP above
+    their price adds a "Trade" flag and "Save 15%".
+  Layout: the price block starts straight under the title (held to two
+  lines) on every card, and only the button is pinned to the bottom, so
+  cards with and without RRP/labels still align.
+  - Stock: tracked variants show "Only 3 left" at 5 or fewer; sold out
+    shows a flag and a disabled button.
+
+  Accepts:
+  - product: {Object} required
+  - link: {Boolean} link image and title to the product (default true)
+  - button: {String} 'cart' (default) | 'request' | 'none'
+      cart    — add to cart for single-variant products, "Choose options"
+                link otherwise
+      request — "Request this kit"; ships hidden and is revealed by
+                assets/ori-gvm-kit-request.js only when the kit form is on
+                the page and knows this product
+  - button_label: {String} optional label override
+  - image_width: {Number} optional, default 533
+{%- endcomment -%}
+{%- liquid
+  assign card_link = true
+  if link == false
+    assign card_link = false
+  endif
+  assign card_button = button | default: 'cart'
+  assign img_w = image_width | default: 533
+  assign variant = product.selected_or_first_available_variant
+
+  assign price = product.price
+  assign is_b2b = false
+  if customer.b2b?
+    assign is_b2b = true
+  endif
+
+  comment
+    RRP only for company contacts, mirroring gvm-b2b-price. A Money
+    metafield already works in cents in arithmetic.
+  endcomment
+  assign rrp = 0
+  if is_b2b
+    assign rrp_metafield = product.metafields.custom.rrp.value
+    if rrp_metafield != blank
+      assign rrp = rrp_metafield | times: 1 | round
+    elsif variant.compare_at_price > variant.price
+      assign rrp = variant.compare_at_price
+    endif
+  endif
+
+  assign on_sale = false
+  assign trade = false
+  if is_b2b and rrp > price
+    assign trade = true
+  elsif is_b2b == false and product.compare_at_price > price
+    assign on_sale = true
+  endif
+
+  assign off = 0
+  if on_sale
+    assign off = product.compare_at_price | minus: price | times: 100.0 | divided_by: product.compare_at_price | round
+  elsif trade
+    assign off = rrp | minus: price | times: 100.0 | divided_by: rrp | round
+  endif
+
+  assign stock_class = ''
+  assign stock_label = 'In stock'
+  if product.available == false
+    assign stock_class = ' ori-stock--out'
+    assign stock_label = 'Out of stock'
+  elsif variant.inventory_management == 'shopify' and variant.inventory_policy == 'deny' and variant.inventory_quantity <= 5
+    assign stock_class = ' ori-stock--low'
+    assign stock_label = 'Only ' | append: variant.inventory_quantity | append: ' left'
+  endif
+-%}
+<article class="ori-card">
+  {%- capture card_media -%}
+    {%- if product.available == false -%}
+      <span class="ori-flag">Sold out</span>
+    {%- elsif on_sale -%}
+      <span class="ori-flag ori-flag--sale">-{{ off }}%</span>
+    {%- elsif trade -%}
+      <span class="ori-flag ori-flag--trade">Trade</span>
+    {%- endif -%}
+    {%- if product.featured_image -%}
+      {{
+        product.featured_image
+        | image_url: width: img_w
+        | image_tag:
+          loading: 'lazy',
+          widths: '266, 400, 533, 800',
+          sizes: '(min-width: 1100px) 25vw, (min-width: 820px) 33vw, 50vw',
+          alt: ''
+      }}
+    {%- endif -%}
+  {%- endcapture -%}
+  {%- if card_link -%}
+    <a class="ori-card__img" href="{{ product.url }}" tabindex="-1" aria-hidden="true">{{ card_media }}</a>
+  {%- else -%}
+    <div class="ori-card__img">{{ card_media }}</div>
+  {%- endif -%}
+
+  {%- if product.vendor != blank -%}
+    <div class="ori-card__vendor">{{ product.vendor }}</div>
+  {%- endif -%}
+  <h3 class="ori-card__title" title="{{ product.title | escape }}">
+    {%- if card_link -%}
+      <a href="{{ product.url }}">{{ product.title }}</a>
+    {%- else -%}
+      {{- product.title -}}
+    {%- endif -%}
+  </h3>
+
+  <div class="ori-card__foot">
+    {%- if is_b2b -%}
+      <span class="ori-card__label">{% if trade %}Trade price{% else %}Your price{% endif %}</span>
+    {%- endif -%}
+    <div class="ori-card__price">
+      <span class="ori-price{% if on_sale %} ori-price--sale{% endif %}">
+        {%- if product.price_varies -%}<small>From</small>{%- endif -%}
+        {{- price | money -}}
+      </span>
+      {%- if on_sale -%}
+        <s>{{ product.compare_at_price | money }}</s>
+      {%- endif -%}
+    </div>
+    {%- if rrp > 0 -%}
+      <div class="ori-card__rrp">
+        <span class="ori-rrp"><small>RRP</small> {{ rrp | money }}</span>
+        {%- if trade %}<b>Save {{ off }}%</b>{% endif -%}
+      </div>
+    {%- endif -%}
+    {%- if variant.sku != blank -%}
+      <div class="ori-card__meta">SKU {{ variant.sku }}</div>
+    {%- endif -%}
+    {%- if product.variants.size > 1 -%}
+      <div class="ori-card__meta">
+        {{- product.variants.size }} options · {{ product.options | join: ' / ' | strip -}}
+      </div>
+    {%- endif -%}
+    <span class="ori-stock{{ stock_class }}">{{ stock_label }}</span>
+
+    {%- case card_button -%}
+      {%- when 'request' -%}
+        <button type="button" class="ori-btn ori-btn--line" data-gvm-request-kit="{{ product.id }}" hidden>
+          {{- button_label | default: 'Request this kit' -}}
+        </button>
+      {%- when 'cart' -%}
+        {%- if product.available == false -%}
+          <button type="button" class="ori-btn ori-btn--line" disabled>Sold out</button>
+        {%- elsif product.has_only_default_variant -%}
+          {%- form 'product', product -%}
+            <input type="hidden" name="id" value="{{ variant.id }}">
+            <button type="submit" class="ori-btn ori-btn--line">{{ button_label | default: 'Add to cart' }}</button>
+          {%- endform -%}
+        {%- else -%}
+          <a class="ori-btn ori-btn--line" href="{{ product.url }}">Choose options</a>
+        {%- endif -%}
+    {%- endcase -%}
+  </div>
+</article>

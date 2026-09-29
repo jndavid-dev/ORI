@@ -213,9 +213,13 @@
 
 
 /* ==========================================================
-   3. GVM Subnav
+   3. GVM Subnav (ORI redesign styling)
    Second nav bar under the main header, site-wide (lives in
-   header-group.json). Paired with gvm-subnav.js.
+   header-group.json). Paired with gvm-subnav.js, which fixes the
+   bar to the top on scroll and publishes --gvm-subnav-height.
+   Dark bar, condensed uppercase links, teal accents — the same
+   language as the redesigned GVM hub (see ORI REDESIGN blocks).
+   Colours still come from the section's Background/Text settings.
    ========================================================== */
 
 .gvm-subnav__placeholder {
@@ -228,31 +232,38 @@
 }
 
 .gvm-subnav {
-  background: var(--gvm-subnav-bg, #008faf);
+  background: var(--gvm-subnav-bg, #15191b);
   color: var(--gvm-subnav-color, #ffffff);
 }
 
 .gvm-subnav__bar {
   position: relative; /* normal flow until JS marks it fixed */
-  background: var(--gvm-subnav-bg, #008faf);
   z-index: 89; /* main header is z-index: 98 -- stay under it */
+  border-bottom: 3px solid var(--ori-teal, #3fb3ba);
+  background: var(--gvm-subnav-bg, #15191b);
 }
 
 .gvm-subnav__bar.is-fixed {
   position: fixed;
   left: 0;
   right: 0;
+  box-shadow: 0 10px 24px -16px rgba(0, 0, 0, 0.6);
   /* top is set inline by gvm-subnav.js, computed live from the
      header's actual current height/pinned state. */
+}
+
+.gvm-subnav__bar > .container {
+  max-width: var(--ori-wrap, 1360px);
 }
 
 .gvm-subnav__list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  list-style: none;
+  justify-content: flex-start;
+  gap: 4px;
   margin: 0;
   padding: 0;
+  list-style: none;
 }
 
 .gvm-subnav__item {
@@ -263,33 +274,48 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 14px 16px;
+  padding: 14px 16px 11px;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -3px; /* underline sits on the bar's teal edge */
   color: var(--gvm-subnav-color, #ffffff);
-  font-size: 14px;
-  font-weight: 600;
+  font-family: var(--ori-display, "Barlow Condensed", sans-serif) !important;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  line-height: 1.2;
   text-decoration: none;
+  text-transform: uppercase;
   cursor: pointer;
   list-style: none; /* hide default <summary> marker */
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.gvm-subnav__item:first-child .gvm-subnav__parent {
+  padding-left: 0;
 }
 
 .gvm-subnav__parent::-webkit-details-marker {
   display: none; /* hide default <summary> marker, Safari */
 }
 
-.gvm-subnav__parent:hover {
-  background: rgba(255, 255, 255, 0.12);
+.gvm-subnav__parent:hover,
+.gvm-subnav__dropdown[open] > .gvm-subnav__parent {
+  border-bottom-color: var(--ori-teal, #3fb3ba);
+  color: #ffffff;
 }
 
 .gvm-subnav__icon {
-  width: 16px;
-  height: 16px;
   flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  color: var(--ori-teal, #3fb3ba);
 }
 
 .gvm-subnav__chevron {
+  flex-shrink: 0;
   width: 14px;
   height: 14px;
-  flex-shrink: 0;
+  opacity: 0.7;
   transition: transform 0.15s ease;
 }
 
@@ -299,73 +325,84 @@
 
 .gvm-subnav__children {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 3px);
   left: 0;
-  min-width: 220px;
+  z-index: 1;
+  min-width: 240px;
   margin: 0;
   padding: 8px 0;
-  list-style: none;
-  background: #ffffff;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  border-top: 3px solid var(--ori-teal, #3fb3ba);
   border-radius: 0 0 6px 6px;
-  z-index: 1;
+  background: #ffffff;
+  box-shadow: 0 18px 36px -12px rgba(0, 0, 0, 0.35);
+  list-style: none;
 }
 
 .gvm-subnav__children a {
   display: block;
-  padding: 10px 18px;
-  color: #1f1f1f;
-  font-size: 14px;
+  padding: 10px 20px;
+  border-left: 3px solid transparent;
+  color: var(--ori-ink, #15191b);
+  font-family: var(--ori-body, "Barlow", sans-serif);
+  font-size: 15px;
+  font-weight: 500;
   text-decoration: none;
 }
 
 .gvm-subnav__children a:hover {
-  background: #f2f2f2;
+  border-left-color: var(--ori-teal, #3fb3ba);
+  background: var(--ori-bone, #f1f3f2);
+  color: var(--ori-teal-deep, #2a8f95);
 }
 
 /* Toggle button is mobile-only; the full row shows from 768px up. */
 .gvm-subnav__toggle {
   display: none;
   align-items: center;
+  justify-content: flex-start;
   gap: 10px;
   width: 100%;
+  height: auto;
   padding: 14px 0;
   border: none;
   background: none;
   color: var(--gvm-subnav-color, #ffffff);
-  font-size: 14px;
+  font-family: var(--ori-display, "Barlow Condensed", sans-serif) !important;
+  font-size: 18px;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
+  line-height: 1.2;
   text-transform: uppercase;
   cursor: pointer;
 }
 
+.gvm-subnav__toggle-icon {
+  color: var(--ori-teal, #3fb3ba);
+}
+
 .gvm-subnav__toggle-icon svg {
   display: block;
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
 }
 
 /* Tablet: shrink to fit rather than scroll sideways. */
-@media (max-width: 989px) and (min-width: 768px) {
+@media (max-width: 1100px) and (min-width: 768px) {
   .gvm-subnav__parent {
-    padding: 12px 10px;
-    font-size: 13px;
     gap: 6px;
+    padding: 12px 10px 9px;
+    font-size: 15px;
   }
 
   .gvm-subnav__icon {
-    width: 14px;
-    height: 14px;
+    width: 15px;
+    height: 15px;
   }
 }
 
 /* --- Mobile: stacked menu, no horizontal scrolling ---
-   The old bar scrolled sideways, which left most of the menu
-   off-screen with nothing to indicate it existed. Now the list
-   collapses behind the toggle and each parent opens its children
-   in place, so everything is reachable by scrolling down the page
-   as normal. */
+   The list collapses behind the toggle and each parent opens its
+   children in place, so everything is reachable by scrolling. */
 @media (max-width: 767px) {
   .gvm-subnav__toggle {
     display: flex;
@@ -374,6 +411,7 @@
   .gvm-subnav__list {
     display: none;
     flex-direction: column;
+    gap: 0;
     padding-bottom: 8px;
   }
 
@@ -383,13 +421,16 @@
 
   .gvm-subnav__item {
     width: 100%;
-    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
   }
 
-  .gvm-subnav__parent {
+  .gvm-subnav__parent,
+  .gvm-subnav__item:first-child .gvm-subnav__parent {
     justify-content: space-between;
+    margin-bottom: 0;
     padding: 14px 2px;
-    font-size: 14px;
+    border-bottom: 0;
+    font-size: 18px;
   }
 
   /* The child list is a normal block on mobile, not a floating
@@ -399,19 +440,21 @@
     position: static;
     min-width: 0;
     padding: 0 0 6px;
+    border-top: 0;
+    border-radius: 0;
     background: transparent;
     box-shadow: none;
-    border-radius: 0;
   }
 
   .gvm-subnav__children a {
-    padding: 11px 2px 11px 26px;
+    padding: 11px 2px 11px 28px;
     color: var(--gvm-subnav-color, #ffffff);
-    opacity: 0.92;
+    opacity: 0.9;
   }
 
   .gvm-subnav__children a:hover {
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
   }
 
   /* Chevron sits at the right edge of a full-width row, so the whole
@@ -1605,5 +1648,1818 @@
   .gvm-b2b-grid__heading {
     margin-bottom: 18px;
     font-size: clamp(22px, 6vw, 28px);
+  }
+}
+
+
+/* ==========================================================
+   ORI REDESIGN — FOUNDATION
+   The 2026 redesign (mockups in designs/ori-redesign), rolled
+   out one template at a time. Everything is namespaced .ori-*
+   so it can sit next to the theme's own .btn / .card / .price
+   classes without either side restyling the other. Sections
+   opt in by putting .ori on their outer wrapper.
+   Display face is Barlow Condensed (snippets/ori-fonts.liquid);
+   Barlow body is already loaded site-wide by theme.liquid.
+   ========================================================== */
+:root {
+  --ori-paper: #ffffff;
+  --ori-bone: #f1f3f2;
+  --ori-ink: #15191b;
+  --ori-chassis: #1c2326;
+  --ori-steel: #636c70;
+  --ori-line: #dde1e0;
+  --ori-teal: #3fb3ba;
+  --ori-teal-deep: #2a8f95;
+  --ori-sale: #d2412f;
+  --ori-display: "Barlow Condensed", "Saira Condensed", "Arial Narrow", sans-serif;
+  --ori-body: "Barlow", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --ori-wrap: 1360px;
+  --ori-edge: clamp(20px, 5vw, 96px);
+}
+
+.ori {
+  font-family: var(--ori-body);
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ori-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+.ori *,
+.ori *::before,
+.ori *::after {
+  box-sizing: border-box;
+}
+
+.ori img {
+  display: block;
+  max-width: 100%;
+}
+
+/* Resets for the theme's global element styles. :where() keeps them at
+   the specificity of .ori alone, so every .ori-* class rule further down
+   still wins over them.
+   - brand-guidelines.css forces h1–h6 and <button> fonts with !important,
+     so the redesign's faces need !important too.
+   - critical-bundle.css gives every <button> a fixed height, 30px line
+     height, nowrap, a border, padding and a text-transform — that clipped
+     the stage images and squashed the tab bar. */
+.ori :where(h1, h2, h3, h4) {
+  margin: 0;
+  font-family: var(--ori-display) !important;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: inherit;
+}
+
+.ori :where(p, ul, ol, dl, dd, figure) {
+  margin: 0;
+}
+
+.ori :where(a) {
+  color: inherit;
+}
+
+.ori :where(button) {
+  height: auto;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  text-transform: none;
+  white-space: normal;
+  justify-content: normal;
+  transition: none;
+}
+
+.ori :focus-visible {
+  outline: 3px solid var(--ori-teal);
+  outline-offset: 2px;
+}
+
+.ori [hidden] {
+  display: none !important;
+}
+
+.ori-wrap {
+  max-width: var(--ori-wrap);
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.ori-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.ori-section {
+  padding: var(--ori-pt, 72px) 0 var(--ori-pb, 72px);
+}
+
+@media (max-width: 700px) {
+  .ori-wrap {
+    padding: 0 18px;
+  }
+}
+
+/* --- Section heading block --- */
+.ori-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 36px;
+}
+
+.ori .ori-h2 {
+  font-size: clamp(38px, 4.4vw, 60px);
+  line-height: 0.95;
+}
+
+.ori-accent {
+  display: block;
+  color: var(--ori-teal);
+}
+
+.ori-head__intro {
+  max-width: 600px;
+  margin-top: 10px !important;
+  color: var(--ori-steel);
+}
+
+/* --- Buttons --- */
+.ori-btn,
+.ori-tab,
+.ori-acc,
+.ori-stage-acc {
+  font-family: var(--ori-display) !important;
+}
+
+.ori-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 54px;
+  padding: 8px 26px;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  font-family: var(--ori-display);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.ori-btn svg {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+}
+
+.ori-btn--teal {
+  background: var(--ori-teal);
+  color: #fff;
+}
+
+.ori-btn--teal:hover {
+  background: var(--ori-teal-deep);
+  color: #fff;
+}
+
+.ori-btn.ori-btn--line {
+  border-color: var(--ori-ink);
+  background: none;
+  color: var(--ori-ink);
+}
+
+.ori-btn.ori-btn--line:hover {
+  background: var(--ori-ink);
+  color: #fff;
+}
+
+.ori-btn--ghost {
+  border-color: #fff;
+  background: none;
+  color: #fff;
+}
+
+.ori-btn--ghost:hover {
+  background: #fff;
+  color: var(--ori-ink);
+}
+
+.ori-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.ori-btn[aria-disabled="true"] {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.ori-btn.ori-btn--line:disabled:hover {
+  background: none;
+  color: var(--ori-ink);
+}
+
+@media (max-width: 360px) {
+  .ori-btn {
+    padding-right: 16px;
+    padding-left: 16px;
+    font-size: 18px;
+  }
+}
+
+/* --- Pill badge --- */
+.ori-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 18px;
+  border: 1px solid var(--ori-line);
+  border-radius: 22px;
+  background: var(--ori-paper);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.ori-badge svg {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  color: var(--ori-teal);
+}
+
+/* ==========================================================
+   ORI REDESIGN — HERO (sections/ori-hero.liquid)
+   Full-bleed dark banner. Copy sits on --ori-edge padding
+   rather than the 1360 wrap so it runs the full width.
+   --cutout : transparent vehicle image over a ridge line
+   --photo  : photo on the right, masked into the dark
+   ========================================================== */
+.ori-hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: #0d1113;
+  color: #fff;
+}
+
+.ori-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background: radial-gradient(ellipse 50% 80% at 12% 40%, rgba(63, 179, 186, 0.1), transparent 70%);
+}
+
+.ori-hero__in {
+  display: flex;
+  align-items: center;
+  min-height: var(--ori-hero-h, 600px);
+  padding: 64px var(--ori-edge);
+}
+
+.ori-hero__copy {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: min(1000px, 62vw);
+}
+
+.ori-hero__brands {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 26px;
+}
+
+.ori-hero__brands img {
+  width: 58px;
+  height: 58px;
+  padding: 3px;
+  border-radius: 6px;
+  background: #fff;
+  object-fit: contain;
+}
+
+.ori .ori-hero__title {
+  margin-bottom: 26px;
+  font-size: clamp(50px, 5.4vw, 108px);
+  line-height: 0.9;
+  color: var(--ori-teal);
+}
+
+.ori-hero__l2 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25em 22px;
+}
+
+.ori-pill {
+  display: inline-block;
+  padding: 10px 24px;
+  border-radius: 40px;
+  background: #e9eced;
+  color: var(--ori-ink);
+  font-size: clamp(18px, 1.7vw, 30px);
+  line-height: 1.02;
+  letter-spacing: 0.01em;
+}
+
+.ori-feats {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  justify-content: start;
+  margin: 0 0 32px;
+  padding: 0;
+  list-style: none;
+}
+
+.ori-feat {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 20px;
+  border-left: 1px solid rgba(255, 255, 255, 0.25);
+  color: #dfe6e7;
+  font-size: 15px;
+  line-height: 1.25;
+}
+
+.ori-feat:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.ori-feat svg {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+}
+
+.ori-hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.ori-plate-badge {
+  position: absolute;
+  top: 24px;
+  right: clamp(16px, 2vw, 40px);
+  z-index: 1;
+  padding: 4px 12px 6px;
+  border: 3px solid rgba(255, 255, 255, 0.85);
+  border-radius: 4px;
+  font-family: var(--ori-display);
+  font-size: 44px;
+  font-weight: 800;
+  line-height: 0.9;
+  text-align: center;
+}
+
+.ori-plate-badge small {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+
+.ori-hero__media {
+  position: absolute;
+  z-index: -1;
+}
+
+.ori-hero--photo .ori-hero__media {
+  inset: 0 0 0 auto;
+  width: 60%;
+}
+
+.ori-hero--photo .ori-hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.85) contrast(1.05);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 40%), linear-gradient(0deg, transparent, #000 22%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(90deg, transparent, #000 40%), linear-gradient(0deg, transparent, #000 22%);
+  mask-composite: intersect;
+}
+
+.ori-hero--cutout::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  z-index: -2;
+  height: 55%;
+  pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 400' preserveAspectRatio='none'%3E%3Cpath fill='%23161c1f' d='M0 260 120 170l70 40 110-120 90 70 60-40 150 150 90-60 120 80 110-130 140 110 80-40 130 90 120-70 110 60 100-50v360H0z'/%3E%3Cpath fill='%23121819' d='M0 320 160 250l120 50 140-80 160 90 120-40 200 70 140-60 180 60 160-50 220 70v140H0z'/%3E%3C/svg%3E") bottom / 100% 100% no-repeat;
+}
+
+.ori-hero--cutout .ori-hero__media {
+  right: clamp(0px, 1.5vw, 40px);
+  bottom: 6%;
+  z-index: 0;
+  width: min(45vw, 960px);
+}
+
+.ori-hero--cutout .ori-hero__media img {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 28px 30px rgba(0, 0, 0, 0.55));
+}
+
+.ori-hero--cutout .ori-hero__media::after {
+  content: "";
+  position: absolute;
+  inset: auto 2% -18px 4%;
+  z-index: -1;
+  height: 46px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.85), transparent 70%);
+}
+
+@media (max-width: 1500px) {
+  .ori-feats {
+    grid-template-columns: repeat(2, auto);
+    row-gap: 16px;
+  }
+
+  .ori-feat:nth-child(3) {
+    padding-left: 0;
+    border-left: 0;
+  }
+}
+
+@media (max-width: 1024px) {
+  .ori-hero__in {
+    min-height: 0;
+    padding-top: 24px;
+    padding-bottom: 56px;
+  }
+
+  .ori-hero__copy {
+    max-width: none;
+  }
+
+  .ori-hero__media {
+    position: relative;
+    z-index: 0;
+  }
+
+  .ori-hero--photo .ori-hero__media {
+    width: auto;
+    height: 320px;
+  }
+
+  .ori-hero--photo .ori-hero__media img {
+    -webkit-mask-image: linear-gradient(0deg, transparent, #000 35%);
+    mask-image: linear-gradient(0deg, transparent, #000 35%);
+  }
+
+  .ori-hero--cutout .ori-hero__media {
+    right: auto;
+    bottom: auto;
+    width: auto;
+    max-width: 720px;
+    margin: 96px var(--ori-edge) 0;
+  }
+
+  .ori-plate-badge {
+    top: 16px;
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 560px) {
+  .ori-feats {
+    grid-template-columns: 1fr;
+  }
+
+  .ori-feat,
+  .ori-feat:nth-child(3) {
+    padding-left: 0;
+    border-left: 0;
+  }
+}
+
+/* ==========================================================
+   ORI REDESIGN — GVM INTRO (sections/ori-gvm-intro.liquid)
+   ========================================================== */
+.ori-intro {
+  padding-top: var(--ori-pt, 80px);
+}
+
+.ori-intro__head {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr;
+  align-items: end;
+  gap: 56px;
+  margin-bottom: 48px;
+}
+
+.ori-intro__head .ori-badge {
+  margin-bottom: 22px;
+}
+
+.ori .ori-intro__title {
+  font-size: clamp(44px, 5.2vw, 76px);
+  line-height: 0.95;
+}
+
+.ori-trust {
+  display: grid;
+  gap: 14px;
+  padding: 0;
+  list-style: none;
+}
+
+.ori-trust li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.ori-trust li::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--ori-teal) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center / 12px no-repeat;
+}
+
+.ori-band {
+  background: var(--ori-band-bg, #000);
+  color: var(--ori-band-text, #56bdc2);
+}
+
+.ori .ori-band__title {
+  padding: 34px 0;
+  font-size: clamp(28px, 3.2vw, 44px);
+}
+
+.ori-intro__body {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 56px;
+  padding: 48px 0 var(--ori-pb, 64px);
+}
+
+.ori-intro__body .ori-rte p {
+  margin-bottom: 16px;
+  font-size: 18px;
+}
+
+.ori-fine {
+  padding: 4px 0 4px 16px;
+  border-left: 3px solid var(--ori-teal);
+  color: var(--ori-steel);
+  font-size: 14px;
+}
+
+@media (max-width: 900px) {
+  .ori-intro {
+    padding-top: 56px;
+  }
+
+  .ori-intro__head,
+  .ori-intro__body {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+
+/* ==========================================================
+   ORI REDESIGN — HUB TABS (sections/ori-gvm-tabs.liquid,
+   assets/ori-gvm-tabs.js)
+   Same grouping model as the old gvm-tab-nav: each tab's
+   sections carry "ori-panel ori-panel--N" in Custom Class.
+   The bar is position:fixed by JS once it reaches the top —
+   .site-wrapper's overflow:clip rules out position:sticky.
+   At ≤767px the bar hides and JS puts an accordion header
+   above each group instead.
+   ========================================================== */
+
+/* Before the script runs only Tab 1 shows, so there is no flash of
+   every panel stacked; once it runs it owns visibility. */
+.js .ori-panel:not(.ori-panel--1) {
+  display: none;
+}
+
+.js.ori-tabs-ready .ori-panel {
+  display: none;
+}
+
+.js.ori-tabs-ready .ori-panel.is-open {
+  display: block;
+}
+
+.ori-tabs__bar {
+  position: relative;
+  z-index: 30;
+  border-bottom: 1px solid var(--ori-line);
+  background: var(--ori-paper);
+  box-shadow: 0 10px 24px -20px rgba(0, 0, 0, 0.35);
+}
+
+.ori-tabs__bar.is-fixed {
+  position: fixed;
+  right: 0;
+  left: 0;
+}
+
+.ori-tabs__list {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.ori-tabs__list::-webkit-scrollbar {
+  display: none;
+}
+
+.ori-tab {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: baseline;
+  gap: 10px;
+  padding: 20px 22px 16px;
+  border: 0;
+  border-bottom: 4px solid transparent;
+  background: none;
+  color: var(--ori-steel);
+  font-family: var(--ori-display);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.ori-tab:first-child {
+  padding-left: 0;
+}
+
+.ori-tab span,
+.ori-acc span {
+  color: var(--ori-teal);
+  font-size: 15px;
+}
+
+.ori-tab:hover {
+  color: var(--ori-ink);
+}
+
+.ori-tab[aria-selected="true"] {
+  border-color: var(--ori-teal);
+  color: var(--ori-ink);
+}
+
+/* Accordion headers — created by the script, mobile only. */
+.ori-acc {
+  display: none;
+  width: 100%;
+  align-items: center;
+  gap: 12px;
+  padding: 18px;
+  border: 0;
+  border-top: 1px solid #2f3a3e;
+  background: var(--ori-chassis);
+  color: #fff;
+  font-family: var(--ori-display);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.1;
+  text-align: left;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.ori-acc[aria-expanded="true"] {
+  box-shadow: inset 4px 0 0 var(--ori-teal);
+}
+
+.ori-acc::after,
+.ori-stage-acc::after {
+  content: "";
+  flex: 0 0 auto;
+  width: 10px;
+  height: 10px;
+  margin-left: auto;
+  border: solid currentColor;
+  border-width: 0 2.5px 2.5px 0;
+  transform: translateY(-3px) rotate(45deg);
+  transition: transform 0.2s;
+}
+
+.ori-acc[aria-expanded="true"]::after,
+.ori-stage-acc[aria-expanded="true"]::after {
+  transform: translateY(2px) rotate(-135deg);
+}
+
+@media (max-width: 767px) {
+  .ori-tabs__bar {
+    display: none;
+  }
+
+  .ori-acc {
+    display: flex;
+  }
+}
+
+/* ==========================================================
+   ORI REDESIGN — STAGES (sections/ori-gvm-stages.liquid)
+   One stage visible at a time; tabs on desktop, accordion
+   at ≤767px. Behaviour in assets/ori-gvm-tabs.js.
+   ========================================================== */
+.ori-stages__list {
+  display: grid;
+  grid-template-columns: repeat(var(--ori-n, 5), minmax(0, 1fr));
+  gap: 8px;
+}
+
+/* The theme makes every <button> inline-flex; the label and meta line
+   must stack, so this one is a plain block. */
+.ori-stage-tab {
+  display: block;
+  width: 100%;
+  padding: 12px 4px 4px;
+  border: 0;
+  border-top: 4px solid var(--ori-line);
+  background: none;
+  color: var(--ori-steel);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.ori-stage-tab b {
+  display: block;
+  color: var(--ori-ink);
+  font-family: var(--ori-display);
+  font-size: 24px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.ori-stage-tab span {
+  display: block;
+  margin-top: 4px;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.ori-stage-tab:hover {
+  border-color: #b9c4c3;
+}
+
+.ori-stage-tab[aria-selected="true"] {
+  border-color: var(--ori-teal);
+  color: var(--ori-ink);
+}
+
+.ori-stage-acc {
+  display: none;
+  width: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 12px;
+  padding: 14px 0;
+  border: 0;
+  border-top: 4px solid var(--ori-line);
+  background: none;
+  color: var(--ori-ink);
+  font-family: var(--ori-display);
+  font-size: 21px;
+  font-weight: 700;
+  text-align: left;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.ori-stage-acc[aria-expanded="true"] {
+  border-color: var(--ori-teal);
+}
+
+.ori-stage-acc small {
+  order: 3;
+  flex-basis: 100%;
+  color: var(--ori-steel);
+  font-family: var(--ori-body);
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: none;
+}
+
+.ori-stage__body {
+  padding-top: 40px;
+}
+
+.ori-stage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  gap: 56px;
+}
+
+.ori-stage__img {
+  display: block;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 6px;
+  background: #1c1c1c;
+  cursor: zoom-in;
+}
+
+.ori-stage__img img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s;
+}
+
+.ori-stage__img:hover img {
+  transform: scale(1.02);
+}
+
+.ori-eyebrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  margin-bottom: 10px;
+  color: var(--ori-teal-deep);
+  font-family: var(--ori-display);
+  font-size: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.ori-eyebrow i {
+  padding: 2px 10px;
+  border-radius: 4px;
+  background: var(--ori-ink);
+  color: #fff;
+  font-style: normal;
+}
+
+.ori .ori-stage__title {
+  margin-bottom: 14px;
+  font-size: clamp(30px, 3vw, 42px);
+  line-height: 0.98;
+}
+
+.ori-stage__title small {
+  display: block;
+  margin-top: 6px;
+  color: var(--ori-steel);
+  font-size: 0.55em;
+}
+
+.ori-lead {
+  margin-bottom: 20px !important;
+  color: var(--ori-steel);
+  font-size: 18px;
+  font-style: italic;
+}
+
+.ori-spec {
+  border-top: 1px solid var(--ori-line);
+}
+
+.ori-spec > div {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--ori-line);
+}
+
+.ori-spec dt {
+  font-family: var(--ori-display);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.ori-spec dd p + p {
+  margin-top: 4px;
+}
+
+.ori-note {
+  margin-top: 16px !important;
+  padding: 10px 14px;
+  border-radius: 4px;
+  background: var(--ori-bone);
+  font-size: 15px;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.ori-stage__dl {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  margin-top: 24px;
+}
+
+.ori-stage__dl-note {
+  color: var(--ori-steel);
+  font-size: 14px;
+}
+
+.ori-lightbox {
+  max-width: min(1400px, 94vw);
+  padding: 0;
+  border: 0;
+  background: none;
+}
+
+.ori-lightbox::backdrop {
+  background: rgba(8, 11, 12, 0.88);
+}
+
+.ori-lightbox img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+.ori-lightbox button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+  .ori-stage {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .ori-stage-tab b {
+    font-size: 20px;
+  }
+
+  .ori-stage-tab span {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 767px) {
+  .ori-stages__list {
+    display: none;
+  }
+
+  .ori-stage-acc {
+    display: flex;
+  }
+
+  .ori-stage__body {
+    padding: 12px 0 28px;
+  }
+}
+
+@media (max-width: 520px) {
+  .ori-spec > div {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+
+  .ori-stage__dl .ori-btn {
+    width: 100%;
+  }
+}
+
+/* ==========================================================
+   ORI REDESIGN — COMPARISON (sections/ori-gvm-comparison.liquid)
+   ========================================================== */
+.ori-cmp {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ori-cmp th,
+.ori-cmp td {
+  padding: 16px 14px;
+  border-bottom: 1px solid var(--ori-line);
+  text-align: center;
+}
+
+.ori-cmp thead th {
+  border: 0;
+  background: var(--ori-chassis);
+  color: #fff;
+  font-family: var(--ori-display);
+  font-size: 22px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.ori-cmp thead th:first-child {
+  border-radius: 6px 0 0 0;
+}
+
+.ori-cmp thead th:last-child {
+  border-radius: 0 6px 0 0;
+}
+
+.ori-cmp tbody th {
+  font-weight: 600;
+  text-align: left;
+}
+
+.ori-cmp td {
+  font-family: var(--ori-display);
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.ori-cmp .is-highlight {
+  background: #f4fafa;
+}
+
+.ori-cmp .is-highlight td {
+  color: var(--ori-teal-deep);
+}
+
+.ori-cmp-cards {
+  display: none;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.ori-cmp-card {
+  padding: 16px 18px;
+  border-radius: 6px;
+  background: var(--ori-bone);
+}
+
+.ori-cmp-card b {
+  display: block;
+  margin-bottom: 8px;
+  font-family: var(--ori-display);
+  font-size: 24px;
+  text-transform: uppercase;
+}
+
+.ori-cmp-card div {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--ori-line);
+  font-size: 14px;
+}
+
+.ori-cmp-card span {
+  font-family: var(--ori-display);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.ori-cmp-card .is-highlight span {
+  color: var(--ori-teal-deep);
+}
+
+@media (max-width: 860px) {
+  .ori-cmp {
+    display: none;
+  }
+
+  .ori-cmp-cards {
+    display: grid;
+  }
+}
+
+@media (max-width: 420px) {
+  .ori-cmp-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================
+   ORI REDESIGN — PRODUCT CARD (snippets/ori-product-card.liquid)
+   The site-wide card. States: price / "From" / sale (compare-at)
+   / B2B RRP line / B2B trade discount / low stock / sold out.
+   Titles are held to two lines and the price block follows straight
+   after, so prices line up across a row whether or not a card has a
+   label or RRP; only the button is pinned to the bottom.
+   ========================================================== */
+.ori-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 40px 22px;
+}
+
+.ori-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.ori-card__img {
+  position: relative;
+  display: block;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--ori-bone);
+}
+
+.ori-card__img img {
+  width: 100%;
+  height: 100%;
+  padding: 8%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  transition: transform 0.3s;
+}
+
+.ori-card:hover .ori-card__img img {
+  transform: scale(1.04);
+}
+
+.ori-flag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1;
+  padding: 3px 9px;
+  border-radius: 4px;
+  background: var(--ori-ink);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.ori-flag--sale {
+  background: var(--ori-sale);
+}
+
+.ori-flag--trade {
+  background: var(--ori-teal-deep);
+}
+
+.ori-card__vendor {
+  margin-top: 14px;
+  color: var(--ori-teal-deep);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.ori .ori-card__title {
+  display: -webkit-box;
+  margin: 4px 0 12px;
+  overflow: hidden;
+  font-family: var(--ori-body) !important;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.35;
+  text-transform: none;
+  min-height: calc(1.35em * 2);
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.ori-card__title a {
+  text-decoration: none;
+}
+
+.ori-card__title a:hover {
+  text-decoration: underline;
+}
+
+.ori-card__foot {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+}
+
+.ori-card__foot > .ori-btn,
+.ori-card__foot > form {
+  margin-top: auto;
+}
+
+.ori-card__label {
+  color: var(--ori-teal-deep);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.ori-card__price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.ori-price {
+  font-family: var(--ori-display);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.ori-price small {
+  margin-right: 4px;
+  color: var(--ori-steel);
+  font-family: var(--ori-body);
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.ori-price--sale {
+  color: var(--ori-sale);
+}
+
+.ori-card__price s {
+  color: var(--ori-steel);
+  font-size: 14px;
+}
+
+.ori-card__meta {
+  color: var(--ori-steel);
+  font-size: 13px;
+}
+
+/* RRP is the B2B reseller's key number, so it reads as a highlight. */
+.ori-card__rrp {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+  margin: 4px 0 2px;
+}
+
+.ori-rrp {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 4px;
+  background: #e3f3f4;
+  color: var(--ori-teal-deep);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.ori-rrp small {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.ori-card__rrp b {
+  color: var(--ori-sale);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.ori-stock {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 6px 0 12px;
+  color: #1f7a45;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.ori-stock::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.ori-stock--low {
+  color: #b26a00;
+}
+
+.ori-stock--out {
+  color: var(--ori-sale);
+}
+
+.ori-card form {
+  width: 100%;
+}
+
+.ori-card .ori-btn {
+  width: 100%;
+  min-height: 46px;
+  padding: 6px 12px;
+  font-size: 17px;
+}
+
+.ori-fine-print {
+  margin-top: 32px !important;
+  color: var(--ori-steel);
+  font-size: 14px;
+}
+
+@media (max-width: 1100px) {
+  .ori-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 820px) {
+  .ori-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ori .ori-card__title {
+    font-size: 15px;
+  }
+
+  .ori-price {
+    font-size: 21px;
+  }
+
+  .ori-card .ori-btn {
+    min-height: 42px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 340px) {
+  .ori-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================
+   ORI REDESIGN — DOWNLOAD CARDS (sections/ori-gvm-downloads.liquid)
+   ========================================================== */
+.ori-assets {
+  display: grid;
+  grid-template-columns: repeat(var(--ori-cols, 4), minmax(0, 1fr));
+  gap: 18px;
+}
+
+.ori-asset {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--ori-line);
+  border-radius: 6px;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.ori-asset:hover {
+  box-shadow: 0 18px 36px -24px rgba(0, 0, 0, 0.45);
+  transform: translateY(-2px);
+}
+
+.ori-asset__thumb {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  background: var(--ori-chassis);
+  color: var(--ori-teal);
+}
+
+.ori-asset__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ori-asset__thumb svg {
+  width: 64px;
+  height: 64px;
+}
+
+.ori-asset__type {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--ori-teal);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.ori-asset__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 14px;
+  padding: 20px;
+}
+
+.ori .ori-asset__title {
+  font-size: 28px;
+}
+
+.ori-asset__body p {
+  color: var(--ori-steel);
+  font-size: 15px;
+}
+
+.ori-asset .ori-btn {
+  min-height: 46px;
+  margin-top: auto;
+  font-size: 17px;
+}
+
+@media (max-width: 1000px) {
+  .ori-assets {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .ori-assets {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================
+   ORI REDESIGN — KIT REQUEST (sections/ori-gvm-kit-request.liquid,
+   assets/ori-gvm-kit-request.js)
+   ========================================================== */
+.ori-kit {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  gap: 48px;
+}
+
+.ori-kit form {
+  display: grid;
+  gap: 18px;
+}
+
+.ori-kit label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.ori-kit select,
+.ori-kit input {
+  width: 100%;
+  height: 52px;
+  padding: 0 14px;
+  border: 1px solid #c9cfce;
+  border-radius: 4px;
+  background: #fff;
+  color: var(--ori-ink);
+  font: inherit;
+}
+
+.ori-kit select {
+  padding-right: 36px;
+  appearance: none;
+  background: #fff linear-gradient(45deg, transparent 50%, var(--ori-steel) 50%) calc(100% - 20px) 23px / 5px 5px no-repeat,
+    linear-gradient(135deg, var(--ori-steel) 50%, transparent 50%) calc(100% - 15px) 23px / 5px 5px no-repeat;
+}
+
+.ori-kit select:disabled {
+  background-color: var(--ori-bone);
+  opacity: 0.7;
+}
+
+.ori-kit__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.ori-kit__price {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-radius: 4px;
+  background: var(--ori-bone);
+  font-weight: 600;
+}
+
+.ori-kit__price b {
+  color: var(--ori-teal-deep);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.ori-kit .ori-btn {
+  width: 100%;
+}
+
+.ori-kit__note {
+  color: var(--ori-steel);
+  font-size: 14px;
+}
+
+.ori-kit__error {
+  padding: 14px 16px;
+  border: 1px solid #f1c7c0;
+  border-radius: 4px;
+  background: #fbeeec;
+  color: #8a2a1d;
+  font-weight: 600;
+}
+
+.ori-preview {
+  padding: 28px;
+  border-radius: 6px;
+  background: var(--ori-bone);
+}
+
+.ori-preview__empty {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 14px;
+  min-height: 360px;
+  color: var(--ori-steel);
+  text-align: center;
+}
+
+.ori-preview__empty svg {
+  width: 56px;
+  height: 56px;
+  color: #b8c0bf;
+}
+
+.ori-preview__img {
+  aspect-ratio: 4 / 3;
+  margin-bottom: 18px;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.ori-preview__img img {
+  width: 100%;
+  height: 100%;
+  padding: 6%;
+  object-fit: contain;
+}
+
+.ori .ori-preview__title {
+  margin-bottom: 10px;
+  font-size: 30px;
+}
+
+.ori-preview p {
+  color: var(--ori-steel);
+}
+
+.ori-preview__sku {
+  margin-top: 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .ori-kit {
+    grid-template-columns: 1fr;
+  }
+
+
+  .ori-preview__empty {
+    min-height: 0;
+    padding: 24px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .ori-kit__row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================
+   ORI REDESIGN — FOOTER (sections/ori-footer.liquid)
+   Site-wide (footer-group.json). The first column (brand +
+   newsletter) is wider; every other block gets an equal column.
+   ========================================================== */
+.ori-footer {
+  padding: 72px 0 28px;
+  background: var(--ori-chassis);
+  color: #b7c3c6;
+  font-size: 15px;
+}
+
+.ori-footer__grid {
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  grid-template-columns: minmax(0, 1.4fr);
+  gap: 40px;
+}
+
+.ori-footer :where(a) {
+  text-decoration: none;
+}
+
+.ori-footer a:hover {
+  color: #fff;
+}
+
+.ori-footer__logo {
+  display: inline-block;
+  margin-bottom: 14px;
+}
+
+.ori-footer__logo img {
+  width: auto;
+  height: 44px;
+}
+
+.ori-footer__wordmark {
+  color: #fff;
+  font-family: var(--ori-display);
+  font-size: 34px;
+  font-weight: 800;
+}
+
+.ori .ori-footer__h {
+  margin-bottom: 14px;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.ori-footer__links {
+  display: grid;
+  gap: 8px;
+  padding: 0;
+  list-style: none;
+}
+
+.ori-footer__note {
+  color: #8fa0a4;
+  font-size: 14px;
+}
+
+.ori-footer__sub {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 380px;
+  margin-top: 16px;
+}
+
+.ori-footer__sub input {
+  flex: 1;
+  min-width: 0;
+  height: 48px;
+  padding: 0 14px;
+  border: 1px solid #3a4447;
+  border-radius: 4px 0 0 4px;
+  background: #141a1c;
+  color: #fff;
+  font: inherit;
+}
+
+.ori-footer__sub button {
+  height: 48px;
+  padding: 0 18px;
+  border-radius: 0 4px 4px 0;
+  background: var(--ori-teal);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ori-footer__sub button:hover {
+  background: var(--ori-teal-deep);
+}
+
+.ori-footer__msg {
+  flex-basis: 100%;
+  margin-top: 8px !important;
+  color: #fff;
+  font-size: 14px;
+}
+
+.ori-footer__msg--error {
+  color: #f3a699;
+}
+
+.ori-footer__legal {
+  max-width: 380px;
+  margin-top: 10px;
+  color: #8fa0a4;
+  font-size: 13px;
+}
+
+.ori-footer__legal a {
+  text-decoration: underline;
+}
+
+.ori-footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 56px;
+  padding-top: 22px;
+  border-top: 1px solid #333d40;
+  font-size: 14px;
+}
+
+.ori-footer__policies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+}
+
+.ori-footer__social :is(svg, .f-icon-svg) {
+  color: #fff;
+}
+
+.ori-footer__payments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+  padding: 0;
+  list-style: none;
+}
+
+.ori-footer__payments svg {
+  width: 38px;
+  height: 24px;
+}
+
+@media (max-width: 900px) {
+  .ori-footer__grid {
+    grid-auto-flow: row;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ori-footer__brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 520px) {
+  .ori-footer {
+    padding-top: 56px;
+  }
+
+  .ori-footer__grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
   }
 }
