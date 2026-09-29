@@ -1,0 +1,178 @@
+{%- comment -%}
+  ORI redesign — GVM kit request form (Tab 4). Same flow as
+  sections/gvm-kit-request-form.liquid, restyled:
+  kit → variant → VIN, build date and required date as line item
+  properties → add to cart → checkout, where the company's "Submit all
+  orders as drafts for review" setting turns it into a draft order.
+
+  Uses the page's collection, so prices are server-rendered B2B catalog
+  prices. Kit data is embedded as JSON so the script never has to fetch.
+  "Request this kit" buttons on product cards preselect a kit here
+  (assets/ori-gvm-kit-request.js).
+{%- endcomment -%}
+{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
+{%- render 'ori-fonts' -%}
+
+{%- liquid
+  assign custom_class = section.settings.custom_class
+  unless custom_class == blank
+    assign custom_class = custom_class | prepend: ' '
+  endunless
+-%}
+<div
+  class="ori ori-section{{ custom_class }}"
+  style="--ori-pt: {{ section.settings.padding_top }}px; --ori-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="ori-wrap">
+    {%- if section.settings.heading != blank or section.settings.intro != blank -%}
+      <div class="ori-head">
+        <div>
+          {%- if section.settings.heading != blank -%}
+            <h2 class="ori-h2">{{ section.settings.heading }}</h2>
+          {%- endif -%}
+          {%- if section.settings.intro != blank -%}
+            <p class="ori-head__intro">{{ section.settings.intro }}</p>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- if collection.products.size == 0 -%}
+      <p class="ori-head__intro">No kits available to request yet.</p>
+    {%- else -%}
+      <div class="ori-kit" data-ori-kit>
+        <form class="ori-kit__form" novalidate>
+          <div>
+            <label for="ori-kit-select">Select GVM Kit</label>
+            <select id="ori-kit-select" name="kit" required>
+              <option value="">Choose a kit&hellip;</option>
+              {%- for product in collection.products -%}
+                <option value="{{ product.id }}">{{ product.title }}</option>
+              {%- endfor -%}
+            </select>
+          </div>
+          <div>
+            <label for="ori-variant-select">Select Variant</label>
+            <select id="ori-variant-select" name="id" required disabled>
+              <option value="">Choose a kit above first&hellip;</option>
+            </select>
+          </div>
+          <div class="ori-kit__price" data-price hidden>
+            <span>Your price</span>
+            <b data-price-value></b>
+          </div>
+          <div>
+            <label for="ori-vin">Vehicle Identification Number (VIN)</label>
+            <input type="text" id="ori-vin" name="properties[VIN]" required maxlength="17" autocomplete="off" placeholder="17 characters">
+          </div>
+          <div class="ori-kit__row">
+            <div>
+              <label for="ori-build-date">Vehicle Build Date</label>
+              <input type="date" id="ori-build-date" name="properties[Vehicle Build Date]" required>
+            </div>
+            <div>
+              <label for="ori-delivery-date">Required Delivery/Kit Date</label>
+              <input type="date" id="ori-delivery-date" name="properties[Required Delivery Date]" required>
+            </div>
+          </div>
+          <button type="submit" class="ori-btn ori-btn--teal" data-submit disabled>Request Kit</button>
+          <p class="ori-kit__note">{{ section.settings.note }}</p>
+          <div class="ori-kit__error" role="alert" data-error hidden></div>
+        </form>
+
+        <aside class="ori-preview" aria-live="polite">
+          <div class="ori-preview__empty" data-preview-empty>
+            {%- render 'ori-icon', icon: 'box' -%}
+            Select a kit to see details here.
+          </div>
+          <div data-preview hidden>
+            <div class="ori-preview__img"><img src="data:," alt="" width="700" height="525" data-preview-img></div>
+            <h3 class="ori-preview__title" data-preview-title></h3>
+            <p data-preview-desc></p>
+            <div class="ori-preview__sku" data-preview-sku></div>
+          </div>
+        </aside>
+      </div>
+
+      <script type="application/json" data-ori-kit-data>
+        {
+          {%- for product in collection.products -%}
+            "{{ product.id }}": {
+              "title": {{ product.title | json }},
+              "description": {{ product.description | strip_html | truncatewords: 30 | json }},
+              "image": {{ product.featured_image | image_url: width: 700 | json }},
+              "variants": [
+                {%- for variant in product.variants -%}
+                  {
+                    "id": {{ variant.id }},
+                    "title": {{ variant.title | json }},
+                    "sku": {{ variant.sku | json }},
+                    "price": {{ variant.price | money | json }},
+                    "available": {{ variant.available }}
+                  }{% unless forloop.last %},{% endunless %}
+                {%- endfor -%}
+              ]
+            }{% unless forloop.last %},{% endunless %}
+          {%- endfor -%}
+        }
+      </script>
+      <script src="{{ 'ori-gvm-kit-request.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "ORI GVM Kit Request",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Request a Kit"
+    },
+    {
+      "type": "text",
+      "id": "intro",
+      "label": "Intro",
+      "default": "Choose the kit and variant, add the vehicle details, and we'll confirm shipping before anything is charged."
+    },
+    {
+      "type": "textarea",
+      "id": "note",
+      "label": "Note under the button",
+      "default": "Submitting this request does not charge your account immediately. Your order will be reviewed by our team, who will confirm final shipping and send a secure payment link once approved."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 88
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom Class",
+      "info": "Tab grouping, e.g. ori-panel ori-panel--4"
+    }
+  ],
+  "presets": [
+    { "name": "ORI GVM Kit Request" }
+  ]
+}
+{% endschema %}

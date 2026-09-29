@@ -1,0 +1,152 @@
+{%- comment -%}
+  ORI redesign — GVM price comparison (heading + table). The table turns
+  into one card per column at ≤860px; both are rendered here, CSS picks.
+
+  Columns and row values are "|"-separated so prices can keep their
+  commas: columns "OEM | Stage 1 | Stage 2", a row "$0 | $11,500* | $7,800*".
+  Tick "Highlight" on a row (e.g. Your Trade Price) to colour it teal.
+
+  sections/gvm-comparison.liquid is unchanged — 20+ older templates use it.
+{%- endcomment -%}
+{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
+{%- render 'ori-fonts' -%}
+
+{%- liquid
+  assign custom_class = section.settings.custom_class
+  unless custom_class == blank
+    assign custom_class = custom_class | prepend: ' '
+  endunless
+  assign cols = section.settings.columns | split: '|'
+-%}
+<div
+  class="ori ori-section{{ custom_class }}"
+  style="--ori-pt: {{ section.settings.padding_top }}px; --ori-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="ori-wrap">
+    {%- if section.settings.heading != blank or section.settings.intro != blank -%}
+      <div class="ori-head">
+        <div>
+          {%- if section.settings.heading != blank -%}
+            <h2 class="ori-h2">{{ section.settings.heading | newline_to_br }}</h2>
+          {%- endif -%}
+          {%- if section.settings.intro != blank -%}
+            <p class="ori-head__intro">{{ section.settings.intro }}</p>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- if cols.size > 0 and section.blocks.size > 0 -%}
+      <table class="ori-cmp">
+        <thead>
+          <tr>
+            <th scope="col"><span class="ori-sr">{{ section.settings.corner_label }}</span></th>
+            {%- for col in cols -%}
+              <th scope="col">{{ col | strip }}</th>
+            {%- endfor -%}
+          </tr>
+        </thead>
+        <tbody>
+          {%- for block in section.blocks -%}
+            {%- assign values = block.settings.values | split: '|' -%}
+            <tr{% if block.settings.highlight %} class="is-highlight"{% endif %} {{ block.shopify_attributes }}>
+              <th scope="row">{{ block.settings.label }}</th>
+              {%- for col in cols -%}
+                <td>{{ values[forloop.index0] | strip }}</td>
+              {%- endfor -%}
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+
+      <div class="ori-cmp-cards">
+        {%- for col in cols -%}
+          {%- assign i = forloop.index0 -%}
+          <div class="ori-cmp-card">
+            <b>{{ col | strip }}</b>
+            {%- for block in section.blocks -%}
+              {%- assign values = block.settings.values | split: '|' -%}
+              <div{% if block.settings.highlight %} class="is-highlight"{% endif %}>
+                {{- block.settings.label -}}
+                <span>{{ values[i] | strip }}</span>
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "ORI GVM Comparison",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Line breaks are kept."
+    },
+    {
+      "type": "text",
+      "id": "intro",
+      "label": "Intro"
+    },
+    {
+      "type": "text",
+      "id": "columns",
+      "label": "Columns",
+      "info": "Separate with |, e.g. OEM | Stage 1 | Stage 2",
+      "default": "OEM | Stage 1 | Stage 2 | Stage 3 | Stage 4 | Stage 5"
+    },
+    {
+      "type": "text",
+      "id": "corner_label",
+      "label": "Row header label (screen readers)",
+      "default": "Price"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom Class",
+      "info": "Tab grouping, e.g. ori-panel ori-panel--2"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Row",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Recommended Retail Price (RRP)" },
+        { "type": "text", "id": "values", "label": "Values", "info": "One per column, separated with |" },
+        { "type": "checkbox", "id": "highlight", "label": "Highlight (teal)", "default": false }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "ORI GVM Comparison", "blocks": [{ "type": "row" }] }
+  ]
+}
+{% endschema %}

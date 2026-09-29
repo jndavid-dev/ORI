@@ -1,0 +1,222 @@
+{%- comment -%}
+  ORI redesign — GVM stages. One block per stage; one stage shows at a
+  time via a stage switcher (tabs on desktop, accordion at ≤767px, see
+  assets/ori-gvm-tabs.js). Replaces the heading rich-text plus one
+  image-with-text section per stage.
+
+  Each stage's installation PDF: a Shopify file name (Content > Files,
+  resolved with file_url) or an external URL. The Shopify file wins when
+  both are set; with neither, a disabled "PDF coming soon" shows instead.
+  Links to #stage-N anywhere on the page open that stage (and its tab).
+{%- endcomment -%}
+{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
+{%- render 'ori-fonts' -%}
+
+{%- liquid
+  assign custom_class = section.settings.custom_class
+  unless custom_class == blank
+    assign custom_class = custom_class | prepend: ' '
+  endunless
+  assign stages = section.blocks | where: 'type', 'stage'
+-%}
+<div
+  class="ori ori-section{{ custom_class }}"
+  style="--ori-pt: {{ section.settings.padding_top }}px; --ori-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="ori-wrap">
+    {%- if section.settings.heading != blank or section.settings.intro != blank -%}
+      <div class="ori-head">
+        <div>
+          {%- if section.settings.heading != blank -%}
+            <h2 class="ori-h2">{{ section.settings.heading | newline_to_br }}</h2>
+          {%- endif -%}
+          {%- if section.settings.intro != blank -%}
+            <p class="ori-head__intro">{{ section.settings.intro }}</p>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- if stages.size > 0 -%}
+      <div class="ori-stages" data-ori-stages style="--ori-n: {{ stages.size }};">
+        <div class="ori-stages__list" role="tablist" aria-label="{{ section.settings.heading | strip_newlines | escape }} stages">
+          {%- for block in stages -%}
+            <button
+              type="button"
+              class="ori-stage-tab"
+              role="tab"
+              id="ori-stage-tab-{{ forloop.index }}"
+              aria-controls="stage-{{ forloop.index }}"
+              aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+              {% unless forloop.first %}tabindex="-1"{% endunless %}
+            >
+              <b>{{ block.settings.label }}</b>
+              {%- if block.settings.tab_meta != blank -%}<span>{{ block.settings.tab_meta }}</span>{%- endif -%}
+            </button>
+          {%- endfor -%}
+        </div>
+
+        {%- for block in stages -%}
+          {%- liquid
+            assign pdf = block.settings.pdf_url
+            if block.settings.pdf_file != blank
+              assign pdf = block.settings.pdf_file | file_url
+            endif
+          -%}
+          <div class="ori-stage-panel" id="stage-{{ forloop.index }}" {{ block.shopify_attributes }}>
+            <button type="button" class="ori-stage-acc" aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}">
+              {{- block.settings.label -}}
+              {%- if block.settings.acc_meta != blank -%}<small>{{ block.settings.acc_meta }}</small>{%- endif -%}
+            </button>
+            <div
+              class="ori-stage__body"
+              role="tabpanel"
+              aria-labelledby="ori-stage-tab-{{ forloop.index }}"
+              {% unless forloop.first %}hidden{% endunless %}
+            >
+              <article class="ori-stage">
+                {%- if block.settings.image != blank -%}
+                  <button
+                    type="button"
+                    class="ori-stage__img"
+                    data-full="{{ block.settings.image | image_url: width: 2000 }}"
+                    aria-label="Enlarge {{ block.settings.label | escape }} image"
+                  >
+                    {{
+                      block.settings.image
+                      | image_url: width: 1200
+                      | image_tag:
+                        loading: 'lazy',
+                        widths: '600, 900, 1200',
+                        sizes: '(min-width: 1025px) 50vw, 100vw',
+                        alt: block.settings.image.alt
+                    }}
+                  </button>
+                {%- endif -%}
+                <div>
+                  {%- if block.settings.eyebrow != blank -%}
+                    <div class="ori-eyebrow"><i>{{ block.settings.label }}</i>{{ block.settings.eyebrow }}</div>
+                  {%- endif -%}
+                  {%- if block.settings.title != blank -%}
+                    <h3 class="ori-stage__title">
+                      {{- block.settings.title -}}
+                      {%- if block.settings.subtitle != blank -%}<small>{{ block.settings.subtitle }}</small>{%- endif -%}
+                    </h3>
+                  {%- endif -%}
+                  {%- if block.settings.lead != blank -%}
+                    <p class="ori-lead">{{ block.settings.lead }}</p>
+                  {%- endif -%}
+                  <dl class="ori-spec">
+                    {%- if block.settings.gvm != blank -%}<div><dt>GVM increase</dt><dd>{{ block.settings.gvm }}</dd></div>{%- endif -%}
+                    {%- if block.settings.features != blank -%}<div><dt>Key features</dt><dd>{{ block.settings.features }}</dd></div>{%- endif -%}
+                    {%- if block.settings.best_for != blank -%}<div><dt>Best for</dt><dd>{{ block.settings.best_for }}</dd></div>{%- endif -%}
+                    {%- if block.settings.benefit != blank -%}<div><dt>Benefit</dt><dd>{{ block.settings.benefit }}</dd></div>{%- endif -%}
+                    {%- if block.settings.part_numbers != blank -%}<div><dt>Part number</dt><dd>{{ block.settings.part_numbers }}</dd></div>{%- endif -%}
+                  </dl>
+                  {%- if block.settings.note != blank -%}
+                    <p class="ori-note">{{ block.settings.note }}</p>
+                  {%- endif -%}
+                  <div class="ori-stage__dl">
+                    {%- if pdf != blank -%}
+                      <a class="ori-btn ori-btn--teal" href="{{ pdf }}" target="_blank" rel="noopener">
+                        {%- render 'ori-icon', icon: 'download' -%}
+                        {{- block.settings.pdf_label | default: 'Download PDF' -}}
+                      </a>
+                    {%- else -%}
+                      <span class="ori-btn ori-btn--teal" aria-disabled="true">PDF coming soon</span>
+                    {%- endif -%}
+                    <span class="ori-stage__dl-note">{{ block.settings.label }} installation instructions</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <dialog class="ori-lightbox" data-ori-lightbox>
+        <img src="data:," alt="" width="1200" height="656">
+        <button type="button" aria-label="Close">&times;</button>
+      </dialog>
+    {%- endif -%}
+  </div>
+</div>
+
+<script src="{{ 'ori-gvm-tabs.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "ORI GVM Stages",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Line breaks are kept.",
+      "default": "ORI Chevy Silverado 1500\nGVM & GCM Packages"
+    },
+    {
+      "type": "text",
+      "id": "intro",
+      "label": "Intro"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 88
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom Class",
+      "info": "Tab grouping, e.g. ori-panel ori-panel--1"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stage",
+      "name": "Stage",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Stage 1" },
+        { "type": "text", "id": "tab_meta", "label": "Tab line", "info": "Under the label on the stage tab, e.g. 3650kg · $11,500*" },
+        { "type": "text", "id": "acc_meta", "label": "Mobile accordion line", "info": "e.g. The Weekender Family Getaway · 3650kg · $11,500*" },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "eyebrow", "label": "Price line", "info": "Next to the stage label, e.g. $11,500* · Installed & engineered" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle", "info": "e.g. 3650 KG GVM + GCM 8150 KG" },
+        { "type": "text", "id": "lead", "label": "Lead line (italic)" },
+        { "type": "header", "content": "Specs" },
+        { "type": "inline_richtext", "id": "gvm", "label": "GVM increase" },
+        { "type": "inline_richtext", "id": "features", "label": "Key features" },
+        { "type": "inline_richtext", "id": "best_for", "label": "Best for" },
+        { "type": "inline_richtext", "id": "benefit", "label": "Benefit" },
+        { "type": "richtext", "id": "part_numbers", "label": "Part number(s)", "info": "One paragraph per part number." },
+        { "type": "inline_richtext", "id": "note", "label": "Note (highlighted)" },
+        { "type": "header", "content": "Installation PDF" },
+        { "type": "text", "id": "pdf_file", "label": "Shopify file name", "info": "Exact name from Content > Files, e.g. stage-1-install.pdf" },
+        { "type": "url", "id": "pdf_url", "label": "or external link" },
+        { "type": "text", "id": "pdf_label", "label": "Button label", "default": "Download PDF" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "ORI GVM Stages", "blocks": [{ "type": "stage" }] }
+  ]
+}
+{% endschema %}

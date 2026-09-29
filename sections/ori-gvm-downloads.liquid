@@ -1,0 +1,158 @@
+{%- comment -%}
+  ORI redesign — download cards (marketing assets, brochures, imagery).
+  Each card takes a Shopify file name (Content > Files, resolved with
+  file_url) or an external link (Dropbox, Drive …); the Shopify file wins
+  when both are set. A card with neither still shows, with its button
+  disabled, so the layout can be signed off before the files exist.
+{%- endcomment -%}
+{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
+{%- render 'ori-fonts' -%}
+
+{%- liquid
+  assign custom_class = section.settings.custom_class
+  unless custom_class == blank
+    assign custom_class = custom_class | prepend: ' '
+  endunless
+-%}
+<div
+  class="ori ori-section{{ custom_class }}"
+  style="--ori-pt: {{ section.settings.padding_top }}px; --ori-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="ori-wrap">
+    {%- if section.settings.heading != blank or section.settings.intro != blank -%}
+      <div class="ori-head">
+        <div>
+          {%- if section.settings.heading != blank -%}
+            <h2 class="ori-h2">{{ section.settings.heading | newline_to_br }}</h2>
+          {%- endif -%}
+          {%- if section.settings.intro != blank -%}
+            <p class="ori-head__intro">{{ section.settings.intro }}</p>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    <div class="ori-assets" style="--ori-cols: {{ section.settings.columns }};">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign href = block.settings.external_url
+          if block.settings.shopify_file != blank
+            assign href = block.settings.shopify_file | file_url
+          endif
+        -%}
+        <article class="ori-asset" {{ block.shopify_attributes }}>
+          <div class="ori-asset__thumb">
+            {%- if block.settings.type_label != blank -%}
+              <span class="ori-asset__type">{{ block.settings.type_label }}</span>
+            {%- endif -%}
+            {%- if block.settings.image != blank -%}
+              {{
+                block.settings.image
+                | image_url: width: 600
+                | image_tag: loading: 'lazy', widths: '300, 450, 600', sizes: '(min-width: 1000px) 25vw, 50vw', alt: ''
+              }}
+            {%- else -%}
+              {%- render 'ori-icon', icon: block.settings.icon -%}
+            {%- endif -%}
+          </div>
+          <div class="ori-asset__body">
+            <h3 class="ori-asset__title">{{ block.settings.title }}</h3>
+            {%- if block.settings.description != blank -%}
+              <p>{{ block.settings.description }}</p>
+            {%- endif -%}
+            {%- if href != blank -%}
+              <a class="ori-btn ori-btn--line" href="{{ href }}" target="_blank" rel="noopener">{{ block.settings.button_label }}</a>
+            {%- else -%}
+              <span class="ori-btn ori-btn--line" aria-disabled="true">{{ block.settings.button_label }}</span>
+            {%- endif -%}
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "ORI Downloads",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Marketing Assets"
+    },
+    {
+      "type": "text",
+      "id": "intro",
+      "label": "Intro"
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "Cards per row (desktop)",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 88
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom Class",
+      "info": "Tab grouping, e.g. ori-panel ori-panel--3"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "download",
+      "name": "Download",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Product Brochure" },
+        { "type": "text", "id": "description", "label": "Description" },
+        { "type": "text", "id": "type_label", "label": "Type tag", "default": "PDF" },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon (when no image)",
+          "options": [
+            { "value": "document", "label": "Document" },
+            { "value": "banner", "label": "Banner" },
+            { "value": "social", "label": "Social" },
+            { "value": "image", "label": "Image" }
+          ],
+          "default": "document"
+        },
+        { "type": "image_picker", "id": "image", "label": "Preview image" },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "Download PDF" },
+        { "type": "text", "id": "shopify_file", "label": "Shopify file name", "info": "Exact name from Content > Files" },
+        { "type": "url", "id": "external_url", "label": "or external link" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "ORI Downloads", "blocks": [{ "type": "download" }] }
+  ]
+}
+{% endschema %}

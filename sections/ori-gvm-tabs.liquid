@@ -1,0 +1,92 @@
+{%- comment -%}
+  ORI redesign — GVM hub tab bar (replaces gvm-tab-nav on redesigned hubs).
+
+  Grouping works like the old bar: every section that belongs to a tab
+  carries "ori-panel ori-panel--N" in its Custom Class, and a tab with
+  Tab ID "tab-N" shows that group. Add, remove or reorder sections in the
+  editor freely — nothing here is vehicle-specific.
+
+  Behaviour (assets/ori-gvm-tabs.js):
+  - Desktop: the bar fixes under the header/subnav once scrolled to (JS,
+    because .site-wrapper's overflow:clip breaks position:sticky).
+    Switching tabs while reading further down scrolls back so the new
+    tab's content starts just under the bar.
+  - ≤767px: the bar hides and each group gets an accordion header.
+  - Links to #tab-N anywhere on the page open that tab.
+{%- endcomment -%}
+{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
+{%- render 'ori-fonts' -%}
+
+<div class="ori ori-tabs" data-ori-tabs>
+  <div class="ori-tabs__spacer"></div>
+  <div class="ori-tabs__bar">
+    <div class="ori-wrap">
+      <div class="ori-tabs__list" role="tablist" aria-label="{{ section.settings.aria_label | escape }}">
+        {%- for block in section.blocks -%}
+          {%- assign key = block.settings.tab_id | remove_first: 'tab-' -%}
+          <button
+            type="button"
+            class="ori-tab"
+            role="tab"
+            id="ori-tab-{{ key }}"
+            data-tab="{{ key }}"
+            aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+            {% unless forloop.first %}tabindex="-1"{% endunless %}
+            {{ block.shopify_attributes }}
+          >
+            <span>{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+            {{- block.settings.label -}}
+          </button>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="{{ 'ori-gvm-tabs.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "ORI GVM Tabs",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "aria_label",
+      "label": "Accessible name",
+      "default": "GVM package sections"
+    },
+    {
+      "type": "paragraph",
+      "content": "Put \"ori-panel ori-panel--1\" (2, 3 …) in a section's Custom Class to place it in that tab."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab_button",
+      "name": "Tab",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Tab" },
+        {
+          "type": "text",
+          "id": "tab_id",
+          "label": "Tab ID",
+          "info": "tab-1 shows every section with ori-panel--1 in its Custom Class.",
+          "default": "tab-1"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "ORI GVM Tabs",
+      "blocks": [
+        { "type": "tab_button", "settings": { "label": "Instructions", "tab_id": "tab-1" } },
+        { "type": "tab_button", "settings": { "label": "Pricing", "tab_id": "tab-2" } },
+        { "type": "tab_button", "settings": { "label": "Marketing & Assets", "tab_id": "tab-3" } },
+        { "type": "tab_button", "settings": { "label": "Request a Kit", "tab_id": "tab-4" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,162 @@
+{%- comment -%}
+  ORI redesign — GVM hub intro. Sits between the hero and the tab bar:
+  certification badge, two-tone heading, trust points, the dark headline
+  band, body copy and fine print.
+
+  Same settings and trust_item blocks as sections/gvm-intro.liquid, so a
+  hub can switch to this without re-entering content. The heading is an
+  H2 because the hero above carries the page's H1.
+{%- endcomment -%}
+{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
+{%- render 'ori-fonts' -%}
+
+<div
+  class="ori ori-intro"
+  style="
+    --ori-pt: {{ section.settings.padding_top }}px;
+    --ori-pb: {{ section.settings.padding_bottom }}px;
+    --ori-band-bg: {{ section.settings.band_background }};
+    --ori-band-text: {{ section.settings.band_text_color }};
+  "
+>
+  <div class="ori-wrap">
+    <div class="ori-intro__head">
+      <div>
+        {%- if section.settings.badge_text != blank -%}
+          <span class="ori-badge">
+            {%- render 'ori-icon', icon: 'shield' -%}
+            {{- section.settings.badge_text -}}
+          </span>
+        {%- endif -%}
+        {%- if section.settings.heading_line_1 != blank or section.settings.heading_line_2 != blank -%}
+          <h2 class="ori-intro__title">
+            {%- if section.settings.heading_line_1 != blank -%}
+              <span class="ori-accent">{{ section.settings.heading_line_1 }}</span>
+            {%- endif -%}
+            {{- section.settings.heading_line_2 -}}
+          </h2>
+        {%- endif -%}
+      </div>
+      {%- if section.blocks.size > 0 -%}
+        <ul class="ori-trust">
+          {%- for block in section.blocks -%}
+            <li {{ block.shopify_attributes }}>{{ block.settings.text }}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- if section.settings.band_heading != blank -%}
+    <div class="ori-band">
+      <div class="ori-wrap">
+        <h2 class="ori-band__title">{{ section.settings.band_heading }}</h2>
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- if section.settings.body != blank or section.settings.disclaimer != blank -%}
+    <div class="ori-wrap">
+      <div class="ori-intro__body">
+        <div class="ori-rte">{{ section.settings.body }}</div>
+        {%- if section.settings.disclaimer != blank -%}
+          <div class="ori-fine">{{ section.settings.disclaimer }}</div>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "ORI GVM Intro",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "Federally Approved | ADR-Tested | SSM Certified"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_1",
+      "label": "Heading line 1 (teal)",
+      "default": "Chevrolet Silverado 1500"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_2",
+      "label": "Heading line 2",
+      "default": "GVM Upgrades Australia"
+    },
+    {
+      "type": "header",
+      "content": "Headline band"
+    },
+    {
+      "type": "text",
+      "id": "band_heading",
+      "label": "Band heading"
+    },
+    {
+      "type": "color",
+      "id": "band_background",
+      "label": "Band background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "band_text_color",
+      "label": "Band text",
+      "default": "#56bdc2"
+    },
+    {
+      "type": "header",
+      "content": "Body"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body copy"
+    },
+    {
+      "type": "richtext",
+      "id": "disclaimer",
+      "label": "Fine print"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust_item",
+      "name": "Trust point",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "Federal / SSM Certification" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "ORI GVM Intro" }
+  ]
+}
+{% endschema %}

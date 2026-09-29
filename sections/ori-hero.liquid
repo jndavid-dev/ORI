@@ -1,0 +1,262 @@
+{%- comment -%}
+  ORI redesign — Hero banner. Full-bleed dark banner with the copy built in
+  HTML rather than baked into an image, so headings stay crisp, readable
+  by search engines and editable here.
+
+  Two looks (Style setting):
+  - Vehicle cut-out: a transparent PNG/WebP of the vehicle over a ridge
+    line — the GVM vehicle hubs.
+  - Photo: a full photo on the right, faded into the dark — home page.
+
+  Blocks: brand logos, feature points (icon + text) and up to two buttons.
+  Button links that start with # (e.g. #tab-4) open that hub tab.
+{%- endcomment -%}
+{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
+{%- render 'ori-fonts' -%}
+
+{%- liquid
+  assign logos = section.blocks | where: 'type', 'logo'
+  assign feats = section.blocks | where: 'type', 'feature'
+  assign buttons = section.blocks | where: 'type', 'button'
+  assign heading_tag = section.settings.heading_tag | default: 'h1'
+-%}
+<div
+  class="ori ori-hero ori-hero--{{ section.settings.style }}"
+  style="--ori-hero-h: {{ section.settings.min_height }}px;"
+>
+  {%- if section.settings.image != blank -%}
+    <div class="ori-hero__media">
+      {%- if section.settings.style == 'cutout' -%}
+        {{
+          section.settings.image
+          | image_url: width: 1600
+          | image_tag:
+            widths: '600, 900, 1200, 1600',
+            sizes: '(min-width: 1025px) 45vw, 100vw',
+            fetchpriority: 'high',
+            alt: section.settings.image.alt
+        }}
+      {%- else -%}
+        {{
+          section.settings.image
+          | image_url: width: 2000
+          | image_tag:
+            widths: '800, 1200, 1600, 2000',
+            sizes: '(min-width: 1025px) 60vw, 100vw',
+            fetchpriority: 'high',
+            alt: section.settings.image.alt
+        }}
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  {%- if section.settings.badge_title != blank -%}
+    <div class="ori-plate-badge">
+      {{- section.settings.badge_title -}}
+      {%- if section.settings.badge_small != blank -%}<small>{{ section.settings.badge_small }}</small>{%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <div class="ori-hero__in">
+    <div class="ori-hero__copy">
+      {%- if logos.size > 0 -%}
+        <div class="ori-hero__brands">
+          {%- for block in logos -%}
+            {%- if block.settings.image != blank -%}
+              {{
+                block.settings.image
+                | image_url: width: 120
+                | image_tag: width: 58, height: 58, alt: block.settings.alt, loading: 'eager'
+              }}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.heading_1 != blank or section.settings.heading_2 != blank -%}
+        <{{ heading_tag }} class="ori-hero__title">
+          {{- section.settings.heading_1 -}}
+          {%- if section.settings.heading_2 != blank or section.settings.pill != blank -%}
+            <span class="ori-hero__l2">
+              {{- section.settings.heading_2 -}}
+              {%- if section.settings.pill != blank -%}
+                <span class="ori-pill">{{ section.settings.pill | newline_to_br }}</span>
+              {%- endif -%}
+            </span>
+          {%- endif -%}
+        </{{ heading_tag }}>
+      {%- endif -%}
+
+      {%- if feats.size > 0 -%}
+        <ul class="ori-feats">
+          {%- for block in feats -%}
+            <li class="ori-feat" {{ block.shopify_attributes }}>
+              {%- render 'ori-icon', icon: block.settings.icon -%}
+              <span>{{ block.settings.text | newline_to_br }}</span>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      {%- if buttons.size > 0 -%}
+        <div class="ori-hero__ctas">
+          {%- for block in buttons limit: 2 -%}
+            {%- if block.settings.label != blank -%}
+              <a
+                class="ori-btn ori-btn--{{ block.settings.style }}"
+                href="{{ block.settings.link | default: '#' }}"
+                {{ block.shopify_attributes }}
+              >
+                {{- block.settings.label -}}
+              </a>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "ORI Hero",
+  "tag": "section",
+  "class": "ori-hero-section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "style",
+      "label": "Style",
+      "options": [
+        { "value": "cutout", "label": "Vehicle cut-out (transparent image)" },
+        { "value": "photo", "label": "Photo, faded in from the right" }
+      ],
+      "default": "cutout"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "Cut-out: transparent PNG/WebP of the vehicle, around 1600px wide. Photo: landscape, 2000px wide."
+    },
+    {
+      "type": "range",
+      "id": "min_height",
+      "label": "Minimum height (desktop)",
+      "min": 400,
+      "max": 800,
+      "step": 20,
+      "unit": "px",
+      "default": 600
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading_1",
+      "label": "Line 1",
+      "default": "Chevrolet Silverado"
+    },
+    {
+      "type": "text",
+      "id": "heading_2",
+      "label": "Line 2",
+      "default": "1500 LTZ & ZR2"
+    },
+    {
+      "type": "textarea",
+      "id": "pill",
+      "label": "Pill next to line 2",
+      "info": "Line breaks are kept.",
+      "default": "GVM & GCM packages\n4250kg & 8750kg"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading level",
+      "info": "Use H1 unless another section on the page already has the page's H1.",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" }
+      ],
+      "default": "h1"
+    },
+    {
+      "type": "header",
+      "content": "Plate badge (top right)"
+    },
+    {
+      "type": "text",
+      "id": "badge_title",
+      "label": "Badge",
+      "default": "NB1"
+    },
+    {
+      "type": "text",
+      "id": "badge_small",
+      "label": "Badge small text",
+      "default": "Car licence"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Brand logo",
+      "limit": 8,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Logo" },
+        { "type": "text", "id": "alt", "label": "Brand name (for screen readers)" }
+      ]
+    },
+    {
+      "type": "feature",
+      "name": "Feature point",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "shield", "label": "Shield (approval)" },
+            { "value": "suspension", "label": "Suspension" },
+            { "value": "clipboard", "label": "Checklist" },
+            { "value": "tyre", "label": "Tyre" }
+          ],
+          "default": "shield"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "info": "Line breaks are kept."
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Button",
+      "limit": 2,
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "text", "id": "link", "label": "Link", "info": "A URL like /collections/all, or on a GVM hub #tab-1 to #tab-4 to open that tab." },
+        {
+          "type": "select",
+          "id": "style",
+          "label": "Style",
+          "options": [
+            { "value": "teal", "label": "Solid teal" },
+            { "value": "ghost", "label": "White outline" }
+          ],
+          "default": "teal"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "ORI Hero" }
+  ]
+}
+{% endschema %}
