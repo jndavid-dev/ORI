@@ -3870,3 +3870,107 @@ a.ori-vcard:hover .ori-vcard__btn svg {
     font-size: 23px;
   }
 }
+
+/* ==========================================================
+   ORI REDESIGN — VEHICLE FILTER (sections/ori-product-grid.liquid
+   with Vehicle blocks, assets/ori-product-filter.js)
+   Pill row above the grid; the active vehicle's "View … GVM
+   packages" link sits at the right end of the row on desktop and
+   under the pills on mobile. The row scrolls sideways on phones.
+   ========================================================== */
+.ori-vfilter {
+  position: relative;
+}
+
+.ori-vfilter__bar {
+  margin-bottom: 32px;
+  padding-right: 320px; /* room for the vehicle link on the same row */
+}
+
+.ori-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.ori-pill {
+  flex: 0 0 auto;
+  min-height: 44px;
+  padding: 0 20px;
+  border: 1px solid var(--ori-line);
+  border-radius: 40px;
+  background: var(--ori-paper);
+  color: var(--ori-ink);
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s, color 0.15s;
+}
+
+.ori-pill:hover {
+  border-color: var(--ori-ink);
+}
+
+.ori-pill[aria-selected="true"] {
+  border-color: var(--ori-teal);
+  background: var(--ori-teal);
+  color: #ffffff;
+}
+
+.ori-vpanel__link {
+  position: absolute;
+  top: 12px;
+  right: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 300px;
+}
+
+.ori-vpanel__link svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  transition: transform 0.2s;
+}
+
+.ori-vpanel__link:hover svg {
+  transform: translateX(3px);
+}
+
+.ori-vpanel__empty {
+  padding: 40px;
+  border-radius: 6px;
+  background: var(--ori-bone);
+  color: var(--ori-steel);
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .ori-vfilter__bar {
+    margin-bottom: 14px;
+    padding-right: 0;
+  }
+
+  .ori-vpanel__link {
+    position: static;
+    max-width: none;
+    margin-bottom: 26px;
+  }
+}
+
+@media (max-width: 700px) {
+  /* One swipeable row instead of wrapping into a block of pills. */
+  .ori-pills {
+    flex-wrap: nowrap;
+    margin: 0 -18px;
+    padding: 2px 18px 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .ori-pills::-webkit-scrollbar {
+    display: none;
+  }
+}

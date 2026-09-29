@@ -14,10 +14,13 @@
       "settings": {
         "style": "plain",
         "image": "",
-        "min_height": 440,
+        "min_height": 380,
+        "badge_text": "Federally Approved | ADR-Tested | SSM Certified",
         "heading_1": "GVM Hub",
         "heading_2": "GVM Packages & Resources",
+        "heading_2_white": true,
         "pill": "",
+        "subheading": "<p>Find the right GVM upgrade for your vehicle. Browse available packages, kit information, installation instructions and workshop tips.</p>",
         "heading_tag": "h1",
         "badge_title": "",
         "badge_small": ""
@@ -45,12 +48,57 @@
         "limit": 12,
         "button": "cart",
         "button_label": "",
+        "view_all_label": "",
         "show_links": true,
         "fine_print": "",
         "padding_top": 40,
         "padding_bottom": 88,
         "custom_class": ""
-      }
+      },
+      "blocks": {
+        "vehicle_silverado_1500": {
+          "type": "vehicle",
+          "settings": {
+            "collection": "chevrolet-silverado-1500-ltz-zr2-trailboss-gvm-upgrade",
+            "label": "Silverado 1500",
+            "link": "shopify://collections/chevrolet-silverado-1500-ltz-zr2-trailboss-gvm-upgrade",
+            "link_label": ""
+          }
+        },
+        "vehicle_silverado_2500": {
+          "type": "vehicle",
+          "settings": {
+            "collection": "",
+            "label": "Silverado 2500HD",
+            "link": "",
+            "link_label": ""
+          }
+        },
+        "vehicle_ford_f150": {
+          "type": "vehicle",
+          "settings": {
+            "collection": "",
+            "label": "Ford F150",
+            "link": "",
+            "link_label": ""
+          }
+        },
+        "vehicle_toyota_tundra": {
+          "type": "vehicle",
+          "settings": {
+            "collection": "",
+            "label": "Toyota Tundra",
+            "link": "",
+            "link_label": ""
+          }
+        }
+      },
+      "block_order": [
+        "vehicle_silverado_1500",
+        "vehicle_silverado_2500",
+        "vehicle_ford_f150",
+        "vehicle_toyota_tundra"
+      ]
     },
     "ori_steps_hub": {
       "type": "ori-steps",
@@ -58,25 +106,25 @@
         "step_1": {
           "type": "step",
           "settings": {
-            "icon": "truck",
             "title": "Choose the vehicle and stage",
-            "text": "<p>Open the vehicle hub and review the stage instructions and pricing. Your trade price is shown alongside the recommended retail price on every product.</p>"
+            "text": "<p>Open the vehicle hub and review the stage instructions and pricing. Your trade price is shown alongside the recommended retail price on every product.</p>",
+            "icon": "truck"
           }
         },
         "step_2": {
           "type": "step",
           "settings": {
-            "icon": "form",
             "title": "Submit a kit request",
-            "text": "<p>Use the Request a Kit tab to select the kit, enter the VIN, vehicle build date and the date you need it, then submit.</p>"
+            "text": "<p>Use the Request a Kit tab to select the kit, enter the VIN, vehicle build date and the date you need it, then submit.</p>",
+            "icon": "form"
           }
         },
         "step_3": {
           "type": "step",
           "settings": {
-            "icon": "check",
             "title": "We confirm and invoice",
-            "text": "<p>Your request reaches our team as a draft order for review. We confirm stock, finalise freight and send a secure payment link — nothing is charged when you submit.</p>"
+            "text": "<p>Your request reaches our team as a draft order for review. We confirm stock, finalise freight and send a secure payment link — nothing is charged when you submit.</p>",
+            "icon": "check"
           }
         }
       },

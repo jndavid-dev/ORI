@@ -8,6 +8,14 @@
   Button: "Request this kit" hands the product to the kit request form
   (assets/ori-gvm-kit-request.js) and only appears when that form is on
   the page; "Add to cart" is the normal shop behaviour.
+
+  Vehicle filter (optional): add "Vehicle" blocks and the grid becomes one
+  panel per vehicle with pill buttons to switch between them (GVM hub).
+  Every panel is rendered here on page load and the pills only show/hide
+  them (assets/ori-product-filter.js) — nothing is fetched afterwards, so
+  B2B prices are always the viewer's own. Each vehicle can link to its
+  GVM package page; #vehicle-<pill label> in the URL opens that vehicle.
+  With no Vehicle blocks the section works as a single grid, as before.
 {%- endcomment -%}
 {{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
 {%- render 'ori-fonts' -%}
@@ -44,7 +52,70 @@
       </div>
     {%- endif -%}
 
-    {%- if source == blank or source.products.size == 0 -%}
+    {%- assign vehicles = section.blocks | where: 'type', 'vehicle' -%}
+    {%- if vehicles.size > 0 -%}
+      <div class="ori-vfilter" data-ori-vfilter>
+        <div class="ori-vfilter__bar">
+          <div class="ori-pills" role="tablist" aria-label="Filter by vehicle">
+            {%- for block in vehicles -%}
+              {%- assign vid = block.settings.label | default: block.settings.collection.title | handleize -%}
+              <button
+                type="button"
+                class="ori-pill"
+                role="tab"
+                id="ori-pill-{{ section.id }}-{{ forloop.index }}"
+                aria-controls="vehicle-{{ vid }}"
+                aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+                {% unless forloop.first %}tabindex="-1"{% endunless %}
+                {{ block.shopify_attributes }}
+              >
+                {{- block.settings.label | default: block.settings.collection.title -}}
+              </button>
+            {%- endfor -%}
+          </div>
+        </div>
+
+        {%- for block in vehicles -%}
+          {%- liquid
+            assign vid = block.settings.label | default: block.settings.collection.title | handleize
+            assign vname = block.settings.label | default: block.settings.collection.title
+            assign vlink_label = block.settings.link_label
+            if vlink_label == blank
+              assign vlink_label = 'View ' | append: vname | append: ' GVM packages'
+            endif
+          -%}
+          <div
+            class="ori-vpanel"
+            id="vehicle-{{ vid }}"
+            role="tabpanel"
+            aria-labelledby="ori-pill-{{ section.id }}-{{ forloop.index }}"
+            {% unless forloop.first %}hidden{% endunless %}
+          >
+            {%- if block.settings.link != blank -%}
+              <a class="ori-vpanel__link ori-link" href="{{ block.settings.link }}">
+                {{- vlink_label -}}
+                {%- render 'ori-icon', icon: 'arrow' -%}
+              </a>
+            {%- endif -%}
+            {%- if block.settings.collection == blank or block.settings.collection.products.size == 0 -%}
+              <p class="ori-vpanel__empty">Kits for the {{ vname }} are coming soon.</p>
+            {%- else -%}
+              <div class="ori-grid">
+                {%- for product in block.settings.collection.products -%}
+                  {%- render 'ori-product-card',
+                    product: product,
+                    link: section.settings.show_links,
+                    button: section.settings.button,
+                    button_label: section.settings.button_label
+                  -%}
+                {%- endfor -%}
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+      <script src="{{ 'ori-product-filter.js' | asset_url }}" defer="defer"></script>
+    {%- elsif source == blank or source.products.size == 0 -%}
       <p class="ori-head__intro">No products in this collection yet.</p>
     {%- else -%}
       <div class="ori-grid">
@@ -85,7 +156,7 @@
       "type": "collection",
       "id": "collection",
       "label": "Collection",
-      "info": "Leave empty on a collection page to show that collection."
+      "info": "Leave empty on a collection page to show that collection. Ignored when Vehicle blocks are added."
     },
     {
       "type": "range",
@@ -155,6 +226,18 @@
       "id": "custom_class",
       "label": "Custom Class",
       "info": "Tab grouping, e.g. ori-panel ori-panel--2"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "vehicle",
+      "name": "Vehicle",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection", "info": "The kits shown for this vehicle — every product in it." },
+        { "type": "text", "id": "label", "label": "Pill label", "info": "Short name on the filter pill, e.g. Silverado 1500. Defaults to the collection title." },
+        { "type": "url", "id": "link", "label": "GVM package page", "info": "e.g. the vehicle's GVM collection page. Shown as a link above its grid." },
+        { "type": "text", "id": "link_label", "label": "Link label", "info": "Defaults to \"View <pill label> GVM packages\"." }
+      ]
     }
   ],
   "presets": [
