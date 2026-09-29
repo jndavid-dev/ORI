@@ -447,6 +447,51 @@
         "padding_bottom": 88,
         "custom_class": "ori-panel ori-panel--4"
       }
+    },
+    "ori_steps": {
+      "type": "ori-steps",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "Choose the vehicle and stage",
+            "text": "<p>Open the vehicle hub and review the stage instructions and pricing. Your trade price is shown alongside the recommended retail price on every product.</p>",
+            "icon": "truck"
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "Submit a kit request",
+            "text": "<p>Use the Request a Kit tab to select the kit, enter the VIN, vehicle build date and the date you need it, then submit.</p>",
+            "icon": "form"
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "We confirm and invoice",
+            "text": "<p>Your request reaches our team as a draft order for review. We confirm stock, finalise freight and send a secure payment link — nothing is charged when you submit.</p>",
+            "icon": "check"
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3"
+      ],
+      "settings": {
+        "style": "dark",
+        "heading_accent": "",
+        "heading": "How Ordering Works",
+        "intro": "",
+        "button_label": "",
+        "button_link": "",
+        "padding_top": 88,
+        "padding_bottom": 88,
+        "custom_class": ""
+      }
     }
   },
   "order": [
@@ -457,6 +502,7 @@
     "ori_comparison",
     "ori_pricing_grid",
     "ori_marketing_assets",
-    "ori_kit_request"
+    "ori_kit_request",
+    "ori_steps"
   ]
 }
