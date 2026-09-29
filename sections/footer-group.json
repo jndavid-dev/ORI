@@ -11,6 +11,55 @@
   "type": "footer",
   "name": "t:sections.footer.name",
   "sections": {
+    "ori_footer": {
+      "type": "ori-footer",
+      "blocks": {
+        "brand": {
+          "type": "brand",
+          "settings": {
+            "logo": "shopify://shop_images/image.webp",
+            "text": "Subscribe for store updates and discounts.",
+            "show_newsletter": true,
+            "placeholder": "Your email",
+            "button_label": "Subscribe",
+            "legal": "<p>By subscribing you agree to the <a href=\"/policies/terms-of-service\" title=\"Terms of Service\">Terms of Use</a> & <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\">Privacy Policy.</a></p>"
+          }
+        },
+        "info": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Important Information",
+            "menu": "footer"
+          }
+        },
+        "dealers": {
+          "type": "link_list",
+          "settings": {
+            "heading": "ORI Authorised Dealers",
+            "menu": ""
+          }
+        },
+        "contact": {
+          "type": "contact",
+          "settings": {
+            "heading": "Contact",
+            "phone": "0483 930 639",
+            "email": "sales@offroadindustries.com.au",
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "brand",
+        "info",
+        "dealers",
+        "contact"
+      ],
+      "settings": {
+        "show_social": true,
+        "show_payments": false
+      }
+    },
     "footer": {
       "type": "footer",
       "blocks": {
@@ -45,7 +94,7 @@
           "settings": {
             "heading": "ORI Authorised Dealers",
             "heading_size": "h6",
-            "menu": "footer-1",
+            "menu": "",
             "width": 25,
             "open_default_collapsible_tab": false,
             "show_divider": false
@@ -101,6 +150,7 @@
         "8ea5fbcc-a81e-48ae-a337-2436b19c38af",
         "logo_8tjEnj"
       ],
+      "disabled": true,
       "custom_css": [],
       "settings": {
         "container": "container",
@@ -118,8 +168,7 @@
         "show_payments": true,
         "bottom_menu": "",
         "animations": "inherit"
-      },
-      "disabled": true
+      }
     },
     "mobile-sticky-bar": {
       "type": "mobile-sticky-bar",
@@ -255,55 +304,6 @@
         "decline_heading": "Come back when you're older",
         "decline_content": "<p>Sorry, the content of this store can't be seen by a younger audience. Come back when you're older.</p>",
         "return_button": "Oops, I entered incorrectly"
-      }
-    },
-    "ori_footer": {
-      "type": "ori-footer",
-      "blocks": {
-        "brand": {
-          "type": "brand",
-          "settings": {
-            "logo": "shopify://shop_images/ORI_Teal_SMALL_4f1a73a1-2c8a-4cbf-95a1-a4165c060141.png",
-            "text": "Subscribe for store updates and discounts.",
-            "show_newsletter": true,
-            "placeholder": "Your email",
-            "button_label": "Subscribe",
-            "legal": "<p>By subscribing you agree to the <a href=\"/policies/terms-of-service\" title=\"Terms of Service\">Terms of Use</a> & <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\">Privacy Policy.</a></p>"
-          }
-        },
-        "info": {
-          "type": "link_list",
-          "settings": {
-            "heading": "Important Information",
-            "menu": "footer"
-          }
-        },
-        "dealers": {
-          "type": "link_list",
-          "settings": {
-            "heading": "ORI Authorised Dealers",
-            "menu": "footer-1"
-          }
-        },
-        "contact": {
-          "type": "contact",
-          "settings": {
-            "heading": "Contact",
-            "phone": "0483 930 639",
-            "email": "sales@offroadindustries.com.au",
-            "text": ""
-          }
-        }
-      },
-      "block_order": [
-        "brand",
-        "info",
-        "dealers",
-        "contact"
-      ],
-      "settings": {
-        "show_social": true,
-        "show_payments": false
       }
     }
   },
