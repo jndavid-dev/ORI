@@ -9,6 +9,20 @@
  */
 {
   "sections": {
+    "ori_hero_hub": {
+      "type": "ori-hero",
+      "settings": {
+        "style": "plain",
+        "image": "",
+        "min_height": 440,
+        "heading_1": "GVM Hub",
+        "heading_2": "GVM Packages & Resources",
+        "pill": "",
+        "heading_tag": "h1",
+        "badge_title": "",
+        "badge_small": ""
+      }
+    },
     "gvm_packages_grid_main": {
       "type": "gvm-packages-grid",
       "settings": {
@@ -22,77 +36,47 @@
         "padding_bottom": 40
       }
     },
-    "gvm_b2b_product_grid_hub": {
-      "type": "gvm-b2b-product-grid",
+    "ori_product_grid_hub": {
+      "type": "ori-product-grid",
       "settings": {
-        "shop_collection": "b2b-gvm-collection",
         "heading": "Your GVM Wholesale Pricing",
-        "container": "container",
-        "products_per_page": 12,
-        "columns": 4,
-        "column_gap": "medium",
-        "row_gap": "medium",
-        "enable_product_count": true,
-        "enable_filtering": false,
-        "enable_sorting": false,
-        "sidebar_position": "left",
-        "group_collapsible": true,
-        "default_state_collapsible": "expanded",
-        "open_first_group": true,
-        "filter_group_heading_size": "h6",
-        "show_results_count": false,
-        "filter_color_type": "list",
-        "enable_tag_filter": false,
-        "paginate_type": "number",
-        "padding_top": 20,
-        "padding_bottom": 40
-      }
-    },
-    "gvm_intro_hub": {
-      "type": "gvm-intro",
-      "settings": {
-        "badge_text": "Federally Approved | ADR-Tested | SSM Certified",
-        "heading_line_1": "GVM Hub",
-        "heading_line_2": "GVM Packages & Resources",
-        "subheading": "<p>Find the right GVM upgrade for your vehicle. Browse available packages, kit information, installation instructions and workshop tips.</p>",
-        "band_heading": "",
-        "band_background": "#000000",
-        "band_text_color": "#56bdc2",
-        "body": "",
-        "disclaimer": "",
-        "accent_color": "#56bdc2",
-        "background_color": "#000000",
-        "text_color": "#ffffff",
-        "padding_top": 72,
-        "padding_bottom": 72,
+        "intro": "",
+        "collection": "b2b-gvm-collection",
+        "limit": 12,
+        "button": "cart",
+        "button_label": "",
+        "show_links": true,
+        "fine_print": "",
+        "padding_top": 40,
+        "padding_bottom": 88,
         "custom_class": ""
       }
     },
-    "gvm_how_it_works": {
-      "type": "gvm-how-it-works",
+    "ori_steps_hub": {
+      "type": "ori-steps",
       "blocks": {
         "step_1": {
           "type": "step",
           "settings": {
+            "icon": "truck",
             "title": "Choose the vehicle and stage",
-            "text": "<p>Open the vehicle hub and review the stage instructions and pricing. Your trade price is shown alongside the recommended retail price on every product.</p>",
-            "icon": "truck"
+            "text": "<p>Open the vehicle hub and review the stage instructions and pricing. Your trade price is shown alongside the recommended retail price on every product.</p>"
           }
         },
         "step_2": {
           "type": "step",
           "settings": {
+            "icon": "form",
             "title": "Submit a kit request",
-            "text": "<p>Use the Request a Kit tab to select the kit, enter the VIN, vehicle build date and the date you need it, then submit.</p>",
-            "icon": "form"
+            "text": "<p>Use the Request a Kit tab to select the kit, enter the VIN, vehicle build date and the date you need it, then submit.</p>"
           }
         },
         "step_3": {
           "type": "step",
           "settings": {
+            "icon": "check",
             "title": "We confirm and invoice",
-            "text": "<p>Your request reaches our team as a draft order for review. We confirm stock, finalise freight and send a secure payment link — nothing is charged when you submit.</p>",
-            "icon": "check"
+            "text": "<p>Your request reaches our team as a draft order for review. We confirm stock, finalise freight and send a secure payment link — nothing is charged when you submit.</p>"
           }
         }
       },
@@ -102,19 +86,22 @@
         "step_3"
       ],
       "settings": {
+        "style": "dark",
+        "heading_accent": "",
         "heading": "How Ordering Works",
         "intro": "",
-        "accent_color": "#56bdc2",
-        "padding_top": 40,
-        "padding_bottom": 72,
-        "custom_class": "gvm-container-1360"
+        "button_label": "",
+        "button_link": "",
+        "padding_top": 88,
+        "padding_bottom": 88,
+        "custom_class": ""
       }
     }
   },
   "order": [
-    "gvm_intro_hub",
+    "ori_hero_hub",
     "gvm_packages_grid_main",
-    "gvm_b2b_product_grid_hub",
-    "gvm_how_it_works"
+    "ori_product_grid_hub",
+    "ori_steps_hub"
   ]
 }

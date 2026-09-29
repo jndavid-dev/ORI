@@ -1,0 +1,52 @@
+{%- comment -%}
+  ORI redesign — one vehicle card for the "Browse by vehicle" grid
+  (snippets/gvm-packages-grid-content.liquid). A card whose hub isn't
+  live yet (url blank or "#") renders as a plain card with a "Coming
+  soon" tag and no button, instead of a link that goes nowhere.
+
+  Accepts:
+  - title: {String}
+  - text: {String}
+  - url: {String}
+  - image: {Object} image from the section's settings
+  - label: {String} optional button label (default "View More Information")
+{%- endcomment -%}
+{%- liquid
+  assign live = true
+  if url == blank or url == '#'
+    assign live = false
+  endif
+-%}
+{%- capture card_inner -%}
+  <div class="ori-vcard__img">
+    {%- unless live -%}<span class="ori-flag">Coming soon</span>{%- endunless -%}
+    {%- if image != blank -%}
+      {{
+        image
+        | image_url: width: 800
+        | image_tag:
+          loading: 'lazy',
+          widths: '400, 600, 800',
+          sizes: '(min-width: 1100px) 25vw, (min-width: 600px) 50vw, 100vw',
+          alt: title
+      }}
+    {%- endif -%}
+  </div>
+  <div class="ori-vcard__body">
+    <h3 class="ori-vcard__title">{{ title }}</h3>
+    {%- if text != blank -%}<p class="ori-vcard__text">{{ text }}</p>{%- endif -%}
+    {%- if live -%}
+      <span class="ori-btn ori-btn--line ori-vcard__btn">
+        {{- label | default: 'View More Information' -}}
+        {%- render 'ori-icon', icon: 'arrow' -%}
+      </span>
+    {%- else -%}
+      <span class="ori-vcard__soon">Hub coming soon</span>
+    {%- endif -%}
+  </div>
+{%- endcapture -%}
+{%- if live -%}
+  <a class="ori-vcard" href="{{ url }}">{{ card_inner }}</a>
+{%- else -%}
+  <div class="ori-vcard ori-vcard--soon">{{ card_inner }}</div>
+{%- endif -%}

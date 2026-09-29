@@ -7,88 +7,37 @@
   Images are the one exception: Shopify's image_picker settings only
   resolve inside a section's own settings, so they're passed in as
   parameters from the section rather than referenced directly here.
-  Everything else (headings, titles, text, links) is hardcoded, so
-  editing a link -- e.g. once the F150/Tundra/Silverado 2500 pages go
-  live -- is a single edit in this one file.
+  Everything else (titles, text, links) is set here, so making a hub
+  live -- e.g. once the F150/Tundra/Silverado 2500 pages exist -- is a
+  single edit: replace its '#' with the hub URL and the card switches
+  from "Coming soon" to a link on its own (snippets/ori-vehicle-card.liquid).
 
   Params expected: image_f150, image_tundra, image_silverado1500,
   image_silverado2500 (Image objects from the section's settings).
 {%- endcomment -%}
-
-<div class="gvm-packages-grid__list">
-  <a href="#" class="gvm-packages-grid__card">
-    {%- if image_f150 != blank -%}
-      <div class="gvm-packages-grid__image-wrap">
-        <img
-          src="{{ image_f150 | image_url: width: 600 }}"
-          alt="Ford F150 GVM Packages"
-          loading="lazy"
-          width="600"
-          height="600"
-        >
-      </div>
-    {%- endif -%}
-    <div class="gvm-packages-grid__body">
-      <h3 class="gvm-packages-grid__title">Ford F150 GVM Packages</h3>
-      <p class="gvm-packages-grid__text">Click here to learn more about ORI GVM GCM packages for the Ford F150</p>
-      <span class="btn btn--primary btn--small gvm-packages-grid__btn">View More Information</span>
-    </div>
-  </a>
-
-  <a href="#" class="gvm-packages-grid__card">
-    {%- if image_tundra != blank -%}
-      <div class="gvm-packages-grid__image-wrap">
-        <img
-          src="{{ image_tundra | image_url: width: 600 }}"
-          alt="Toyota Tundra GVM Packages"
-          loading="lazy"
-          width="600"
-          height="600"
-        >
-      </div>
-    {%- endif -%}
-    <div class="gvm-packages-grid__body">
-      <h3 class="gvm-packages-grid__title">Toyota Tundra GVM Packages</h3>
-      <p class="gvm-packages-grid__text">Click here to learn more about ORI GVM GCM packages for the Toyota Tundra</p>
-      <span class="btn btn--primary btn--small gvm-packages-grid__btn">View More Information</span>
-    </div>
-  </a>
-
-  <a href="https://ori-staging.myshopify.com/collections/chevrolet-silverado-1500-ltz-zr2-trailboss-gvm-upgrade" class="gvm-packages-grid__card">
-    {%- if image_silverado1500 != blank -%}
-      <div class="gvm-packages-grid__image-wrap">
-        <img
-          src="{{ image_silverado1500 | image_url: width: 600 }}"
-          alt="Chevy Silverado 1500 GVM Packages"
-          loading="lazy"
-          width="600"
-          height="600"
-        >
-      </div>
-    {%- endif -%}
-    <div class="gvm-packages-grid__body">
-      <h3 class="gvm-packages-grid__title">Chevy Silverado 1500 GVM Packages</h3>
-      <p class="gvm-packages-grid__text">Click here to learn more about ORI GVM GCM packages for the Chevy Silverado 1500</p>
-      <span class="btn btn--primary btn--small gvm-packages-grid__btn">View More Information</span>
-    </div>
-  </a>
-
-  <a href="#" class="gvm-packages-grid__card">
-    {%- if image_silverado2500 != blank -%}
-      <div class="gvm-packages-grid__image-wrap">
-        <img
-          src="{{ image_silverado2500 | image_url: width: 600 }}"
-          alt="Chevy Silverado 2500HD GVM Packages"
-          loading="lazy"
-          width="600"
-          height="600"
-        >
-      </div>
-    {%- endif -%}
-    <div class="gvm-packages-grid__body">
-      <h3 class="gvm-packages-grid__title">Chevy Silverado 2500HD GVM Packages</h3>
-      <p class="gvm-packages-grid__text">Click here to learn more about ORI GVM GCM packages for the Chevy Silverado 2500HD</p>
-      <span class="btn btn--primary btn--small gvm-packages-grid__btn">View More Information</span>
-    </div>
-  </a>
+<div class="ori-vgrid">
+  {%- render 'ori-vehicle-card',
+    title: 'Ford F150 GVM Packages',
+    text: 'Click here to learn more about ORI GVM GCM packages for the Ford F150',
+    url: '#',
+    image: image_f150
+  -%}
+  {%- render 'ori-vehicle-card',
+    title: 'Toyota Tundra GVM Packages',
+    text: 'Click here to learn more about ORI GVM GCM packages for the Toyota Tundra',
+    url: '#',
+    image: image_tundra
+  -%}
+  {%- render 'ori-vehicle-card',
+    title: 'Chevy Silverado 1500 GVM Packages',
+    text: 'Click here to learn more about ORI GVM GCM packages for the Chevy Silverado 1500',
+    url: '/collections/chevrolet-silverado-1500-ltz-zr2-trailboss-gvm-upgrade',
+    image: image_silverado1500
+  -%}
+  {%- render 'ori-vehicle-card',
+    title: 'Chevy Silverado 2500HD GVM Packages',
+    text: 'Click here to learn more about ORI GVM GCM packages for the Chevy Silverado 2500HD',
+    url: '#',
+    image: image_silverado2500
+  -%}
 </div>

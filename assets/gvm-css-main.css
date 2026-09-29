@@ -466,84 +466,6 @@
 
 
 /* ==========================================================
-   4. GVM Packages Grid
-   Whole-card-link grid, used on the ori-knowledge-base page.
-   ========================================================== */
-
-.gvm-packages-grid__heading {
-  text-align: center;
-  font-size: 34px;
-  margin: 0 0 32px;
-}
-
-.gvm-packages-grid__list {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-}
-
-.gvm-packages-grid__card {
-  display: block;
-  color: inherit;
-  text-decoration: none;
-  border: 1px solid #e2e2e2;
-  border-radius: 10px;
-  overflow: hidden;
-  transition: box-shadow 0.15s ease, transform 0.15s ease;
-}
-
-.gvm-packages-grid__card:hover {
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  transform: translateY(-2px);
-}
-
-.gvm-packages-grid__image-wrap {
-  /* Matches the real image proportions (confirmed from the live
-     site's own rendering: --aspect-ratio: 0.7100633356790992,
-     i.e. roughly 315x443) instead of forcing a 1:1 square, which
-     was cropping the top/bottom off these portrait images. */
-  aspect-ratio: 0.71 / 1;
-  background: #f2f2f2;
-  overflow: hidden;
-}
-
-.gvm-packages-grid__image-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.gvm-packages-grid__body {
-  padding: 16px;
-}
-
-.gvm-packages-grid__title {
-  font-size: 18px;
-  margin: 0 0 6px;
-  color: #1f1f1f;
-}
-
-.gvm-packages-grid__text {
-  font-size: 14px;
-  color: #555;
-  margin: 0;
-}
-
-@media (max-width: 989px) {
-  .gvm-packages-grid__list {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 480px) {
-  .gvm-packages-grid__list {
-    grid-template-columns: 1fr;
-  }
-}
-
-
-/* ==========================================================
    5. GVM B2B Shop Grid
    Shoppable product grid on /pages/b2b-catalog, the fixed
    destination of the native B2B "Shop now" welcome-card button.
@@ -1507,26 +1429,6 @@
   color: var(--gvm-intro-text, #ffffff);
 }
 
-/* --- Packages grid framing --- */
-.gvm-packages-grid__intro {
-  max-width: 88ch;
-  margin: -12px auto 28px;
-  color: #555;
-  text-align: center;
-}
-
-/* Not a real <a> -- the whole card is already the link, so this is a
-   span styled as a button purely as a visual affordance. */
-.gvm-packages-grid__btn {
-  margin-top: 14px;
-  width: 100%;
-  pointer-events: none;
-}
-
-.gvm-packages-grid__card:hover .gvm-packages-grid__btn {
-  filter: brightness(0.94);
-}
-
 /* --- How It Works --- */
 .gvm-steps__intro {
   max-width: 80ch;
@@ -1625,7 +1527,6 @@
     font-size: 64px;
   }
 
-  .gvm-packages-grid__intro,
   .gvm-steps__intro {
     margin-bottom: 22px;
     text-align: left;
@@ -2071,7 +1972,8 @@
   mask-composite: intersect;
 }
 
-.ori-hero--cutout::after {
+.ori-hero--cutout::after,
+.ori-hero--plain::after {
   content: "";
   position: absolute;
   inset: auto 0 0;
@@ -3603,4 +3505,331 @@
 
 .secondary-header__link:hover {
   color: var(--ori-teal);
+}
+
+/* ==========================================================
+   ORI REDESIGN — HERO: SIMPLE STYLE + BADGE/SUBHEADING
+   ori-hero "Simple (no image)" — copy over the ridge line, used
+   on landing pages like the GVM hub. The ridge itself is shared
+   with the cut-out style above.
+   ========================================================== */
+.ori-hero--plain .ori-hero__copy {
+  max-width: 920px;
+}
+
+.ori-hero__copy > .ori-badge {
+  margin-bottom: 24px;
+}
+
+.ori-badge--dark {
+  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.06);
+  color: #dfe6e7;
+}
+
+.ori-hero__l2--white {
+  color: #ffffff;
+}
+
+.ori-hero__sub {
+  max-width: 640px;
+  margin: -8px 0 30px;
+  color: #b7c3c6;
+  font-size: 18px;
+}
+
+.ori-hero__sub p + p {
+  margin-top: 12px;
+}
+
+@media (max-width: 1024px) {
+  .ori-hero--plain .ori-hero__in {
+    padding-top: 56px;
+  }
+}
+
+/* ==========================================================
+   ORI REDESIGN — VEHICLE GRID (sections/gvm-packages-grid.liquid,
+   snippets/ori-vehicle-card.liquid)
+   Whole card is the link. Images are portrait (~315x443), so the
+   frame keeps that ratio rather than cropping to a square. Hubs
+   that aren't live yet show "Coming soon" with no button.
+   ========================================================== */
+.ori-vgrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.ori-vcard {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--ori-line);
+  border-radius: 6px;
+  background: #ffffff;
+  color: inherit;
+  text-decoration: none;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+a.ori-vcard:hover {
+  box-shadow: 0 18px 36px -24px rgba(0, 0, 0, 0.45);
+  transform: translateY(-2px);
+}
+
+.ori-vcard__img {
+  position: relative;
+  aspect-ratio: 0.71 / 1;
+  overflow: hidden;
+  background: var(--ori-bone);
+}
+
+.ori-vcard__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+a.ori-vcard:hover .ori-vcard__img img {
+  transform: scale(1.04);
+}
+
+.ori-vcard--soon .ori-vcard__img img {
+  filter: grayscale(0.6);
+  opacity: 0.75;
+}
+
+.ori-vcard__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+}
+
+.ori .ori-vcard__title {
+  font-size: 26px;
+  line-height: 1;
+}
+
+.ori-vcard__text {
+  color: var(--ori-steel);
+  font-size: 15px;
+}
+
+.ori-vcard__btn {
+  width: 100%;
+  min-height: 46px;
+  margin-top: auto;
+  font-size: 17px;
+}
+
+.ori-vcard__btn svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.2s;
+}
+
+a.ori-vcard:hover .ori-vcard__btn {
+  background: var(--ori-ink);
+  color: #ffffff;
+}
+
+a.ori-vcard:hover .ori-vcard__btn svg {
+  transform: translateX(3px);
+}
+
+.ori-vcard__soon {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px dashed var(--ori-line);
+  color: var(--ori-steel);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 1100px) {
+  .ori-vgrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .ori-vgrid {
+    gap: 14px;
+  }
+
+  .ori-vcard__body {
+    padding: 14px;
+  }
+
+  .ori .ori-vcard__title {
+    font-size: 20px;
+  }
+
+  .ori-vcard__text {
+    font-size: 14px;
+  }
+
+  .ori-vcard__btn {
+    min-height: 42px;
+    padding-right: 6px;
+    padding-left: 6px;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .ori-vcard__btn svg {
+    display: none;
+  }
+}
+
+/* Below ~380px two portrait cards leave too little room for the button
+   label, so the cards stack. */
+@media (max-width: 380px) {
+  .ori-vgrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* "View all" style text link next to a section heading. */
+.ori-link {
+  padding-bottom: 2px;
+  border-bottom: 2px solid var(--ori-teal);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* ==========================================================
+   ORI REDESIGN — STEPS (sections/ori-steps.liquid)
+   ========================================================== */
+.ori-steps--dark {
+  background: var(--ori-chassis);
+  color: #eef1f1;
+}
+
+.ori-steps--light {
+  background: var(--ori-bone);
+}
+
+.ori-steps--dark .ori-head__intro {
+  color: #b7c3c6;
+}
+
+.ori-steps__list {
+  display: grid;
+  grid-template-columns: repeat(var(--ori-n, 3), minmax(0, 1fr));
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ori-step {
+  position: relative;
+  padding: 28px 26px 30px;
+  border-top: 4px solid var(--ori-teal);
+  border-radius: 6px;
+  background: #252d30;
+}
+
+.ori-steps--light .ori-step {
+  border-right: 1px solid var(--ori-line);
+  border-bottom: 1px solid var(--ori-line);
+  border-left: 1px solid var(--ori-line);
+  background: #ffffff;
+}
+
+/* Teal link bridging the gap to the next step. */
+.ori-step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 58px;
+  right: -21px;
+  width: 22px;
+  height: 2px;
+  background: var(--ori-teal);
+}
+
+.ori-step__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.ori-step__num {
+  color: transparent;
+  font-family: var(--ori-display);
+  font-size: 64px;
+  font-weight: 800;
+  line-height: 0.8;
+  -webkit-text-stroke: 1.5px var(--ori-teal);
+}
+
+.ori-step__icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(63, 179, 186, 0.14);
+  color: var(--ori-teal);
+}
+
+.ori-step__icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.ori .ori-step__title {
+  margin-bottom: 10px;
+  font-size: 26px;
+}
+
+.ori-step__text {
+  color: #b7c3c6;
+  font-size: 16px;
+}
+
+.ori-steps--light .ori-step__text {
+  color: var(--ori-steel);
+}
+
+.ori-step__text p + p {
+  margin-top: 8px;
+}
+
+@media (max-width: 900px) {
+  .ori-steps__list {
+    grid-template-columns: 1fr;
+  }
+
+  .ori-step:not(:last-child)::after {
+    top: auto;
+    right: auto;
+    bottom: -21px;
+    left: 50px;
+    width: 2px;
+    height: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ori-step {
+    padding: 24px 20px 26px;
+  }
+
+  .ori-step__num {
+    font-size: 52px;
+  }
+
+  .ori .ori-step__title {
+    font-size: 23px;
+  }
 }

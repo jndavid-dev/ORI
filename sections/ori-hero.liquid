@@ -3,10 +3,12 @@
   HTML rather than baked into an image, so headings stay crisp, readable
   by search engines and editable here.
 
-  Two looks (Style setting):
+  Three looks (Style setting):
   - Vehicle cut-out: a transparent PNG/WebP of the vehicle over a ridge
     line — the GVM vehicle hubs.
   - Photo: a full photo on the right, faded into the dark — home page.
+  - Simple: no image, just the copy over the ridge line — landing pages
+    like the GVM hub.
 
   Blocks: brand logos, feature points (icon + text) and up to two buttons.
   Button links that start with # (e.g. #tab-4) open that hub tab.
@@ -24,7 +26,7 @@
   class="ori ori-hero ori-hero--{{ section.settings.style }}"
   style="--ori-hero-h: {{ section.settings.min_height }}px;"
 >
-  {%- if section.settings.image != blank -%}
+  {%- if section.settings.image != blank and section.settings.style != 'plain' -%}
     <div class="ori-hero__media">
       {%- if section.settings.style == 'cutout' -%}
         {{
@@ -59,6 +61,13 @@
 
   <div class="ori-hero__in">
     <div class="ori-hero__copy">
+      {%- if section.settings.badge_text != blank -%}
+        <span class="ori-badge ori-badge--dark">
+          {%- render 'ori-icon', icon: 'shield' -%}
+          {{- section.settings.badge_text -}}
+        </span>
+      {%- endif -%}
+
       {%- if logos.size > 0 -%}
         <div class="ori-hero__brands">
           {%- for block in logos -%}
@@ -77,7 +86,7 @@
         <{{ heading_tag }} class="ori-hero__title">
           {{- section.settings.heading_1 -}}
           {%- if section.settings.heading_2 != blank or section.settings.pill != blank -%}
-            <span class="ori-hero__l2">
+            <span class="ori-hero__l2{% if section.settings.heading_2_white %} ori-hero__l2--white{% endif %}">
               {{- section.settings.heading_2 -}}
               {%- if section.settings.pill != blank -%}
                 <span class="ori-pill">{{ section.settings.pill | newline_to_br }}</span>
@@ -85,6 +94,10 @@
             </span>
           {%- endif -%}
         </{{ heading_tag }}>
+      {%- endif -%}
+
+      {%- if section.settings.subheading != blank -%}
+        <div class="ori-hero__sub">{{ section.settings.subheading }}</div>
       {%- endif -%}
 
       {%- if feats.size > 0 -%}
@@ -129,7 +142,8 @@
       "label": "Style",
       "options": [
         { "value": "cutout", "label": "Vehicle cut-out (transparent image)" },
-        { "value": "photo", "label": "Photo, faded in from the right" }
+        { "value": "photo", "label": "Photo, faded in from the right" },
+        { "value": "plain", "label": "Simple (no image)" }
       ],
       "default": "cutout"
     },
@@ -155,6 +169,12 @@
     },
     {
       "type": "text",
+      "id": "badge_text",
+      "label": "Badge above the heading",
+      "info": "e.g. Federally Approved | ADR-Tested | SSM Certified"
+    },
+    {
+      "type": "text",
       "id": "heading_1",
       "label": "Line 1",
       "default": "Chevrolet Silverado"
@@ -171,6 +191,17 @@
       "label": "Pill next to line 2",
       "info": "Line breaks are kept.",
       "default": "GVM & GCM packages\n4250kg & 8750kg"
+    },
+    {
+      "type": "checkbox",
+      "id": "heading_2_white",
+      "label": "Line 2 in white",
+      "default": false
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Text under the heading"
     },
     {
       "type": "select",

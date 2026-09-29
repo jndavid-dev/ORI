@@ -6,24 +6,33 @@
 
   Images are the one exception (see the snippet's own comment for
   why) -- kept as settings here and passed through as parameters.
+
+  Styled with the ORI redesign (ORI REDESIGN — VEHICLE GRID in
+  gvm-css-main.css) on both pages that use it.
 {%- endcomment -%}
 
 {{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
+{%- render 'ori-fonts' -%}
 
-<div class="gvm-packages-grid f-section-padding" style="--section-padding-top: {{ section.settings.padding_top }}px; --section-padding-bottom: {{ section.settings.padding_bottom }}px;">
-  <div class="container">
+<div class="ori ori-section gvm-packages-grid" style="--ori-pt: {{ section.settings.padding_top }}px; --ori-pb: {{ section.settings.padding_bottom }}px;">
+  <div class="ori-wrap">
     {%- comment -%}
       Heading and intro are section settings rather than snippet content:
       the cards are shared across every page that uses this section, but
       the framing copy differs per page (the hub introduces the range,
       the B2B catalog points back to it).
     {%- endcomment -%}
-    {%- if section.settings.heading != blank -%}
-      <h2 class="gvm-packages-grid__heading gvm-section-heading">{{ section.settings.heading }}</h2>
-    {%- endif -%}
-
-    {%- if section.settings.intro != blank -%}
-      <div class="gvm-packages-grid__intro rte">{{ section.settings.intro }}</div>
+    {%- if section.settings.heading != blank or section.settings.intro != blank -%}
+      <div class="ori-head">
+        <div>
+          {%- if section.settings.heading != blank -%}
+            <h2 class="ori-h2">{{ section.settings.heading }}</h2>
+          {%- endif -%}
+          {%- if section.settings.intro != blank -%}
+            <div class="ori-head__intro">{{ section.settings.intro }}</div>
+          {%- endif -%}
+        </div>
+      </div>
     {%- endif -%}
 
     {%- render 'gvm-packages-grid-content',

@@ -23,9 +23,10 @@
   Accepts:
   - product: {Object} required
   - link: {Boolean} link image and title to the product (default true)
-  - button: {String} 'cart' (default) | 'request' | 'none'
+  - button: {String} 'cart' (default) | 'link' | 'request' | 'none'
       cart    — add to cart for single-variant products, "Choose options"
                 link otherwise
+      link    — "View details", linking to the product page
       request — "Request this kit"; ships hidden and is revealed by
                 assets/ori-gvm-kit-request.js only when the kit form is on
                 the page and knows this product
@@ -158,6 +159,8 @@
         <button type="button" class="ori-btn ori-btn--line" data-gvm-request-kit="{{ product.id }}" hidden>
           {{- button_label | default: 'Request this kit' -}}
         </button>
+      {%- when 'link' -%}
+        <a class="ori-btn ori-btn--line" href="{{ product.url }}">{{ button_label | default: 'View details' }}</a>
       {%- when 'cart' -%}
         {%- if product.available == false -%}
           <button type="button" class="ori-btn ori-btn--line" disabled>Sold out</button>
