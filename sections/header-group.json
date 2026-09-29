@@ -104,8 +104,8 @@
             "text": "0483 930 639",
             "link": "tel:0483930639",
             "hide_divider": true,
-            "block_color": "#55bdc3",
-            "block_font_size": 20
+            "block_color": "#3fb3ba",
+            "block_font_size": 15
           }
         },
         "block_support": {
@@ -141,11 +141,11 @@
       ],
       "settings": {
         "container": "container-fluid",
-        "bg_color": "#1a1a1a",
-        "text_color": "#ffffff",
-        "font_size": 16,
-        "container_height": 60,
-        "padding_y": 20,
+        "bg_color": "#101517",
+        "text_color": "#c3cbcd",
+        "font_size": 14,
+        "container_height": 44,
+        "padding_y": 2,
         "hide_on_mobile": true
       }
     },

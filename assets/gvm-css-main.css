@@ -3463,3 +3463,162 @@
     gap: 32px;
   }
 }
+
+/* ==========================================================
+   ORI REDESIGN — HEADER
+   Restyles the theme's own header (layout "design-6") and the
+   secondary header above it to the redesign — charcoal bar,
+   white nav with a teal underline, boxed icon buttons, teal cart
+   count. Styling only: the theme's nav, mega menus, search,
+   account, cart drawer and mobile drawer are untouched, so the
+   menu stays whatever header-group.json configures.
+   Loads site-wide through the GVM subnav in the same header group
+   (and for all B2B users via theme.liquid).
+   ========================================================== */
+.site-header.site-header--design-6 {
+  --color-background: var(--ori-chassis);
+  --color-header-bg: var(--ori-chassis);
+  --color-bg-1: var(--ori-chassis);
+  --color-border: #3a4549;
+  --color-menu-text: #e7ecec;
+  --color-menu-text-hover: #ffffff;
+  background-color: var(--ori-chassis);
+}
+
+.site-header--design-6 .site-header__top-v6 {
+  gap: 28px;
+}
+
+/* Line the header up with the full-width hero's copy on desktop. */
+@media (min-width: 1024px) {
+  /* The theme's container is width:100% in content-box sizing, so the
+     extra padding has to be counted inside it. */
+  .site-header--design-6 > .container-fluid {
+    box-sizing: border-box;
+    padding-right: var(--ori-edge);
+    padding-left: var(--ori-edge);
+  }
+}
+
+/* Nav: tighter items, no negative list margin (it ran the first link
+   into the logo), and the theme's own animated hover underline made
+   teal and 2px. Link colour must be set on the item — the theme forces
+   the link itself to currentColor !important. */
+.site-header--design-6 .f-site-nav {
+  --nav-item-px: 12px;
+}
+
+.site-header--design-6 .site-header__top-nav-v6 .f-site-nav__list {
+  margin: 0;
+}
+
+.site-header--design-6 .f-site-nav__item {
+  color: #e7ecec;
+  transition: color 0.15s;
+}
+
+.site-header--design-6 .f-site-nav__item:hover,
+.site-header--design-6 .f-site-nav__item:focus-within {
+  color: #ffffff;
+}
+
+.site-header--design-6 .f-site-nav__link {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.site-header--design-6 .f-site-nav a[class*="link"] > span:not(.f-site-nav__arrow)::after,
+.site-header--design-6 .f-site-nav summary[class*="link"] > span:not(.f-site-nav__arrow)::after {
+  height: 2px;
+  bottom: -6px;
+  background: var(--ori-teal);
+}
+
+.site-header--design-6 .f-site-nav__arrow {
+  opacity: 0.7;
+}
+
+/* Icon buttons (search, account, cart): outlined squares. */
+.site-header--design-6 .site-header__addons {
+  gap: 10px;
+}
+
+.site-header--design-6 .site-header__link.btn--icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 1px solid #3a4549;
+  border-radius: 4px;
+  color: #ffffff;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.site-header--design-6 .site-header__link.btn--icon:hover {
+  border-color: var(--ori-teal);
+  background: rgba(63, 179, 186, 0.12);
+}
+
+.site-header--design-6 .cart-link__count {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 10px;
+  background: var(--ori-teal);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+/* B2B "Product Catalog" link: text + teal icon rather than a box. */
+.site-header--design-6 .site-header__catalog-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #e7ecec;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.site-header--design-6 .site-header__catalog-link svg {
+  color: var(--ori-teal);
+}
+
+.site-header--design-6 .site-header__catalog-link:hover {
+  color: #ffffff;
+}
+
+@media (max-width: 1023.98px) {
+  .site-header--design-6 .site-header__top-v6 {
+    gap: 8px;
+  }
+
+  .site-header--design-6 .site-header__link.btn--icon {
+    width: 38px;
+    height: 38px;
+  }
+}
+
+/* Secondary header = the redesign's utility bar. Colours, size and
+   height come from its section settings; only the search pill and
+   links are reshaped here. */
+.secondary-header__search-form {
+  border-color: #3a4549;
+  border-radius: 4px;
+}
+
+.secondary-header__search-form:focus-within {
+  border-color: var(--ori-teal);
+}
+
+.secondary-header__link:hover {
+  color: var(--ori-teal);
+}
