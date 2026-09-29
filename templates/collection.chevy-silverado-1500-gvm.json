@@ -99,7 +99,7 @@
       ],
       "settings": {
         "style": "cutout",
-        "image": "",
+        "image": "shopify://shop_images/silverado-1500-zr2-cutout.webp",
         "min_height": 600,
         "heading_1": "Chevrolet Silverado",
         "heading_2": "1500 LTZ & ZR2",
@@ -380,7 +380,6 @@
             "description": "",
             "type_label": "PDF",
             "icon": "document",
-            "image": "",
             "button_label": "Download PDF",
             "shopify_file": "",
             "external_url": ""
@@ -393,7 +392,6 @@
             "description": "",
             "type_label": "PDF",
             "icon": "banner",
-            "image": "",
             "button_label": "View Banners",
             "shopify_file": "",
             "external_url": ""
@@ -406,7 +404,6 @@
             "description": "",
             "type_label": "Images",
             "icon": "social",
-            "image": "",
             "button_label": "View Assets",
             "shopify_file": "",
             "external_url": ""
@@ -419,7 +416,6 @@
             "description": "",
             "type_label": "Images",
             "icon": "image",
-            "image": "",
             "button_label": "View Product Imagery",
             "shopify_file": "",
             "external_url": ""
