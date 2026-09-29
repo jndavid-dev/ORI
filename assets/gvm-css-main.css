@@ -3578,24 +3578,6 @@
   line-height: 20px;
 }
 
-/* B2B "Product Catalog" link: text + teal icon rather than a box. */
-.site-header--design-6 .site-header__catalog-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: #e7ecec;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.site-header--design-6 .site-header__catalog-link svg {
-  color: var(--ori-teal);
-}
-
-.site-header--design-6 .site-header__catalog-link:hover {
-  color: #ffffff;
-}
-
 @media (max-width: 1023.98px) {
   .site-header--design-6 .site-header__top-v6 {
     gap: 8px;
