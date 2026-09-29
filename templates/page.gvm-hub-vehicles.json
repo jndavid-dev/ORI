@@ -53,7 +53,7 @@
         "vehicle_silverado_2500": {
           "type": "vehicle",
           "settings": {
-            "collection": "",
+            "collection": "chevrolet-silverado-2500-ltz-gvm-upgrade",
             "label": "Silverado 2500HD",
             "link": "shopify://collections/chevrolet-silverado-2500-ltz-gvm-upgrade",
             "link_label": ""
@@ -62,7 +62,7 @@
         "vehicle_ford_f150": {
           "type": "vehicle",
           "settings": {
-            "collection": "",
+            "collection": "ford-f150-platinum-lariat-xlt-gvm-upgrade",
             "label": "Ford F150",
             "link": "shopify://collections/ford-f150-platinum-lariat-xlt-gvm-upgrade",
             "link_label": ""
@@ -71,7 +71,7 @@
         "vehicle_toyota_tundra": {
           "type": "vehicle",
           "settings": {
-            "collection": "",
+            "collection": "toyota-tundra-platinum-gvm-upgrade",
             "label": "Toyota Tundra",
             "link": "shopify://collections/toyota-tundra-platinum-gvm-upgrade",
             "link_label": ""
