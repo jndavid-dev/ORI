@@ -3887,13 +3887,13 @@ a.ori-vcard:hover .ori-vcard__btn svg {
   padding-right: 320px; /* room for the vehicle link on the same row */
 }
 
-.ori-pills {
+.ori-vpills {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
 
-.ori-pill {
+.ori-vpill {
   flex: 0 0 auto;
   min-height: 44px;
   padding: 0 20px;
@@ -3908,11 +3908,11 @@ a.ori-vcard:hover .ori-vcard__btn svg {
   transition: border-color 0.15s, background-color 0.15s, color 0.15s;
 }
 
-.ori-pill:hover {
+.ori-vpill:hover {
   border-color: var(--ori-ink);
 }
 
-.ori-pill[aria-selected="true"] {
+.ori-vpill[aria-selected="true"] {
   border-color: var(--ori-teal);
   background: var(--ori-teal);
   color: #ffffff;
@@ -3962,7 +3962,7 @@ a.ori-vcard:hover .ori-vcard__btn svg {
 
 @media (max-width: 700px) {
   /* One swipeable row instead of wrapping into a block of pills. */
-  .ori-pills {
+  .ori-vpills {
     flex-wrap: nowrap;
     margin: 0 -18px;
     padding: 2px 18px 6px;
@@ -3970,7 +3970,500 @@ a.ori-vcard:hover .ori-vcard__btn svg {
     scrollbar-width: none;
   }
 
-  .ori-pills::-webkit-scrollbar {
+  .ori-vpills::-webkit-scrollbar {
     display: none;
+  }
+}
+
+/* ==========================================================
+   ORI REDESIGN — GVM PRODUCT HERO (sections/ori-gvm-product.liquid,
+   snippets/ori-gvm-summary.liquid)
+   Gallery left; label, title, intro, compliance plate, options,
+   price and actions right. The plate is the redesign's signature:
+   the figures on a brushed-metal plate, as stamped on the vehicle.
+   ========================================================== */
+.ori-gvmp__hero {
+  padding: 48px 0 72px;
+}
+
+.ori-gvmp__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 56px;
+}
+
+/* Gallery */
+.ori-gvmp__main {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--ori-bone);
+}
+
+.ori-gvmp__img {
+  width: 100%;
+  height: 100%;
+  padding: 6%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.ori-gvmp__thumbs {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.ori-gvmp__thumbs::-webkit-scrollbar {
+  display: none;
+}
+
+.ori-gvmp__thumb {
+  flex: 0 0 76px;
+  width: 76px;
+  height: 76px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  background: var(--ori-bone);
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.ori-gvmp__thumb img {
+  width: 100%;
+  height: 100%;
+  padding: 8%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.ori-gvmp__thumb:hover {
+  border-color: var(--ori-line);
+}
+
+.ori-gvmp__thumb.is-active {
+  border-color: var(--ori-teal);
+}
+
+/* Content column */
+.ori-gvmp__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+}
+
+.ori .ori-gvmp__title {
+  font-size: clamp(34px, 3.4vw, 54px);
+  line-height: 0.95;
+}
+
+.ori-gvmp__intro {
+  color: var(--ori-steel);
+  font-size: 18px;
+}
+
+.ori-gvmp__intro p + p {
+  margin-top: 8px;
+}
+
+.ori-gvmp__intro:empty,
+.ori-gvmp__plate:empty {
+  display: none;
+}
+
+.ori-gvmp__plate {
+  width: 100%;
+  max-width: 560px;
+  padding: 6px 0;
+}
+
+/* Compliance plate */
+.ori-plate {
+  position: relative;
+  padding: 28px 34px 24px;
+  border-radius: 10px;
+  color: #1f2629;
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.06) 0 1px, rgba(0, 0, 0, 0.03) 1px 3px),
+    linear-gradient(160deg, #e9eced 0%, #c3c9cb 38%, #dfe3e4 60%, #aeb5b8 100%);
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.55),
+    inset 0 0 0 5px rgba(0, 0, 0, 0.08),
+    0 24px 48px -22px rgba(0, 0, 0, 0.55);
+}
+
+.ori-plate__rivet {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fff, #9aa2a5 60%, #6c7477);
+}
+
+.ori-plate__rivet--a { top: 12px; left: 12px; }
+.ori-plate__rivet--b { top: 12px; right: 12px; }
+.ori-plate__rivet--c { bottom: 12px; left: 12px; }
+.ori-plate__rivet--d { bottom: 12px; right: 12px; }
+
+.ori-plate__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 12px;
+  margin-bottom: 10px;
+  padding: 0 8px 10px;
+  border-bottom: 2px solid rgba(31, 38, 41, 0.35);
+}
+
+.ori-plate__head b {
+  font-family: var(--ori-display);
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.ori-plate__head span {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.ori-plate__row {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  align-items: center;
+  padding: 7px 8px;
+  border-bottom: 1px dashed rgba(31, 38, 41, 0.3);
+}
+
+.ori-plate__row:last-of-type {
+  border-bottom: 0;
+}
+
+.ori-plate__k {
+  font-family: var(--ori-display);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ori-plate__v {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 12px;
+  font-family: var(--ori-display);
+  font-weight: 700;
+}
+
+.ori-plate__old {
+  color: #5f686b;
+  font-size: 20px;
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+}
+
+.ori-plate__new {
+  color: #0e1416;
+  font-size: 40px;
+  line-height: 1;
+}
+
+.ori-plate__row--sm .ori-plate__new {
+  font-size: 28px;
+}
+
+.ori-plate__sub {
+  flex-basis: 100%;
+  font-family: var(--ori-body);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.ori-plate__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+  margin-top: 12px;
+  padding: 0 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.ori-plate__stamp {
+  padding: 3px 10px;
+  border: 2px solid #0e1416;
+  border-radius: 4px;
+  font-family: var(--ori-display);
+  font-size: 15px;
+  letter-spacing: 0.05em;
+  overflow-wrap: anywhere;
+}
+
+/* Options (variants) */
+.ori-gvmp__options {
+  display: grid;
+  gap: 8px;
+}
+
+.ori-gvmp__label {
+  color: var(--ori-steel);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.ori-gvmp__opts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ori-gvmp__opt {
+  min-height: 42px;
+  padding: 0 18px;
+  border: 1px solid var(--ori-line);
+  border-radius: 40px;
+  background: var(--ori-paper);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s, color 0.15s;
+}
+
+.ori-gvmp__opt:hover {
+  border-color: var(--ori-ink);
+}
+
+.ori-gvmp__opt.is-active {
+  border-color: var(--ori-teal);
+  background: var(--ori-teal);
+  color: #ffffff;
+}
+
+.ori-gvmp__sku {
+  color: var(--ori-steel);
+  font-size: 13px;
+}
+
+/* The plate already carries the part number. The line stays in the page
+   (variant switching updates it) for products without a plate. */
+.ori-gvmp__content:has(.ori-plate) .ori-gvmp__sku {
+  display: none;
+}
+
+/* Price: retail */
+.ori-gvmp__pricing {
+  width: 100%;
+}
+
+.ori-gvmp__price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+}
+
+.ori-gvmp__amount {
+  font-family: var(--ori-display);
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.ori-gvmp__price-note {
+  color: var(--ori-steel);
+  font-size: 14px;
+}
+
+/* Price: B2B wholesale box (snippets/gvm-b2b-price.liquid, box style) */
+.ori-gvmp__pricing .gvm-b2b-pricebox {
+  display: grid;
+  gap: 6px;
+  max-width: 560px;
+  margin: 0;
+  padding: 16px 20px;
+  border: 1px solid #cfe7e8;
+  border-left: 4px solid var(--ori-teal);
+  border-radius: 6px;
+  background: #f4fafa;
+}
+
+.ori-gvmp__pricing .gvm-b2b-pricebox__label {
+  color: var(--ori-teal-deep);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.ori-gvmp__pricing .gvm-b2b-pricebox__rrp {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 10px;
+  justify-self: start;
+  padding: 4px 12px;
+  border-radius: 4px;
+  background: #e3f3f4;
+  color: var(--ori-teal-deep);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.ori-gvmp__pricing .gvm-b2b-pricebox__rrp-value {
+  font-weight: 700;
+}
+
+/* Actions */
+.ori-gvmp__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.ori-gvmp__opener {
+  display: contents;
+}
+
+.ori-gvmp__calc {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ori-teal-deep);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.ori-gvmp__calc:hover span {
+  text-decoration: underline;
+}
+
+.ori-gvmp__calc-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Package details band */
+.ori-gvmp__details-band {
+  padding: 72px 0;
+  background: var(--ori-bone);
+}
+
+.ori-gvmp__details {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  align-items: start;
+  gap: 56px;
+}
+
+.ori .ori-gvmp__details-title {
+  font-size: clamp(32px, 3.4vw, 48px);
+}
+
+.ori-gvmp__details .ori-spec {
+  border-top-color: #cfd5d4;
+}
+
+.ori-gvmp__details .ori-spec > div {
+  grid-template-columns: 170px 1fr;
+  border-bottom-color: #cfd5d4;
+}
+
+.ori-gvmp__notes {
+  display: grid;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.ori-gvmp__notes .ori-note {
+  margin: 0 !important;
+  background: #ffffff;
+}
+
+@media (max-width: 1024px) {
+  .ori-gvmp__grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .ori-gvmp__main {
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .ori-gvmp__thumbs {
+    justify-content: center;
+  }
+
+  .ori-gvmp__details {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .ori-gvmp__hero {
+    padding: 24px 0 48px;
+  }
+
+  .ori-gvmp__thumbs {
+    justify-content: flex-start;
+  }
+
+  .ori-gvmp__thumb {
+    flex-basis: 64px;
+    width: 64px;
+    height: 64px;
+  }
+
+  .ori-plate {
+    padding: 24px 18px 20px;
+  }
+
+  .ori-plate__row {
+    grid-template-columns: 92px minmax(0, 1fr);
+  }
+
+  .ori-plate__new {
+    font-size: 32px;
+  }
+
+  .ori-plate__row--sm .ori-plate__new {
+    font-size: 24px;
+  }
+
+  .ori-gvmp__amount {
+    font-size: 34px;
+  }
+
+  .ori-gvmp__ctas .ori-btn {
+    flex: 1 1 100%;
+  }
+
+  .ori-gvmp__details-band {
+    padding: 48px 0;
+  }
+
+  .ori-gvmp__details .ori-spec > div {
+    grid-template-columns: 1fr;
+    gap: 2px;
   }
 }

@@ -1,6 +1,8 @@
 {%- comment -%}
   Emits a single variant's resolved GVM/GCM figures as a JSON object, used by
   ori-gvm-product.liquid to switch the page content per Step variant with JS.
+  introHtml / plateHtml / detailsHtml are the redesign's intro, compliance
+  plate and package details (snippets/ori-gvm-summary.liquid) ready to swap in.
 
   Accepts:
     variant - the product variant
@@ -17,7 +19,15 @@
   assign pmfo = vproduct.metafields.ori
 
   assign r_title = vmf.stage_title.value | default: vmfo.stage_title.value | default: pmf.stage_title.value | default: pmfo.stage_title.value | default: vproduct.title | default: s.fallback_title
-  assign r_summary = vmf.stage_summary.value | default: vmfo.stage_summary.value | default: pmf.stage_summary.value | default: pmfo.stage_summary.value | default: s.subtitle
+  assign r_summary = vmf.stage_summary.value | default: vmfo.stage_summary.value | default: pmf.stage_summary.value | default: pmfo.stage_summary.value
+  # Same description fallback as the section, so a variant switch matches
+  # the first render when there is no stage_summary metafield.
+  if r_summary == blank and vproduct.description != blank
+    capture r_summary
+      render 'ori-gvm-desc-lines', html: vproduct.description
+    endcapture
+  endif
+  assign r_summary = r_summary | default: s.subtitle
 
   assign r_original_gvm = vmf.original_gvm.value | default: vmfo.original_gvm.value | default: pmf.original_gvm.value | default: pmfo.original_gvm.value | default: s.spec_original_gvm
   assign r_upgraded_gvm = vmf.upgraded_gvm.value | default: vmfo.upgraded_gvm.value | default: pmf.upgraded_gvm.value | default: pmfo.upgraded_gvm.value | default: s.spec_upgraded_gvm
@@ -70,4 +80,18 @@
 
   assign r_summary_html = r_summary | newline_to_br
 -%}
-{"title": {{ r_title | json }}, "summary": {{ r_summary_html | json }}, "sku": {{ variant.sku | json }}, "price": {{ r_price | json }}, "image": {{ r_image | json }}, "gvm": {{ r_gvm | json }}, "gvmLabel": {{ r_gvm_label | json }}, "gcm": {{ r_gcm | json }}, "gcmLabel": {{ r_gcm_label | json }}, "payload": {{ r_payload_display | json }}, "specOriginalGvm": {{ r_original_gvm | json }}, "specUpgradedGvm": {{ r_spec_upgraded_gvm | json }}, "specPayload": {{ r_payload | json }}, "specGcm": {{ r_spec_gcm | json }}}
+{%- capture r_intro_html -%}{%- render 'ori-gvm-summary', summary: r_summary, part: 'intro' -%}{%- endcapture -%}
+{%- capture r_plate_html -%}
+  {%- render 'ori-gvm-summary',
+    summary: r_summary,
+    part: 'plate',
+    original_gvm: r_original_gvm,
+    upgraded_gvm: r_upgraded_gvm,
+    original_gcm: r_original_gcm,
+    upgraded_gcm: r_upgraded_gcm,
+    payload: r_payload,
+    sku: variant.sku
+  -%}
+{%- endcapture -%}
+{%- capture r_details_html -%}{%- render 'ori-gvm-summary', summary: r_summary, part: 'details' -%}{%- endcapture -%}
+{"title": {{ r_title | json }}, "summary": {{ r_summary_html | json }}, "sku": {{ variant.sku | json }}, "price": {{ r_price | json }}, "image": {{ r_image | json }}, "gvm": {{ r_gvm | json }}, "gvmLabel": {{ r_gvm_label | json }}, "gcm": {{ r_gcm | json }}, "gcmLabel": {{ r_gcm_label | json }}, "payload": {{ r_payload_display | json }}, "specOriginalGvm": {{ r_original_gvm | json }}, "specUpgradedGvm": {{ r_spec_upgraded_gvm | json }}, "specPayload": {{ r_payload | json }}, "specGcm": {{ r_spec_gcm | json }}, "introHtml": {{ r_intro_html | strip | json }}, "plateHtml": {{ r_plate_html | strip | json }}, "detailsHtml": {{ r_details_html | strip | json }}}

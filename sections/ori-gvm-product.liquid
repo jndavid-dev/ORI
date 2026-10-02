@@ -1,4 +1,6 @@
 {{ 'ori-gvm-product.css' | asset_url | stylesheet_tag }}
+{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
+{%- render 'ori-fonts' -%}
 {%- liquid
   assign section_id = section.settings.custom_id | default: section.id
   assign container = section.settings.container | default: 'container'
@@ -48,6 +50,13 @@
   assign m_payload_gain = vmf.payload_gain.value | default: vmfo.payload_gain.value | default: mf.payload_gain.value | default: mfo.payload_gain.value
 
   assign stage_summary = m_stage_summary
+  # No stage_summary metafield (e.g. a store imported without metafields):
+  # the description holds the same content, flattened into the same format.
+  if stage_summary == blank and product.description != blank
+    capture stage_summary
+      render 'ori-gvm-desc-lines', html: product.description
+    endcapture
+  endif
   assign sku_display = current_variant.sku
   # Price: use the selected variant's price (for single-variant products this is
   # the product price), falling back to the price metafield / section setting.
@@ -55,72 +64,35 @@
   if current_variant.price > 0
     assign price_display = current_variant.price | money
   endif
-  assign spec_original_gvm = m_original_gvm | default: section.settings.spec_original_gvm
-  # Upgraded figures fall back to the original value when left blank, so the
-  # page still shows a figure instead of an empty stat card / spec row.
-  assign spec_upgraded_gvm = m_upgraded_gvm | default: section.settings.spec_upgraded_gvm | default: m_original_gvm
-  assign spec_payload_gain = m_payload_gain | default: section.settings.spec_payload_gain
-  assign spec_gcm = m_upgraded_gcm | default: section.settings.spec_gcm | default: m_original_gcm
-
-  # Effective upgraded figures: use the upgraded metafield, else fall back to
-  # the original so a missing upgrade value still displays something.
-  assign eff_upgraded_gvm = m_upgraded_gvm | default: m_original_gvm
-  assign eff_upgraded_gcm = m_upgraded_gcm | default: m_original_gcm
-
-  # Hero "increase" stats: show original → upgraded when a real upgrade exists,
-  # otherwise show whichever single figure is available.
-  assign gvm_increase = section.settings.gvm_value
-  if m_original_gvm != blank and m_upgraded_gvm != blank
-    assign gvm_increase = m_original_gvm | append: ' → ' | append: m_upgraded_gvm
-  elsif eff_upgraded_gvm != blank
-    assign gvm_increase = eff_upgraded_gvm
-  endif
-  assign gcm_increase = section.settings.gcm_value
-  if m_original_gcm != blank and m_upgraded_gcm != blank
-    assign gcm_increase = m_original_gcm | append: ' → ' | append: m_upgraded_gcm
-  elsif eff_upgraded_gcm != blank
-    assign gcm_increase = eff_upgraded_gcm
-  endif
-  assign payload_display = section.settings.payload_value
-  if m_payload_gain != blank
-    assign payload_display = m_payload_gain | prepend: '+'
-  endif
-
-  # Stat card labels: "... increase" only when we show an original → upgraded
-  # change, otherwise the plain figure label.
-  assign gvm_stat_label = 'GVM'
-  if m_original_gvm != blank and m_upgraded_gvm != blank
-    assign gvm_stat_label = 'GVM increase'
-  endif
-  assign gcm_stat_label = 'GCM'
-  if m_original_gcm != blank and m_upgraded_gcm != blank
-    assign gcm_stat_label = 'GCM increase'
-  endif
-
-  assign has_stats = false
-  if gvm_increase != blank or gcm_increase != blank or payload_display != blank
-    assign has_stats = true
-  endif
-  assign has_specs = false
-  if spec_original_gvm != blank or spec_upgraded_gvm != blank or spec_payload_gain != blank or spec_gcm != blank
-    assign has_specs = true
-  endif
+  # Compliance plate figures: metafields first, then the section's fallback
+  # settings — the same order snippets/ori-gvm-variant-json.liquid uses, so
+  # the first render and a variant switch agree.
+  assign plate_original_gvm = m_original_gvm | default: section.settings.spec_original_gvm
+  assign plate_upgraded_gvm = m_upgraded_gvm | default: section.settings.spec_upgraded_gvm
+  assign plate_upgraded_gcm = m_upgraded_gcm | default: section.settings.spec_gcm
+  assign plate_payload = m_payload_gain | default: section.settings.spec_payload_gain
 -%}
 
 <section
   id="{{ section_id }}"
-  class="ori-gvm-product ori-gvm-product--{{ section.settings.layout | default: 'classic' }} color-{{ section.settings.color_schema }}{% if section.settings.mobile_slider %} ori-gvm-product--swipe{% endif %}"
+  class="ori ori-gvm-product ori-gvm-product--{{ section.settings.layout | default: 'classic' }} color-{{ section.settings.color_schema }}{% if section.settings.mobile_slider %} ori-gvm-product--swipe{% endif %}"
   data-section-type="ori-gvm-product"
   data-gvm-build="variant-steps-1"
   style="--gvm-tint: {{ section.settings.tint_color | default: '#f3f6f7' }}; --gvm-item-logo-h: {{ section.settings.item_logo_height | default: 40 }}px; --gvm-brand-logo-h: {{ section.settings.brand_logo_height | default: 72 }}px; --gvm-hero-media: {{ hero_media_w }}fr; --gvm-hero-content: {{ hero_content_w }}fr;"
 >
 
-  {%- comment -%} Hero band {%- endcomment -%}
-  <div class="ori-gvm-product__band ori-gvm-product__band--hero">
-    <div class="{{ container }}">
-      <div class="ori-gvm-product__hero">
-        <div class="ori-gvm-product__hero-media">
-          <div class="ori-gvm-product__gallery-main">
+  {%- comment -%}
+    Hero band — ORI redesign. Gallery left; right: label, title, intro,
+    compliance plate, options, price, actions. The intro, plate and package
+    details come from the stage summary via snippets/ori-gvm-summary.liquid
+    (metafield figures win when present). Every data-gvm-* hook is kept for
+    the variant switching script at the bottom of this file.
+  {%- endcomment -%}
+  <div class="ori-gvmp__hero">
+    <div class="ori-wrap">
+      <div class="ori-gvmp__grid">
+        <div class="ori-gvmp__media">
+          <div class="ori-gvmp__main">
             {%- if hero_image != blank -%}
               {{
                 hero_image
@@ -128,23 +100,20 @@
                 | image_tag:
                   loading: 'eager',
                   fetchpriority: 'high',
-                  class: 'ori-gvm-product__hero-img',
+                  class: 'ori-gvmp__img',
                   widths: '400, 600, 900, 1200',
-                  sizes: '(min-width: 990px) 45vw, 100vw',
+                  sizes: '(min-width: 1025px) 46vw, 100vw',
                   alt: product.title | default: 'GVM upgrade'
               }}
-            {%- else -%}
-              <div class="ori-gvm-product__hero-placeholder" aria-hidden="true"></div>
             {%- endif -%}
           </div>
 
           {%- if has_variants and product.images.size > 0 -%}
             {%- comment -%}
-              All product images as thumbnails. A thumbnail tied to a variant
-              switches the whole page on click; other images (e.g. the main
-              product image) just show in the main view.
+              A thumbnail tied to a variant switches the whole page on click;
+              other images just show in the main view.
             {%- endcomment -%}
-            <div class="ori-gvm-product__gallery-thumbs" data-gvm-var-thumbs>
+            <div class="ori-gvmp__thumbs" data-gvm-var-thumbs>
               {%- for image in product.images -%}
                 {%- assign img_vid = '' -%}
                 {%- for v in product.variants -%}
@@ -154,174 +123,162 @@
                 {%- endfor -%}
                 <button
                   type="button"
-                  class="ori-gvm-product__thumb{% if hero_image != blank and image.id == hero_image.id %} is-active{% endif %}"
+                  class="ori-gvmp__thumb{% if hero_image != blank and image.id == hero_image.id %} is-active{% endif %}"
                   {% if img_vid != '' %}data-gvm-step="{{ img_vid }}"{% else %}data-gallery-thumb data-full="{{ image | image_url: width: 1200 }}"{% endif %}
                   aria-label="{{ image.alt | default: product.title | escape }}"
                 >
-                  <img
-                    src="{{ image | image_url: width: 200 }}"
-                    alt="{{ image.alt | default: product.title | escape }}"
-                    loading="lazy"
-                    width="200"
-                    height="200"
-                  >
+                  <img src="{{ image | image_url: width: 200 }}" alt="" loading="lazy" width="200" height="200">
                 </button>
               {%- endfor -%}
             </div>
           {%- elsif section.settings.image == blank and product.images.size > 1 -%}
-            <div class="ori-gvm-product__gallery-thumbs">
+            <div class="ori-gvmp__thumbs">
               {%- for image in product.images -%}
                 <button
                   type="button"
-                  class="ori-gvm-product__thumb{% if forloop.first %} is-active{% endif %}"
+                  class="ori-gvmp__thumb{% if forloop.first %} is-active{% endif %}"
                   data-gallery-thumb
                   data-full="{{ image | image_url: width: 1200 }}"
                   aria-label="View image {{ forloop.index }}"
                 >
-                  <img
-                    src="{{ image | image_url: width: 200 }}"
-                    alt="{{ product.title | escape }} thumbnail {{ forloop.index }}"
-                    loading="lazy"
-                    width="200"
-                    height="200"
-                  >
+                  <img src="{{ image | image_url: width: 200 }}" alt="" loading="lazy" width="200" height="200">
                 </button>
               {%- endfor -%}
             </div>
           {%- endif -%}
         </div>
 
-        <div class="ori-gvm-product__hero-content">
+        <div class="ori-gvmp__content">
           {%- if section.settings.eyebrow != blank -%}
-            <span class="ori-gvm-product__eyebrow">{{ section.settings.eyebrow }}</span>
+            <span class="ori-badge">
+              {%- render 'ori-icon', icon: 'shield' -%}
+              {{- section.settings.eyebrow -}}
+            </span>
           {%- endif -%}
 
-          <h1 class="ori-gvm-product__title h2" data-gvm-title>{{ m_title }}</h1>
+          <h1 class="ori-gvmp__title" data-gvm-title>{{ m_title }}</h1>
 
-          {%- if stage_summary != blank or section.settings.subtitle != blank or has_variants -%}
-            <div class="ori-gvm-product__subtitle rte" data-gvm-summary>
-              {%- if stage_summary != blank -%}{{ stage_summary | newline_to_br }}{%- elsif section.settings.subtitle != blank -%}{{ section.settings.subtitle }}{%- endif -%}
-            </div>
-          {%- endif -%}
+          <div class="ori-gvmp__intro" data-gvm-summary>
+            {%- if stage_summary != blank -%}
+              {%- render 'ori-gvm-summary', summary: stage_summary, part: 'intro' -%}
+            {%- elsif section.settings.subtitle != blank -%}
+              {{ section.settings.subtitle }}
+            {%- endif -%}
+          </div>
+
+          <div class="ori-gvmp__plate" data-gvm-plate>
+            {%- render 'ori-gvm-summary',
+              summary: stage_summary,
+              part: 'plate',
+              original_gvm: plate_original_gvm,
+              upgraded_gvm: plate_upgraded_gvm,
+              original_gcm: m_original_gcm,
+              upgraded_gcm: plate_upgraded_gcm,
+              payload: plate_payload,
+              sku: sku_display
+            -%}
+          </div>
 
           {%- if has_variants -%}
-            <div class="ori-gvm-product__steps-select" data-gvm-steps role="group" aria-label="Choose stage">
-              {%- for v in product.variants -%}
-                <button
-                  type="button"
-                  class="ori-gvm-product__step-btn{% if v.id == current_variant.id %} is-active{% endif %}"
-                  data-gvm-step="{{ v.id }}"
-                >{{ v.title }}</button>
-              {%- endfor -%}
+            <div class="ori-gvmp__options">
+              <span class="ori-gvmp__label">{{ product.options.first | default: 'Option' }}</span>
+              <div class="ori-gvmp__opts" data-gvm-steps role="group" aria-label="Choose {{ product.options.first | default: 'option' | downcase }}">
+                {%- for v in product.variants -%}
+                  <button
+                    type="button"
+                    class="ori-gvmp__opt{% if v.id == current_variant.id %} is-active{% endif %}"
+                    data-gvm-step="{{ v.id }}"
+                  >{{ v.title }}</button>
+                {%- endfor -%}
+              </div>
             </div>
           {%- endif -%}
 
           {%- if sku_display != blank or has_variants -%}
-            <div class="ori-gvm-product__sku" data-gvm-sku-wrap{% if sku_display == blank %} hidden{% endif %}>
-              <span class="ori-gvm-product__sku-label">SKU</span>
-              <span class="ori-gvm-product__sku-value" data-gvm-sku>{{ sku_display }}</span>
-            </div>
-          {%- endif -%}
-
-          {%- if has_stats or has_variants -%}
-            <div class="ori-gvm-product__stats" data-gvm-stats>
-              {%- if gvm_increase != blank -%}
-                <div class="ori-gvm-product__stat">
-                  <span class="ori-gvm-product__stat-label">{{ gvm_stat_label }}</span>
-                  <span class="ori-gvm-product__stat-value">{{ gvm_increase }}</span>
-                </div>
-              {%- endif -%}
-              {%- if gcm_increase != blank -%}
-                <div class="ori-gvm-product__stat">
-                  <span class="ori-gvm-product__stat-label">{{ gcm_stat_label }}</span>
-                  <span class="ori-gvm-product__stat-value">{{ gcm_increase }}</span>
-                </div>
-              {%- endif -%}
-              {%- if payload_display != blank -%}
-                <div class="ori-gvm-product__stat">
-                  <span class="ori-gvm-product__stat-label">Payload gain</span>
-                  <span class="ori-gvm-product__stat-value">{{ payload_display }}</span>
-                </div>
-              {%- endif -%}
+            <div class="ori-gvmp__sku" data-gvm-sku-wrap{% if sku_display == blank %} hidden{% endif %}>
+              SKU <span data-gvm-sku>{{ sku_display }}</span>
             </div>
           {%- endif -%}
 
           {%- if section.settings.show_price -%}
             {%- comment -%}
-              This section renders its own price instead of the theme's price
-              snippet, so the wholesale price box is applied here directly.
-              The markup below is captured and handed to gvm-b2b-price, which
-              returns it untouched for retail shoppers and wrapped in the
-              wholesale box (with RRP) for company contacts. data-gvm-price
-              stays intact either way, so the variant switching JS further down
-              keeps working.
-
-              hide_saving: this section swaps the price with JS rather than
-              re-rendering server-side, so a "You save" figure calculated here
-              would be wrong the moment someone picks a different Step.
+              Captured and handed to gvm-b2b-price, which returns it as-is for
+              retail shoppers and wrapped in the wholesale box (with RRP) for
+              company contacts. data-gvm-price stays intact either way.
+              hide_saving: the price is swapped by JS per variant, so a server
+              "You save" figure would go stale.
             {%- endcomment -%}
             {%- capture ori_gvm_price_html -%}
-              <div class="ori-gvm-product__price" data-gvm-price-wrap{% if price_display == blank %} hidden{% endif %}>
-                <span class="ori-gvm-product__price-amount" data-gvm-price>{{ price_display }}</span>
+              <div class="ori-gvmp__price" data-gvm-price-wrap{% if price_display == blank %} hidden{% endif %}>
+                <span class="ori-gvmp__amount" data-gvm-price>{{ price_display }}</span>
                 {%- if section.settings.price_note != blank -%}
-                  <span class="ori-gvm-product__price-note">{{ section.settings.price_note }}</span>
+                  <span class="ori-gvmp__price-note">{{ section.settings.price_note }}</span>
                 {%- endif -%}
               </div>
             {%- endcapture -%}
-            {%- render 'gvm-b2b-price',
-              product: product,
-              target: current_variant,
-              price_html: ori_gvm_price_html,
-              style: 'box',
-              hide_saving: true
-            -%}
+            <div class="ori-gvmp__pricing">
+              {%- render 'gvm-b2b-price',
+                product: product,
+                target: current_variant,
+                price_html: ori_gvm_price_html,
+                style: 'box',
+                hide_saving: true
+              -%}
+            </div>
           {%- endif -%}
 
-          <div class="ori-gvm-product__ctas">
+          <div class="ori-gvmp__ctas">
             {%- if section.settings.quote_label != blank -%}
-              {%- comment -%}
-                With a Popup ID set the button opens the Contact form v4 section
-                configured with the same id, rather than navigating away. Left
-                blank it stays an ordinary link, so existing pages are unchanged.
-              {%- endcomment -%}
               {%- if section.settings.quote_popup_id != blank -%}
-                <modal-opener
-                  class="ori-gvm-product__cta-opener"
-                  data-modal="#PopupModal-{{ section.settings.quote_popup_id | handle }}"
-                >
-                  <button type="button" class="btn btn--primary ori-gvm-product__cta" aria-haspopup="dialog">
-                    {{- section.settings.quote_label -}}
-                  </button>
+                {%- comment -%}
+                  Opens the Contact form v4 popup with the same id (theme
+                  modal-opener, which binds to the first <button> inside).
+                {%- endcomment -%}
+                <modal-opener class="ori-gvmp__opener" data-modal="#PopupModal-{{ section.settings.quote_popup_id | handle }}">
+                  <button type="button" class="ori-btn ori-btn--teal" aria-haspopup="dialog">{{ section.settings.quote_label }}</button>
                 </modal-opener>
               {%- else -%}
-                <a href="{{ section.settings.quote_url | default: '/pages/contact-us' }}" class="btn btn--primary ori-gvm-product__cta">{{ section.settings.quote_label }}</a>
+                <a href="{{ section.settings.quote_url | default: '/pages/contact-us' }}" class="ori-btn ori-btn--teal">{{ section.settings.quote_label }}</a>
               {%- endif -%}
             {%- endif -%}
             {%- if section.settings.book_label != blank -%}
-              <a href="{{ section.settings.book_url | default: '/pages/contact-us' }}" class="btn btn--outline ori-gvm-product__cta">{{ section.settings.book_label }}</a>
+              <a href="{{ section.settings.book_url | default: '/pages/contact-us' }}" class="ori-btn ori-btn--line">{{ section.settings.book_label }}</a>
             {%- endif -%}
           </div>
 
           {%- comment -%}
-            Sits under the buttons rather than beside them: it answers the doubt
-            someone has right after reading the payload figure, without becoming
-            a third thing competing with Request Quote.
-
-            Rendered only when a URL is set. The calculator has no published
-            page yet, so defaulting one here would ship a link straight to a 404.
+            Only with a URL: the calculator has no published page yet, so a
+            default here would link straight to a 404.
           {%- endcomment -%}
           {%- if section.settings.calc_url != blank and section.settings.calc_label != blank -%}
-            <p class="ori-gvm-product__calc-link">
-              <a href="{{ section.settings.calc_url }}">
-                {%- render 'ori-gvm-icon', icon: 'weight', class: 'ori-gvm-product__calc-icon', stroke: 1.6 -%}
-                <span>{{ section.settings.calc_label }}</span>
-              </a>
-            </p>
+            <a class="ori-gvmp__calc" href="{{ section.settings.calc_url }}">
+              {%- render 'ori-gvm-icon', icon: 'weight', class: 'ori-gvmp__calc-icon', stroke: 1.6 -%}
+              <span>{{ section.settings.calc_label }}</span>
+            </a>
           {%- endif -%}
         </div>
       </div>
     </div>
   </div>
+
+  {%- comment -%}
+    Package details — the "Key: value" lines and notes from the stage
+    summary. Present for every variant (data-gvm-details) and hidden when
+    the current one has none.
+  {%- endcomment -%}
+  {%- capture details_html -%}
+    {%- render 'ori-gvm-summary', summary: stage_summary, part: 'details' -%}
+  {%- endcapture -%}
+  {%- if details_html != blank or has_variants -%}
+    <div class="ori-gvmp__details-band" data-gvm-details-band{% if details_html == blank %} hidden{% endif %}>
+      <div class="ori-wrap">
+        <div class="ori-gvmp__details">
+          <h2 class="ori-h2 ori-gvmp__details-title">{{ section.settings.specs_heading | default: 'Package details' }}</h2>
+          <div data-gvm-details>{{ details_html }}</div>
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
 
   {%- comment -%} Stage / vehicle cards (added as blocks, shown before Key benefits) {%- endcomment -%}
   {%- if stage_cards.size > 0 -%}
@@ -479,33 +436,6 @@
     </div>
   {%- endif -%}
 
-  {%- comment -%} Specifications band {%- endcomment -%}
-  {%- if has_specs or has_variants -%}
-    <div class="ori-gvm-product__band ori-gvm-product__band--alt" data-gvm-specs-band{% if has_specs == false %} hidden{% endif %}>
-      <div class="{{ container }}">
-        <div class="ori-gvm-product__block">
-          <h2 class="ori-gvm-product__block-title h3">{{ section.settings.specs_heading | default: 'Specifications' }}</h2>
-          <table class="ori-gvm-product__specs">
-            <tbody data-gvm-specs>
-              {%- if spec_original_gvm != blank -%}
-                <tr><th scope="row">Original GVM</th><td>{{ spec_original_gvm }}</td></tr>
-              {%- endif -%}
-              {%- if spec_upgraded_gvm != blank and spec_upgraded_gvm != spec_original_gvm -%}
-                <tr><th scope="row">Upgraded GVM</th><td>{{ spec_upgraded_gvm }}</td></tr>
-              {%- endif -%}
-              {%- if spec_payload_gain != blank -%}
-                <tr><th scope="row">Payload gain</th><td>{{ spec_payload_gain }}</td></tr>
-              {%- endif -%}
-              {%- if spec_gcm != blank -%}
-                <tr><th scope="row">GCM</th><td>{{ spec_gcm }}</td></tr>
-              {%- endif -%}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  {%- endif -%}
-
   {%- comment -%} Installation process band {%- endcomment -%}
   {%- if steps.size > 0 -%}
     <div class="ori-gvm-product__band ori-gvm-product__band--steps">
@@ -589,7 +519,7 @@
 
           {%- if section.settings.acc_all_label != blank and section.settings.acc_all_url != blank -%}
             <div class="ori-gvm-product__acc-footer">
-              <a href="{{ section.settings.acc_all_url }}" class="btn btn--outline">{{ section.settings.acc_all_label }}</a>
+              <a href="{{ section.settings.acc_all_url }}" class="ori-btn ori-btn--line">{{ section.settings.acc_all_label }}</a>
             </div>
           {%- endif -%}
         </div>
@@ -613,26 +543,25 @@
   (function () {
     var root = document.getElementById({{ section_id | json }});
     if (!root) return;
-    var main = root.querySelector('.ori-gvm-product__hero-img');
-    var thumbEls = root.querySelectorAll('.ori-gvm-product__gallery-thumbs .ori-gvm-product__thumb');
+    var main = root.querySelector('.ori-gvmp__img');
+    var thumbEls = root.querySelectorAll('.ori-gvmp__thumb');
 
     // Plain gallery thumbnails (images not tied to a variant) just swap the main image.
-    var galleryThumbs = root.querySelectorAll('[data-gallery-thumb]');
-    if (main && galleryThumbs.length) {
-      galleryThumbs.forEach(function (thumb) {
-        thumb.addEventListener('click', function () {
-          var full = thumb.getAttribute('data-full');
-          if (full) {
-            main.removeAttribute('srcset');
-            main.setAttribute('src', full);
-          }
-          thumbEls.forEach(function (t) { t.classList.remove('is-active'); });
-          thumb.classList.add('is-active');
-        });
+    root.querySelectorAll('[data-gallery-thumb]').forEach(function (thumb) {
+      thumb.addEventListener('click', function () {
+        var full = thumb.getAttribute('data-full');
+        if (main && full) {
+          main.removeAttribute('srcset');
+          main.setAttribute('src', full);
+        }
+        thumbEls.forEach(function (t) { t.classList.remove('is-active'); });
+        thumb.classList.add('is-active');
       });
-    }
+    });
 
-    // Variant (Step) switching: swap title, summary, stats, specs, price, image.
+    // Variant switching: each variant's title, intro, plate, package details,
+    // price, SKU and image are rendered into the JSON below by
+    // snippets/ori-gvm-variant-json.liquid, so a switch is a straight swap.
     var stepButtons = root.querySelectorAll('[data-gvm-step]');
     var dataEl = root.querySelector('[data-gvm-variants]');
     if (!stepButtons.length || !dataEl) return;
@@ -640,76 +569,41 @@
     var VARIANTS;
     try { VARIANTS = JSON.parse(dataEl.textContent); } catch (e) { return; }
 
-    var titleEl = root.querySelector('[data-gvm-title]');
-    var summaryEl = root.querySelector('[data-gvm-summary]');
-    var statsEl = root.querySelector('[data-gvm-stats]');
-    var priceWrap = root.querySelector('[data-gvm-price-wrap]');
-    var priceEl = root.querySelector('[data-gvm-price]');
-    var skuWrap = root.querySelector('[data-gvm-sku-wrap]');
-    var skuEl = root.querySelector('[data-gvm-sku]');
-    var specsBand = root.querySelector('[data-gvm-specs-band]');
-    var specsBody = root.querySelector('[data-gvm-specs]');
+    var el = {
+      title: root.querySelector('[data-gvm-title]'),
+      summary: root.querySelector('[data-gvm-summary]'),
+      plate: root.querySelector('[data-gvm-plate]'),
+      details: root.querySelector('[data-gvm-details]'),
+      detailsBand: root.querySelector('[data-gvm-details-band]'),
+      priceWrap: root.querySelector('[data-gvm-price-wrap]'),
+      price: root.querySelector('[data-gvm-price]'),
+      skuWrap: root.querySelector('[data-gvm-sku-wrap]'),
+      sku: root.querySelector('[data-gvm-sku]')
+    };
 
-    function esc(s) {
-      var d = document.createElement('div');
-      d.textContent = s == null ? '' : s;
-      return d.innerHTML;
-    }
-
-    function statCard(label, value) {
-      return '<div class="ori-gvm-product__stat">' +
-        '<span class="ori-gvm-product__stat-label">' + esc(label) + '</span>' +
-        '<span class="ori-gvm-product__stat-value">' + esc(value) + '</span></div>';
-    }
-
-    function renderStats(d) {
-      var html = '';
-      if (d.gvm) html += statCard(d.gvmLabel || 'GVM', d.gvm);
-      if (d.gcm) html += statCard(d.gcmLabel || 'GCM', d.gcm);
-      if (d.payload) html += statCard('Payload gain', d.payload);
-      return html;
-    }
-
-    function specRow(label, value) {
-      return '<tr><th scope="row">' + esc(label) + '</th><td>' + esc(value) + '</td></tr>';
-    }
-
-    function renderSpecs(d) {
-      var html = '';
-      if (d.specOriginalGvm) html += specRow('Original GVM', d.specOriginalGvm);
-      if (d.specUpgradedGvm && d.specUpgradedGvm !== d.specOriginalGvm) html += specRow('Upgraded GVM', d.specUpgradedGvm);
-      if (d.specPayload) html += specRow('Payload gain', d.specPayload);
-      if (d.specGcm) html += specRow('GCM', d.specGcm);
-      return html;
+    function toggle(node, show) {
+      if (!node) return;
+      if (show) node.removeAttribute('hidden');
+      else node.setAttribute('hidden', '');
     }
 
     function apply(id) {
       var d = VARIANTS[id];
       if (!d) return;
-      if (titleEl) titleEl.textContent = d.title || '';
-      if (summaryEl) summaryEl.innerHTML = d.summary || '';
-      if (statsEl) statsEl.innerHTML = renderStats(d);
-      if (priceEl) {
-        priceEl.textContent = d.price || '';
-        if (priceWrap) {
-          if (d.price) { priceWrap.removeAttribute('hidden'); }
-          else { priceWrap.setAttribute('hidden', ''); }
-        }
+      if (el.title) el.title.textContent = d.title || '';
+      if (el.summary) el.summary.innerHTML = d.introHtml || '';
+      if (el.plate) el.plate.innerHTML = d.plateHtml || '';
+      if (el.details) {
+        el.details.innerHTML = d.detailsHtml || '';
+        toggle(el.detailsBand, !!d.detailsHtml);
       }
-      if (skuEl) {
-        skuEl.textContent = d.sku || '';
-        if (skuWrap) {
-          if (d.sku) { skuWrap.removeAttribute('hidden'); }
-          else { skuWrap.setAttribute('hidden', ''); }
-        }
+      if (el.price) {
+        el.price.textContent = d.price || '';
+        toggle(el.priceWrap, !!d.price);
       }
-      if (specsBody) {
-        var specsHtml = renderSpecs(d);
-        specsBody.innerHTML = specsHtml;
-        if (specsBand) {
-          if (specsHtml) { specsBand.removeAttribute('hidden'); }
-          else { specsBand.setAttribute('hidden', ''); }
-        }
+      if (el.sku) {
+        el.sku.textContent = d.sku || '';
+        toggle(el.skuWrap, !!d.sku);
       }
       if (main && d.image) {
         main.removeAttribute('srcset');
@@ -717,14 +611,14 @@
       }
     }
 
-    // Highlight the chosen variant across the Step buttons and its thumbnail,
-    // and clear any plain gallery-thumbnail highlight.
+    // Highlight the chosen variant across the option buttons and its
+    // thumbnail, and clear any plain gallery-thumbnail highlight.
     function setActive(id) {
       stepButtons.forEach(function (b) {
         b.classList.toggle('is-active', b.getAttribute('data-gvm-step') === id);
       });
       thumbEls.forEach(function (t) {
-        if (!t.hasAttribute('data-gvm-step')) { t.classList.remove('is-active'); }
+        if (!t.hasAttribute('data-gvm-step')) t.classList.remove('is-active');
       });
     }
 

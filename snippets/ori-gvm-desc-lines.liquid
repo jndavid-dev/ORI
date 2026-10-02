@@ -1,0 +1,24 @@
+{%- comment -%}
+  ORI redesign — fallback for the GVM stage summary. When a product has no
+  stage_summary metafield (e.g. on a store imported without metafields), its
+  description carries the same content as HTML:
+
+    <p>Chevrolet Silverado 1500 ZR2.</p>
+    <ul><li><strong>GVM:</strong> 3650kg | <strong>GCM:</strong> 7160kg …</li> …</ul>
+    <p>Wheels and tyres not included.</p>
+
+  This flattens it into the line format snippets/ori-gvm-summary.liquid reads
+  (one line per paragraph, "- " in front of each list item), separated with
+  <br /> so it splits exactly like a newline_to_br'd metafield.
+
+  Accepts:
+  - html: {String} product.description
+{%- endcomment -%}
+{%- liquid
+  assign t = html | strip_newlines
+  assign t = t | replace: '<li>', '¦- ' | replace: '<li ', '¦- <li '
+  assign t = t | replace: '</li>', '¦' | replace: '</p>', '¦' | replace: '<br>', '¦' | replace: '<br/>', '¦' | replace: '<br />', '¦'
+  assign t = t | replace: '</h2>', '¦' | replace: '</h3>', '¦' | replace: '</h4>', '¦'
+  assign t = t | strip_html | replace: '&nbsp;', ' '
+  echo t | replace: '¦', '<br />'
+-%}
