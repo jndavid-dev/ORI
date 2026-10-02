@@ -3978,9 +3978,8 @@ a.ori-vcard:hover .ori-vcard__btn svg {
 /* ==========================================================
    ORI REDESIGN — GVM PRODUCT HERO (sections/ori-gvm-product.liquid,
    snippets/ori-gvm-summary.liquid)
-   Gallery left; label, title, intro, compliance plate, options,
-   price and actions right. The plate is the redesign's signature:
-   the figures on a brushed-metal plate, as stamped on the vehicle.
+   Gallery left; label, title, intro, key figures, options, price
+   and actions right; specifications band below.
    ========================================================== */
 .ori-gvmp__hero {
   padding: 48px 0 72px;
@@ -4074,144 +4073,66 @@ a.ori-vcard:hover .ori-vcard__btn svg {
 }
 
 .ori-gvmp__intro:empty,
-.ori-gvmp__plate:empty {
+.ori-gvmp__figures:empty {
   display: none;
 }
 
-.ori-gvmp__plate {
+.ori-gvmp__figures {
   width: 100%;
-  max-width: 560px;
-  padding: 6px 0;
 }
 
-/* Compliance plate */
-.ori-plate {
-  position: relative;
-  padding: 28px 34px 24px;
-  border-radius: 10px;
-  color: #1f2629;
-  background:
-    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.06) 0 1px, rgba(0, 0, 0, 0.03) 1px 3px),
-    linear-gradient(160deg, #e9eced 0%, #c3c9cb 38%, #dfe3e4 60%, #aeb5b8 100%);
-  box-shadow:
-    inset 0 0 0 2px rgba(255, 255, 255, 0.55),
-    inset 0 0 0 5px rgba(0, 0, 0, 0.08),
-    0 24px 48px -22px rgba(0, 0, 0, 0.55);
+/* Key figures: GVM / GCM / towing / payload in one bordered row. The 1px
+   gap over a line-coloured background draws the dividers, so they stay
+   right however the row wraps. */
+.ori-figs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid var(--ori-line);
+  border-radius: 6px;
+  background: var(--ori-line);
 }
 
-.ori-plate__rivet {
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #fff, #9aa2a5 60%, #6c7477);
-}
-
-.ori-plate__rivet--a { top: 12px; left: 12px; }
-.ori-plate__rivet--b { top: 12px; right: 12px; }
-.ori-plate__rivet--c { bottom: 12px; left: 12px; }
-.ori-plate__rivet--d { bottom: 12px; right: 12px; }
-
-.ori-plate__head {
+.ori-fig {
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 4px 12px;
-  margin-bottom: 10px;
-  padding: 0 8px 10px;
-  border-bottom: 2px solid rgba(31, 38, 41, 0.35);
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px;
+  background: var(--ori-paper);
 }
 
-.ori-plate__head b {
-  font-family: var(--ori-display);
-  font-size: 19px;
-  font-weight: 800;
+.ori-fig dt {
+  color: var(--ori-steel);
+  font-size: 12px;
+  font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
-.ori-plate__head span {
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-}
-
-.ori-plate__row {
-  display: grid;
-  grid-template-columns: 120px minmax(0, 1fr);
-  align-items: center;
-  padding: 7px 8px;
-  border-bottom: 1px dashed rgba(31, 38, 41, 0.3);
-}
-
-.ori-plate__row:last-of-type {
-  border-bottom: 0;
-}
-
-.ori-plate__k {
+.ori-fig dd {
+  margin: 0;
   font-family: var(--ori-display);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.05;
+}
+
+.ori-fig dd s {
+  margin-right: 4px;
+  color: var(--ori-steel);
   font-size: 16px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-weight: 600;
 }
 
-.ori-plate__v {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 2px 12px;
-  font-family: var(--ori-display);
-  font-weight: 700;
-}
-
-.ori-plate__old {
-  color: #5f686b;
-  font-size: 20px;
-  text-decoration: line-through;
-  text-decoration-thickness: 2px;
-}
-
-.ori-plate__new {
-  color: #0e1416;
-  font-size: 40px;
-  line-height: 1;
-}
-
-.ori-plate__row--sm .ori-plate__new {
-  font-size: 28px;
-}
-
-.ori-plate__sub {
-  flex-basis: 100%;
+.ori-fig dd small {
+  display: block;
+  margin-top: 4px;
+  color: var(--ori-steel);
   font-family: var(--ori-body);
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.ori-plate__foot {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px 12px;
-  margin-top: 12px;
-  padding: 0 8px;
   font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.ori-plate__stamp {
-  padding: 3px 10px;
-  border: 2px solid #0e1416;
-  border-radius: 4px;
-  font-family: var(--ori-display);
-  font-size: 15px;
-  letter-spacing: 0.05em;
-  overflow-wrap: anywhere;
+  font-weight: 500;
+  line-height: 1.3;
 }
 
 /* Options (variants) */
@@ -4259,12 +4180,6 @@ a.ori-vcard:hover .ori-vcard__btn svg {
 .ori-gvmp__sku {
   color: var(--ori-steel);
   font-size: 13px;
-}
-
-/* The plate already carries the part number. The line stays in the page
-   (variant switching updates it) for products without a plate. */
-.ori-gvmp__content:has(.ori-plate) .ori-gvmp__sku {
-  display: none;
 }
 
 /* Price: retail */
@@ -4434,20 +4349,12 @@ a.ori-vcard:hover .ori-vcard__btn svg {
     height: 64px;
   }
 
-  .ori-plate {
-    padding: 24px 18px 20px;
+  .ori-figs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .ori-plate__row {
-    grid-template-columns: 92px minmax(0, 1fr);
-  }
-
-  .ori-plate__new {
-    font-size: 32px;
-  }
-
-  .ori-plate__row--sm .ori-plate__new {
-    font-size: 24px;
+  .ori-fig dd {
+    font-size: 23px;
   }
 
   .ori-gvmp__amount {
@@ -4465,5 +4372,294 @@ a.ori-vcard:hover .ori-vcard__btn svg {
   .ori-gvmp__details .ori-spec > div {
     grid-template-columns: 1fr;
     gap: 2px;
+  }
+}
+
+
+/* ==========================================================
+   ORI REDESIGN — SECTION HEAD ALIGNMENT
+   For sections with a heading alignment setting
+   (ori-gvm-benefits, ori-gvm-steps).
+   ========================================================== */
+.ori-head--center {
+  justify-content: center;
+  text-align: center;
+}
+
+.ori-head--center .ori-head__intro {
+  margin-inline: auto;
+}
+
+.ori-head--right {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+/* ==========================================================
+   ORI REDESIGN — GVM BENEFITS (sections/ori-gvm-benefits.liquid)
+   White cards with a teal top rule, icon in a tinted circle,
+   condensed uppercase title. Columns come from the section's
+   "Cards per row" (--ori-cols); 2 on tablet, 1 on mobile.
+   ========================================================== */
+.ori-benefits {
+  background: var(--ori-paper);
+}
+
+.ori-benefits--alt {
+  background: var(--ori-bone);
+}
+
+.ori-benefits__list {
+  display: grid;
+  grid-template-columns: repeat(var(--ori-cols, 3), minmax(0, 1fr));
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ori-benefit {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 28px 26px 30px;
+  border: 1px solid var(--ori-line);
+  border-top: 3px solid var(--ori-teal);
+  border-radius: 6px;
+  background: var(--ori-paper);
+}
+
+.ori-benefits:not(.ori-benefits--alt) .ori-benefit {
+  background: var(--ori-bone);
+  border-color: transparent;
+  border-top-color: var(--ori-teal);
+}
+
+.ori-benefit__icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 4px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--ori-teal) 14%, transparent);
+  color: var(--ori-teal-deep);
+}
+
+.ori-benefit__svg {
+  width: 26px;
+  height: 26px;
+}
+
+.ori .ori-benefit__title {
+  font-size: clamp(22px, 2vw, 26px);
+  font-weight: 700;
+  line-height: 1.05;
+}
+
+.ori-benefit__note {
+  color: var(--ori-steel);
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+@media (max-width: 989px) {
+  .ori-benefits__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* An odd last card takes the full row rather than leaving a gap. */
+  .ori-benefit:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 600px) {
+  .ori-benefits__list {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .ori-benefit {
+    padding: 22px 20px 24px;
+  }
+}
+
+/* ==========================================================
+   ORI REDESIGN — GVM WHAT'S INCLUDED (sections/ori-gvm-included.liquid)
+   CSS-only restyle over assets/ori-gvm-included.css; markup,
+   gallery carousel and logo frame logic are unchanged. Hooked
+   on .ori-incl rather than .ori so the .ori button reset can't
+   touch the carousel dots.
+   ========================================================== */
+.ori-incl {
+  --tp-line: var(--ori-line);
+  --tp-soft: var(--ori-steel);
+  --tp-ink: var(--ori-ink);
+  --gvm-accent: var(--ori-teal-deep);
+  font-family: var(--ori-body);
+  color: var(--ori-ink);
+}
+
+.ori-incl.ori-gvm-product .ori-gvm-product__band {
+  padding: 72px 0;
+  background: var(--ori-paper);
+}
+
+.ori-incl.ori-gvm-product .ori-gvm-product__band--alt {
+  background: var(--ori-bone);
+}
+
+.ori-incl .ori-gvm-product__band > div {
+  max-width: var(--ori-wrap);
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.ori-incl .ori-gvm-incl .ori-incl__heading {
+  margin: 0 0 24px;
+  padding: 0;
+  border: 0;
+  font-family: var(--ori-display) !important;
+  font-size: clamp(38px, 4.4vw, 60px);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.ori-incl .ori-gvm-incl__list {
+  border-top: 1px solid var(--ori-line);
+  border-bottom: 1px solid var(--ori-line);
+}
+
+.ori-incl .ori-gvm-incl__item {
+  gap: 16px;
+  padding: 16px 0;
+}
+
+.ori-incl .ori-gvm-incl__item:first-child {
+  padding-top: 16px;
+}
+
+.ori-incl .ori-gvm-incl__item:last-child {
+  padding-bottom: 16px;
+}
+
+.ori-incl .ori-gvm-incl__figure {
+  border-color: var(--ori-line);
+  border-radius: 6px;
+}
+
+.ori-incl .ori-gvm-incl__eyebrow {
+  color: var(--ori-teal-deep);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+}
+
+.ori-incl .ori-gvm-incl__title {
+  font-family: var(--ori-display);
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.ori-incl .ori-gvm-incl__note {
+  color: var(--ori-steel);
+  font-size: 15px;
+}
+
+.ori-incl .ori-gvm-incl__sku {
+  color: var(--ori-steel);
+  font-size: 12px;
+}
+
+.ori-incl .ori-gvm-incl__frame {
+  border-radius: 6px;
+  background: var(--ori-bone);
+}
+
+.ori-incl .ori-gvm-product__band--alt .ori-gvm-incl__frame {
+  background: var(--ori-paper);
+}
+
+.ori-incl .ori-gvm-incl__dot.is-active {
+  background: var(--ori-teal);
+}
+
+@media (max-width: 700px) {
+  .ori-incl.ori-gvm-product .ori-gvm-product__band {
+    padding: 52px 0;
+  }
+
+  .ori-incl .ori-gvm-product__band > div {
+    padding: 0 18px;
+  }
+}
+
+/* ==========================================================
+   ORI REDESIGN — BRAND MARQUEE (sections/scrolling-promotion.liquid)
+   Only where the section's Custom class is "ori-marquee", so
+   the theme's other scrolling promotions are untouched. Dark
+   chassis band; logos sit on small white tiles (most logo files
+   are JPEGs on white); names in the display face; the divider
+   becomes a teal diamond.
+   ========================================================== */
+.f-scrolling-promotion__wrapper.ori-marquee {
+  padding-top: 26px !important;
+  padding-bottom: 26px !important;
+  border-top: 3px solid var(--ori-teal);
+  background: var(--ori-chassis);
+  color: #fff;
+}
+
+.ori-marquee .f-promotion__item img {
+  height: 56px;
+  padding: 6px;
+  border-radius: 6px;
+  background: #fff;
+  object-fit: contain;
+}
+
+.ori-marquee .f-promotion--image {
+  margin-inline: 0 14px;
+}
+
+.ori-marquee .f-promotion__text {
+  color: #fff;
+  font-family: var(--ori-display) !important;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.ori-marquee .f-promotion__item-divider {
+  width: 8px;
+  height: 8px;
+  margin-inline: 22px;
+  border: 0;
+  background: var(--ori-teal);
+  transform: rotate(45deg);
+}
+
+@media (max-width: 767px) {
+  .f-scrolling-promotion__wrapper.ori-marquee {
+    padding-top: 18px !important;
+    padding-bottom: 18px !important;
+  }
+
+  .ori-marquee .f-promotion__item img {
+    height: 44px;
+  }
+
+  .ori-marquee .f-promotion__text {
+    font-size: 21px;
+  }
+
+  .ori-marquee .f-promotion__item-divider {
+    margin-inline: 16px;
   }
 }

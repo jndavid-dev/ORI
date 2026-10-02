@@ -450,7 +450,7 @@
         "show_section_divider": false,
         "divider_width": "container-full",
         "custom_id": "",
-        "custom_class": ""
+        "custom_class": "ori-marquee"
       }
     },
     "gvm_steps": {

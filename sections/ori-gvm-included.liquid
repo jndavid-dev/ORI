@@ -27,6 +27,8 @@
 
 {{ 'ori-gvm-product.css' | asset_url | stylesheet_tag }}
 {{ 'ori-gvm-included.css' | asset_url | stylesheet_tag }}
+{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
+{%- render 'ori-fonts' -%}
 <script src="{{ 'ori-gvm-included.js' | asset_url }}" defer="defer"></script>
 
 {%- liquid
@@ -118,7 +120,7 @@
 {%- if included.size > 0 or img_count > 0 or brand_logos.size > 0 -%}
   <div
     id="{{ section_id }}"
-    class="ori-gvm-product ori-gvm-product--{{ section.settings.layout | default: 'classic' }} color-{{ section.settings.color_schema }}"
+    class="ori-incl ori-gvm-product ori-gvm-product--{{ section.settings.layout | default: 'classic' }} color-{{ section.settings.color_schema }}"
     data-section-type="ori-gvm-included"
     style="--gvm-tint: {{ section.settings.tint_color | default: '#f3f6f7' }}; --gvm-frame-h: {{ frame_h }}px; --gvm-frame-w: {{ frame_w }}px; --gvm-frame-pad: {{ frame_pad }}px; --gvm-logo-scale: {{ logo_scale }}; --incl-row-pad: {{ section.settings.row_spacing | default: 10 }}px; --gvm-brand-logo-h: {{ section.settings.brand_logo_height | default: 72 }}px;"
   >
@@ -132,7 +134,7 @@
         >
           <div class="ori-gvm-incl__content">
             {%- if section.settings.heading != blank -%}
-              <h2 class="ori-gvm-product__block-title h3">{{ section.settings.heading }}</h2>
+              <h2 class="ori-gvm-product__block-title ori-incl__heading">{{ section.settings.heading }}</h2>
             {%- endif -%}
 
             {%- if incl_rows.size > 0 -%}

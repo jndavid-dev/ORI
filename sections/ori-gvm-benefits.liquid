@@ -1,83 +1,46 @@
 {%- comment -%}
-  ORI GVM Key Benefits.
-
-  A row of outlined cards, each with an icon, an uppercase title and supporting
-  copy, matching the approved design. Icons come from the shared ori-gvm-icon
-  snippet so this section and What's Included draw on one set.
-
-  Three across on desktop, two on tablet, one on mobile. Cards stretch to equal
-  height so the row keeps a straight baseline whatever the copy length.
-
-  The outer wrapper keeps the .ori-gvm-product and layout classes so the band
-  background matches its neighbours; everything inside uses .ori-gvm-bnf, well
-  away from the shared __card rules.
+  ORI GVM Key Benefits — ORI redesign.
+  A row of cards, each with an icon in a teal circle, a condensed uppercase
+  title and supporting copy (line breaks kept). Three across on desktop, two
+  on tablet, one on mobile; cards stretch to equal height. Icons come from
+  the shared ori-gvm-icon snippet, so this section and What's Included draw
+  on one set. Same settings and benefit blocks as before; "Use tinted
+  background" now gives the pale bone band.
 {%- endcomment -%}
-
-{{ 'ori-gvm-product.css' | asset_url | stylesheet_tag }}
-{{ 'ori-gvm-benefits.css' | asset_url | stylesheet_tag }}
-
+{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
+{%- render 'ori-fonts' -%}
 {%- liquid
   assign section_id = section.settings.custom_id | default: section.id
-  assign container = section.settings.container | default: 'container'
   assign benefits = section.blocks | where: 'type', 'benefit'
-
-  # Subgrid lines the cards' rows up with each other, which needs every card to
-  # contribute the same number of tracks. So the icon row is either present on
-  # all of them or on none, decided by whether any card actually has an icon
-  # rather than card by card. Without this a single icon-less card would pull
-  # its own title and copy a row higher than its neighbours.
-  assign any_icon = false
-  for block in benefits
-    if block.settings.icon != 'none' and block.settings.icon != blank
-      assign any_icon = true
-      break
-    endif
-  endfor
 -%}
-
 {%- if benefits.size > 0 -%}
   <div
     id="{{ section_id }}"
-    class="ori-gvm-product ori-gvm-product--{{ section.settings.layout | default: 'classic' }} color-{{ section.settings.color_schema }}"
+    class="ori ori-section ori-benefits{% if section.settings.alt_background %} ori-benefits--alt{% endif %}"
     data-section-type="ori-gvm-benefits"
-    style="--gvm-tint: {{ section.settings.tint_color | default: '#f3f6f7' }};"
+    style="--ori-pt: {{ section.settings.padding_top }}px; --ori-pb: {{ section.settings.padding_bottom }}px;"
   >
-    <div
-      class="ori-gvm-product__band ori-gvm-product__band--benefits{% if section.settings.alt_background %} ori-gvm-product__band--alt{% endif %}"
-      style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;"
-    >
-      <div class="{{ container }}">
-        {%- if section.settings.heading != blank -%}
-          <h2 class="ori-gvm-bnf__heading h3 ori-gvm-bnf__heading--{{ section.settings.heading_align | default: 'left' }}">
-            {{ section.settings.heading }}
-          </h2>
-        {%- endif -%}
-
-        <ul
-          class="ori-gvm-bnf{% unless any_icon %} ori-gvm-bnf--no-icons{% endunless %}"
-          style="--bnf-cols: {{ section.settings.cards_per_row | default: 3 }};"
-          role="list"
-        >
-          {%- for block in benefits -%}
-            <li class="ori-gvm-bnf__card" {{ block.shopify_attributes }}>
-              {%- comment -%}
-                Title and copy are emitted whether or not they hold anything, so
-                the track count per card stays constant for subgrid. An empty
-                one collapses to nothing; it just holds its place in the row.
-              {%- endcomment -%}
-              {%- if any_icon -%}
-                <span class="ori-gvm-bnf__icon-wrap" {% if block.settings.icon == 'none' %}aria-hidden="true"{% endif %}>
-                  {%- if block.settings.icon != 'none' -%}
-                    {%- render 'ori-gvm-icon', icon: block.settings.icon, class: 'ori-gvm-bnf__icon', stroke: 1.6 -%}
-                  {%- endif -%}
-                </span>
-              {%- endif -%}
-              <h3 class="ori-gvm-bnf__title">{{ block.settings.text }}</h3>
-              <p class="ori-gvm-bnf__note">{{ block.settings.note }}</p>
-            </li>
-          {%- endfor -%}
-        </ul>
-      </div>
+    <div class="ori-wrap">
+      {%- if section.settings.heading != blank -%}
+        <div class="ori-head ori-head--{{ section.settings.heading_align | default: 'left' }}">
+          <div><h2 class="ori-h2">{{ section.settings.heading }}</h2></div>
+        </div>
+      {%- endif -%}
+      <ul class="ori-benefits__list" style="--ori-cols: {{ section.settings.cards_per_row | default: 3 }};" role="list">
+        {%- for block in benefits -%}
+          <li class="ori-benefit" {{ block.shopify_attributes }}>
+            {%- if block.settings.icon != 'none' and block.settings.icon != blank -%}
+              <span class="ori-benefit__icon" aria-hidden="true">
+                {%- render 'ori-gvm-icon', icon: block.settings.icon, class: 'ori-benefit__svg', stroke: 1.6 -%}
+              </span>
+            {%- endif -%}
+            <h3 class="ori-benefit__title">{{ block.settings.text }}</h3>
+            {%- if block.settings.note != blank -%}
+              <p class="ori-benefit__note">{{ block.settings.note | newline_to_br }}</p>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
     </div>
   </div>
 {%- endif -%}

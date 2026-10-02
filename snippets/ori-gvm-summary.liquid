@@ -11,29 +11,29 @@
 
   and this reads that pattern:
   - lines before the first "- " item          → intro paragraphs
-  - "- A: x | B: y | C: z" (several pairs)      → compliance plate rows
-  - "- Payload: 1077kg, a …"                     → plate row (1077kg) + small note
-  - "- GVM Increase: 4250kg." (GVM/GCM/towing)   → plate row
+  - "- A: x | B: y | C: z" (several pairs)      → key figures
+  - "- GVM Increase: 4250kg." (GVM/GCM/towing)   → key figure
+  - "- Payload: 1077kg, a …"                     → key figure (1077kg) + small note
   - "- NOTE: …"                                  → highlighted note
-  - "- Key: value"                               → package detail rows
+  - "- Key: value"                               → specification rows
   - "NOTE: …" and plain lines after the items    → highlighted notes
   Anything that doesn't fit falls through as text, so an unusual summary
-  still shows in full.
+  still shows in full. The summary is the stage_summary metafield, or the
+  product description flattened by snippets/ori-gvm-desc-lines.liquid.
 
   When the product has GVM/GCM metafields (original_gvm, upgraded_gvm …)
-  the plate uses those instead, showing original → upgraded.
+  the key figures use those instead, showing original → upgraded.
 
   Accepts:
   - summary: {String} plain text with line breaks
-  - part: {String} 'intro' | 'plate' | 'details'
+  - part: {String} 'intro' | 'figures' | 'details'
   - original_gvm, upgraded_gvm, original_gcm, upgraded_gcm, payload: {String} optional metafield figures
-  - sku: {String} optional, printed on the plate like a part number
 {%- endcomment -%}
 {%- liquid
   assign intro = ''
   assign facts = ''
   assign notes = ''
-  assign plate_rows = ''
+  assign figures = ''
   assign seen_item = false
 
   assign lines = summary | newline_to_br | split: '<br />'
@@ -54,10 +54,7 @@
         for p in pairs
           assign k = p | split: ':' | first | strip
           assign v = p | remove_first: k | remove_first: ':' | strip
-          capture row
-            echo '<div class="ori-plate__row"><span class="ori-plate__k">' | append: k | append: '</span><span class="ori-plate__v"><span class="ori-plate__new">' | append: v | append: '</span></span></div>'
-          endcapture
-          assign plate_rows = plate_rows | append: row
+          assign figures = figures | append: '<div class="ori-fig"><dt>' | append: k | append: '</dt><dd>' | append: v | append: '</dd></div>'
         endfor
       elsif item contains ':'
         assign k = item | split: ':' | first | strip
@@ -71,10 +68,7 @@
         if kd == 'note'
           assign notes = notes | append: '<p class="ori-note"><strong>Note:</strong> ' | append: v | append: '</p>'
         elsif kd contains 'gvm' or kd contains 'gcm' or kd contains 'towing'
-          capture row
-            echo '<div class="ori-plate__row"><span class="ori-plate__k">' | append: k | append: '</span><span class="ori-plate__v"><span class="ori-plate__new">' | append: v_clean | append: '</span></span></div>'
-          endcapture
-          assign plate_rows = plate_rows | append: row
+          assign figures = figures | append: '<div class="ori-fig"><dt>' | append: k | append: '</dt><dd>' | append: v_clean | append: '</dd></div>'
         elsif kd == 'payload'
           assign v_main = v | split: ',' | first | strip
           assign v_rest = v | remove_first: v_main | remove_first: ',' | strip
@@ -82,19 +76,13 @@
           if v_rest_end == '.'
             assign v_rest = v_rest | remove_last: '.'
           endif
-          capture row
-            echo '<div class="ori-plate__row ori-plate__row--sm"><span class="ori-plate__k">Payload</span><span class="ori-plate__v"><span class="ori-plate__new">' | append: v_main | append: '</span>'
-            if v_rest != blank
-              echo '<span class="ori-plate__sub">' | append: v_rest | append: '</span>'
-            endif
-            echo '</span></div>'
-          endcapture
-          assign plate_rows = plate_rows | append: row
+          assign figures = figures | append: '<div class="ori-fig"><dt>Payload</dt><dd>' | append: v_main
+          if v_rest != blank
+            assign figures = figures | append: '<small>' | append: v_rest | append: '</small>'
+          endif
+          assign figures = figures | append: '</dd></div>'
         else
-          capture row
-            echo '<div><dt>' | append: k | append: '</dt><dd>' | append: v | append: '</dd></div>'
-          endcapture
-          assign facts = facts | append: row
+          assign facts = facts | append: '<div><dt>' | append: k | append: '</dt><dd>' | append: v | append: '</dd></div>'
         endif
       else
         assign notes = notes | append: '<p class="ori-note">' | append: item | append: '</p>'
@@ -113,28 +101,28 @@
   endfor
 
   comment
-    Metafield figures, when present, are the source of truth for the plate.
+    Metafield figures, when present, are the source of truth.
   endcomment
   if original_gvm != blank or upgraded_gvm != blank or original_gcm != blank or upgraded_gcm != blank or payload != blank
-    assign plate_rows = ''
+    assign figures = ''
     if upgraded_gvm != blank or original_gvm != blank
-      assign plate_rows = plate_rows | append: '<div class="ori-plate__row"><span class="ori-plate__k">GVM</span><span class="ori-plate__v">'
-      if original_gvm != blank and upgraded_gvm != blank and original_gvm != upgraded_gvm
-        assign plate_rows = plate_rows | append: '<span class="ori-plate__old">' | append: original_gvm | append: '</span>'
-      endif
       assign gvm_new = upgraded_gvm | default: original_gvm
-      assign plate_rows = plate_rows | append: '<span class="ori-plate__new">' | append: gvm_new | append: '</span></span></div>'
+      assign figures = figures | append: '<div class="ori-fig"><dt>GVM</dt><dd>'
+      if original_gvm != blank and upgraded_gvm != blank and original_gvm != upgraded_gvm
+        assign figures = figures | append: '<s>' | append: original_gvm | append: '</s> '
+      endif
+      assign figures = figures | append: gvm_new | append: '</dd></div>'
     endif
     if upgraded_gcm != blank or original_gcm != blank
-      assign plate_rows = plate_rows | append: '<div class="ori-plate__row ori-plate__row--sm"><span class="ori-plate__k">GCM</span><span class="ori-plate__v">'
-      if original_gcm != blank and upgraded_gcm != blank and original_gcm != upgraded_gcm
-        assign plate_rows = plate_rows | append: '<span class="ori-plate__old">' | append: original_gcm | append: '</span>'
-      endif
       assign gcm_new = upgraded_gcm | default: original_gcm
-      assign plate_rows = plate_rows | append: '<span class="ori-plate__new">' | append: gcm_new | append: '</span></span></div>'
+      assign figures = figures | append: '<div class="ori-fig"><dt>GCM</dt><dd>'
+      if original_gcm != blank and upgraded_gcm != blank and original_gcm != upgraded_gcm
+        assign figures = figures | append: '<s>' | append: original_gcm | append: '</s> '
+      endif
+      assign figures = figures | append: gcm_new | append: '</dd></div>'
     endif
     if payload != blank
-      assign plate_rows = plate_rows | append: '<div class="ori-plate__row ori-plate__row--sm"><span class="ori-plate__k">Payload</span><span class="ori-plate__v"><span class="ori-plate__new">+' | append: payload | append: '</span></span></div>'
+      assign figures = figures | append: '<div class="ori-fig"><dt>Payload gain</dt><dd>+' | append: payload | append: '</dd></div>'
     endif
   endif
 -%}
@@ -146,16 +134,9 @@
       {%- comment -%} Not in the usual pattern — show the summary as written. {%- endcomment -%}
       <p>{{ summary | newline_to_br }}</p>
     {%- endif -%}
-  {%- when 'plate' -%}
-    {%- if plate_rows != blank -%}
-      <div class="ori-plate">
-        <i class="ori-plate__rivet ori-plate__rivet--a"></i><i class="ori-plate__rivet ori-plate__rivet--b"></i><i class="ori-plate__rivet ori-plate__rivet--c"></i><i class="ori-plate__rivet ori-plate__rivet--d"></i>
-        <div class="ori-plate__head"><b>Offroad Industries</b><span>Second-stage manufacturer</span></div>
-        {{ plate_rows }}
-        {%- if sku != blank -%}
-          <div class="ori-plate__foot"><span>Part no.</span><span class="ori-plate__stamp">{{ sku }}</span></div>
-        {%- endif -%}
-      </div>
+  {%- when 'figures' -%}
+    {%- if figures != blank -%}
+      <dl class="ori-figs">{{ figures }}</dl>
     {%- endif -%}
   {%- when 'details' -%}
     {%- if facts != blank -%}
