@@ -28,6 +28,57 @@
   src="{{ 'recently-viewed-products.js' | asset_url }}"
   defer="defer"
 ></script>
+{%- comment -%}
+  ORI redesign, opt-in: set the section's Custom class to "ori-recent".
+  Same data flow as the theme version below (recently-viewed-products.js
+  fetches the search page with this section_id and swaps the contents in),
+  but the cards are snippets/ori-product-card.liquid in a horizontal
+  scroll row (--ori-cols visible on desktop, from "Products per row").
+  The current product is left out, and the band stays hidden until the
+  fetch has found products (the JS adds is-loaded / is-empty).
+{%- endcomment -%}
+{%- if custom_class contains 'ori-recent' -%}
+  {{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
+  {%- render 'ori-fonts' -%}
+  <div
+    id="{{ section_id }}"
+    class="f-recently-viewed ori ori-section ori-recent{{ custom_class }}{% unless request.design_mode %} ori-recent--pending{% endunless %}"
+    style="--ori-pt: {{ section.settings.padding_top }}px; --ori-pb: {{ section.settings.padding_bottom }}px; --ori-cols: {{ columns }};"
+  >
+    <recently-viewed-products
+      data-url="{{ routes.search_url }}?section_id={{ section.id }}&type=product&q="
+      {% if product %}data-product-id="{{ product.id }}"{% endif %}
+    >
+      <div class="ori-wrap">
+        {%- if section.settings.heading != blank -%}
+          <div class="ori-head">
+            <div>
+              <h2 class="ori-h2">{{ section.settings.heading }}</h2>
+              {%- if section.settings.description != blank -%}
+                <div class="ori-head__intro">{{ section.settings.description }}</div>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endif -%}
+        <div class="ori-recent__track f-recently-viewed-flickity" data-enable-slider="false" role="list">
+          {%- liquid
+            assign parsed_terms = search.terms | split: ' OR '
+          -%}
+          {%- for parsed_term in parsed_terms -%}
+            {%- assign id = parsed_term | split: 'id:' | last | times: 1 -%}
+            {%- for product in search.results -%}
+              {%- if product.id == id -%}
+                <div class="ori-recent__item" role="listitem">
+                  {%- render 'ori-product-card', product: product, button: 'link' -%}
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </recently-viewed-products>
+  </div>
+{%- else -%}
 {% render 'divider',
   show_divider: section.settings.show_section_divider,
   divider_width: section.settings.divider_width
@@ -73,6 +124,7 @@
     </div>
   </recently-viewed-products>
 </div>
+{%- endif -%}
 {% schema %}
 {
   "name": "t:sections.product-recently-viewed.name",

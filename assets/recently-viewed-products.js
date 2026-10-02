@@ -30,12 +30,18 @@ if (!customElements.get("recently-viewed-products")) {
             const recommendations = html.querySelector(
               "recently-viewed-products"
             );
-            this.productsCount =
-              recommendations.querySelectorAll(".product-card").length;
+            // .ori-card: the ORI redesign variant (Custom class "ori-recent").
+            this.productsCount = recommendations.querySelectorAll(
+              ".product-card, .ori-card"
+            ).length;
 
             if (this.productsCount <= 0) {
               this.classList.add("f-hidden");
             }
+            this.section.classList.remove("ori-recent--pending");
+            this.section.classList.add(
+              this.productsCount > 0 ? "is-loaded" : "is-empty"
+            );
 
             if (recommendations && recommendations.innerHTML.trim().length) {
               this.innerHTML = recommendations.innerHTML;
