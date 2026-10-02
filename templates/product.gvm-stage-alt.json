@@ -1214,7 +1214,8 @@
         "padding_bottom": 40,
         "show_section_divider": false,
         "divider_width": "container",
-        "animations": "inherit"
+        "animations": "inherit",
+        "custom_class": "ori-recent"
       }
     },
     "gvm_quote_popup": {
