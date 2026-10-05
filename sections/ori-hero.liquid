@@ -21,12 +21,22 @@
   assign feats = section.blocks | where: 'type', 'feature'
   assign buttons = section.blocks | where: 'type', 'button'
   assign heading_tag = section.settings.heading_tag | default: 'h1'
+  comment
+    Image fallback: a file in the theme's assets (e.g. a cut-out shipped
+    with the theme) when nothing is picked, so the hero works on push.
+  endcomment
+  assign asset_img = section.settings.image_asset | strip
 -%}
 <div
-  class="ori ori-hero ori-hero--{{ section.settings.style }}"
+  class="ori ori-hero ori-hero--{{ section.settings.style }}{% if section.settings.media_flush %} ori-hero--flush{% endif %}"
   style="--ori-hero-h: {{ section.settings.min_height }}px;"
 >
-  {%- if section.settings.image != blank and section.settings.style != 'plain' -%}
+  {%- if section.settings.image == blank and asset_img != blank and section.settings.style != 'plain' -%}
+    <div class="ori-hero__media">
+      {%- comment -%} Size of the bundled cut-out; CSS keeps any other asset in proportion. {%- endcomment -%}
+      <img src="{{ asset_img | asset_url }}" alt="{{ section.settings.image_alt | escape }}" width="844" height="485" fetchpriority="high">
+    </div>
+  {%- elsif section.settings.image != blank and section.settings.style != 'plain' -%}
     <div class="ori-hero__media">
       {%- if section.settings.style == 'cutout' -%}
         {{
@@ -152,6 +162,24 @@
       "id": "image",
       "label": "Image",
       "info": "Cut-out: transparent PNG/WebP of the vehicle, around 1600px wide. Photo: landscape, 2000px wide."
+    },
+    {
+      "type": "text",
+      "id": "image_asset",
+      "label": "Fallback image (theme asset file name)",
+      "info": "Used when no image is picked above, e.g. ori-hero-chevy-2500-cutout.webp."
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Fallback image alt text"
+    },
+    {
+      "type": "checkbox",
+      "id": "media_flush",
+      "label": "Sit image on the bottom edge",
+      "info": "For cut-outs cropped at the bottom (wheels cut off): the image meets the hero's bottom edge with no ground shadow.",
+      "default": false
     },
     {
       "type": "range",

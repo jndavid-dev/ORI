@@ -4866,9 +4866,15 @@ a.ori-vcard:hover .ori-vcard__btn svg {
   background: var(--ori-bone);
 }
 
+/* The box sets the shape; the image fills it, so the height and width
+   attributes from image_tag can't stretch the card. */
+.ori-truck__img {
+  aspect-ratio: 4 / 3;
+}
+
 .ori-truck__img img {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  height: 100%;
   object-fit: contain;
   mix-blend-mode: multiply;
 }
@@ -5162,12 +5168,18 @@ a.ori-vcard:hover .ori-vcard__btn svg {
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
-  padding-top: 28px;
+  min-width: 0;
+  padding: 32px 32px 0 0;
 }
 
+/* Held to a fixed height so the parts sit inside the card on wide
+   screens instead of growing with the column and clipping at the edge. */
 .ori-promo__media img {
-  width: 100%;
+  width: auto;
+  max-width: 100%;
   height: auto;
+  max-height: 300px;
+  object-fit: contain;
   -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 22%);
   mask-image: linear-gradient(90deg, transparent 0, #000 22%);
 }
@@ -5179,6 +5191,15 @@ a.ori-vcard:hover .ori-vcard__btn svg {
 
   .ori-promo__copy {
     padding: 36px 24px 8px;
+  }
+
+  .ori-promo__media {
+    justify-content: center;
+    padding: 24px 18px 0;
+  }
+
+  .ori-promo__media img {
+    max-height: 240px;
   }
 
   .ori-promo__media img {
@@ -5197,8 +5218,10 @@ a.ori-vcard:hover .ori-vcard__btn svg {
 /* ==========================================================
    ORI REDESIGN — HOME: DEALER CARDS (sections/ori-dealer-cards.liquid)
    ========================================================== */
+/* Deep teal rather than the bright brand teal, so the band sits calmly
+   above the footer; the bright teal stays for buttons and accents. */
 .ori-dealers {
-  background: var(--ori-teal);
+  background: linear-gradient(135deg, #1e6e73 0%, #164f53 100%);
   color: #fff;
 }
 
@@ -5216,9 +5239,9 @@ a.ori-vcard:hover .ori-vcard__btn svg {
   flex-direction: column;
   gap: 14px;
   padding: 34px;
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 6px;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .ori .ori-dealer__title {
@@ -5494,4 +5517,24 @@ a.ori-vcard:hover .ori-vcard__btn svg {
   .ori-bundle .products-bundle__image-wrapper {
     width: 60px;
   }
+}
+
+/* ==========================================================
+   ORI REDESIGN — HERO: IMAGE ON THE BOTTOM EDGE
+   (ori-hero "Sit image on the bottom edge"). For cut-outs cropped
+   at the bottom, like the Chevy 2500 taken from the live banner:
+   the image meets the hero's bottom edge, the ground shadow goes,
+   and the last few percent fade out so the crop never shows.
+   ========================================================== */
+.ori-hero--flush.ori-hero--cutout .ori-hero__media {
+  bottom: 0;
+}
+
+.ori-hero--flush .ori-hero__media::after {
+  display: none;
+}
+
+.ori-hero--flush .ori-hero__media img {
+  -webkit-mask-image: linear-gradient(180deg, #000 82%, transparent);
+  mask-image: linear-gradient(180deg, #000 82%, transparent);
 }
