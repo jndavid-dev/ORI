@@ -189,7 +189,8 @@
         "custom_id": "",
         "custom_class": "",
         "enable_bg_zoom_effect": false
-      }
+      },
+      "disabled": true
     },
     "1770092251a8cb32bd": {
       "type": "apps",
@@ -248,7 +249,8 @@
         "custom_id": "",
         "custom_class": "",
         "animations": "inherit"
-      }
+      },
+      "disabled": true
     },
     "video_kUd8dq": {
       "type": "video",
@@ -590,7 +592,7 @@
         "show_section_divider": false,
         "divider_width": "container-full",
         "custom_id": "",
-        "custom_class": ""
+        "custom_class": "ori-marquee"
       }
     },
     "hero_8BNkhD": {
@@ -697,7 +699,7 @@
         "image": "shopify://shop_images/bds-6-inch-lift-kit-fox-25-performance-elite-coil-over-ford-f150-21-25bdsbds1585fpe-445081.jpg",
         "image_position": "left",
         "desktop_content_position": "center",
-        "subheading": "",
+        "subheading": "<p>Tap a marker to see the part.</p>",
         "heading": "<p>Ford F150 Accessories 2021+</p>",
         "highlight_style": "none",
         "enable_highlight_text_color": false,
@@ -716,8 +718,10 @@
         "show_section_divider": false,
         "divider_width": "container",
         "custom_id": "",
-        "custom_class": "",
-        "animations": "inherit"
+        "custom_class": "ori-bundle",
+        "animations": "inherit",
+        "link_label": "Shop F150 2021–2023",
+        "link": "/collections/ford-f150-2021-2023"
       }
     },
     "b9a09ce1-0384-4aac-8a69-af32bf73a5e8": {
@@ -763,7 +767,8 @@
         "custom_id": "",
         "custom_class": "",
         "animations": "inherit"
-      }
+      },
+      "disabled": true
     },
     "contact_form_v3_yGfhUr": {
       "type": "contact-form-v3",
@@ -837,18 +842,433 @@
         "padding_top": 60,
         "padding_bottom": 60
       }
+    },
+    "ori_hero_home": {
+      "type": "ori-hero",
+      "blocks": {
+        "logo_ori": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__ORI.jpg",
+            "alt": "ORI"
+          }
+        },
+        "logo_fox": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__FOX.jpg",
+            "alt": "Fox"
+          }
+        },
+        "logo_bds": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__BDS.jpg",
+            "alt": "BDS Suspension"
+          }
+        },
+        "logo_husky": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__HUSKY_LINERS.jpg",
+            "alt": "Husky Liners"
+          }
+        },
+        "feature_ssm": {
+          "type": "feature",
+          "settings": {
+            "icon": "shield",
+            "text": "SSM federally approved\nAustralia wide"
+          }
+        },
+        "feature_suspension": {
+          "type": "feature",
+          "settings": {
+            "icon": "suspension",
+            "text": "Fox & BDS suspension\ncomponents"
+          }
+        },
+        "feature_rego": {
+          "type": "feature",
+          "settings": {
+            "icon": "clipboard",
+            "text": "Pre-rego only"
+          }
+        },
+        "feature_tyres": {
+          "type": "feature",
+          "settings": {
+            "icon": "tyre",
+            "text": "35\" | 37\" tyres"
+          }
+        },
+        "button_gvm": {
+          "type": "button",
+          "settings": {
+            "label": "6T GVM upgrades",
+            "link": "/pages/chevy-silverado-2500hd-gvm-packages",
+            "style": "teal"
+          }
+        }
+      },
+      "block_order": [
+        "logo_ori",
+        "logo_fox",
+        "logo_bds",
+        "logo_husky",
+        "feature_ssm",
+        "feature_suspension",
+        "feature_rego",
+        "feature_tyres",
+        "button_gvm"
+      ],
+      "settings": {
+        "style": "photo",
+        "min_height": 620,
+        "badge_text": "",
+        "heading_1": "Chevrolet Silverado",
+        "heading_2": "2500 HD LTZ",
+        "pill": "3\" to 6.5\" upgrades\n6000kg GVM packages",
+        "heading_2_white": false,
+        "subheading": "",
+        "heading_tag": "h1",
+        "badge_title": "NB2",
+        "badge_small": "Car licence"
+      }
+    },
+    "ori_finder": {
+      "type": "ori-finder",
+      "blocks": {
+        "make_chev": {
+          "type": "make",
+          "settings": {
+            "name": "Chevrolet",
+            "models": "Silverado 1500 | /collections/chevrolet-silverado-1500\nSilverado 1500 LTZ ZR2 | /collections/chevy-silverado-22-24-zr2-ltz\nSilverado 2500HD / 3500HD | /collections/chevrolet-silverado-2500hd-3500hd-2024"
+          }
+        },
+        "make_ford": {
+          "type": "make",
+          "settings": {
+            "name": "Ford",
+            "models": "F150 2024+ | /collections/ford-f150-2024-platinum-lariat-xlt\nF150 2021–2023 | /collections/ford-f150-2021-2023\nF250 / F350 / F450 | /collections/ford-f250-f350-2024"
+          }
+        },
+        "make_ram": {
+          "type": "make",
+          "settings": {
+            "name": "Ram",
+            "models": "1500 HO 2025+ | /collections/ram-1500-2025-ho\n1500 DT 2019–2025 | /collections/ram-1500-dt-2019-2023\n2500 / 3500 2025+ | /collections/ram-2500-3500-25-6th-generation"
+          }
+        },
+        "make_gmc": {
+          "type": "make",
+          "settings": {
+            "name": "GMC",
+            "models": "Sierra 1500 | /collections/gmc-1500-2019-2024\nYukon | /collections/gmc-yukon\nSierra 2500 / 3500 | /collections/gmc-2500-3500-2020-2023"
+          }
+        },
+        "make_toyota": {
+          "type": "make",
+          "settings": {
+            "name": "Toyota",
+            "models": "Tundra 2022+ | /collections/toyota-tundra-2022-2023\nTundra 2007–2021 | /collections/toyota-tundra-2007-2021\nLandCruiser 300 | /collections/toyota-landcruiser-lc300-gx-gxl-vx-sahara-gr-sport-zahara-zx"
+          }
+        }
+      },
+      "block_order": [
+        "make_chev",
+        "make_ford",
+        "make_ram",
+        "make_gmc",
+        "make_toyota"
+      ],
+      "settings": {
+        "heading": "Shop by vehicle",
+        "subheading": "Only see parts that fit.",
+        "year_from": 2007,
+        "year_to": 2026,
+        "button_label": "Show parts",
+        "overlap": true,
+        "padding_bottom": 0
+      }
+    },
+    "ori_trucks": {
+      "type": "ori-trucks",
+      "blocks": {
+        "truck_chev": {
+          "type": "truck",
+          "settings": {
+            "title": "Chevrolet",
+            "url": "/collections/chevrolet-silverado-1500",
+            "link_1_label": "Silverado 1500 2019–2022",
+            "link_1": "/collections/chevrolet-silverado-1500",
+            "link_2_label": "Silverado 1500 LTZ ZR2",
+            "link_2": "/collections/chevy-silverado-22-24-zr2-ltz",
+            "link_3_label": "Silverado 2500/3500 2024+",
+            "link_3": "/collections/chevrolet-silverado-2500hd-3500hd-2024"
+          }
+        },
+        "truck_ford": {
+          "type": "truck",
+          "settings": {
+            "title": "Ford",
+            "url": "/collections/ford-f150-2021-2023",
+            "link_1_label": "F150 2024+",
+            "link_1": "/collections/ford-f150-2024-platinum-lariat-xlt",
+            "link_2_label": "F150 2021–2023",
+            "link_2": "/collections/ford-f150-2021-2023",
+            "link_3_label": "F250/F350/F450 23+",
+            "link_3": "/collections/ford-f250-f350-2024"
+          }
+        },
+        "truck_ram": {
+          "type": "truck",
+          "settings": {
+            "title": "Ram",
+            "url": "/collections/ram-1500-dt-2019-2023",
+            "link_1_label": "1500 HO 2025+",
+            "link_1": "/collections/ram-1500-2025-ho",
+            "link_2_label": "1500 DT 2019–2025",
+            "link_2": "/collections/ram-1500-dt-2019-2023",
+            "link_3_label": "2500/3500 2025+",
+            "link_3": "/collections/ram-2500-3500-25-6th-generation"
+          }
+        },
+        "truck_gmc": {
+          "type": "truck",
+          "settings": {
+            "title": "GMC",
+            "url": "/collections/gmc-1500-2019-2024",
+            "link_1_label": "Sierra 1500 2019–2025",
+            "link_1": "/collections/gmc-1500-2019-2024",
+            "link_2_label": "Yukon 2024+",
+            "link_2": "/collections/gmc-yukon",
+            "link_3_label": "2500/3500 2020–2023",
+            "link_3": "/collections/gmc-2500-3500-2020-2023"
+          }
+        },
+        "truck_toyota": {
+          "type": "truck",
+          "settings": {
+            "title": "Toyota",
+            "url": "/collections/toyota-tundra-2022-2023",
+            "link_1_label": "Tundra 2022–2025",
+            "link_1": "/collections/toyota-tundra-2022-2023",
+            "link_2_label": "Tundra 2007–2021",
+            "link_2": "/collections/toyota-tundra-2007-2021",
+            "link_3_label": "LandCruiser 300",
+            "link_3": "/collections/toyota-landcruiser-lc300-gx-gxl-vx-sahara-gr-sport-zahara-zx"
+          }
+        }
+      },
+      "block_order": [
+        "truck_chev",
+        "truck_ford",
+        "truck_ram",
+        "truck_gmc",
+        "truck_toyota"
+      ],
+      "settings": {
+        "heading": "Shop by truck",
+        "intro": "Parts sorted by make, model and year.",
+        "link_label": "All American trucks",
+        "link": "shopify://collections/all",
+        "padding_top": 80,
+        "padding_bottom": 72
+      }
+    },
+    "ori_home_gvm": {
+      "type": "ori-home-gvm",
+      "blocks": {
+        "v_s1500": {
+          "type": "vehicle",
+          "settings": {
+            "name": "Silverado 1500",
+            "title": "Chevrolet Silverado 1500",
+            "years": "2019 – 2026 · LTZ, Trail Boss, ZR2",
+            "link": "/pages/chevrolet-silverado-1500-gvm-package",
+            "stages": 3,
+            "original_gvm": "3,493 kg",
+            "upgraded_gvm": "4,300 kg",
+            "original_gcm": "7,400 kg",
+            "upgraded_gcm": "8,750 kg",
+            "towing": "4,500 kg"
+          }
+        },
+        "v_s2500": {
+          "type": "vehicle",
+          "settings": {
+            "name": "Silverado 2500HD",
+            "title": "Chevrolet Silverado 2500HD",
+            "years": "2020 – 2026",
+            "link": "/pages/chevy-silverado-2500hd-gvm-packages",
+            "stages": 5,
+            "original_gvm": "4,490 kg",
+            "upgraded_gvm": "6,000 kg",
+            "original_gcm": "10,500 kg",
+            "upgraded_gcm": "11,800 kg",
+            "towing": "4,500 kg"
+          }
+        },
+        "v_ram5": {
+          "type": "vehicle",
+          "settings": {
+            "name": "Ram 2500HD 5th gen",
+            "title": "Ram 2500HD · 5th gen",
+            "years": "2019 – 2024",
+            "link": "/pages/ram-2500hd-5th-gen-gvm",
+            "stages": 4,
+            "original_gvm": "4,490 kg",
+            "upgraded_gvm": "4,950 kg",
+            "original_gcm": "10,300 kg",
+            "upgraded_gcm": "11,500 kg",
+            "towing": "4,500 kg"
+          }
+        },
+        "v_ram6": {
+          "type": "vehicle",
+          "settings": {
+            "name": "Ram 2500 6th gen",
+            "title": "Ram 2500 · 6th gen",
+            "years": "2025 +",
+            "link": "/pages/ram-2500-6th-gen-gvm",
+            "stages": 4,
+            "original_gvm": "4,490 kg",
+            "upgraded_gvm": "4,950 kg",
+            "original_gcm": "10,300 kg",
+            "upgraded_gcm": "11,500 kg",
+            "towing": "4,500 kg"
+          }
+        },
+        "v_f150": {
+          "type": "vehicle",
+          "settings": {
+            "name": "Ford F150",
+            "title": "Ford F150",
+            "years": "2021 – 2026",
+            "link": "/pages/ori-gvm-upgrade-ford-f150",
+            "stages": 3,
+            "original_gvm": "3,270 kg",
+            "upgraded_gvm": "4,300 kg",
+            "original_gcm": "7,700 kg",
+            "upgraded_gcm": "8,800 kg",
+            "towing": "4,500 kg"
+          }
+        },
+        "v_tundra": {
+          "type": "vehicle",
+          "settings": {
+            "name": "Toyota Tundra",
+            "title": "Toyota Tundra",
+            "years": "2022 – 2026",
+            "link": "/pages/toyota-tundra",
+            "stages": 3,
+            "original_gvm": "3,400 kg",
+            "upgraded_gvm": "4,300 kg",
+            "original_gcm": "7,900 kg",
+            "upgraded_gcm": "8,800 kg",
+            "towing": "4,500 kg"
+          }
+        }
+      },
+      "block_order": [
+        "v_s1500",
+        "v_s2500",
+        "v_ram5",
+        "v_ram6",
+        "v_f150",
+        "v_tundra"
+      ],
+      "settings": {
+        "heading_1": "GVM upgrades",
+        "heading_2": "that go on the plate",
+        "intro": "Staged, federally approved packages that raise your legal carrying and towing limits — tested to ADR and certified, not just a spring swap.",
+        "stage_labels": "Springs, Shocks, Brakes, Tow rating, Full build",
+        "button_prefix": "View",
+        "button_suffix": "packages",
+        "ghost_label": "Book a consult",
+        "ghost_link": "/pages/contact-us",
+        "note": "Example figures — replace with each vehicle's certified ratings, or pick its GVM product to read them from metafields.",
+        "padding_top": 88,
+        "padding_bottom": 88
+      }
+    },
+    "ori_amp": {
+      "type": "ori-product-grid",
+      "settings": {
+        "heading": "AMP Steps by RealTruck",
+        "intro": "Powered running boards that drop when the door opens and tuck away when it closes.",
+        "collection": "amp-research-power-steps-bed-steps-bed-guard-australia",
+        "limit": 8,
+        "button": "cart",
+        "view_all_label": "Shop all AMP Research"
+      }
+    },
+    "ori_promo_banks": {
+      "type": "ori-promo",
+      "settings": {
+        "logo_alt": "Banks",
+        "strip_text": "Now stocking",
+        "strip_color": "#f2c230",
+        "text": "Ram-Air intakes, intercooler pipes and diff covers for Ram, Silverado and F-series — in stock in Australia.",
+        "button_label": "Shop Banks",
+        "button_link": "/collections/banks-power-cold-air-intakes",
+        "background": "#15191b",
+        "padding_top": 0,
+        "padding_bottom": 96
+      }
+    },
+    "ori_dealers": {
+      "type": "ori-dealer-cards",
+      "blocks": {
+        "card_installer": {
+          "type": "card",
+          "settings": {
+            "heading": "Find an installer",
+            "text": "GVM upgrades are fitted by ORI authorised installers. Find one near you.",
+            "button_label": "Find an installer",
+            "link": "/pages/store-locator-1",
+            "button_style": "light"
+          }
+        },
+        "card_dealer": {
+          "type": "card",
+          "settings": {
+            "heading": "Become a dealer",
+            "text": "Workshops and fitters get trade pricing, GVM kit ordering and marketing assets.",
+            "button_label": "Apply for a trade account",
+            "link": "/pages/dealer-2",
+            "button_style": "dark"
+          }
+        }
+      },
+      "block_order": [
+        "card_installer",
+        "card_dealer"
+      ],
+      "settings": {
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
     }
   },
   "order": [
     "1653903038c126b831",
+    "ori_hero_home",
+    "ori_finder",
     "1770092251a8cb32bd",
+    "ori_trucks",
+    "ori_home_gvm",
+    "ori_amp",
     "featured_collection_9HLMBr",
+    "ori_promo_banks",
+    "scrolling_promotion_iqVp4T",
+    "products_bundle_jFkhY9",
     "video_kUd8dq",
     "uneven_image_cards_bkLjJt",
-    "scrolling_promotion_iqVp4T",
     "hero_8BNkhD",
-    "products_bundle_jFkhY9",
     "b9a09ce1-0384-4aac-8a69-af32bf73a5e8",
-    "contact_form_v3_yGfhUr"
+    "contact_form_v3_yGfhUr",
+    "ori_dealers"
   ]
 }

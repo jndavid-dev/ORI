@@ -5323,6 +5323,10 @@ a.ori-vcard:hover .ori-vcard__btn svg {
   text-transform: none;
 }
 
+.ori-bundle .products-bundle__subheading p {
+  margin: 0;
+}
+
 .ori-bundle .products-bundle__link {
   order: 2;
   align-self: flex-start;
