@@ -5213,10 +5213,8 @@ a.ori-vcard:hover .ori-vcard__btn svg {
 /* ==========================================================
    ORI REDESIGN — HOME: DEALER CARDS (sections/ori-dealer-cards.liquid)
    ========================================================== */
-/* The brand's deep teal (--ori-teal-deep) rather than the bright one, so
-   the band is calmer above the footer. Cards are a light dark tint on it. */
 .ori-dealers {
-  background: var(--ori-teal-deep);
+  background: var(--ori-teal);
   color: #fff;
 }
 
@@ -5234,9 +5232,9 @@ a.ori-vcard:hover .ori-vcard__btn svg {
   flex-direction: column;
   gap: 14px;
   padding: 34px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 6px;
-  background: rgba(0, 0, 0, 0.1);
+  background: #ffffff1a;
 }
 
 .ori .ori-dealer__title {
