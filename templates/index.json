@@ -209,7 +209,8 @@
         "description": "",
         "padding_top": 20,
         "padding_bottom": 20
-      }
+      },
+      "disabled": true
     },
     "featured_collection_9HLMBr": {
       "type": "featured-collection",
@@ -923,7 +924,7 @@
         "button_gvm"
       ],
       "settings": {
-        "style": "photo",
+        "style": "cutout",
         "min_height": 620,
         "badge_text": "",
         "heading_1": "Chevrolet Silverado",
@@ -933,7 +934,10 @@
         "subheading": "",
         "heading_tag": "h1",
         "badge_title": "NB2",
-        "badge_small": "Car licence"
+        "badge_small": "Car licence",
+        "image_asset": "ori-hero-chevy-2500-cutout.webp",
+        "image_alt": "Chevrolet Silverado 2500 HD LTZ in Cypress Gray on 37 inch tyres",
+        "media_flush": true
       }
     },
     "ori_finder": {
@@ -1005,7 +1009,8 @@
             "link_2_label": "Silverado 1500 LTZ ZR2",
             "link_2": "/collections/chevy-silverado-22-24-zr2-ltz",
             "link_3_label": "Silverado 2500/3500 2024+",
-            "link_3": "/collections/chevrolet-silverado-2500hd-3500hd-2024"
+            "link_3": "/collections/chevrolet-silverado-2500hd-3500hd-2024",
+            "image": "shopify://shop_images/2024-Chevy-Silverado-2500-Phantom-Winch-Front-Bumper-3.png"
           }
         },
         "truck_ford": {
@@ -1018,7 +1023,8 @@
             "link_2_label": "F150 2021–2023",
             "link_2": "/collections/ford-f150-2021-2023",
             "link_3_label": "F250/F350/F450 23+",
-            "link_3": "/collections/ford-f250-f350-2024"
+            "link_3": "/collections/ford-f250-f350-2024",
+            "image": "shopify://shop_images/2023-Ford-F-250-350-Phantom-Winch-Front-Bumper-Studio-3_1800x1800_1.png"
           }
         },
         "truck_ram": {
@@ -1031,7 +1037,8 @@
             "link_2_label": "1500 DT 2019–2025",
             "link_2": "/collections/ram-1500-dt-2019-2023",
             "link_3_label": "2500/3500 2025+",
-            "link_3": "/collections/ram-2500-3500-25-6th-generation"
+            "link_3": "/collections/ram-2500-3500-25-6th-generation",
+            "image": "shopify://shop_images/dodge-ram-rebel-1500-trx_1800x1800_0ce02a9b-9e79-46b0-8c66-5f58ee143be9.png"
           }
         },
         "truck_gmc": {
@@ -1044,7 +1051,8 @@
             "link_2_label": "Yukon 2024+",
             "link_2": "/collections/gmc-yukon",
             "link_3_label": "2500/3500 2020–2023",
-            "link_3": "/collections/gmc-2500-3500-2020-2023"
+            "link_3": "/collections/gmc-2500-3500-2020-2023",
+            "image": "shopify://shop_images/gmc-hd-phantom-winch-front-bumper-studio-8.png"
           }
         },
         "truck_toyota": {
@@ -1057,7 +1065,8 @@
             "link_2_label": "Tundra 2007–2021",
             "link_2": "/collections/toyota-tundra-2007-2021",
             "link_3_label": "LandCruiser 300",
-            "link_3": "/collections/toyota-landcruiser-lc300-gx-gxl-vx-sahara-gr-sport-zahara-zx"
+            "link_3": "/collections/toyota-landcruiser-lc300-gx-gxl-vx-sahara-gr-sport-zahara-zx",
+            "image": "shopify://shop_images/4th-gen-toyota-tundra-winch-front-bumper-stealth-fighter_1800x1800_49541ff7-4fd2-432b-89e5-dbe39398aa87.png"
           }
         }
       },
