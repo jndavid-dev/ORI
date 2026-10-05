@@ -5140,7 +5140,7 @@ a.ori-vcard:hover .ori-vcard__btn svg {
 }
 
 .ori-promo__logo img {
-  width: clamp(220px, 28vw, 400px);
+  width: clamp(180px, 22vw, 320px);
   height: auto;
 }
 
@@ -5164,22 +5164,21 @@ a.ori-vcard:hover .ori-vcard__btn svg {
   color: #b7c3c6;
 }
 
+/* The parts fill the column top to bottom (cover, anchored to the
+   bottom edge, where the artwork is cropped anyway). */
 .ori-promo__media {
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
+  position: relative;
   min-width: 0;
-  padding: 32px 32px 0 0;
+  min-height: 240px;
 }
 
-/* Held to a fixed height so the parts sit inside the card on wide
-   screens instead of growing with the column and clipping at the edge. */
 .ori-promo__media img {
-  width: auto;
-  max-width: 100%;
-  height: auto;
-  max-height: 300px;
-  object-fit: contain;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
   -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 22%);
   mask-image: linear-gradient(90deg, transparent 0, #000 22%);
 }
@@ -5194,12 +5193,8 @@ a.ori-vcard:hover .ori-vcard__btn svg {
   }
 
   .ori-promo__media {
-    justify-content: center;
-    padding: 24px 18px 0;
-  }
-
-  .ori-promo__media img {
-    max-height: 240px;
+    min-height: 0;
+    aspect-ratio: 1051 / 560;
   }
 
   .ori-promo__media img {
@@ -5218,10 +5213,10 @@ a.ori-vcard:hover .ori-vcard__btn svg {
 /* ==========================================================
    ORI REDESIGN — HOME: DEALER CARDS (sections/ori-dealer-cards.liquid)
    ========================================================== */
-/* Deep teal rather than the bright brand teal, so the band sits calmly
-   above the footer; the bright teal stays for buttons and accents. */
+/* The brand's deep teal (--ori-teal-deep) rather than the bright one, so
+   the band is calmer above the footer. Cards are a light dark tint on it. */
 .ori-dealers {
-  background: linear-gradient(135deg, #1e6e73 0%, #164f53 100%);
+  background: var(--ori-teal-deep);
   color: #fff;
 }
 
@@ -5239,9 +5234,9 @@ a.ori-vcard:hover .ori-vcard__btn svg {
   flex-direction: column;
   gap: 14px;
   padding: 34px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 6px;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(0, 0, 0, 0.1);
 }
 
 .ori .ori-dealer__title {
