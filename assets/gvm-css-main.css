@@ -1673,6 +1673,13 @@
   .ori-wrap {
     padding: 0 18px;
   }
+
+  /* Section spacing scales down on phones (80px → 56px), matching the
+     theme sections' mobile padding so mixed pages keep one rhythm. */
+  .ori-section {
+    padding-top: calc(var(--ori-pt, 72px) * 0.7);
+    padding-bottom: calc(var(--ori-pb, 72px) * 0.7);
+  }
 }
 
 /* --- Section heading block --- */
