@@ -1,0 +1,107 @@
+{%- comment -%}
+  ORI redesign — Brand promo card (home page "Banks — Now stocking").
+  Dark rounded card: brand logo, a coloured strip ("Now stocking"), copy
+  and a button on the left; a product cut-out on the right, sitting on the
+  card's bottom edge with its left side faded into the dark so cropped
+  edges in the artwork don't show.
+
+  Leave the images empty to use the bundled Banks artwork, cut from the
+  live site's Banks banner (assets/ori-promo-banks-logo.png and
+  assets/ori-promo-banks-parts.webp). Pick other images for another brand.
+{%- endcomment -%}
+{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
+{%- render 'ori-fonts' -%}
+{%- liquid
+  assign logo_alt = section.settings.logo_alt | default: 'Banks'
+  assign media_alt = section.settings.media_alt | default: 'Banks Ram-Air intake, intercooler pipe, diff cover and intake elbow'
+-%}
+<div
+  class="ori ori-section ori-promo"
+  style="--ori-pt: {{ section.settings.padding_top }}px; --ori-pb: {{ section.settings.padding_bottom }}px; --ori-promo-bg: {{ section.settings.background }}; --ori-promo-strip: {{ section.settings.strip_color }};"
+>
+  <div class="ori-wrap">
+    <div class="ori-promo__box">
+      <div class="ori-promo__copy">
+        <h2 class="ori-promo__logo">
+          {%- if section.settings.logo != blank -%}
+            {{
+              section.settings.logo
+              | image_url: width: 900
+              | image_tag: loading: 'lazy', widths: '450, 700, 900', sizes: '(min-width: 860px) 420px, 80vw', alt: logo_alt
+            }}
+          {%- else -%}
+            <img
+              src="{{ 'ori-promo-banks-logo.png' | asset_url }}"
+              alt="{{ logo_alt | escape }}"
+              width="683"
+              height="190"
+              loading="lazy"
+            >
+          {%- endif -%}
+        </h2>
+        {%- if section.settings.strip_text != blank -%}
+          <p class="ori-promo__strip">{{ section.settings.strip_text }}</p>
+        {%- endif -%}
+        {%- if section.settings.text != blank -%}
+          <p class="ori-promo__text">{{ section.settings.text }}</p>
+        {%- endif -%}
+        {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
+          <a class="ori-btn ori-btn--teal" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a>
+        {%- endif -%}
+      </div>
+      <div class="ori-promo__media">
+        {%- if section.settings.media != blank -%}
+          {{
+            section.settings.media
+            | image_url: width: 1100
+            | image_tag: loading: 'lazy', widths: '550, 800, 1100', sizes: '(min-width: 860px) 45vw, 100vw', alt: media_alt
+          }}
+        {%- else -%}
+          <img
+            src="{{ 'ori-promo-banks-parts.webp' | asset_url }}"
+            alt="{{ media_alt | escape }}"
+            width="1051"
+            height="560"
+            loading="lazy"
+          >
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "ORI Brand promo",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo",
+      "info": "Light logo on a transparent background. Leave empty for the bundled Banks logo."
+    },
+    { "type": "text", "id": "logo_alt", "label": "Logo alt text", "default": "Banks" },
+    { "type": "text", "id": "strip_text", "label": "Strip text", "default": "Now stocking" },
+    { "type": "color", "id": "strip_color", "label": "Strip colour", "default": "#f2c230" },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "Ram-Air intakes, intercooler pipes and diff covers for Ram, Silverado and F-series — in stock in Australia."
+    },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop Banks" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    {
+      "type": "image_picker",
+      "id": "media",
+      "label": "Product image",
+      "info": "Transparent cut-out. Leave empty for the bundled Banks parts."
+    },
+    { "type": "text", "id": "media_alt", "label": "Product image alt text" },
+    { "type": "color", "id": "background", "label": "Card background", "default": "#15191b" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 96 }
+  ],
+  "presets": [{ "name": "ORI Brand promo" }]
+}
+{% endschema %}

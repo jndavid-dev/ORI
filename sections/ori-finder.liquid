@@ -1,0 +1,146 @@
+{%- comment -%}
+  ORI redesign — Shop by vehicle finder (static).
+  A stand-in for the Easy Search app the live site uses: Year → Make →
+  Model, then "Show parts". When the app is styled on live this section
+  can be removed. Makes are blocks; each make lists its models one per
+  line, optionally with a link after a pipe:
+    Silverado 1500 | /collections/chevrolet-silverado-1500
+  A model with a link goes straight there; without one, the button runs a
+  product search for "year make model". Works without JavaScript as far
+  as the year and make lists (assets/ori-home.js fills the models).
+  "Overlap the section above" pulls the box up over the hero's bottom
+  edge, as in the mockup.
+{%- endcomment -%}
+{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
+{%- render 'ori-fonts' -%}
+{%- liquid
+  assign makes = section.blocks | where: 'type', 'make'
+  assign year_to = section.settings.year_to | default: 2026
+  assign year_from = section.settings.year_from | default: 2011
+  assign uid = 'ori-finder-' | append: section.id
+-%}
+<div
+  class="ori ori-finder{% if section.settings.overlap %} ori-finder--overlap{% endif %}"
+  style="--ori-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="ori-wrap">
+    <form class="ori-finder__box" action="{{ routes.search_url }}" method="get" data-ori-finder>
+      <input type="hidden" name="type" value="product">
+      <input type="hidden" name="q" value="" data-finder-q>
+      {%- if section.settings.heading != blank -%}
+        <h2 class="ori-finder__title">
+          {{- section.settings.heading -}}
+          {%- if section.settings.subheading != blank -%}
+            <small>{{ section.settings.subheading }}</small>
+          {%- endif -%}
+        </h2>
+      {%- endif -%}
+      <div class="ori-finder__field">
+        <label for="{{ uid }}-yr">Year</label>
+        <select id="{{ uid }}-yr" data-finder-year>
+          <option value="">Select year</option>
+          {%- for y in (year_from..year_to) reversed -%}
+            <option value="{{ y }}">{{ y }}</option>
+          {%- endfor -%}
+        </select>
+      </div>
+      <div class="ori-finder__field">
+        <label for="{{ uid }}-mk">Make</label>
+        <select id="{{ uid }}-mk" data-finder-make disabled>
+          <option value="">Select make</option>
+          {%- for block in makes -%}
+            {%- if block.settings.name != blank -%}
+              <option value="{{ forloop.index0 }}" {{ block.shopify_attributes }}>{{ block.settings.name | escape }}</option>
+            {%- endif -%}
+          {%- endfor -%}
+        </select>
+      </div>
+      <div class="ori-finder__field">
+        <label for="{{ uid }}-md">Model</label>
+        <select id="{{ uid }}-md" data-finder-model disabled>
+          <option value="">Select model</option>
+        </select>
+      </div>
+      <button class="ori-btn ori-btn--teal ori-finder__btn" type="submit" data-finder-btn data-label="{{ section.settings.button_label | escape }}">
+        {{- section.settings.button_label -}}
+      </button>
+      <script type="application/json" data-finder-data>
+        [
+          {%- for block in makes -%}
+            {%- if block.settings.name != blank -%}
+              {%- unless forloop.first -%},{%- endunless -%}
+              {"name": {{ block.settings.name | json }}, "models": [
+                {%- assign lines = block.settings.models | newline_to_br | split: '<br />' -%}
+                {%- assign first = true -%}
+                {%- for raw in lines -%}
+                  {%- assign line = raw | strip -%}
+                  {%- if line == blank -%}{%- continue -%}{%- endif -%}
+                  {%- assign m_name = line | split: '|' | first | strip -%}
+                  {%- assign m_url = '' -%}
+                  {%- if line contains '|' -%}
+                    {%- assign m_url = line | split: '|' | last | strip -%}
+                  {%- endif -%}
+                  {%- unless first -%},{%- endunless -%}
+                  {"name": {{ m_name | json }}, "url": {{ m_url | json }}}
+                  {%- assign first = false -%}
+                {%- endfor -%}
+              ]}
+            {%- endif -%}
+          {%- endfor -%}
+        ]
+      </script>
+    </form>
+  </div>
+</div>
+<script src="{{ 'ori-home.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "ORI Vehicle finder",
+  "class": "ori-finder-section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Static Year / Make / Model finder in the ORI design — a stand-in for the Easy Search app."
+    },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Shop by vehicle" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Only see parts that fit." },
+    { "type": "number", "id": "year_from", "label": "Oldest year", "default": 2011 },
+    { "type": "number", "id": "year_to", "label": "Newest year", "default": 2026 },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Show parts" },
+    {
+      "type": "checkbox",
+      "id": "overlap",
+      "label": "Overlap the section above",
+      "info": "Pulls the finder up over the bottom edge of the hero.",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "make",
+      "name": "Make",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Make", "default": "Chevrolet" },
+        {
+          "type": "textarea",
+          "id": "models",
+          "label": "Models",
+          "info": "One per line. Add a link after a pipe to go straight to a collection: Silverado 1500 | /collections/chevrolet-silverado-1500"
+        }
+      ]
+    }
+  ],
+  "presets": [{ "name": "ORI Vehicle finder" }]
+}
+{% endschema %}

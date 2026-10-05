@@ -4353,6 +4353,11 @@ a.ori-vcard:hover .ori-vcard__btn svg {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  /* An odd last figure takes the full row instead of leaving a blank cell. */
+  .ori-fig:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
   .ori-fig dd {
     font-size: 23px;
   }
@@ -4728,5 +4733,761 @@ a.ori-vcard:hover .ori-vcard__btn svg {
 
   .ori-recent__track {
     grid-auto-columns: 72%;
+  }
+}
+
+
+/* ==========================================================
+   ORI REDESIGN — HOME: VEHICLE FINDER (sections/ori-finder.liquid)
+   Static stand-in for the Easy Search app. With "Overlap" on, the
+   box rides up over the hero's bottom edge and the hero gets the
+   extra bottom room so its copy isn't covered.
+   ========================================================== */
+.ori-finder {
+  position: relative;
+  z-index: 2;
+  padding-bottom: var(--ori-pb, 0);
+}
+
+.ori-finder--overlap {
+  margin-top: -66px;
+}
+
+.shopify-section:has(+ .shopify-section .ori-finder--overlap) .ori-hero__in {
+  padding-bottom: 132px;
+}
+
+.ori-finder__box {
+  display: grid;
+  grid-template-columns: auto repeat(3, minmax(0, 1fr)) auto;
+  gap: 14px;
+  align-items: end;
+  padding: 26px 28px;
+  border: 1px solid #334044;
+  border-radius: 6px;
+  background: var(--ori-chassis);
+  color: #fff;
+  box-shadow: 0 24px 48px -24px rgba(0, 0, 0, 0.45);
+}
+
+.ori .ori-finder__title {
+  margin: 0 18px 6px 0;
+  font-size: 30px;
+}
+
+.ori-finder__title small {
+  display: block;
+  margin-top: 6px;
+  color: #9fb0b4;
+  font-family: var(--ori-body);
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: none;
+}
+
+.ori-finder__field label {
+  display: block;
+  margin-bottom: 6px;
+  color: #aeb9bc;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.ori-finder__field select {
+  width: 100%;
+  height: 52px;
+  margin: 0;
+  padding: 0 38px 0 14px;
+  border: 1px solid #3a4447;
+  border-radius: 4px;
+  background-color: #252d30;
+  background-image: linear-gradient(45deg, transparent 50%, #9fb0b4 50%), linear-gradient(135deg, #9fb0b4 50%, transparent 50%);
+  background-position: calc(100% - 20px) 23px, calc(100% - 15px) 23px;
+  background-repeat: no-repeat;
+  background-size: 5px 5px;
+  color: #fff;
+  font: 500 16px var(--ori-body);
+  appearance: none;
+}
+
+.ori-finder__field select:disabled {
+  opacity: 0.45;
+}
+
+.ori-finder__btn {
+  height: 52px;
+  min-height: 52px;
+  white-space: nowrap;
+}
+
+@media (max-width: 1100px) {
+  .ori-finder__box {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .ori-finder__title,
+  .ori-finder__btn {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 620px) {
+  .ori-finder__box {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 22px 18px;
+  }
+
+  .ori-finder--overlap {
+    margin-top: -48px;
+  }
+
+  .shopify-section:has(+ .shopify-section .ori-finder--overlap) .ori-hero__in {
+    padding-bottom: 96px;
+  }
+}
+
+/* ==========================================================
+   ORI REDESIGN — HOME: SHOP BY TRUCK (sections/ori-trucks.liquid)
+   ========================================================== */
+.ori-trucks__grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ori-truck {
+  display: flex;
+  flex-direction: column;
+  padding: 18px;
+  border-radius: 6px;
+  background: var(--ori-bone);
+}
+
+.ori-truck__img img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.ori .ori-truck__title {
+  margin: 10px 0 8px;
+  font-size: 30px;
+}
+
+.ori-truck__title a {
+  text-decoration: none;
+}
+
+.ori-truck__links {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  font-size: 15px;
+  list-style: none;
+}
+
+.ori-truck__links a {
+  color: var(--ori-steel);
+  text-decoration: none;
+}
+
+.ori-truck__links a:hover {
+  color: var(--ori-ink);
+  text-decoration: underline;
+}
+
+@media (max-width: 1100px) {
+  .ori-trucks__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .ori-trucks__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .ori-truck {
+    padding: 14px;
+  }
+
+  .ori .ori-truck__title {
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 380px) {
+  .ori-trucks__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ==========================================================
+   ORI REDESIGN — HOME: GVM UPGRADES (sections/ori-home-gvm.liquid)
+   Dark band. Copy + vehicle tabs left, the selected vehicle's
+   figures card right (the simple .ori-figs row, recoloured for the
+   dark band), stage bar and buttons inside the card.
+   ========================================================== */
+.ori-hgvm {
+  background: var(--ori-chassis);
+  color: #eef1f1;
+}
+
+.ori-hgvm__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 64px;
+  align-items: center;
+}
+
+.ori-hgvm .ori-h2 {
+  color: #fff;
+}
+
+.ori-hgvm__intro {
+  max-width: 520px;
+  margin-top: 16px !important;
+  color: #b7c3c6;
+  font-size: 18px;
+}
+
+.ori-hgvm__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 28px;
+}
+
+.ori .ori-hgvm__tab {
+  padding: 9px 16px;
+  border: 1px solid #435055;
+  border-radius: 40px;
+  color: #dfe6e7;
+  font-family: var(--ori-body) !important;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.ori .ori-hgvm__tab:hover {
+  border-color: var(--ori-teal);
+}
+
+.ori .ori-hgvm__tab[aria-selected="true"] {
+  border-color: var(--ori-teal);
+  background: var(--ori-teal);
+  color: #fff;
+}
+
+.ori-hgvm__card {
+  display: grid;
+  gap: 22px;
+  padding: 30px;
+  border: 1px solid #334044;
+  border-radius: 8px;
+  background: #222a2d;
+}
+
+.ori-hgvm__card-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 16px;
+}
+
+.ori .ori-hgvm__model {
+  font-size: 30px;
+}
+
+.ori-hgvm__years {
+  color: #9fb0b4;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.ori-hgvm .ori-figs {
+  border-color: #3a4549;
+  background: #3a4549;
+}
+
+.ori-hgvm .ori-fig {
+  background: #1b2225;
+}
+
+.ori-hgvm .ori-fig dt {
+  color: #9fb0b4;
+}
+
+.ori-hgvm .ori-fig dd {
+  color: #fff;
+  font-size: 30px;
+}
+
+.ori-hgvm .ori-fig dd s {
+  display: block;
+  margin: 0 0 2px;
+  color: #7f9094;
+  font-size: 16px;
+}
+
+.ori-hgvm__stages {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ori-hgvm__stages li {
+  padding-top: 10px;
+  border-top: 4px solid #3a4549;
+  color: #8fa0a4;
+  font-size: 13px;
+  line-height: 1.3;
+}
+
+.ori-hgvm__stages b {
+  display: block;
+  color: #7f9094;
+  font-family: var(--ori-display);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.ori-hgvm__stages li.is-on {
+  border-color: var(--ori-teal);
+  color: #b7c3c6;
+}
+
+.ori-hgvm__stages li.is-on b {
+  color: #fff;
+}
+
+.ori-hgvm__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.ori-hgvm__note {
+  margin-top: 14px !important;
+  color: #8fa0a4;
+  font-size: 13px;
+}
+
+@media (max-width: 980px) {
+  .ori-hgvm__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+}
+
+@media (max-width: 560px) {
+  .ori-hgvm__card {
+    padding: 22px 18px;
+  }
+
+  .ori-hgvm__stages {
+    gap: 4px;
+  }
+
+  .ori-hgvm__stages li {
+    font-size: 11px;
+  }
+
+  .ori-hgvm__stages b {
+    font-size: 16px;
+  }
+
+  .ori-hgvm__ctas .ori-btn {
+    flex: 1 1 100%;
+  }
+}
+
+/* ==========================================================
+   ORI REDESIGN — HOME: BRAND PROMO (sections/ori-promo.liquid)
+   The product cut-out sits on the card's bottom edge; its left side
+   fades into the card so cropped edges in the artwork disappear.
+   ========================================================== */
+.ori-promo__box {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  min-height: 340px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--ori-promo-bg, #15191b);
+  color: #fff;
+}
+
+.ori-promo__copy {
+  align-self: center;
+  padding: 48px;
+}
+
+.ori-promo__logo img {
+  width: clamp(220px, 28vw, 400px);
+  height: auto;
+}
+
+.ori-promo__strip {
+  display: inline-block;
+  margin: 16px 0 22px !important;
+  padding: 6px 16px;
+  background: var(--ori-promo-strip, #f2c230);
+  color: #15191b;
+  font-family: var(--ori-display);
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.ori-promo__text {
+  max-width: 420px;
+  margin-bottom: 26px !important;
+  color: #b7c3c6;
+}
+
+.ori-promo__media {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding-top: 28px;
+}
+
+.ori-promo__media img {
+  width: 100%;
+  height: auto;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 22%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 22%);
+}
+
+@media (max-width: 860px) {
+  .ori-promo__box {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ori-promo__copy {
+    padding: 36px 24px 8px;
+  }
+
+  .ori-promo__media img {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .ori-promo__strip {
+    font-size: 18px;
+    letter-spacing: 0.16em;
+  }
+}
+
+/* ==========================================================
+   ORI REDESIGN — HOME: DEALER CARDS (sections/ori-dealer-cards.liquid)
+   ========================================================== */
+.ori-dealers {
+  background: var(--ori-teal);
+  color: #fff;
+}
+
+.ori-dealers__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ori-dealer {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.ori .ori-dealer__title {
+  font-size: 38px;
+}
+
+.ori-dealer__text {
+  max-width: 440px;
+}
+
+.ori-dealer__btn {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+.ori-dealer__btn--light {
+  background: #fff;
+  color: var(--ori-ink);
+}
+
+.ori-dealer__btn--dark {
+  background: var(--ori-ink);
+  color: #fff;
+}
+
+.ori-dealer__btn:hover {
+  opacity: 0.9;
+}
+
+@media (max-width: 900px) {
+  .ori-dealers__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .ori-dealer {
+    padding: 26px 22px;
+  }
+
+  .ori-dealer__btn {
+    align-self: stretch;
+  }
+}
+
+/* ==========================================================
+   ORI REDESIGN — PRODUCTS BUNDLE (sections/products-bundle.liquid
+   when its Custom class contains "ori-bundle")
+   CSS over the theme's own markup; hotspots, variant selects and
+   Add all to cart are untouched. Hooked on .ori-bundle rather than
+   .ori so the .ori button reset can't reach the theme's button.
+   ========================================================== */
+.ori-bundle {
+  color: var(--ori-ink);
+  font-family: var(--ori-body);
+}
+
+.ori-bundle .products-bundle__grid {
+  gap: 48px;
+}
+
+@media (min-width: 1024px) {
+  .ori-bundle .products-bundle__grid-item {
+    flex: 1;
+  }
+
+  .ori-bundle .products-bundle__grid-item.f-card {
+    flex: 1.25;
+  }
+}
+
+.ori-bundle .products-bundle__content {
+  display: flex;
+  flex-direction: column;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.ori-bundle .products-bundle__heading {
+  order: 0;
+  margin: 0;
+  font-family: var(--ori-display) !important;
+  font-size: clamp(38px, 4.4vw, 60px);
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 0.95;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.ori-bundle .products-bundle__heading p {
+  margin: 0;
+}
+
+.ori-bundle .products-bundle__subheading {
+  order: 1;
+  margin: 10px 0 0;
+  color: var(--ori-steel);
+  font-size: 17px;
+  letter-spacing: 0;
+  text-align: left;
+  text-transform: none;
+}
+
+.ori-bundle .products-bundle__link {
+  order: 2;
+  align-self: flex-start;
+  margin-top: 14px;
+  color: var(--ori-ink);
+}
+
+.ori-bundle .products-bundle__products {
+  order: 3;
+  margin-top: 28px;
+}
+
+.ori-bundle .products-bundle__product-wrapper {
+  border-top: 1px solid var(--ori-line);
+}
+
+.ori-bundle .products-bundle__product-wrap,
+.ori-bundle .products-bundle__product-wrap:first-child,
+.ori-bundle .products-bundle__product-wrap:last-child {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--ori-line);
+}
+
+.ori-bundle .products-bundle__count {
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--ori-line);
+  background: #fff;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.ori-bundle .products-bundle__image-wrapper {
+  width: 76px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--ori-bone);
+}
+
+/* Square thumbnails whatever the product image ratio. */
+.ori-bundle .products-bundle__image-wrapper .f-image {
+  aspect-ratio: 1 / 1;
+  height: auto;
+  padding: 0;
+}
+
+.ori-bundle .products-bundle__image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.ori-bundle .products-bundle__product-title {
+  font-family: var(--ori-body) !important;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.3;
+  text-transform: none;
+}
+
+.ori-bundle .products-bundle__product-title a {
+  color: var(--ori-ink);
+  text-decoration: none;
+}
+
+.ori-bundle .products-bundle__product-title a:hover {
+  text-decoration: underline;
+}
+
+.ori-bundle .products-bundle__price .f-price-item {
+  font-family: var(--ori-display);
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.ori-bundle .products-bundle__price .f-price__sale .f-price-item--regular {
+  color: var(--ori-steel);
+  font-family: var(--ori-body);
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.ori-bundle .products-bundle__price .f-price--on-sale .f-price-item--sale {
+  color: var(--ori-sale);
+}
+
+.ori-bundle .products-bundle__product-option select {
+  height: 36px;
+  min-height: 36px;
+  margin-top: 8px;
+  padding: 0 30px 0 10px;
+  border: 1px solid var(--ori-line);
+  border-radius: 4px;
+  background-color: #fff;
+  font-size: 14px;
+}
+
+.ori-bundle .products-bundle.is-hover .products-bundle__product:not(.is-active) {
+  opacity: 0.45 !important;
+}
+
+.ori-bundle .products-bundle__action {
+  margin-top: 22px;
+}
+
+.ori-bundle .products-bundle__button-atc {
+  min-height: 54px;
+  border: 2px solid var(--ori-teal);
+  border-radius: 4px;
+  background: var(--ori-teal);
+  color: #fff;
+  font-family: var(--ori-display) !important;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.ori-bundle .products-bundle__button-atc:hover {
+  border-color: var(--ori-teal-deep);
+  background: var(--ori-teal-deep);
+}
+
+/* The big photo (the list thumbnails share the class, so scope to f-card). */
+.ori-bundle .f-card > .products-bundle__image {
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--ori-bone);
+}
+
+.ori-bundle .products-bundle__product .products-bundle__image {
+  gap: 0 14px;
+}
+
+.ori-bundle .f-lookbook-card__pin-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 6px rgba(63, 179, 186, 0.5);
+  color: var(--ori-ink) !important;
+  font-weight: 700;
+}
+
+.ori-bundle .f-lookbook-card__pin:hover .f-lookbook-card__pin-icon,
+.ori-bundle .f-lookbook-card__pin.is-active .f-lookbook-card__pin-icon {
+  background: var(--ori-teal) !important;
+  color: #fff !important;
+}
+
+@media (max-width: 1023px) {
+  .ori-bundle .products-bundle__grid {
+    gap: 28px;
+  }
+
+  .ori-bundle .products-bundle__content {
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .ori-bundle .products-bundle__image-wrapper {
+    width: 60px;
   }
 }

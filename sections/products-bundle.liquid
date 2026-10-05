@@ -1,7 +1,20 @@
 {{ 'products-bundle.css' | asset_url | stylesheet_tag }}
 {{ 'component-lookbook-card.css' | asset_url | stylesheet_tag }}
+{%- comment -%}
+  ORI redesign, opt-in: Custom class containing "ori-bundle" restyles this
+  section (ORI REDESIGN — PRODUCTS BUNDLE in assets/gvm-css-main.css) and
+  shows the optional heading link. Markup, hotspots, variant selects and
+  Add all to cart are the theme's, unchanged.
+{%- endcomment -%}
+{%- if section.settings.custom_class contains 'ori-bundle' -%}
+  {{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
+  {%- render 'ori-fonts' -%}
+{%- endif -%}
 {%- liquid
   assign section_class = 'f-section-padding color-' | append: section.settings.color_schema
+  if section.settings.custom_class != blank
+    assign section_class = section_class | append: ' ' | append: section.settings.custom_class
+  endif
   assign main_class = 'products-bundle block ' | append: section.settings.container
   assign image_position = section.settings.image_position
   assign desktop_content_position = section.settings.desktop_content_position
@@ -64,6 +77,9 @@
               </motion-element>
             </h2>
             {%- assign motion_delay = motion_delay | plus: 50 -%}
+          {%- endif -%}
+          {%- if section.settings.custom_class contains 'ori-bundle' and section.settings.link_label != blank and section.settings.link != blank -%}
+            <a class="ori-link products-bundle__link" href="{{ section.settings.link }}">{{ section.settings.link_label }}</a>
           {%- endif -%}
           {%- assign has_products = false -%}
           <div class="products-bundle__products">
@@ -613,6 +629,17 @@
       "type": "text",
       "id": "custom_class",
       "label": "t:sections.common.custom_attr.custom_class"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Heading link label",
+      "info": "ORI design only (Custom class ori-bundle)."
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Heading link"
     },
     {
       "type": "header",

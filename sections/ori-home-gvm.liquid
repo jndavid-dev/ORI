@@ -1,0 +1,219 @@
+{%- comment -%}
+  ORI redesign — GVM upgrades band for the home page. Dark band: heading,
+  intro and vehicle tabs on the left; the selected vehicle's figures card
+  on the right (GVM / GCM old → new, towing), a stage bar showing how many
+  stages it offers, and its buttons.
+
+  Figures are metafield-first: pick the vehicle's top-stage GVM product
+  and the card reads its original_gvm / upgraded_gvm / original_gcm /
+  upgraded_gcm / towing metafields (variant, then product; custom then
+  ori namespace — same lookup as sections/ori-gvm-product.liquid). The
+  typed values are the fallback for anything the product doesn't have.
+
+  Every vehicle panel is rendered server-side; assets/ori-home.js only
+  switches tabs, so there's no templating in JavaScript.
+{%- endcomment -%}
+{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
+{%- render 'ori-fonts' -%}
+{%- liquid
+  assign vehicles = section.blocks | where: 'type', 'vehicle'
+  assign stage_labels = section.settings.stage_labels | split: ','
+  assign uid = 'ori-hgvm-' | append: section.id
+-%}
+<div
+  class="ori ori-section ori-hgvm"
+  style="--ori-pt: {{ section.settings.padding_top }}px; --ori-pb: {{ section.settings.padding_bottom }}px;"
+  data-ori-tabs
+>
+  <div class="ori-wrap ori-hgvm__grid">
+    <div class="ori-hgvm__copy">
+      <h2 class="ori-h2">
+        {%- if section.settings.heading_1 != blank -%}
+          <span class="ori-accent">{{ section.settings.heading_1 }}</span>
+        {%- endif -%}
+        {{- section.settings.heading_2 -}}
+      </h2>
+      {%- if section.settings.intro != blank -%}
+        <p class="ori-hgvm__intro">{{ section.settings.intro }}</p>
+      {%- endif -%}
+      {%- if vehicles.size > 1 -%}
+        <div class="ori-hgvm__tabs" role="tablist" aria-label="Choose vehicle">
+          {%- for block in vehicles -%}
+            <button
+              type="button"
+              class="ori-hgvm__tab"
+              role="tab"
+              id="{{ uid }}-tab-{{ forloop.index }}"
+              aria-controls="{{ uid }}-panel-{{ forloop.index }}"
+              aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+              {% unless forloop.first %}tabindex="-1"{% endunless %}
+              {{ block.shopify_attributes }}
+            >
+              {{- block.settings.name -}}
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="ori-hgvm__panels">
+      {%- for block in vehicles -%}
+        {%- liquid
+          assign p = block.settings.product
+          assign f_gvm_old = block.settings.original_gvm
+          assign f_gvm_new = block.settings.upgraded_gvm
+          assign f_gcm_old = block.settings.original_gcm
+          assign f_gcm_new = block.settings.upgraded_gcm
+          assign f_tow = block.settings.towing
+          if p != blank
+            assign v = p.selected_or_first_available_variant
+            assign vmf = v.metafields.custom
+            assign vmfo = v.metafields.ori
+            assign mf = p.metafields.custom
+            assign mfo = p.metafields.ori
+            assign f_gvm_old = vmf.original_gvm.value | default: vmfo.original_gvm.value | default: mf.original_gvm.value | default: mfo.original_gvm.value | default: f_gvm_old
+            assign f_gvm_new = vmf.upgraded_gvm.value | default: vmfo.upgraded_gvm.value | default: mf.upgraded_gvm.value | default: mfo.upgraded_gvm.value | default: f_gvm_new
+            assign f_gcm_old = vmf.original_gcm.value | default: vmfo.original_gcm.value | default: mf.original_gcm.value | default: mfo.original_gcm.value | default: f_gcm_old
+            assign f_gcm_new = vmf.upgraded_gcm.value | default: vmfo.upgraded_gcm.value | default: mf.upgraded_gcm.value | default: mfo.upgraded_gcm.value | default: f_gcm_new
+            assign f_tow = vmf.towing.value | default: vmfo.towing.value | default: mf.towing.value | default: mfo.towing.value | default: mf.braked_towing.value | default: mfo.braked_towing.value | default: f_tow
+          endif
+          assign link = block.settings.link | default: p.url
+          assign stages_on = block.settings.stages | default: 0
+        -%}
+        <div
+          class="ori-hgvm__panel"
+          role="tabpanel"
+          id="{{ uid }}-panel-{{ forloop.index }}"
+          {% if vehicles.size > 1 %}aria-labelledby="{{ uid }}-tab-{{ forloop.index }}"{% endif %}
+          {% unless forloop.first %}hidden{% endunless %}
+        >
+          <div class="ori-hgvm__card">
+            <div class="ori-hgvm__card-head">
+              <h3 class="ori-hgvm__model">{{ block.settings.title | default: block.settings.name }}</h3>
+              {%- if block.settings.years != blank -%}
+                <span class="ori-hgvm__years">{{ block.settings.years }}</span>
+              {%- endif -%}
+            </div>
+            <dl class="ori-figs ori-hgvm__figs">
+              {%- if f_gvm_new != blank or f_gvm_old != blank -%}
+                <div class="ori-fig">
+                  <dt>GVM</dt>
+                  <dd>
+                    {%- if f_gvm_old != blank and f_gvm_new != blank and f_gvm_old != f_gvm_new -%}
+                      <s>{{ f_gvm_old }}</s>
+                    {%- endif -%}
+                    {{- f_gvm_new | default: f_gvm_old -}}
+                  </dd>
+                </div>
+              {%- endif -%}
+              {%- if f_gcm_new != blank or f_gcm_old != blank -%}
+                <div class="ori-fig">
+                  <dt>GCM</dt>
+                  <dd>
+                    {%- if f_gcm_old != blank and f_gcm_new != blank and f_gcm_old != f_gcm_new -%}
+                      <s>{{ f_gcm_old }}</s>
+                    {%- endif -%}
+                    {{- f_gcm_new | default: f_gcm_old -}}
+                  </dd>
+                </div>
+              {%- endif -%}
+              {%- if f_tow != blank -%}
+                <div class="ori-fig"><dt>Towing</dt><dd>{{ f_tow }}</dd></div>
+              {%- endif -%}
+            </dl>
+            {%- if stage_labels.size > 0 and stages_on > 0 -%}
+              <ol class="ori-hgvm__stages" aria-label="{{ stages_on }} of {{ stage_labels.size }} stages available">
+                {%- for label in stage_labels -%}
+                  <li{% if forloop.index <= stages_on %} class="is-on"{% endif %}>
+                    <b>Stage {{ forloop.index }}</b>{{ label | strip }}
+                  </li>
+                {%- endfor -%}
+              </ol>
+            {%- endif -%}
+            <div class="ori-hgvm__ctas">
+              {%- if link != blank -%}
+                <a class="ori-btn ori-btn--teal" href="{{ link }}">
+                  {{- section.settings.button_prefix }} {{ block.settings.name }} {{ section.settings.button_suffix -}}
+                </a>
+              {%- endif -%}
+              {%- if section.settings.ghost_label != blank and section.settings.ghost_link != blank -%}
+                <a class="ori-btn ori-btn--ghost" href="{{ section.settings.ghost_link }}">{{ section.settings.ghost_label }}</a>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+      {%- if section.settings.note != blank -%}
+        <p class="ori-hgvm__note">{{ section.settings.note }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+<script src="{{ 'ori-home.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "ORI Home GVM upgrades",
+  "settings": [
+    { "type": "text", "id": "heading_1", "label": "Heading (teal)", "default": "GVM upgrades" },
+    { "type": "text", "id": "heading_2", "label": "Heading (white)", "default": "that go on the plate" },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Intro",
+      "default": "Staged, federally approved packages that raise your legal carrying and towing limits — tested to ADR and certified, not just a spring swap."
+    },
+    {
+      "type": "text",
+      "id": "stage_labels",
+      "label": "Stage names",
+      "info": "Comma separated, in order. Each vehicle lights up as many as its \"Stages offered\".",
+      "default": "Springs, Shocks, Brakes, Tow rating, Full build"
+    },
+    { "type": "text", "id": "button_prefix", "label": "Button text before vehicle name", "default": "View" },
+    { "type": "text", "id": "button_suffix", "label": "Button text after vehicle name", "default": "packages" },
+    { "type": "text", "id": "ghost_label", "label": "Second button label", "default": "Book a consult" },
+    { "type": "url", "id": "ghost_link", "label": "Second button link" },
+    { "type": "text", "id": "note", "label": "Fine print under the card" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 88 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 88 }
+  ],
+  "blocks": [
+    {
+      "type": "vehicle",
+      "name": "Vehicle",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Tab name", "default": "Silverado 1500" },
+        { "type": "text", "id": "title", "label": "Full name", "default": "Chevrolet Silverado 1500" },
+        { "type": "text", "id": "years", "label": "Years / trims", "default": "2019 – 2026 · LTZ, Trail Boss, ZR2" },
+        { "type": "url", "id": "link", "label": "Packages link", "info": "Defaults to the GVM product below." },
+        {
+          "type": "range",
+          "id": "stages",
+          "label": "Stages offered",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "default": 3
+        },
+        {
+          "type": "header",
+          "content": "Figures"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "GVM product (figures from metafields)",
+          "info": "Usually the top stage. Its GVM/GCM/towing metafields are used first; the fields below fill any gaps."
+        },
+        { "type": "text", "id": "original_gvm", "label": "Factory GVM", "placeholder": "3,493 kg" },
+        { "type": "text", "id": "upgraded_gvm", "label": "Upgraded GVM", "placeholder": "4,300 kg" },
+        { "type": "text", "id": "original_gcm", "label": "Factory GCM", "placeholder": "7,400 kg" },
+        { "type": "text", "id": "upgraded_gcm", "label": "Upgraded GCM", "placeholder": "8,750 kg" },
+        { "type": "text", "id": "towing", "label": "Braked towing", "placeholder": "4,500 kg" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "ORI Home GVM upgrades" }]
+}
+{% endschema %}

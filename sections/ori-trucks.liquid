@@ -1,0 +1,100 @@
+{%- comment -%}
+  ORI redesign — Shop by truck. A card per make: product image on the bone
+  tile, the make as a heading (optionally linked) and up to four model
+  links. Five across on desktop, three on tablet, two on mobile, one on
+  very small screens. Optional "view all" link beside the heading.
+{%- endcomment -%}
+{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
+{%- render 'ori-fonts' -%}
+{%- assign trucks = section.blocks | where: 'type', 'truck' -%}
+<div
+  class="ori ori-section ori-trucks"
+  style="--ori-pt: {{ section.settings.padding_top }}px; --ori-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="ori-wrap">
+    {%- if section.settings.heading != blank or section.settings.link_label != blank -%}
+      <div class="ori-head">
+        <div>
+          {%- if section.settings.heading != blank -%}
+            <h2 class="ori-h2">{{ section.settings.heading }}</h2>
+          {%- endif -%}
+          {%- if section.settings.intro != blank -%}
+            <p class="ori-head__intro">{{ section.settings.intro }}</p>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.link_label != blank and section.settings.link != blank -%}
+          <a class="ori-link" href="{{ section.settings.link }}">{{ section.settings.link_label }}</a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+    <ul class="ori-trucks__grid" role="list">
+      {%- for block in trucks -%}
+        <li class="ori-truck" {{ block.shopify_attributes }}>
+          <div class="ori-truck__img">
+            {%- if block.settings.image != blank -%}
+              {{
+                block.settings.image
+                | image_url: width: 600
+                | image_tag: loading: 'lazy', widths: '300, 450, 600', sizes: '(min-width: 1100px) 260px, (min-width: 600px) 30vw, 45vw', alt: ''
+              }}
+            {%- endif -%}
+          </div>
+          {%- if block.settings.title != blank -%}
+            <h3 class="ori-truck__title">
+              {%- if block.settings.url != blank -%}
+                <a href="{{ block.settings.url }}">{{ block.settings.title }}</a>
+              {%- else -%}
+                {{ block.settings.title }}
+              {%- endif -%}
+            </h3>
+          {%- endif -%}
+          <ul class="ori-truck__links" role="list">
+            {%- for i in (1..4) -%}
+              {%- liquid
+                assign lk = 'link_' | append: i
+                assign lb = 'link_' | append: i | append: '_label'
+              -%}
+              {%- if block.settings[lb] != blank and block.settings[lk] != blank -%}
+                <li><a href="{{ block.settings[lk] }}">{{ block.settings[lb] }}</a></li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "ORI Shop by truck",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Shop by truck" },
+    { "type": "text", "id": "intro", "label": "Intro", "default": "Parts sorted by make, model and year." },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "All American trucks" },
+    { "type": "url", "id": "link", "label": "Link" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 72 }
+  ],
+  "blocks": [
+    {
+      "type": "truck",
+      "name": "Truck make",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "A product cut-out on white or transparent works best." },
+        { "type": "text", "id": "title", "label": "Make", "default": "Chevrolet" },
+        { "type": "url", "id": "url", "label": "Make link" },
+        { "type": "text", "id": "link_1_label", "label": "Model 1" },
+        { "type": "url", "id": "link_1", "label": "Model 1 link" },
+        { "type": "text", "id": "link_2_label", "label": "Model 2" },
+        { "type": "url", "id": "link_2", "label": "Model 2 link" },
+        { "type": "text", "id": "link_3_label", "label": "Model 3" },
+        { "type": "url", "id": "link_3", "label": "Model 3 link" },
+        { "type": "text", "id": "link_4_label", "label": "Model 4" },
+        { "type": "url", "id": "link_4", "label": "Model 4 link" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "ORI Shop by truck" }]
+}
+{% endschema %}
