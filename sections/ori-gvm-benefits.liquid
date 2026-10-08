@@ -36,7 +36,35 @@
             {%- endif -%}
             <h3 class="ori-benefit__title">{{ block.settings.text }}</h3>
             {%- if block.settings.note != blank -%}
-              <p class="ori-benefit__note">{{ block.settings.note | newline_to_br }}</p>
+              {%- comment -%}
+                Each line is a paragraph (blank lines just separate them). A
+                short label before a colon at the start of a line, e.g.
+                "BDS Suspension: …" or a line that is only "Peace of Mind:",
+                is set in bold so long notes stay scannable.
+              {%- endcomment -%}
+              <div class="ori-benefit__note">
+                {%- assign note_lines = block.settings.note | newline_to_br | split: '<br />' -%}
+                {%- for raw in note_lines -%}
+                  {%- assign line = raw | strip -%}
+                  {%- if line == blank -%}{%- continue -%}{%- endif -%}
+                  {%- liquid
+                    assign lead = line | split: ':' | first
+                    assign rest = line | remove_first: lead | remove_first: ':' | strip
+                    assign is_label = false
+                    if line contains ':' and lead.size <= 40
+                      assign is_label = true
+                      if lead contains '.'
+                        assign is_label = false
+                      endif
+                    endif
+                  -%}
+                  {%- if is_label -%}
+                    <p><strong>{{ lead | escape }}:</strong>{% if rest != blank %} {{ rest | escape }}{% endif %}</p>
+                  {%- else -%}
+                    <p>{{ line | escape }}</p>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
             {%- endif -%}
           </li>
         {%- endfor -%}

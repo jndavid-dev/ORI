@@ -64,7 +64,7 @@
           "settings": {
             "text": "Increased legal payload capacity",
             "icon": "weight",
-            "note": "The ORI GVM Package legally increases your vehicle's weight limit, ensuring your heavy-duty build stays safe, secure, and fully insured."
+            "note": "A premium GVM upgrade is only as good as the team that installs it. That’s why the ORI GVM network is thoroughly serviced and supported by Authorised Installers right across Australia.\n\nWhether you are in Victoria, WA, Queensland, or anywhere in between, our certified partners ensure your upgrade is fitted to the highest standard.\n\nComplete Compliance & Peace of Mind:\nEvery ORI GVM upgrade installed by our network comes with full Second Stage of Manufacture (SSM) or state-level engineering compliance. Drive with confidence knowing your vehicle is fully legal, insured, and built to handle the heaviest loads across any state or territory."
           }
         },
         "benefit_suspension": {
@@ -72,7 +72,7 @@
           "settings": {
             "text": "Upgraded Fox &  BDS suspension",
             "icon": "suspension",
-            "note": "You bought a massive American truck, so why insult it with wimpy suspension? Slap some heavy-duty American components under that beast, let freedom ring, and cue the bald eagles!"
+            "note": "Built on the Best: FOX & BDS Suspension\nOur GVM packages don't just increase your legal payload—they completely transform your ride.\n\nBDS Suspension: Legendary American engineering built to handle the massive weight and torque of full-size trucks without sacrificing ride quality.\n\nFOX Racing Shocks: Race-proven damping technology that delivers fade-free performance, whether you're towing a massive caravan on the highway or hitting corrugated outback tracks."
           }
         },
         "benefit_approval": {
@@ -80,7 +80,7 @@
           "settings": {
             "text": "Federal engineering approval",
             "icon": "seal",
-            "note": "Federally Approved (SSM): Fully certified and road-legal nationwide. Zero state-by-state engineering hassles if fitted before first registration.\n\nProtect Your Insurance: Driving over your factory weight limit instantly voids your insurance. This certified upgrade guarantees you are covered in an accident."
+            "note": "Second Stage of Manufacture (SSM) federal approval is the most comprehensive and legally robust method for increasing a vehicle's Gross Vehicle Mass (GVM) in Australia. Unlike post-registration upgrades, which rely on state-based engineering for vehicles already on the road, SSM certification occurs before a brand-new vehicle is first registered.\n\nSecuring this federal approval provides several critical structural and legal advantages for vehicle owners:\n\nNationwide Legal Recognition: Because SSM is a federal approval, the upgraded GVM is legally recognised in every Australian state and territory from day one. State-level engineering approvals often only apply within the issuing state, meaning you might have to pay for re-certification if you move and transfer the vehicle's registration interstate."
           }
         }
       },
@@ -113,7 +113,7 @@
             "logo": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__FOX.jpg",
             "icon": "check",
             "brand": "",
-            "note": "Fox 2.5 Perfomance Series Suspension",
+            "note": "Fox 2.5 Perfomance Elite Suspension",
             "sku": ""
           }
         },
@@ -124,18 +124,18 @@
             "logo": "shopify://shop_images/ICONS_FOR_WEBSITE_BDS.png",
             "icon": "none",
             "brand": "",
-            "note": "BDS Radius arm and front panhard.",
+            "note": "BDS 6\" Suspension kit, full subframe drop, perfect cv angles and BDS upper Control arms.",
             "sku": ""
           }
         },
         "included_springs": {
           "type": "included",
           "settings": {
-            "text": "ORI springs",
+            "text": "ORI Leaf Springs",
             "logo": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__ORI.jpg",
             "icon": "check",
             "brand": "",
-            "note": "ORI Heavy duty custom designed rear coils",
+            "note": "ORI Heavy duty 200kg leaf springs",
             "sku": ""
           }
         },
@@ -145,8 +145,8 @@
             "text": "Engineering certification",
             "icon": "shield",
             "brand": "",
-            "note": "Federally Approved GVM data upto 37\" tyres",
-            "sku": ""
+            "note": "Federally Approved GVM package under our VTA approval numbers for VTA-066635 | VTA-064440 engineered with 37\" tyres.",
+            "sku": "CHV-NB1-Stage4-ZR2"
           }
         },
         "incl_image_1": {
@@ -270,141 +270,6 @@
             "margin_left_mobile": 0,
             "margin_right_mobile": 13
           }
-        },
-        "divider_HyyX8h": {
-          "type": "divider",
-          "disabled": true,
-          "settings": {
-            "width": 64,
-            "use_custom_spacing": false,
-            "margin_left": 10,
-            "margin_right": 10,
-            "margin_left_mobile": 10,
-            "margin_right_mobile": 10
-          }
-        },
-        "image_CMHfbV": {
-          "type": "image",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__BAJA_DESIGNS.jpg",
-            "image_height": 80,
-            "image_link": "shopify://collections/baja-designs",
-            "use_custom_spacing": true,
-            "margin_left": 0,
-            "margin_right": 20,
-            "margin_left_mobile": 0,
-            "margin_right_mobile": 20
-          }
-        },
-        "announcement_Ck9fgL": {
-          "type": "announcement",
-          "disabled": true,
-          "settings": {
-            "text": "Baja Designs",
-            "font_family": "heading",
-            "text_size": 34,
-            "text_link": "",
-            "use_custom_spacing": true,
-            "margin_left": 0,
-            "margin_right": 30,
-            "margin_left_mobile": 0,
-            "margin_right_mobile": 16
-          }
-        },
-        "divider_qMNDMW": {
-          "type": "divider",
-          "disabled": true,
-          "settings": {
-            "width": 64,
-            "use_custom_spacing": true,
-            "margin_left": 0,
-            "margin_right": 30,
-            "margin_left_mobile": 0,
-            "margin_right_mobile": 16
-          }
-        },
-        "image_cqXJGB": {
-          "type": "image",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/ADD-OFFROAD-21-FORD-RAPTOR-Phantom-Rear-Bumper-Installation-Guide-1.png",
-            "image_height": 80,
-            "image_link": "",
-            "use_custom_spacing": true,
-            "margin_left": 0,
-            "margin_right": 20,
-            "margin_left_mobile": 0,
-            "margin_right_mobile": 20
-          }
-        },
-        "announcement_kcKcYP": {
-          "type": "announcement",
-          "disabled": true,
-          "settings": {
-            "text": "Addictive Desert Designs",
-            "font_family": "heading",
-            "text_size": 34,
-            "text_link": "",
-            "use_custom_spacing": true,
-            "margin_left": 0,
-            "margin_right": 30,
-            "margin_left_mobile": 0,
-            "margin_right_mobile": 16
-          }
-        },
-        "divider_nWecrt": {
-          "type": "divider",
-          "disabled": true,
-          "settings": {
-            "width": 64,
-            "use_custom_spacing": true,
-            "margin_left": 0,
-            "margin_right": 30,
-            "margin_left_mobile": 0,
-            "margin_right_mobile": 16
-          }
-        },
-        "image_xj6yaA": {
-          "type": "image",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/huskyliners-logo-fullcolor-24206_4x_68ee4016-c4a6-4e86-b15e-f8f048d6e1d0.png",
-            "image_height": 80,
-            "image_link": "",
-            "use_custom_spacing": true,
-            "margin_left": 0,
-            "margin_right": 20,
-            "margin_left_mobile": 0,
-            "margin_right_mobile": 20
-          }
-        },
-        "announcement_rVDhn4": {
-          "type": "announcement",
-          "disabled": true,
-          "settings": {
-            "text": "Husky Liners",
-            "font_family": "heading",
-            "text_size": 34,
-            "text_link": "",
-            "use_custom_spacing": true,
-            "margin_left": 0,
-            "margin_right": 30,
-            "margin_left_mobile": 0,
-            "margin_right_mobile": 16
-          }
-        },
-        "divider_VyRtkM": {
-          "type": "divider",
-          "disabled": true,
-          "settings": {
-            "width": 64,
-            "use_custom_spacing": true,
-            "margin_left": 0,
-            "margin_right": 30,
-            "margin_left_mobile": 0,
-            "margin_right_mobile": 16
-          }
         }
       },
       "block_order": [
@@ -412,17 +277,7 @@
         "announcement_dFJCAx",
         "divider_ra8kGw",
         "image_JkfQc4",
-        "announcement_7NbxBT",
-        "divider_HyyX8h",
-        "image_CMHfbV",
-        "announcement_Ck9fgL",
-        "divider_qMNDMW",
-        "image_cqXJGB",
-        "announcement_kcKcYP",
-        "divider_nWecrt",
-        "image_xj6yaA",
-        "announcement_rVDhn4",
-        "divider_VyRtkM"
+        "announcement_7NbxBT"
       ],
       "settings": {
         "container": "container-full",

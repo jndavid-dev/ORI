@@ -4475,6 +4475,16 @@ a.ori-vcard:hover .ori-vcard__btn svg {
   line-height: 1.55;
 }
 
+.ori-benefit__note {
+  display: grid;
+  gap: 10px;
+}
+
+.ori-benefit__note strong {
+  color: var(--ori-ink);
+  font-weight: 600;
+}
+
 @media (max-width: 989px) {
   .ori-benefits__list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
