@@ -5757,8 +5757,8 @@ a.ori-vcard:hover .ori-vcard__btn svg {
    ORI REDESIGN — BRAND MARQUEE: LIGHT (Custom class
    "ori-marquee ori-marquee--light"). Bone band with ink text, for
    pages where the dark marquee would run into a dark section.
-   Logos sit straight on the band (no white tile), so they should be
-   trimmed transparent PNGs.
+   Logos keep the white tiles from the dark version (the logo files
+   are squares on white), with a hairline so the tiles read on bone.
    ========================================================== */
 .f-scrolling-promotion__wrapper.ori-marquee--light {
   border-top: 0;
@@ -5771,14 +5771,5 @@ a.ori-vcard:hover .ori-vcard__btn svg {
 }
 
 .ori-marquee--light .f-promotion__item img {
-  height: 52px;
-  padding: 0;
-  border-radius: 0;
-  background: none;
-}
-
-@media (max-width: 767px) {
-  .ori-marquee--light .f-promotion__item img {
-    height: 40px;
-  }
+  border: 1px solid var(--ori-line);
 }
