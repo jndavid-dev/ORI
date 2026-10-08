@@ -5538,3 +5538,207 @@ a.ori-vcard:hover .ori-vcard__btn svg {
   -webkit-mask-image: linear-gradient(180deg, #000 82%, transparent);
   mask-image: linear-gradient(180deg, #000 82%, transparent);
 }
+
+/* ==========================================================
+   ORI REDESIGN — INSTALLER NETWORK (sections/ori-installer-network.liquid,
+   also copied into GVM product pages by ori-gvm-approved)
+   Bone band; state pill tabs with counts; installer card grid,
+   3 / 2 / 1 across. Platinum installers: teal top rule + badge.
+   ========================================================== */
+.ori-inet {
+  background: var(--ori-bone);
+}
+
+.ori-inet__tab-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.ori .ori-inet__tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px 9px 18px;
+  border: 1px solid var(--ori-line);
+  border-radius: 40px;
+  background: var(--ori-paper);
+  color: var(--ori-ink);
+  font-family: var(--ori-display) !important;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.ori .ori-inet__tab:hover {
+  border-color: var(--ori-teal);
+}
+
+.ori .ori-inet__tab.is-active {
+  border-color: var(--ori-teal);
+  background: var(--ori-teal);
+  color: #fff;
+}
+
+.ori-inet__count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 6px;
+  border-radius: 12px;
+  background: var(--ori-bone);
+  color: var(--ori-steel);
+  font-family: var(--ori-body);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.ori-inet__tab.is-active .ori-inet__count {
+  background: rgba(255, 255, 255, 0.22);
+  color: #fff;
+}
+
+.ori-inet__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ori-inet__card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+  padding: 24px;
+  border: 1px solid var(--ori-line);
+  border-radius: 6px;
+  background: var(--ori-paper);
+}
+
+.ori-inet__card--platinum {
+  border-top: 3px solid var(--ori-teal);
+}
+
+.ori-inet__card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.ori-inet__badge {
+  display: inline-block;
+  margin-bottom: 8px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--ori-teal) 14%, transparent);
+  color: var(--ori-teal-deep);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.ori .ori-inet__name {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.05;
+  overflow-wrap: anywhere;
+}
+
+/* Landscape box: most installer logos are wide wordmarks. */
+.ori-inet__logo {
+  flex: 0 0 96px;
+  display: grid;
+  place-items: center;
+  width: 96px;
+  height: 60px;
+  padding: 6px;
+  overflow: hidden;
+  border: 1px solid var(--ori-line);
+  border-radius: 6px;
+  background: #fff;
+}
+
+.ori-inet__logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.ori-inet__info {
+  display: grid;
+  gap: 10px;
+}
+
+.ori-inet__row {
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  margin: 0;
+  color: var(--ori-steel);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.ori-inet__row svg {
+  width: 16px;
+  height: 16px;
+  margin-top: 3px;
+  color: var(--ori-teal-deep);
+}
+
+.ori-inet__row--link {
+  color: var(--ori-ink);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.ori-inet__row--link:hover span {
+  text-decoration: underline;
+}
+
+.ori-inet__email span {
+  overflow-wrap: anywhere;
+}
+
+.ori-inet__web {
+  align-self: flex-start;
+  margin-top: auto;
+  font-size: 15px;
+}
+
+.ori-inet__empty {
+  color: var(--ori-steel);
+}
+
+@media (max-width: 989px) {
+  .ori-inet__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .ori-inet__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .ori-inet__card {
+    padding: 20px 18px;
+  }
+
+  .ori .ori-inet__tab {
+    padding: 8px 12px 8px 14px;
+    font-size: 16px;
+  }
+}

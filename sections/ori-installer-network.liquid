@@ -1,240 +1,225 @@
-{{ 'ori-installer-network.css' | asset_url | stylesheet_tag }}
+{%- comment -%}
+  ORI Installer network — ORI redesign.
+  Approved GVM installers grouped by state: pill tabs (with a count each)
+  over a grid of installer cards. Platinum installers get a teal top rule
+  and badge. Three cards across on desktop, two on tablet, one on mobile.
+
+  This section is also copied into GVM product pages by
+  sections/ori-gvm-approved.liquid (assets/ori-gvm-approved.js lifts it by
+  [data-section-type="ori-installer-network"] and re-runs the inline tab
+  script), so the data-section-type attribute and the tab wiring must stay.
+  Styles: ORI REDESIGN — INSTALLER NETWORK in assets/gvm-css-main.css.
+
+  Rows whose name still reads like a placeholder ("to be added", "TBC" …)
+  are skipped, so unfinished data never reaches the storefront.
+{%- endcomment -%}
+{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
+{%- render 'ori-fonts' -%}
 {%- liquid
   assign section_id = section.settings.custom_id | default: section.id
-  assign container  = section.settings.container
 
   # ACT is in the list because the dealer network has a Queanbeyan installer;
   # a state missing here silently drops every installer assigned to it.
   assign states = 'VIC,NSW,QLD,WA,SA,TAS,ACT,NT' | split: ','
-  assign first_state = states | first
-
-  # One list, checked in three places below. It used to be three copies of the
-  # same three-term condition, and they had drifted from the wording actually
-  # used: the section's own preset writes "(to be added)", which none of them
-  # matched, so those rows would have rendered on the storefront.
   assign placeholder_terms = 'add via theme editor,to be added,to be confirmed,tbc,tba,coming soon,placeholder,name tbc,xxxx' | split: ','
+
+  # One pass: which states have real installers, and how many each.
+  assign active_states = ''
+  assign state_counts = ''
+  for state in states
+    assign n = 0
+    for block in section.blocks
+      if block.type != 'installer' or block.settings.state != state or block.settings.name == blank
+        continue
+      endif
+      assign nl = block.settings.name | downcase
+      assign is_placeholder = false
+      for term in placeholder_terms
+        if nl contains term
+          assign is_placeholder = true
+          break
+        endif
+      endfor
+      unless is_placeholder
+        assign n = n | plus: 1
+      endunless
+    endfor
+    if n > 0
+      assign active_states = active_states | append: ',' | append: state
+      assign state_counts = state_counts | append: ',' | append: n
+    endif
+  endfor
+  assign active_states_arr = active_states | remove_first: ',' | split: ','
+  assign state_counts_arr = state_counts | remove_first: ',' | split: ','
+
+  assign cta_class = 'ori-btn--line'
+  if section.settings.cta_style == 'btn--primary'
+    assign cta_class = 'ori-btn--teal'
+  endif
 -%}
 
 <div
   id="{{ section_id }}"
-  class="ori-installer-network f-section-padding color-{{ section.settings.color_schema }}"
+  class="ori ori-section ori-inet{% if section.settings.custom_class != blank %} {{ section.settings.custom_class }}{% endif %}"
   data-section-type="ori-installer-network"
-  style="
-    --section-padding-top: {{ section.settings.padding_top }}px;
-    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
-    {%- if section.settings.bg_color != blank %} background: {{ section.settings.bg_color }};{% endif -%}
-  "
+  style="--ori-pt: {{ section.settings.padding_top }}px; --ori-pb: {{ section.settings.padding_bottom }}px;"
 >
-  <div class="{{ container }}">
-
-    {%- if section.settings.heading != blank or section.settings.subheading != blank -%}
-      <div class="ori-installer-network__header f-section-header">
-        {%- if section.settings.heading != blank -%}
-          <h2 class="ori-installer-network__heading {{ section.settings.heading_size }}">
-            {{ section.settings.heading }}
-          </h2>
-        {%- endif -%}
-        {%- if section.settings.subheading != blank -%}
-          <p class="ori-installer-network__subheading">{{ section.settings.subheading }}</p>
+  <div class="ori-wrap">
+    {%- if section.settings.heading != blank or section.settings.subheading != blank or section.settings.cta_text != blank -%}
+      <div class="ori-head">
+        <div>
+          {%- if section.settings.heading != blank -%}
+            <h2 class="ori-h2">{{ section.settings.heading }}</h2>
+          {%- endif -%}
+          {%- if section.settings.subheading != blank -%}
+            <p class="ori-head__intro">{{ section.settings.subheading }}</p>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.cta_text != blank and section.settings.cta_url != blank -%}
+          <a href="{{ section.settings.cta_url }}" class="ori-btn {{ cta_class }}">{{ section.settings.cta_text }}</a>
         {%- endif -%}
       </div>
     {%- endif -%}
 
-    {%- comment -%}
-      Build a map of state → installers from blocks. Rows whose name still
-      matches one of placeholder_terms are skipped, so unfinished data never
-      reaches the storefront. Checked in three passes below, all reading the
-      one list defined at the top of the file.
-    {%- endcomment -%}
-    {%- assign has_installers = false -%}
-    {%- for block in section.blocks -%}
-      {%- assign nl = block.settings.name | downcase -%}
-      {%- if block.type == 'installer' and block.settings.state != blank and block.settings.name != blank -%}
-        {%- assign is_placeholder = false -%}
-        {%- for term in placeholder_terms -%}
-          {%- if nl contains term -%}{%- assign is_placeholder = true -%}{%- break -%}{%- endif -%}
-        {%- endfor -%}
-        {%- unless is_placeholder -%}
-          {%- assign has_installers = true -%}
-          {%- break -%}
-        {%- endunless -%}
-      {%- endif -%}
-    {%- endfor -%}
-
-    {%- if has_installers -%}
-      {%- comment -%} Collect which states have at least one installer {%- endcomment -%}
-      {%- assign active_states = '' -%}
-      {%- for state in states -%}
-        {%- assign state_has = false -%}
-        {%- for block in section.blocks -%}
-          {%- assign nl = block.settings.name | downcase -%}
-          {%- if block.type == 'installer' and block.settings.state == state and block.settings.name != blank -%}
-            {%- assign is_placeholder = false -%}
-            {%- for term in placeholder_terms -%}
-              {%- if nl contains term -%}{%- assign is_placeholder = true -%}{%- break -%}{%- endif -%}
-            {%- endfor -%}
-            {%- unless is_placeholder -%}
-              {%- assign state_has = true -%}
-              {%- break -%}
-            {%- endunless -%}
-          {%- endif -%}
-        {%- endfor -%}
-        {%- if state_has -%}
-          {%- if active_states == '' -%}
-            {%- assign active_states = state -%}
-          {%- else -%}
-            {%- assign active_states = active_states | append: ',' | append: state -%}
-          {%- endif -%}
-        {%- endif -%}
-      {%- endfor -%}
-
-      {%- assign active_states_arr = active_states | split: ',' -%}
-      {%- assign first_active = active_states_arr | first -%}
-
-      <div
-        class="ori-installer-network__tabs"
-        data-installer-tabs
-      >
-        {%- comment -%} Tab nav {%- endcomment -%}
-        <div class="ori-installer-network__tab-nav" role="tablist">
+    {%- if active_states_arr.size > 0 -%}
+      <div class="ori-inet__tabs" data-installer-tabs>
+        <div class="ori-inet__tab-nav" role="tablist" aria-label="Choose a state">
           {%- for state in active_states_arr -%}
             <button
-              class="ori-installer-network__tab-btn{% if forloop.first %} is-active{% endif %}"
+              type="button"
+              class="ori-inet__tab{% if forloop.first %} is-active{% endif %}"
               role="tab"
               aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
               aria-controls="installer-panel-{{ state | downcase }}-{{ section.id }}"
               id="installer-tab-{{ state | downcase }}-{{ section.id }}"
               data-state="{{ state }}"
+              {% unless forloop.first %}tabindex="-1"{% endunless %}
             >
               {{ state }}
+              <span class="ori-inet__count">{{ state_counts_arr[forloop.index0] }}</span>
             </button>
           {%- endfor -%}
         </div>
 
-        {%- comment -%} Tab panels {%- endcomment -%}
         {%- for state in active_states_arr -%}
           <div
-            class="ori-installer-network__panel{% if forloop.first %} is-active{% endif %}"
+            class="ori-inet__panel{% if forloop.first %} is-active{% endif %}"
             role="tabpanel"
             id="installer-panel-{{ state | downcase }}-{{ section.id }}"
             aria-labelledby="installer-tab-{{ state | downcase }}-{{ section.id }}"
             {% unless forloop.first %}hidden{% endunless %}
           >
-            <ul class="ori-installer-network__list" role="list">
+            <ul class="ori-inet__grid" role="list">
               {%- for block in section.blocks -%}
-                {%- assign nl = block.settings.name | downcase -%}
-                {%- if block.type == 'installer' and block.settings.state == state and block.settings.name != blank -%}
-                  {%- assign is_placeholder = false -%}
-                  {%- for term in placeholder_terms -%}
-                    {%- if nl contains term -%}{%- assign is_placeholder = true -%}{%- break -%}{%- endif -%}
-                  {%- endfor -%}
-                  {%- unless is_placeholder -%}
-                  <li class="ori-installer-network__installer" {{ block.shopify_attributes }}>
-                    <div class="ori-installer-card">
-                      <div class="ori-installer-card__head">
-                        <strong class="ori-installer-card__name">{{ block.settings.name }}</strong>
-                        {%- if block.settings.logo != blank -%}
-                          {{-
-                            block.settings.logo
-                            | image_url: width: 200
-                            | image_tag:
-                              loading: 'lazy',
-                              class: 'ori-installer-card__logo',
-                              widths: '100,150,200',
-                              sizes: '68px',
-                              alt: block.settings.name | escape
-                          -}}
-                        {%- endif -%}
-                      </div>
-
-                      {%- if block.settings.platinum -%}
-                        <span class="ori-installer-card__badge">Platinum GVM Installer</span>
-                      {%- endif -%}
-
-                      <div class="ori-installer-card__info">
-                        {%- comment -%}
-                          Street, then suburb / state / postcode on its own line.
-                          Suburb alone still renders if no street is recorded.
-                        {%- endcomment -%}
-                        {%- if block.settings.address != blank or block.settings.suburb != blank -%}
-                          <span class="ori-installer-card__location">
-                            {%- render 'icon-map-pin' -%}
-                            <span class="ori-installer-card__address">
-                              {%- if block.settings.address != blank -%}
-                                {{ block.settings.address }}<br>
-                              {%- endif -%}
-                              {{- block.settings.suburb -}}
-                              {%- if block.settings.state != blank -%}, {{ block.settings.state }}{%- endif -%}
-                              {%- if block.settings.postcode != blank %} {{ block.settings.postcode }}{% endif -%}
-                            </span>
-                          </span>
-                        {%- endif -%}
-                        {%- assign pl = block.settings.phone | downcase -%}
-                        {%- if block.settings.phone != blank -%}
-                          {%- unless pl contains 'tbc' or pl contains 'xxxx' or pl contains 'coming' -%}
-                            <a href="tel:{{ block.settings.phone | remove: ' ' }}" class="ori-installer-card__phone">
-                              {%- render 'icon-phone' -%}
-                              {{ block.settings.phone }}
-                            </a>
-                          {%- endunless -%}
-                        {%- endif -%}
-                        {%- if block.settings.email != blank -%}
-                          <a href="mailto:{{ block.settings.email }}" class="ori-installer-card__email">
-                            {{ block.settings.email }}
-                          </a>
-                        {%- endif -%}
-                        {%- if block.settings.website != blank -%}
-                          <a href="{{ block.settings.website }}" class="ori-installer-card__website" target="_blank" rel="noopener">
-                            Visit website
-                          </a>
-                        {%- endif -%}
-                      </div>
-                    </div>
-                  </li>
-                  {%- endunless -%}
+                {%- if block.type != 'installer' or block.settings.state != state or block.settings.name == blank -%}
+                  {%- continue -%}
                 {%- endif -%}
+                {%- liquid
+                  assign nl = block.settings.name | downcase
+                  assign is_placeholder = false
+                  for term in placeholder_terms
+                    if nl contains term
+                      assign is_placeholder = true
+                      break
+                    endif
+                  endfor
+                -%}
+                {%- if is_placeholder -%}{%- continue -%}{%- endif -%}
+                <li class="ori-inet__card{% if block.settings.platinum %} ori-inet__card--platinum{% endif %}" {{ block.shopify_attributes }}>
+                  <div class="ori-inet__card-head">
+                    <div>
+                      {%- if block.settings.platinum -%}
+                        <span class="ori-inet__badge">Platinum GVM installer</span>
+                      {%- endif -%}
+                      <h3 class="ori-inet__name">{{ block.settings.name }}</h3>
+                    </div>
+                    {%- if block.settings.logo != blank -%}
+                      <span class="ori-inet__logo">
+                        {{-
+                          block.settings.logo
+                          | image_url: width: 200
+                          | image_tag:
+                            loading: 'lazy',
+                            widths: '100, 150, 200',
+                            sizes: '96px',
+                            alt: block.settings.name
+                        -}}
+                      </span>
+                    {%- endif -%}
+                  </div>
+
+                  <div class="ori-inet__info">
+                    {%- if block.settings.address != blank or block.settings.suburb != blank -%}
+                      <p class="ori-inet__row">
+                        {%- render 'icon-map-pin' -%}
+                        <span>
+                          {%- if block.settings.address != blank -%}{{ block.settings.address }}<br>{%- endif -%}
+                          {{- block.settings.suburb -}}
+                          {%- if block.settings.state != blank -%}, {{ block.settings.state }}{%- endif -%}
+                          {%- if block.settings.postcode != blank %} {{ block.settings.postcode }}{% endif -%}
+                        </span>
+                      </p>
+                    {%- endif -%}
+                    {%- assign pl = block.settings.phone | downcase -%}
+                    {%- if block.settings.phone != blank -%}
+                      {%- unless pl contains 'tbc' or pl contains 'xxxx' or pl contains 'coming' -%}
+                        <a href="tel:{{ block.settings.phone | remove: ' ' }}" class="ori-inet__row ori-inet__row--link">
+                          {%- render 'icon-phone' -%}
+                          <span>{{ block.settings.phone }}</span>
+                        </a>
+                      {%- endunless -%}
+                    {%- endif -%}
+                    {%- if block.settings.email != blank -%}
+                      <a href="mailto:{{ block.settings.email }}" class="ori-inet__row ori-inet__row--link ori-inet__email">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+                        <span>{{ block.settings.email }}</span>
+                      </a>
+                    {%- endif -%}
+                  </div>
+
+                  {%- if block.settings.website != blank -%}
+                    <a href="{{ block.settings.website }}" class="ori-link ori-inet__web" target="_blank" rel="noopener">
+                      Visit website<span class="ori-sr"> for {{ block.settings.name }} (opens in a new tab)</span>
+                    </a>
+                  {%- endif -%}
+                </li>
               {%- endfor -%}
             </ul>
           </div>
         {%- endfor -%}
       </div>
-
     {%- else -%}
-      <p class="ori-installer-network__empty">Installer locations coming soon.</p>
+      <p class="ori-inet__empty">Installer locations coming soon.</p>
     {%- endif -%}
-
-    {%- if section.settings.cta_text != blank and section.settings.cta_url != blank -%}
-      <div class="ori-installer-network__footer">
-        <a href="{{ section.settings.cta_url }}" class="btn {{ section.settings.cta_style }}">
-          {{ section.settings.cta_text }}
-        </a>
-      </div>
-    {%- endif -%}
-
   </div>
 
   <script>
     (function () {
       document.querySelectorAll('[data-installer-tabs]').forEach(function (tabs) {
-        var btns = tabs.querySelectorAll('.ori-installer-network__tab-btn');
-        var panels = tabs.querySelectorAll('.ori-installer-network__panel');
-        btns.forEach(function (btn) {
-          btn.addEventListener('click', function () {
-            btns.forEach(function (b) {
-              b.classList.remove('is-active');
-              b.setAttribute('aria-selected', 'false');
-            });
-            panels.forEach(function (p) {
-              p.classList.remove('is-active');
-              p.setAttribute('hidden', 'true');
-            });
-            btn.classList.add('is-active');
-            btn.setAttribute('aria-selected', 'true');
-            var panel = document.getElementById(btn.getAttribute('aria-controls'));
+        if (tabs.dataset.ready) return;
+        tabs.dataset.ready = '1';
+        var btns = Array.prototype.slice.call(tabs.querySelectorAll('[role="tab"]'));
+        function select(btn, focus) {
+          btns.forEach(function (b) {
+            var on = b === btn;
+            b.classList.toggle('is-active', on);
+            b.setAttribute('aria-selected', on ? 'true' : 'false');
+            b.tabIndex = on ? 0 : -1;
+            var panel = document.getElementById(b.getAttribute('aria-controls'));
             if (panel) {
-              panel.classList.add('is-active');
-              panel.removeAttribute('hidden');
+              panel.classList.toggle('is-active', on);
+              panel.hidden = !on;
             }
+          });
+          if (focus) btn.focus();
+        }
+        btns.forEach(function (btn, i) {
+          btn.addEventListener('click', function () { select(btn); });
+          btn.addEventListener('keydown', function (e) {
+            var step = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+            if (!step) return;
+            e.preventDefault();
+            select(btns[(i + step + btns.length) % btns.length], true);
           });
         });
       });
