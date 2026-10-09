@@ -3383,10 +3383,11 @@
    count. Styling only: the theme's nav, mega menus, search,
    account, cart drawer and mobile drawer are untouched, so the
    menu stays whatever header-group.json configures.
-   Loads site-wide through the GVM subnav in the same header group
-   (and for all B2B users via theme.liquid).
+   This file loads site-wide from layout/theme.liquid (<head>); the
+   selectors carry a "body" prefix so they still beat header-bundle.css,
+   which the header section links later, from <body>.
    ========================================================== */
-.site-header.site-header--design-6 {
+body .site-header.site-header--design-6 {
   --color-background: var(--ori-chassis);
   --color-header-bg: var(--ori-chassis);
   --color-bg-1: var(--ori-chassis);
@@ -3396,7 +3397,7 @@
   background-color: var(--ori-chassis);
 }
 
-.site-header--design-6 .site-header__top-v6 {
+body .site-header--design-6 .site-header__top-v6 {
   gap: 28px;
 }
 
@@ -3404,7 +3405,7 @@
 @media (min-width: 1024px) {
   /* The theme's container is width:100% in content-box sizing, so the
      extra padding has to be counted inside it. */
-  .site-header--design-6 > .container-fluid {
+  body .site-header--design-6 > .container-fluid {
     box-sizing: border-box;
     padding-right: var(--ori-edge);
     padding-left: var(--ori-edge);
@@ -3415,48 +3416,48 @@
    into the logo), and the theme's own animated hover underline made
    teal and 2px. Link colour must be set on the item — the theme forces
    the link itself to currentColor !important. */
-.site-header--design-6 .f-site-nav {
+body .site-header--design-6 .f-site-nav {
   --nav-item-px: 12px;
 }
 
-.site-header--design-6 .site-header__top-nav-v6 .f-site-nav__list {
+body .site-header--design-6 .site-header__top-nav-v6 .f-site-nav__list {
   margin: 0;
 }
 
-.site-header--design-6 .f-site-nav__item {
+body .site-header--design-6 .f-site-nav__item {
   color: #e7ecec;
   transition: color 0.15s;
 }
 
-.site-header--design-6 .f-site-nav__item:hover,
-.site-header--design-6 .f-site-nav__item:focus-within {
+body .site-header--design-6 .f-site-nav__item:hover,
+body .site-header--design-6 .f-site-nav__item:focus-within {
   color: #ffffff;
 }
 
-.site-header--design-6 .f-site-nav__link {
+body .site-header--design-6 .f-site-nav__link {
   font-size: 15px;
   font-weight: 600;
   letter-spacing: 0;
   text-transform: none;
 }
 
-.site-header--design-6 .f-site-nav a[class*="link"] > span:not(.f-site-nav__arrow)::after,
-.site-header--design-6 .f-site-nav summary[class*="link"] > span:not(.f-site-nav__arrow)::after {
+body .site-header--design-6 .f-site-nav a[class*="link"] > span:not(.f-site-nav__arrow)::after,
+body .site-header--design-6 .f-site-nav summary[class*="link"] > span:not(.f-site-nav__arrow)::after {
   height: 2px;
   bottom: -6px;
   background: var(--ori-teal);
 }
 
-.site-header--design-6 .f-site-nav__arrow {
+body .site-header--design-6 .f-site-nav__arrow {
   opacity: 0.7;
 }
 
 /* Icon buttons (search, account, cart): outlined squares. */
-.site-header--design-6 .site-header__addons {
+body .site-header--design-6 .site-header__addons {
   gap: 10px;
 }
 
-.site-header--design-6 .site-header__link.btn--icon {
+body .site-header--design-6 .site-header__link.btn--icon {
   position: relative;
   display: grid;
   place-items: center;
@@ -3469,12 +3470,12 @@
   transition: border-color 0.15s, background-color 0.15s;
 }
 
-.site-header--design-6 .site-header__link.btn--icon:hover {
+body .site-header--design-6 .site-header__link.btn--icon:hover {
   border-color: var(--ori-teal);
   background: rgba(63, 179, 186, 0.12);
 }
 
-.site-header--design-6 .cart-link__count {
+body .site-header--design-6 .cart-link__count {
   position: absolute;
   top: -7px;
   right: -7px;
@@ -3490,11 +3491,11 @@
 }
 
 @media (max-width: 1023.98px) {
-  .site-header--design-6 .site-header__top-v6 {
+  body .site-header--design-6 .site-header__top-v6 {
     gap: 8px;
   }
 
-  .site-header--design-6 .site-header__link.btn--icon {
+  body .site-header--design-6 .site-header__link.btn--icon {
     width: 38px;
     height: 38px;
   }
@@ -3503,16 +3504,16 @@
 /* Secondary header = the redesign's utility bar. Colours, size and
    height come from its section settings; only the search pill and
    links are reshaped here. */
-.secondary-header__search-form {
+body .secondary-header__search-form {
   border-color: #3a4549;
   border-radius: 4px;
 }
 
-.secondary-header__search-form:focus-within {
+body .secondary-header__search-form:focus-within {
   border-color: var(--ori-teal);
 }
 
-.secondary-header__link:hover {
+body .secondary-header__link:hover {
   color: var(--ori-teal);
 }
 
@@ -4630,7 +4631,7 @@ a.ori-vcard:hover .ori-vcard__btn svg {
    are JPEGs on white); names in the display face; the divider
    becomes a teal diamond.
    ========================================================== */
-.f-scrolling-promotion__wrapper.ori-marquee {
+body .f-scrolling-promotion__wrapper.ori-marquee {
   padding-top: 26px !important;
   padding-bottom: 26px !important;
   border-top: 3px solid var(--ori-teal);
@@ -4638,7 +4639,7 @@ a.ori-vcard:hover .ori-vcard__btn svg {
   color: #fff;
 }
 
-.ori-marquee .f-promotion__item img {
+body .ori-marquee .f-promotion__item img {
   height: 56px;
   padding: 6px;
   border-radius: 6px;
@@ -4646,11 +4647,11 @@ a.ori-vcard:hover .ori-vcard__btn svg {
   object-fit: contain;
 }
 
-.ori-marquee .f-promotion--image {
+body .ori-marquee .f-promotion--image {
   margin-inline: 0 14px;
 }
 
-.ori-marquee .f-promotion__text {
+body .ori-marquee .f-promotion__text {
   color: #fff;
   font-family: var(--ori-display) !important;
   font-size: 26px;
@@ -4660,7 +4661,7 @@ a.ori-vcard:hover .ori-vcard__btn svg {
   text-transform: uppercase;
 }
 
-.ori-marquee .f-promotion__item-divider {
+body .ori-marquee .f-promotion__item-divider {
   width: 8px;
   height: 8px;
   margin-inline: 22px;
@@ -4670,20 +4671,20 @@ a.ori-vcard:hover .ori-vcard__btn svg {
 }
 
 @media (max-width: 767px) {
-  .f-scrolling-promotion__wrapper.ori-marquee {
+  body .f-scrolling-promotion__wrapper.ori-marquee {
     padding-top: 18px !important;
     padding-bottom: 18px !important;
   }
 
-  .ori-marquee .f-promotion__item img {
+  body .ori-marquee .f-promotion__item img {
     height: 44px;
   }
 
-  .ori-marquee .f-promotion__text {
+  body .ori-marquee .f-promotion__text {
     font-size: 21px;
   }
 
-  .ori-marquee .f-promotion__item-divider {
+  body .ori-marquee .f-promotion__item-divider {
     margin-inline: 16px;
   }
 }
@@ -4699,24 +4700,24 @@ a.ori-vcard:hover .ori-vcard__btn svg {
    observer still fires) until recently-viewed-products.js has
    fetched the products, and removed if there are none.
    ========================================================== */
-.ori-recent {
+body .ori-recent {
   --ori-recent-gap: 22px;
   border-top: 1px solid var(--ori-line);
   background: var(--ori-paper);
 }
 
-.ori-recent--pending {
+body .ori-recent--pending {
   height: 0;
   padding: 0;
   overflow: hidden;
   border: 0;
 }
 
-.ori-recent.is-empty {
+body .ori-recent.is-empty {
   display: none;
 }
 
-.ori-recent__track {
+body .ori-recent__track {
   display: grid;
   grid-auto-columns: calc((100% - (var(--ori-cols, 4) - 1) * var(--ori-recent-gap)) / var(--ori-cols, 4));
   grid-auto-flow: column;
@@ -4729,28 +4730,28 @@ a.ori-vcard:hover .ori-vcard__btn svg {
   scrollbar-width: thin;
 }
 
-.ori-recent__item {
+body .ori-recent__item {
   display: flex;
   min-width: 0;
   scroll-snap-align: start;
 }
 
-.ori-recent__item > .ori-card {
+body .ori-recent__item > .ori-card {
   flex: 1;
 }
 
 @media (max-width: 989px) {
-  .ori-recent__track {
+  body .ori-recent__track {
     grid-auto-columns: 40%;
   }
 }
 
 @media (max-width: 600px) {
-  .ori-recent {
+  body .ori-recent {
     --ori-recent-gap: 14px;
   }
 
-  .ori-recent__track {
+  body .ori-recent__track {
     grid-auto-columns: 72%;
   }
 }
@@ -5306,33 +5307,33 @@ a.ori-vcard:hover .ori-vcard__btn svg {
    Add all to cart are untouched. Hooked on .ori-bundle rather than
    .ori so the .ori button reset can't reach the theme's button.
    ========================================================== */
-.ori-bundle {
+body .ori-bundle {
   color: var(--ori-ink);
   font-family: var(--ori-body);
 }
 
-.ori-bundle .products-bundle__grid {
+body .ori-bundle .products-bundle__grid {
   gap: 48px;
 }
 
 @media (min-width: 1024px) {
-  .ori-bundle .products-bundle__grid-item {
+  body .ori-bundle .products-bundle__grid-item {
     flex: 1;
   }
 
-  .ori-bundle .products-bundle__grid-item.f-card {
+  body .ori-bundle .products-bundle__grid-item.f-card {
     flex: 1.25;
   }
 }
 
-.ori-bundle .products-bundle__content {
+body .ori-bundle .products-bundle__content {
   display: flex;
   flex-direction: column;
   padding-right: 0;
   padding-left: 0;
 }
 
-.ori-bundle .products-bundle__heading {
+body .ori-bundle .products-bundle__heading {
   order: 0;
   margin: 0;
   font-family: var(--ori-display) !important;
@@ -5344,11 +5345,11 @@ a.ori-vcard:hover .ori-vcard__btn svg {
   text-transform: uppercase;
 }
 
-.ori-bundle .products-bundle__heading p {
+body .ori-bundle .products-bundle__heading p {
   margin: 0;
 }
 
-.ori-bundle .products-bundle__subheading {
+body .ori-bundle .products-bundle__subheading {
   order: 1;
   margin: 10px 0 0;
   color: var(--ori-steel);
@@ -5358,34 +5359,34 @@ a.ori-vcard:hover .ori-vcard__btn svg {
   text-transform: none;
 }
 
-.ori-bundle .products-bundle__subheading p {
+body .ori-bundle .products-bundle__subheading p {
   margin: 0;
 }
 
-.ori-bundle .products-bundle__link {
+body .ori-bundle .products-bundle__link {
   order: 2;
   align-self: flex-start;
   margin-top: 14px;
   color: var(--ori-ink);
 }
 
-.ori-bundle .products-bundle__products {
+body .ori-bundle .products-bundle__products {
   order: 3;
   margin-top: 28px;
 }
 
-.ori-bundle .products-bundle__product-wrapper {
+body .ori-bundle .products-bundle__product-wrapper {
   border-top: 1px solid var(--ori-line);
 }
 
-.ori-bundle .products-bundle__product-wrap,
-.ori-bundle .products-bundle__product-wrap:first-child,
-.ori-bundle .products-bundle__product-wrap:last-child {
+body .ori-bundle .products-bundle__product-wrap,
+body .ori-bundle .products-bundle__product-wrap:first-child,
+body .ori-bundle .products-bundle__product-wrap:last-child {
   padding: 16px 0;
   border-bottom: 1px solid var(--ori-line);
 }
 
-.ori-bundle .products-bundle__count {
+body .ori-bundle .products-bundle__count {
   flex: 0 0 auto;
   width: 30px;
   height: 30px;
@@ -5395,7 +5396,7 @@ a.ori-vcard:hover .ori-vcard__btn svg {
   font-weight: 600;
 }
 
-.ori-bundle .products-bundle__image-wrapper {
+body .ori-bundle .products-bundle__image-wrapper {
   width: 76px;
   overflow: hidden;
   border-radius: 6px;
@@ -5403,20 +5404,20 @@ a.ori-vcard:hover .ori-vcard__btn svg {
 }
 
 /* Square thumbnails whatever the product image ratio. */
-.ori-bundle .products-bundle__image-wrapper .f-image {
+body .ori-bundle .products-bundle__image-wrapper .f-image {
   aspect-ratio: 1 / 1;
   height: auto;
   padding: 0;
 }
 
-.ori-bundle .products-bundle__image-wrapper img {
+body .ori-bundle .products-bundle__image-wrapper img {
   width: 100%;
   height: 100%;
   object-fit: contain;
   mix-blend-mode: multiply;
 }
 
-.ori-bundle .products-bundle__product-title {
+body .ori-bundle .products-bundle__product-title {
   font-family: var(--ori-body) !important;
   font-size: 16px;
   font-weight: 600;
@@ -5425,33 +5426,33 @@ a.ori-vcard:hover .ori-vcard__btn svg {
   text-transform: none;
 }
 
-.ori-bundle .products-bundle__product-title a {
+body .ori-bundle .products-bundle__product-title a {
   color: var(--ori-ink);
   text-decoration: none;
 }
 
-.ori-bundle .products-bundle__product-title a:hover {
+body .ori-bundle .products-bundle__product-title a:hover {
   text-decoration: underline;
 }
 
-.ori-bundle .products-bundle__price .f-price-item {
+body .ori-bundle .products-bundle__price .f-price-item {
   font-family: var(--ori-display);
   font-size: 21px;
   font-weight: 700;
 }
 
-.ori-bundle .products-bundle__price .f-price__sale .f-price-item--regular {
+body .ori-bundle .products-bundle__price .f-price__sale .f-price-item--regular {
   color: var(--ori-steel);
   font-family: var(--ori-body);
   font-size: 13px;
   font-weight: 400;
 }
 
-.ori-bundle .products-bundle__price .f-price--on-sale .f-price-item--sale {
+body .ori-bundle .products-bundle__price .f-price--on-sale .f-price-item--sale {
   color: var(--ori-sale);
 }
 
-.ori-bundle .products-bundle__product-option select {
+body .ori-bundle .products-bundle__product-option select {
   height: 36px;
   min-height: 36px;
   margin-top: 8px;
@@ -5462,15 +5463,15 @@ a.ori-vcard:hover .ori-vcard__btn svg {
   font-size: 14px;
 }
 
-.ori-bundle .products-bundle.is-hover .products-bundle__product:not(.is-active) {
+body .ori-bundle .products-bundle.is-hover .products-bundle__product:not(.is-active) {
   opacity: 0.45 !important;
 }
 
-.ori-bundle .products-bundle__action {
+body .ori-bundle .products-bundle__action {
   margin-top: 22px;
 }
 
-.ori-bundle .products-bundle__button-atc {
+body .ori-bundle .products-bundle__button-atc {
   min-height: 54px;
   border: 2px solid var(--ori-teal);
   border-radius: 4px;
@@ -5483,23 +5484,23 @@ a.ori-vcard:hover .ori-vcard__btn svg {
   text-transform: uppercase;
 }
 
-.ori-bundle .products-bundle__button-atc:hover {
+body .ori-bundle .products-bundle__button-atc:hover {
   border-color: var(--ori-teal-deep);
   background: var(--ori-teal-deep);
 }
 
 /* The big photo (the list thumbnails share the class, so scope to f-card). */
-.ori-bundle .f-card > .products-bundle__image {
+body .ori-bundle .f-card > .products-bundle__image {
   overflow: hidden;
   border-radius: 6px;
   background: var(--ori-bone);
 }
 
-.ori-bundle .products-bundle__product .products-bundle__image {
+body .ori-bundle .products-bundle__product .products-bundle__image {
   gap: 0 14px;
 }
 
-.ori-bundle .f-lookbook-card__pin-icon {
+body .ori-bundle .f-lookbook-card__pin-icon {
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -5509,24 +5510,24 @@ a.ori-vcard:hover .ori-vcard__btn svg {
   font-weight: 700;
 }
 
-.ori-bundle .f-lookbook-card__pin:hover .f-lookbook-card__pin-icon,
-.ori-bundle .f-lookbook-card__pin.is-active .f-lookbook-card__pin-icon {
+body .ori-bundle .f-lookbook-card__pin:hover .f-lookbook-card__pin-icon,
+body .ori-bundle .f-lookbook-card__pin.is-active .f-lookbook-card__pin-icon {
   background: var(--ori-teal) !important;
   color: #fff !important;
 }
 
 @media (max-width: 1023px) {
-  .ori-bundle .products-bundle__grid {
+  body .ori-bundle .products-bundle__grid {
     gap: 28px;
   }
 
-  .ori-bundle .products-bundle__content {
+  body .ori-bundle .products-bundle__content {
     padding-top: 0;
   }
 }
 
 @media (max-width: 600px) {
-  .ori-bundle .products-bundle__image-wrapper {
+  body .ori-bundle .products-bundle__image-wrapper {
     width: 60px;
   }
 }
@@ -5781,17 +5782,17 @@ a.ori-vcard:hover .ori-vcard__btn svg {
    Logos keep the white tiles from the dark version (the logo files
    are squares on white), with a hairline so the tiles read on bone.
    ========================================================== */
-.f-scrolling-promotion__wrapper.ori-marquee--light {
+body .f-scrolling-promotion__wrapper.ori-marquee--light {
   border-top: 0;
   background: var(--ori-bone);
   color: var(--ori-ink);
 }
 
-.ori-marquee--light .f-promotion__text {
+body .ori-marquee--light .f-promotion__text {
   color: var(--ori-ink);
 }
 
-.ori-marquee--light .f-promotion__item img {
+body .ori-marquee--light .f-promotion__item img {
   border: 1px solid var(--ori-line);
 }
 

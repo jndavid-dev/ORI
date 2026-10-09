@@ -11,8 +11,6 @@
   "Overlap the section above" pulls the box up over the hero's bottom
   edge, as in the mockup.
 {%- endcomment -%}
-{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
-{%- render 'ori-fonts' -%}
 {%- liquid
   assign makes = section.blocks | where: 'type', 'make'
   assign year_to = section.settings.year_to | default: 2026

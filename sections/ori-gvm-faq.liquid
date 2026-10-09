@@ -6,8 +6,6 @@
   JavaScript and stays readable to search engines. The same questions are
   also output as FAQPage structured data (JSON-LD).
 {%- endcomment -%}
-{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
-{%- render 'ori-fonts' -%}
 {%- assign faqs = section.blocks | where: 'type', 'question' -%}
 <div
   class="ori ori-section ori-gfaq"

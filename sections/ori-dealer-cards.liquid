@@ -3,8 +3,6 @@
   cards, each with a heading, a line of copy and a button (white or
   dark). Two across on desktop, stacked on tablet and mobile.
 {%- endcomment -%}
-{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
-{%- render 'ori-fonts' -%}
 {%- assign cards = section.blocks | where: 'type', 'card' -%}
 {%- if cards.size > 0 -%}
   <div

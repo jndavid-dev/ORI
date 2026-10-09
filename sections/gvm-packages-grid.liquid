@@ -11,8 +11,6 @@
   gvm-css-main.css) on both pages that use it.
 {%- endcomment -%}
 
-{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
-{%- render 'ori-fonts' -%}
 
 <div class="ori ori-section gvm-packages-grid" style="--ori-pt: {{ section.settings.padding_top }}px; --ori-pb: {{ section.settings.padding_bottom }}px;">
   <div class="ori-wrap">

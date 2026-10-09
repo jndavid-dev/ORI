@@ -19,8 +19,6 @@
 {%- endcomment -%}
 {{ 'dealer-locator.css' | asset_url | stylesheet_tag }}
 {%- comment -%} The installer network is in the ORI redesign: its styles and fonts. {%- endcomment -%}
-{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
-{%- render 'ori-fonts' -%}
 <script src="{{ 'ori-gvm-approved.js' | asset_url }}" defer="defer"></script>
 
 {%- liquid

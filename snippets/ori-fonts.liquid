@@ -1,0 +1,9 @@
+{%- comment -%}
+  NO LONGER RENDERED. Barlow Condensed now loads once per page in
+  layout/theme.liquid, in the same Google Fonts request as Saira Condensed
+  and Barlow. Kept so nothing breaks if an old copy of a section still
+  renders it; safe to delete once no section references it.
+{%- endcomment -%}
+{% comment %}theme-check-disable RemoteAsset{% endcomment %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&display=swap">
+{% comment %}theme-check-enable RemoteAsset{% endcomment %}

@@ -7,8 +7,6 @@
   on one set. Same settings and benefit blocks as before; "Use tinted
   background" now gives the pale bone band.
 {%- endcomment -%}
-{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
-{%- render 'ori-fonts' -%}
 {%- liquid
   assign section_id = section.settings.custom_id | default: section.id
   assign benefits = section.blocks | where: 'type', 'benefit'

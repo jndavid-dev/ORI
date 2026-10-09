@@ -5,8 +5,6 @@
   when both are set. A card with neither still shows, with its button
   disabled, so the layout can be signed off before the files exist.
 {%- endcomment -%}
-{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
-{%- render 'ori-fonts' -%}
 
 {%- liquid
   assign custom_class = section.settings.custom_class
