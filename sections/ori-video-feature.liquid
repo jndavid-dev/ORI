@@ -1,0 +1,123 @@
+{%- comment -%}
+  ORI redesign — Video feature. Copy on the left (eyebrow, heading, text,
+  checklist, button), video on the right; stacked on mobile with the video
+  first. The video is a YouTube/Vimeo link, loaded only when the play button
+  is pressed (a poster stands in until then, so the page stays fast), or a
+  video uploaded to Shopify. With neither set, a placeholder frame shows.
+  "Video on the left" flips the columns.
+{%- endcomment -%}
+{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
+{%- render 'ori-fonts' -%}
+{%- liquid
+  assign points = section.settings.points | newline_to_br | split: '<br />'
+  assign ext = section.settings.video_url
+  assign poster = section.settings.poster
+-%}
+<div
+  class="ori ori-section ori-vfeat{% if section.settings.dark %} ori-vfeat--dark{% endif %}{% if section.settings.video_left %} ori-vfeat--flip{% endif %}"
+  style="--ori-pt: {{ section.settings.padding_top }}px; --ori-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="ori-wrap ori-vfeat__grid">
+    <div class="ori-vfeat__copy">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="ori-vfeat__eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="ori-h2">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.text != blank -%}
+        <div class="ori-vfeat__text">{{ section.settings.text }}</div>
+      {%- endif -%}
+      {%- assign has_points = false -%}
+      {%- for p in points -%}{%- if p != blank -%}{%- assign has_points = true -%}{%- break -%}{%- endif -%}{%- endfor -%}
+      {%- if has_points -%}
+        <ul class="ori-vfeat__points" role="list">
+          {%- for p in points -%}
+            {%- assign pt = p | strip -%}
+            {%- if pt != blank -%}
+              <li>{%- render 'ori-icon', icon: 'check' -%}<span>{{ pt }}</span></li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+      {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
+        <a class="ori-btn ori-btn--teal" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a>
+      {%- endif -%}
+    </div>
+
+    <div class="ori-vfeat__media">
+      {%- if ext != blank -%}
+        {%- comment -%} Click-to-load: the iframe only arrives when asked for. {%- endcomment -%}
+        {%- if ext.type == 'youtube' -%}
+          {%- assign embed = 'https://www.youtube-nocookie.com/embed/' | append: ext.id | append: '?autoplay=1&rel=0' -%}
+        {%- else -%}
+          {%- assign embed = 'https://player.vimeo.com/video/' | append: ext.id | append: '?autoplay=1' -%}
+        {%- endif -%}
+        <div class="ori-vfeat__frame" data-ori-video="{{ embed }}" data-title="{{ section.settings.heading | escape }}">
+          {%- if poster != blank -%}
+            {{ poster | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '600, 900, 1200', sizes: '(min-width: 990px) 55vw, 100vw', alt: '' }}
+          {%- elsif ext.type == 'youtube' -%}
+            <img src="https://i.ytimg.com/vi/{{ ext.id }}/hqdefault.jpg" alt="" width="480" height="360" loading="lazy">
+          {%- endif -%}
+          <button type="button" class="ori-vfeat__play" aria-label="Play video: {{ section.settings.heading | escape }}">
+            {%- render 'ori-icon', icon: 'play' -%}
+          </button>
+        </div>
+      {%- elsif section.settings.video != blank -%}
+        <div class="ori-vfeat__frame">
+          {{ section.settings.video | video_tag: controls: true, preload: 'none', playsinline: true }}
+        </div>
+      {%- else -%}
+        <div class="ori-vfeat__frame ori-vfeat__frame--placeholder">
+          {%- if poster != blank -%}
+            {{ poster | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '600, 900, 1200', sizes: '(min-width: 990px) 55vw, 100vw', alt: '' }}
+          {%- endif -%}
+          <span class="ori-vfeat__play" aria-hidden="true">{%- render 'ori-icon', icon: 'play' -%}</span>
+          <span class="ori-vfeat__soon">Video coming soon</span>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+<script>
+  (function () {
+    document.querySelectorAll('[data-ori-video]:not([data-ready])').forEach(function (frame) {
+      frame.setAttribute('data-ready', '');
+      var btn = frame.querySelector('.ori-vfeat__play');
+      if (!btn) return;
+      btn.addEventListener('click', function () {
+        var iframe = document.createElement('iframe');
+        iframe.src = frame.getAttribute('data-ori-video');
+        iframe.title = frame.getAttribute('data-title') || 'Video';
+        iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+        iframe.allowFullscreen = true;
+        frame.innerHTML = '';
+        frame.appendChild(iframe);
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "ORI Video feature",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Learn" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "GVM & GCM upgrades explained" },
+    { "type": "richtext", "id": "text", "label": "Text" },
+    { "type": "textarea", "id": "points", "label": "Checklist", "info": "One point per line." },
+    { "type": "text", "id": "button_label", "label": "Button label" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "header", "content": "Video" },
+    { "type": "video_url", "id": "video_url", "label": "YouTube or Vimeo link", "accept": ["youtube", "vimeo"] },
+    { "type": "video", "id": "video", "label": "Or a video uploaded to Shopify" },
+    { "type": "image_picker", "id": "poster", "label": "Poster image", "info": "Shown before the video plays. YouTube links use the video's own thumbnail when empty." },
+    { "type": "header", "content": "Layout" },
+    { "type": "checkbox", "id": "video_left", "label": "Video on the left", "default": false },
+    { "type": "checkbox", "id": "dark", "label": "Dark band", "default": false },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 80 }
+  ],
+  "presets": [{ "name": "ORI Video feature" }]
+}
+{% endschema %}

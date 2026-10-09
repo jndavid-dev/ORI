@@ -1,0 +1,88 @@
+{%- comment -%}
+  ORI redesign — Why choose ORI. A grid of reason cards: line icon in a
+  teal tile, condensed heading, rich-text body (bold lead-ins and bullet
+  lists come through styled). Three across on desktop, two on tablet, one
+  on mobile; cards stretch to equal height. Optional dark band.
+{%- endcomment -%}
+{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
+{%- render 'ori-fonts' -%}
+{%- assign reasons = section.blocks | where: 'type', 'reason' -%}
+<div
+  class="ori ori-section ori-why{% if section.settings.dark %} ori-why--dark{% endif %}"
+  style="--ori-pt: {{ section.settings.padding_top }}px; --ori-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="ori-wrap">
+    {%- if section.settings.heading != blank -%}
+      <div class="ori-head">
+        <div>
+          {%- if section.settings.eyebrow != blank -%}
+            <p class="ori-why__eyebrow">{{ section.settings.eyebrow }}</p>
+          {%- endif -%}
+          <h2 class="ori-h2">{{ section.settings.heading }}</h2>
+          {%- if section.settings.intro != blank -%}
+            <p class="ori-head__intro">{{ section.settings.intro }}</p>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
+    <ul class="ori-why__grid" role="list">
+      {%- for block in reasons -%}
+        <li class="ori-why__card" {{ block.shopify_attributes }}>
+          <div class="ori-why__card-head">
+            {%- if block.settings.icon != 'none' -%}
+              <span class="ori-why__icon" aria-hidden="true">{%- render 'ori-icon', icon: block.settings.icon -%}</span>
+            {%- endif -%}
+            <h3 class="ori-why__title">{{ block.settings.heading }}</h3>
+          </div>
+          {%- if block.settings.body != blank -%}
+            <div class="ori-why__body">{{ block.settings.body }}</div>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "ORI Why choose",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Offroad Industries" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Why choose ORI" },
+    { "type": "textarea", "id": "intro", "label": "Intro" },
+    { "type": "checkbox", "id": "dark", "label": "Dark band", "default": false },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 80 }
+  ],
+  "blocks": [
+    {
+      "type": "reason",
+      "name": "Reason",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "headset", "label": "Support (headset)" },
+            { "value": "network", "label": "Installer network (map pin)" },
+            { "value": "shield", "label": "Approval (shield)" },
+            { "value": "warehouse", "label": "Stock (warehouse)" },
+            { "value": "award", "label": "Specialist (award)" },
+            { "value": "tow", "label": "Towing / GCM" },
+            { "value": "suspension", "label": "Suspension" },
+            { "value": "tyre", "label": "Tyre" },
+            { "value": "truck", "label": "Truck" },
+            { "value": "clipboard", "label": "Checklist" },
+            { "value": "none", "label": "None" }
+          ],
+          "default": "shield"
+        },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Reason" },
+        { "type": "richtext", "id": "body", "label": "Text" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "ORI Why choose" }]
+}
+{% endschema %}

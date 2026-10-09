@@ -1,0 +1,132 @@
+{%- comment -%}
+  ORI redesign — Vehicle grid (blocks). The "Browse by vehicle" card design
+  from the GVM hub (snippets/ori-vehicle-card.liquid, .ori-vcard styles),
+  but with a block per vehicle so each page can list its own set, plus a
+  specs line and an optional brochure (PDF) link under the main button.
+
+  A card with no link renders "Coming soon" instead of a dead button. Each
+  block's image falls back to a theme asset (e.g. the vehicle crops shipped
+  with the theme) when no image is picked.
+{%- endcomment -%}
+{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
+{%- render 'ori-fonts' -%}
+{%- assign vehicles = section.blocks | where: 'type', 'vehicle' -%}
+<div
+  {% if section.settings.anchor != blank %}id="{{ section.settings.anchor | handleize }}"{% endif %}
+  class="ori ori-section ori-vgrid-section"
+  style="--ori-pt: {{ section.settings.padding_top }}px; --ori-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="ori-wrap">
+    {%- if section.settings.heading != blank or section.settings.intro != blank -%}
+      <div class="ori-head">
+        <div>
+          {%- if section.settings.heading != blank -%}
+            <h2 class="ori-h2">{{ section.settings.heading }}</h2>
+          {%- endif -%}
+          {%- if section.settings.intro != blank -%}
+            <p class="ori-head__intro">{{ section.settings.intro }}</p>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    <ul class="ori-vgrid ori-vgrid--wide" style="--ori-cols: {{ section.settings.columns }};" role="list">
+      {%- for block in vehicles -%}
+        {%- liquid
+          assign url = block.settings.url
+          assign live = true
+          if url == blank or url == '#'
+            assign live = false
+          endif
+          assign asset_img = block.settings.image_asset | strip
+        -%}
+        <li class="ori-vcard{% unless live %} ori-vcard--soon{% endunless %}" {{ block.shopify_attributes }}>
+          <div class="ori-vcard__img">
+            {%- unless live -%}<span class="ori-flag">Coming soon</span>{%- endunless -%}
+            {%- if block.settings.image != blank -%}
+              {{
+                block.settings.image
+                | image_url: width: 900
+                | image_tag:
+                  loading: 'lazy',
+                  widths: '450, 700, 900',
+                  sizes: '(min-width: 1100px) 22vw, (min-width: 600px) 45vw, 100vw',
+                  alt: block.settings.title
+              }}
+            {%- elsif asset_img != blank -%}
+              <img src="{{ asset_img | asset_url }}" alt="{{ block.settings.title | escape }}" width="1000" height="565" loading="lazy">
+            {%- endif -%}
+            {%- if live -%}<a class="ori-vcard__cover" href="{{ url }}" tabindex="-1" aria-hidden="true"></a>{%- endif -%}
+          </div>
+          <div class="ori-vcard__body">
+            <h3 class="ori-vcard__title">
+              {%- if live -%}<a href="{{ url }}">{{ block.settings.title }}</a>{%- else -%}{{ block.settings.title }}{%- endif -%}
+            </h3>
+            {%- if block.settings.specs != blank -%}
+              <p class="ori-vcard__specs">{{ block.settings.specs }}</p>
+            {%- endif -%}
+            {%- if block.settings.text != blank -%}
+              <p class="ori-vcard__text">{{ block.settings.text }}</p>
+            {%- endif -%}
+            <div class="ori-vcard__actions">
+              {%- if live -%}
+                <a class="ori-btn ori-btn--line ori-vcard__btn" href="{{ url }}">
+                  {{- block.settings.button_label | default: 'View packages & pricing' -}}
+                  {%- render 'ori-icon', icon: 'arrow' -%}
+                </a>
+              {%- else -%}
+                <span class="ori-vcard__soon">Hub coming soon</span>
+              {%- endif -%}
+              {%- if block.settings.pdf_url != blank -%}
+                <a class="ori-vcard__pdf" href="{{ block.settings.pdf_url }}" target="_blank" rel="noopener">
+                  {%- render 'ori-icon', icon: 'download' -%}
+                  {{- block.settings.pdf_label | default: 'Download brochure (PDF)' -}}
+                </a>
+              {%- endif -%}
+            </div>
+          </div>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "ORI Vehicle grid",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Browse by vehicle" },
+    { "type": "textarea", "id": "intro", "label": "Intro" },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "Cards per row (desktop)",
+      "min": 3,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    },
+    { "type": "text", "id": "anchor", "label": "Anchor ID", "info": "Lets buttons link here, e.g. vehicles → #vehicles." },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 80 }
+  ],
+  "blocks": [
+    {
+      "type": "vehicle",
+      "name": "Vehicle",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "Landscape, about 16:9." },
+        { "type": "text", "id": "image_asset", "label": "Fallback image (theme asset file name)" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Ford F150" },
+        { "type": "text", "id": "specs", "label": "Specs line", "placeholder": "4300 GVM | 8800 GCM | 35\" tyres legal" },
+        { "type": "textarea", "id": "text", "label": "Text" },
+        { "type": "url", "id": "url", "label": "Link", "info": "Empty shows \"Coming soon\"." },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "View packages & pricing" },
+        { "type": "url", "id": "pdf_url", "label": "Brochure (PDF) link" },
+        { "type": "text", "id": "pdf_label", "label": "Brochure link label", "default": "Download brochure (PDF)" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "ORI Vehicle grid" }]
+}
+{% endschema %}

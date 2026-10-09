@@ -1994,7 +1994,7 @@
   right: clamp(0px, 1.5vw, 40px);
   bottom: 6%;
   z-index: 0;
-  width: min(45vw, 960px);
+  width: min(var(--ori-hero-media-w, 45vw), 1180px);
 }
 
 .ori-hero--cutout .ori-hero__media img {
@@ -5772,4 +5772,528 @@ a.ori-vcard:hover .ori-vcard__btn svg {
 
 .ori-marquee--light .f-promotion__item img {
   border: 1px solid var(--ori-line);
+}
+
+
+/* ==========================================================
+   ORI REDESIGN — VEHICLE GRID: WIDE (sections/ori-vehicle-grid.liquid)
+   The hub's .ori-vcard design with landscape photos, a specs line and
+   an optional brochure link. Cards are list items (two links each),
+   so the photo carries its own cover link rather than the whole card.
+   ========================================================== */
+.ori-vgrid--wide {
+  grid-template-columns: repeat(var(--ori-cols, 4), minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ori-vgrid--wide .ori-vcard__img {
+  aspect-ratio: 16 / 9;
+}
+
+.ori-vcard__cover {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.ori-vgrid--wide .ori-vcard:hover {
+  box-shadow: 0 18px 36px -24px rgba(0, 0, 0, 0.45);
+}
+
+.ori-vgrid--wide .ori-vcard:hover .ori-vcard__img img {
+  transform: scale(1.04);
+}
+
+.ori .ori-vgrid--wide .ori-vcard__title {
+  font-size: 24px;
+}
+
+.ori-vcard__title a {
+  text-decoration: none;
+}
+
+.ori-vcard__specs {
+  color: var(--ori-teal-deep);
+  font-family: var(--ori-display);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.ori-vcard__actions {
+  display: grid;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 6px;
+}
+
+/* Five across leaves ~200px for the button, so the label is held to one
+   line at a slightly smaller size. */
+.ori-vgrid--wide .ori-vcard__btn {
+  gap: 6px;
+  padding-right: 10px;
+  padding-left: 10px;
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+.ori-vgrid--wide .ori-vcard__btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.ori-vgrid--wide .ori-vcard__btn:hover {
+  background: var(--ori-ink);
+  color: #fff;
+}
+
+.ori-vcard__pdf {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--ori-steel);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.ori-vcard__pdf svg {
+  width: 16px;
+  height: 16px;
+  color: var(--ori-teal-deep);
+}
+
+.ori-vcard__pdf:hover {
+  color: var(--ori-ink);
+  text-decoration: underline;
+}
+
+@media (max-width: 1200px) {
+  .ori-vgrid--wide {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .ori-vgrid--wide {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .ori-vgrid--wide {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ori-vgrid--wide .ori-vcard__btn {
+    font-size: 16px;
+  }
+}
+
+/* ==========================================================
+   ORI REDESIGN — VIDEO FEATURE (sections/ori-video-feature.liquid)
+   ========================================================== */
+.ori-vfeat__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+  gap: 56px;
+  align-items: center;
+}
+
+.ori-vfeat--flip .ori-vfeat__copy {
+  order: 2;
+}
+
+.ori-vfeat--dark {
+  background: var(--ori-chassis);
+  color: #eef1f1;
+}
+
+.ori-vfeat__eyebrow,
+.ori-why__eyebrow {
+  margin-bottom: 10px !important;
+  color: var(--ori-teal-deep);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ori-vfeat--dark .ori-vfeat__eyebrow,
+.ori-why--dark .ori-why__eyebrow {
+  color: var(--ori-teal);
+}
+
+.ori-vfeat__text {
+  margin-top: 16px;
+  color: var(--ori-steel);
+}
+
+.ori-vfeat--dark .ori-vfeat__text {
+  color: #b7c3c6;
+}
+
+.ori-vfeat__text p + p {
+  margin-top: 12px;
+}
+
+.ori-vfeat__points {
+  display: grid;
+  gap: 10px;
+  margin: 22px 0 28px;
+  padding: 0;
+  list-style: none;
+}
+
+.ori-vfeat__points li {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  font-weight: 500;
+}
+
+.ori-vfeat__points svg {
+  width: 22px;
+  height: 22px;
+  color: var(--ori-teal);
+}
+
+.ori-vfeat__frame {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--ori-chassis);
+}
+
+.ori-vfeat__frame > img,
+.ori-vfeat__frame video,
+.ori-vfeat__frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  object-fit: cover;
+}
+
+.ori-vfeat__frame--placeholder {
+  background:
+    radial-gradient(circle at 70% 30%, rgba(63, 179, 186, 0.18), transparent 55%),
+    repeating-linear-gradient(135deg, #1f2629 0 14px, #232b2e 14px 28px);
+}
+
+.ori .ori-vfeat__play {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: rgba(21, 25, 27, 0.55);
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.ori .ori-vfeat__play svg {
+  width: 84px;
+  height: 84px;
+}
+
+.ori .ori-vfeat__play:hover {
+  background: var(--ori-teal);
+  transform: scale(1.05);
+}
+
+.ori-vfeat__soon {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #dfe6e7;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+@media (max-width: 990px) {
+  .ori-vfeat__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+
+  .ori-vfeat__media {
+    order: -1;
+  }
+
+  .ori-vfeat--flip .ori-vfeat__copy {
+    order: 0;
+  }
+}
+
+/* ==========================================================
+   ORI REDESIGN — WHY CHOOSE (sections/ori-why-choose.liquid)
+   ========================================================== */
+.ori-why {
+  background: var(--ori-bone);
+}
+
+.ori-why--dark {
+  background: var(--ori-chassis);
+  color: #eef1f1;
+}
+
+.ori-why__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ori-why__card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 28px;
+  border: 1px solid var(--ori-line);
+  border-radius: 6px;
+  background: var(--ori-paper);
+}
+
+.ori-why--dark .ori-why__card {
+  border-color: #334044;
+  background: #222a2d;
+}
+
+.ori-why__card-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.ori-why__icon {
+  flex: 0 0 56px;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--ori-teal) 14%, transparent);
+  color: var(--ori-teal-deep);
+}
+
+.ori-why--dark .ori-why__icon {
+  color: var(--ori-teal);
+}
+
+.ori-why__icon svg {
+  width: 30px;
+  height: 30px;
+}
+
+.ori .ori-why__title {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.05;
+}
+
+.ori-why__body {
+  display: grid;
+  gap: 12px;
+  color: var(--ori-steel);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.ori-why--dark .ori-why__body {
+  color: #b7c3c6;
+}
+
+.ori-why__body strong {
+  color: var(--ori-ink);
+  font-weight: 600;
+}
+
+.ori-why--dark .ori-why__body strong {
+  color: #fff;
+}
+
+.ori-why__body ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ori-why__body li {
+  position: relative;
+  padding-left: 18px;
+}
+
+.ori-why__body li::before {
+  content: "";
+  position: absolute;
+  top: 0.62em;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: var(--ori-teal);
+}
+
+@media (max-width: 1100px) {
+  .ori-why__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .ori-why__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .ori-why__card {
+    padding: 22px 20px;
+  }
+}
+
+/* ==========================================================
+   ORI REDESIGN — FAQ (sections/ori-gvm-faq.liquid)
+   ========================================================== */
+.ori-gfaq__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr);
+  gap: 56px;
+  align-items: start;
+}
+
+.ori-gfaq__intro {
+  display: grid;
+  gap: 18px;
+  justify-items: start;
+}
+
+.ori-gfaq__intro .ori-head__intro {
+  margin-top: 0 !important;
+}
+
+.ori-gfaq__list {
+  border-top: 1px solid var(--ori-line);
+}
+
+.ori-gfaq__item {
+  border-bottom: 1px solid var(--ori-line);
+}
+
+.ori-gfaq__q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px 0;
+  font-family: var(--ori-display);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.15;
+  text-transform: uppercase;
+  cursor: pointer;
+  list-style: none;
+}
+
+.ori-gfaq__q::-webkit-details-marker {
+  display: none;
+}
+
+.ori-gfaq__q:hover {
+  color: var(--ori-teal-deep);
+}
+
+.ori-gfaq__icon {
+  position: relative;
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--ori-line);
+  border-radius: 50%;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.ori-gfaq__icon::before,
+.ori-gfaq__icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 2px;
+  margin: -1px 0 0 -6px;
+  background: currentColor;
+  transition: transform 0.2s ease;
+}
+
+.ori-gfaq__icon::after {
+  transform: rotate(90deg);
+}
+
+.ori-gfaq__item[open] .ori-gfaq__icon {
+  border-color: var(--ori-teal);
+  background: var(--ori-teal);
+  color: #fff;
+}
+
+.ori-gfaq__item[open] .ori-gfaq__icon::after {
+  transform: rotate(0deg);
+}
+
+.ori-gfaq__a {
+  display: grid;
+  gap: 10px;
+  max-width: 70ch;
+  padding: 0 52px 22px 0;
+  color: var(--ori-steel);
+}
+
+.ori-gfaq__a strong {
+  color: var(--ori-ink);
+}
+
+@media (max-width: 990px) {
+  .ori-gfaq__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+}
+
+@media (max-width: 600px) {
+  .ori-gfaq__q {
+    font-size: 19px;
+  }
+
+  .ori-gfaq__a {
+    padding-right: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ori-gfaq__icon,
+  .ori-gfaq__icon::before,
+  .ori-gfaq__icon::after,
+  .ori .ori-vfeat__play {
+    transition: none;
+  }
 }

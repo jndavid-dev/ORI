@@ -80,6 +80,8 @@
           class="ori-gvm-approved"
           data-source-url="{{ source_page.url }}"
           data-source-selector="{{ selector | escape }}"
+          {% if section.settings.replace_heading != blank %}data-heading="{{ section.settings.replace_heading | escape }}"{% endif %}
+          {% if section.settings.replace_intro != blank %}data-intro="{{ section.settings.replace_intro | escape }}"{% endif %}
         >
           <div class="ori-gvm-approved__placeholder" data-approved-target>
             <span class="ori-gvm-approved__spinner" aria-hidden="true"></span>
@@ -129,6 +131,8 @@
       "info": "Only used when the option above is set to Custom."
     },
     { "type": "text", "id": "heading", "label": "Heading", "info": "Optional. The pulled section usually brings its own." },
+    { "type": "text", "id": "replace_heading", "label": "Replace the pulled section's heading", "info": "Optional. Swaps the heading text of the section pulled in, on this page only." },
+    { "type": "text", "id": "replace_intro", "label": "Replace the pulled section's intro", "info": "Optional. Swaps its intro line, on this page only." },
     {
       "type": "text",
       "id": "fallback_text",
