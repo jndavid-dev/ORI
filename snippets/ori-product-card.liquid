@@ -23,13 +23,16 @@
   Accepts:
   - product: {Object} required
   - link: {Boolean} link image and title to the product (default true)
-  - button: {String} 'cart' (default) | 'link' | 'request' | 'none'
+  - button: {String} 'cart' (default) | 'link' | 'request' | 'quote' | 'none'
       cart    — add to cart for single-variant products, "Choose options"
                 link otherwise
       link    — "View details", linking to the product page
       request — "Request this kit"; ships hidden and is revealed by
                 assets/ori-gvm-kit-request.js only when the kit form is on
                 the page and knows this product
+      quote   — "Request quote"; a link to the product, which
+                assets/ori-gvm-quote.js turns into opening the quote popup
+                with this kit chosen when that popup is on the page
   - button_label: {String} optional label override
   - image_width: {Number} optional, default 533
 {%- endcomment -%}
@@ -159,6 +162,10 @@
         <button type="button" class="ori-btn ori-btn--line" data-gvm-request-kit="{{ product.id }}" hidden>
           {{- button_label | default: 'Request this kit' -}}
         </button>
+      {%- when 'quote' -%}
+        <a class="ori-btn ori-btn--line" href="{{ product.url }}" data-ori-quote-kit="{{ product.id }}">
+          {{- button_label | default: 'Request quote' -}}
+        </a>
       {%- when 'link' -%}
         <a class="ori-btn ori-btn--line" href="{{ product.url }}">{{ button_label | default: 'View details' }}</a>
       {%- when 'cart' -%}

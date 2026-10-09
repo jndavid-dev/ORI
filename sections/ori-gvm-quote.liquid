@@ -2,10 +2,16 @@
   ORI redesign — GVM quote request. Replaces contact-form-v4 on the pages it
   is added to, one template at a time; the old form is left alone elsewhere.
 
-  Product mode (this version): the kit is the product being viewed, so the
-  customer never picks a vehicle or stage. A summary card shows the product
-  and a variant select that follows the page's own variant buttons. Hidden
-  fields put the product, variant, SKU and page URL in every email.
+  The first step depends on the page:
+  - Product: the kit is the product being viewed, so the customer never
+    picks a vehicle or stage. A summary card shows it, with a variant select
+    that follows the page's own variant buttons.
+  - Collection: a kit select (the collection's products, plus "Not sure
+    yet") and a variant select filled from the chosen kit. ORI product cards
+    set to "Request quote" open the popup with their kit already chosen.
+  - Anywhere else: no kit step.
+  Hidden fields put the product, variant, SKU and URLs in every email. The
+  kits are embedded as JSON (data-ori-quote-kits) so nothing is fetched.
 
   Sends through Shopify's contact form, so enquiries arrive at the store
   contact email (Settings › General › Store details). assets/ori-gvm-quote.js
@@ -32,23 +38,41 @@
   assign popup_id = section.settings.popup_id | default: 'ori-gvm-quote' | handle
   assign form_id = 'OriQuote-' | append: section.id
 
+  assign quote_mode = 'none'
   assign has_product = false
+  assign has_variants = false
   if product != blank
+    assign quote_mode = 'product'
     assign has_product = true
     assign current_variant = product.selected_or_first_available_variant | default: product.variants.first
     assign kit_image = current_variant.image | default: product.featured_image
-    assign has_variants = false
     if product.variants.size > 1
       assign has_variants = true
     endif
+  elsif collection != blank and collection.products.size > 0
+    assign quote_mode = 'collection'
   endif
+  assign kit_limit = section.settings.kit_limit | default: 30
 
   assign use_steps = section.settings.use_steps
   assign reopen_popup = false
 -%}
 
+{%- capture quote_kits_json -%}
+  {%- if quote_mode == 'product' -%}
+    {%- render 'ori-gvm-quote-kit', p: product -%}
+  {%- elsif quote_mode == 'collection' -%}
+    {%- for p in collection.products limit: kit_limit -%}
+      {%- render 'ori-gvm-quote-kit', p: p -%}{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endcapture -%}
+
 {%- capture quote_form -%}
   <div class="ori-quote__form-wrap">
+    {%- unless quote_mode == 'none' -%}
+      <script type="application/json" data-ori-quote-kits>{ {{ quote_kits_json }} }</script>
+    {%- endunless -%}
     {%- form 'contact', id: form_id, class: 'ori-quote__form', novalidate: 'novalidate', data-ori-quote-form: '' -%}
       {%- if form.posted_successfully? or form.errors -%}
         {%- assign reopen_popup = true -%}
@@ -69,61 +93,80 @@
           Variant / SKU / Page URL in step with the variant select.
         {%- endcomment -%}
         <input type="hidden" name="contact[Form type]" value="GVM quote request">
-        {%- if has_product -%}
-          <input type="hidden" name="contact[Product]" value="{{ product.title | escape }}">
-          <input type="hidden" name="contact[Variant]" value="{{ current_variant.title | escape }}" data-ori-quote-h="variant">
-          <input type="hidden" name="contact[SKU]" value="{{ current_variant.sku | escape }}" data-ori-quote-h="sku">
-          <input type="hidden" name="contact[Page URL]" value="{{ shop.url }}{{ product.url }}?variant={{ current_variant.id }}" data-ori-quote-h="url">
-        {%- else -%}
-          <input type="hidden" name="contact[Page URL]" value="{{ shop.url }}{{ request.path }}">
-        {%- endif -%}
+        {%- case quote_mode -%}
+          {%- when 'product' -%}
+            <input type="hidden" name="contact[Product]" value="{{ product.title | escape }}" data-ori-quote-h="product">
+            <input type="hidden" name="contact[Variant]" value="{{ current_variant.title | escape }}" data-ori-quote-h="variant">
+            <input type="hidden" name="contact[SKU]" value="{{ current_variant.sku | escape }}" data-ori-quote-h="sku">
+            <input type="hidden" name="contact[Page URL]" value="{{ shop.url }}{{ product.url }}?variant={{ current_variant.id }}" data-ori-quote-h="url">
+          {%- when 'collection' -%}
+            <input type="hidden" name="contact[Product]" value="{{ section.settings.not_sure_label | escape }}" data-ori-quote-h="product">
+            <input type="hidden" name="contact[Variant]" value="" data-ori-quote-h="variant">
+            <input type="hidden" name="contact[SKU]" value="" data-ori-quote-h="sku">
+            <input type="hidden" name="contact[Product URL]" value="" data-ori-quote-h="url">
+            <input type="hidden" name="contact[Page URL]" value="{{ shop.url }}{{ collection.url }}">
+          {%- else -%}
+            <input type="hidden" name="contact[Page URL]" value="{{ shop.url }}{{ request.path }}">
+        {%- endcase -%}
         {%- if customer.current_company -%}
           <input type="hidden" name="contact[Company]" value="{{ customer.current_company.name | escape }}">
         {%- endif -%}
 
         {%- if use_steps -%}
           <ol class="ori-quote__progress" data-ori-quote-progress aria-hidden="true">
-            {%- if has_product -%}<li>Your kit</li>{%- endif -%}
+            {%- unless quote_mode == 'none' -%}<li>Your kit</li>{%- endunless -%}
             <li>Your details</li>
             <li>Your vehicle</li>
           </ol>
         {%- endif -%}
 
-        {%- if has_product -%}
+        {%- unless quote_mode == 'none' -%}
           <fieldset class="ori-quote__step" data-ori-quote-step>
             <legend class="ori-quote__legend">Your kit</legend>
-            <div class="ori-quote__kit">
+            {%- if quote_mode == 'collection' -%}
+              <div class="ori-quote__field">
+                <label for="{{ form_id }}-kit">{{ section.settings.kit_label }}</label>
+                <select id="{{ form_id }}-kit" data-ori-quote-kit-select>
+                  <option value="">{{ section.settings.not_sure_label }}</option>
+                  {%- for p in collection.products limit: kit_limit -%}
+                    <option value="{{ p.id }}">{{ p.title }}</option>
+                  {%- endfor -%}
+                </select>
+              </div>
+            {%- endif -%}
+            <div class="ori-quote__kit"{% if quote_mode == 'collection' %} data-ori-quote-card hidden{% endif %}>
               <div class="ori-quote__kit-img">
-                {%- if kit_image != blank -%}
-                  <img
-                    src="{{ kit_image | image_url: width: 240 }}"
-                    alt="{{ product.title | escape }}"
-                    width="120"
-                    height="90"
-                    loading="lazy"
-                    data-ori-quote-img
-                  >
-                {%- endif -%}
+                <img
+                  src="{% if kit_image != blank %}{{ kit_image | image_url: width: 240 }}{% else %}data:,{% endif %}"
+                  alt=""
+                  width="120"
+                  height="90"
+                  loading="lazy"
+                  data-ori-quote-img
+                  {% if kit_image == blank %}hidden{% endif %}
+                >
               </div>
               <div class="ori-quote__kit-body">
-                <p class="ori-quote__kit-title">{{ product.title }}</p>
+                <p class="ori-quote__kit-title" data-ori-quote-title>{% if has_product %}{{ product.title }}{% endif %}</p>
                 <p class="ori-quote__kit-sku" data-ori-quote-sku{% if current_variant.sku == blank %} hidden{% endif %}>
                   SKU <span>{{ current_variant.sku }}</span>
                 </p>
               </div>
             </div>
-            {%- if has_variants -%}
-              <div class="ori-quote__field">
-                <label for="{{ form_id }}-variant">Package option</label>
+            {%- if has_variants or quote_mode == 'collection' -%}
+              <div class="ori-quote__field"{% if quote_mode == 'collection' %} data-ori-quote-variant-field hidden{% endif %}>
+                <label for="{{ form_id }}-variant">{{ section.settings.variant_label }}</label>
                 <select id="{{ form_id }}-variant" data-ori-quote-variant>
-                  {%- for v in product.variants -%}
-                    <option value="{{ v.id }}"{% if v.id == current_variant.id %} selected{% endif %}>{{ v.title }}</option>
-                  {%- endfor -%}
+                  {%- if has_product -%}
+                    {%- for v in product.variants -%}
+                      <option value="{{ v.id }}"{% if v.id == current_variant.id %} selected{% endif %}>{{ v.title }}</option>
+                    {%- endfor -%}
+                  {%- endif -%}
                 </select>
               </div>
             {%- endif -%}
           </fieldset>
-        {%- endif -%}
+        {%- endunless -%}
 
         <fieldset class="ori-quote__step" data-ori-quote-step>
           <legend class="ori-quote__legend">Your details</legend>
@@ -252,20 +295,6 @@
   </div>
 {%- endif -%}
 
-{%- if has_product and has_variants -%}
-  <script type="application/json" data-ori-quote-variants>
-    {
-      {%- for v in product.variants -%}
-        {%- assign v_image = v.image | default: product.featured_image -%}
-        "{{ v.id }}": {
-          "title": {{ v.title | json }},
-          "sku": {{ v.sku | json }},
-          "image": {{ v_image | image_url: width: 240 | json }}
-        }{% unless forloop.last %},{% endunless %}
-      {%- endfor -%}
-    }
-  </script>
-{%- endif -%}
 <script src="{{ 'ori-gvm-quote.js' | asset_url }}" defer="defer"></script>
 
 {% schema %}
@@ -317,6 +346,33 @@
       "info": "e.g. Prefer to talk? Call 07 0000 0000"
     },
     { "type": "header", "content": "Form" },
+    {
+      "type": "text",
+      "id": "kit_label",
+      "label": "Kit select label (collection pages)",
+      "default": "Which GVM package?"
+    },
+    {
+      "type": "text",
+      "id": "not_sure_label",
+      "label": "\"Not sure\" option (collection pages)",
+      "default": "Not sure yet, help me choose"
+    },
+    {
+      "type": "text",
+      "id": "variant_label",
+      "label": "Variant select label",
+      "default": "Package option"
+    },
+    {
+      "type": "range",
+      "id": "kit_limit",
+      "label": "Kits listed (collection pages)",
+      "min": 4,
+      "max": 50,
+      "step": 1,
+      "default": 30
+    },
     {
       "type": "checkbox",
       "id": "use_steps",

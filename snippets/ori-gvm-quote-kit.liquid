@@ -1,0 +1,24 @@
+{%- comment -%}
+  One kit for the quote form's JSON (sections/ori-gvm-quote.liquid), as
+  "<product id>": { title, url, image, variants: [...] }. Variant images
+  fall back to the product's featured image.
+
+  Accepts:
+  - p: {Object} product
+{%- endcomment -%}
+"{{ p.id }}": {
+  "title": {{ p.title | json }},
+  "url": {{ p.url | json }},
+  "image": {{ p.featured_image | image_url: width: 240 | json }},
+  "variants": [
+    {%- for v in p.variants -%}
+      {%- assign v_image = v.image | default: p.featured_image -%}
+      {
+        "id": {{ v.id }},
+        "title": {{ v.title | json }},
+        "sku": {{ v.sku | json }},
+        "image": {{ v_image | image_url: width: 240 | json }}
+      }{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ]
+}

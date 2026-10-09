@@ -6,6 +6,11 @@
   commas: columns "OEM | Stage 1 | Stage 2", a row "$0 | $11,500* | $7,800*".
   Tick "Highlight" on a row (e.g. Your Trade Price) to colour it teal.
 
+  Compact style: smaller type, tighter rows, zebra striping and a muted
+  first column (the OEM baseline) — for long spec tables. Mobile "Scroll"
+  keeps the table on phones, scrolling sideways with the row labels pinned,
+  instead of one card per column (too long with a dozen rows).
+
   sections/gvm-comparison.liquid is unchanged — 20+ older templates use it.
 {%- endcomment -%}
 {{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
@@ -17,9 +22,18 @@
     assign custom_class = custom_class | prepend: ' '
   endunless
   assign cols = section.settings.columns | split: '|'
+  assign is_compact = false
+  if section.settings.style == 'compact'
+    assign is_compact = true
+  endif
+  assign mobile_scroll = false
+  if section.settings.mobile == 'scroll'
+    assign mobile_scroll = true
+  endif
 -%}
 <div
-  class="ori ori-section{{ custom_class }}"
+  {% if section.settings.anchor_id != blank %}id="{{ section.settings.anchor_id | handle }}"{% endif %}
+  class="ori ori-section{% if mobile_scroll %} ori-cmp-wrap--scroll{% endif %}{{ custom_class }}"
   style="--ori-pt: {{ section.settings.padding_top }}px; --ori-pb: {{ section.settings.padding_bottom }}px;"
 >
   <div class="ori-wrap">
@@ -37,7 +51,8 @@
     {%- endif -%}
 
     {%- if cols.size > 0 and section.blocks.size > 0 -%}
-      <table class="ori-cmp">
+      <div class="ori-cmp-scroll">
+      <table class="ori-cmp{% if is_compact %} ori-cmp--compact{% endif %}">
         <thead>
           <tr>
             <th scope="col"><span class="ori-sr">{{ section.settings.corner_label }}</span></th>
@@ -58,7 +73,12 @@
           {%- endfor -%}
         </tbody>
       </table>
+      </div>
+      {%- if mobile_scroll -%}
+        <p class="ori-cmp-hint" aria-hidden="true">Swipe to see every stage &rarr;</p>
+      {%- endif -%}
 
+      {%- unless mobile_scroll -%}
       <div class="ori-cmp-cards">
         {%- for col in cols -%}
           {%- assign i = forloop.index0 -%}
@@ -74,6 +94,7 @@
           </div>
         {%- endfor -%}
       </div>
+      {%- endunless -%}
     {%- endif -%}
   </div>
 </div>
@@ -100,6 +121,32 @@
       "label": "Columns",
       "info": "Separate with |, e.g. OEM | Stage 1 | Stage 2",
       "default": "OEM | Stage 1 | Stage 2 | Stage 3 | Stage 4 | Stage 5"
+    },
+    {
+      "type": "select",
+      "id": "style",
+      "label": "Table style",
+      "options": [
+        { "value": "standard", "label": "Standard (large figures)" },
+        { "value": "compact", "label": "Compact (long spec tables)" }
+      ],
+      "default": "standard"
+    },
+    {
+      "type": "select",
+      "id": "mobile",
+      "label": "On phones",
+      "options": [
+        { "value": "cards", "label": "One card per column" },
+        { "value": "scroll", "label": "Table scrolls sideways" }
+      ],
+      "default": "cards"
+    },
+    {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "Anchor ID",
+      "info": "Lets links jump here, e.g. specifications for #specifications."
     },
     {
       "type": "text",

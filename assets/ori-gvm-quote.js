@@ -1,9 +1,12 @@
 /* ORI GVM quote request (sections/ori-gvm-quote.liquid).
 
    - Steps: one fieldset at a time, each checked before moving on.
-   - Variant: follows the page's own variant buttons (ORI GVM Product writes
-     ?variant= to the URL) and the form's own select, and keeps the hidden
-     Variant / SKU / Page URL fields in step.
+   - Kit and variant: on a product page the variant follows the page's own
+     variant buttons; on a collection page a kit select fills the variant
+     select. Either way the hidden Product / Variant / SKU / URL fields are
+     kept in step. Product cards with data-ori-quote-kit="<product id>"
+     (ORI product grid, button "Request quote") link to the product; when a quote
+     popup lists that kit they open it instead, with the kit chosen.
    - Submit: posts to Shopify's contact endpoint in the background so the
      popup stays open. Shopify redirects a successful post to a URL carrying
      contact_posted=true; anything else (validation errors, the spam-check
@@ -14,12 +17,6 @@
 (function () {
   if (window.oriGvmQuoteLoaded) return;
   window.oriGvmQuoteLoaded = true;
-
-  var VARIANTS = null;
-  var dataEl = document.querySelector('[data-ori-quote-variants]');
-  if (dataEl) {
-    try { VARIANTS = JSON.parse(dataEl.textContent); } catch (e) { VARIANTS = null; }
-  }
 
   function urlVariant() {
     try { return new URL(window.location.href).searchParams.get('variant'); } catch (e) { return null; }
@@ -84,22 +81,55 @@
     }
     show(0);
 
-    /* --- Variant --- */
+    /* --- Kit and variant --- */
+    // Product pages embed one kit (the product), collection pages one per
+    // product. A kit select only exists on collection pages.
+    var KITS = {};
+    var kitsEl = form.querySelector('[data-ori-quote-kits]');
+    if (kitsEl) {
+      try { KITS = JSON.parse(kitsEl.textContent) || {}; } catch (e) { KITS = {}; }
+    }
+    var kitIds = Object.keys(KITS);
+    var kitSelect = form.querySelector('[data-ori-quote-kit-select]');
     var select = form.querySelector('[data-ori-quote-variant]');
-    var hVariant = form.querySelector('[data-ori-quote-h="variant"]');
-    var hSku = form.querySelector('[data-ori-quote-h="sku"]');
-    var hUrl = form.querySelector('[data-ori-quote-h="url"]');
+    var variantField = form.querySelector('[data-ori-quote-variant-field]');
+    var card = form.querySelector('[data-ori-quote-card]');
+    var h = {
+      product: form.querySelector('[data-ori-quote-h="product"]'),
+      variant: form.querySelector('[data-ori-quote-h="variant"]'),
+      sku: form.querySelector('[data-ori-quote-h="sku"]'),
+      url: form.querySelector('[data-ori-quote-h="url"]')
+    };
     var img = form.querySelector('[data-ori-quote-img]');
+    var titleEl = form.querySelector('[data-ori-quote-title]');
     var skuLine = form.querySelector('[data-ori-quote-sku]');
+    var notSure = h.product ? h.product.value : '';
+    var kitId = kitSelect ? '' : kitIds[0] || '';
+
+    function setVal(el, v) { if (el) el.value = v || ''; }
 
     function applyVariant(id) {
-      if (!VARIANTS || !id || !VARIANTS[id]) return;
-      var v = VARIANTS[id];
-      if (select) select.value = String(id);
-      if (hVariant) hVariant.value = v.title || '';
-      if (hSku) hSku.value = v.sku || '';
-      if (hUrl) hUrl.value = hUrl.value.replace(/([?&]variant=)\d+/, '$1' + id);
-      if (img && v.image) img.src = v.image;
+      var kit = KITS[kitId];
+      if (!kit) return;
+      var v = null;
+      for (var n = 0; n < kit.variants.length; n++) {
+        if (String(kit.variants[n].id) === String(id)) v = kit.variants[n];
+      }
+      if (!v) v = kit.variants[0];
+      if (!v) return;
+      if (select) select.value = String(v.id);
+      // A single default variant is just "Default Title" — leave it out.
+      setVal(h.variant, kit.variants.length > 1 ? v.title : '');
+      setVal(h.sku, v.sku);
+      if (h.url) {
+        var base = kitSelect ? window.location.origin + kit.url : h.url.value.split('?')[0];
+        h.url.value = base + '?variant=' + v.id;
+      }
+      if (img) {
+        var src = v.image || kit.image;
+        img.hidden = !src;
+        if (src) img.src = src;
+      }
       if (skuLine) {
         skuLine.hidden = !v.sku;
         var span = skuLine.querySelector('span');
@@ -107,18 +137,57 @@
       }
     }
 
+    function setKit(id, variantId) {
+      if (!kitSelect) return;
+      kitId = KITS[id] ? String(id) : '';
+      kitSelect.value = kitId;
+      var kit = KITS[kitId];
+      if (card) card.hidden = !kit;
+      if (!kit) {
+        setVal(h.product, notSure);
+        setVal(h.variant, '');
+        setVal(h.sku, '');
+        setVal(h.url, '');
+        if (variantField) variantField.hidden = true;
+        return;
+      }
+      setVal(h.product, kit.title);
+      if (titleEl) titleEl.textContent = kit.title;
+      if (select) {
+        select.innerHTML = '';
+        kit.variants.forEach(function (v) {
+          var o = document.createElement('option');
+          o.value = v.id;
+          o.textContent = v.title;
+          select.appendChild(o);
+        });
+      }
+      if (variantField) variantField.hidden = kit.variants.length < 2;
+      applyVariant(variantId);
+    }
+
+    if (kitSelect) {
+      kitSelect.addEventListener('change', function () { setKit(kitSelect.value); });
+    }
     if (select) {
       select.addEventListener('change', function () { applyVariant(select.value); });
     }
-    applyVariant(urlVariant());
-    // The product section's variant buttons carry data-gvm-step="<variant id>".
-    document.addEventListener('click', function (e) {
-      var btn = e.target.closest && e.target.closest('[data-gvm-step]');
-      if (btn) applyVariant(btn.getAttribute('data-gvm-step'));
-    });
-    if (root.hasAttribute('data-ori-quote-popup')) {
-      root.addEventListener('open', function () { applyVariant(urlVariant()); });
+
+    if (!kitSelect) {
+      // Product page: follow the page's variant (ORI GVM Product writes
+      // ?variant= and its buttons carry data-gvm-step="<variant id>").
+      applyVariant(urlVariant());
+      document.addEventListener('click', function (e) {
+        var btn = e.target.closest && e.target.closest('[data-gvm-step]');
+        if (btn) applyVariant(btn.getAttribute('data-gvm-step'));
+      });
+      if (root.hasAttribute('data-ori-quote-popup')) {
+        root.addEventListener('open', function () { applyVariant(urlVariant()); });
+      }
     }
+
+    // Lets product-card buttons pick a kit before opening the popup.
+    root.oriQuote = { setKit: setKit, hasKit: function (id) { return !!KITS[id]; } };
 
     /* --- Submit --- */
     function finish() {
@@ -132,9 +201,9 @@
       done.focus();
 
       var detail = {
-        product: (form.querySelector('[name="contact[Product]"]') || {}).value || '',
-        variant: hVariant ? hVariant.value : '',
-        sku: hSku ? hSku.value : ''
+        product: h.product ? h.product.value : '',
+        variant: h.variant ? h.variant.value : '',
+        sku: h.sku ? h.sku.value : ''
       };
       root.dispatchEvent(new CustomEvent('ori:quote-submitted', { bubbles: true, detail: detail }));
       try {
@@ -204,6 +273,24 @@
       if (root.dataset.oriQuoteReady) return;
       root.dataset.oriQuoteReady = 'true';
       setup(root);
+    });
+    initCardButtons();
+  }
+
+  // "Request quote" on ORI product cards is a link to the product. When a
+  // quote popup on the page lists that kit, it opens the popup instead.
+  function initCardButtons() {
+    var popup = document.querySelector('[data-ori-quote-popup]');
+    var api = popup && popup.oriQuote;
+    Array.prototype.forEach.call(document.querySelectorAll('[data-ori-quote-kit]'), function (btn) {
+      var id = btn.getAttribute('data-ori-quote-kit');
+      if (!api || !api.hasKit(id) || btn.dataset.oriQuoteBound) return;
+      btn.dataset.oriQuoteBound = 'true';
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        api.setKit(id);
+        if (typeof popup.show === 'function') popup.show(btn);
+      });
     });
   }
 

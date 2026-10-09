@@ -125,16 +125,35 @@
         <div class="ori-hero__ctas">
           {%- for block in buttons limit: 2 -%}
             {%- if block.settings.label != blank -%}
-              <a
-                class="ori-btn ori-btn--{{ block.settings.style }}"
-                href="{{ block.settings.link | default: '#' }}"
-                {{ block.shopify_attributes }}
-              >
-                {{- block.settings.label -}}
-              </a>
+              {%- if block.settings.popup_id != blank -%}
+                {%- comment -%}
+                  Opens a popup section (e.g. ORI GVM Quote) with this ID through
+                  the theme modal-opener, which binds to the first <button> inside.
+                {%- endcomment -%}
+                <modal-opener class="ori-hero__opener" data-modal="#PopupModal-{{ block.settings.popup_id | handle }}" {{ block.shopify_attributes }}>
+                  <button type="button" class="ori-btn ori-btn--{{ block.settings.style }}" aria-haspopup="dialog">
+                    {{- block.settings.label -}}
+                  </button>
+                </modal-opener>
+              {%- else -%}
+                <a
+                  class="ori-btn ori-btn--{{ block.settings.style }}"
+                  href="{{ block.settings.link | default: '#' }}"
+                  {{ block.shopify_attributes }}
+                >
+                  {{- block.settings.label -}}
+                </a>
+              {%- endif -%}
             {%- endif -%}
           {%- endfor -%}
         </div>
+      {%- endif -%}
+
+      {%- if section.settings.text_link_label != blank and section.settings.text_link_url != blank -%}
+        <a class="ori-hero__textlink" href="{{ section.settings.text_link_url }}">
+          {%- render 'ori-gvm-icon', icon: 'weight', class: 'ori-hero__textlink-icon', stroke: 1.6 -%}
+          <span>{{ section.settings.text_link_label }}</span>
+        </a>
       {%- endif -%}
     </div>
   </div>
@@ -261,6 +280,17 @@
       "default": "h1"
     },
     {
+      "type": "text",
+      "id": "text_link_label",
+      "label": "Text link under the buttons",
+      "info": "e.g. Know your weight? Try the GVM calculator. Needs a URL below."
+    },
+    {
+      "type": "url",
+      "id": "text_link_url",
+      "label": "Text link URL"
+    },
+    {
       "type": "header",
       "content": "Plate badge (top right)"
     },
@@ -300,7 +330,11 @@
             { "value": "shield", "label": "Shield (approval)" },
             { "value": "suspension", "label": "Suspension" },
             { "value": "clipboard", "label": "Checklist" },
-            { "value": "tyre", "label": "Tyre" }
+            { "value": "tyre", "label": "Tyre" },
+            { "value": "award", "label": "Award" },
+            { "value": "network", "label": "Installer network (map pin)" },
+            { "value": "truck", "label": "Truck" },
+            { "value": "tow", "label": "Towing / GCM" }
           ],
           "default": "shield"
         },
@@ -319,6 +353,7 @@
       "settings": [
         { "type": "text", "id": "label", "label": "Label" },
         { "type": "text", "id": "link", "label": "Link", "info": "A URL like /collections/all, or on a GVM hub #tab-1 to #tab-4 to open that tab." },
+        { "type": "text", "id": "popup_id", "label": "Popup ID", "info": "Opens the popup section with this ID instead of following the link, e.g. ori-gvm-quote for the ORI GVM Quote popup." },
         {
           "type": "select",
           "id": "style",

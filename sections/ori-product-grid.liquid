@@ -56,12 +56,12 @@
     {%- if vehicles.size > 0 -%}
       <div class="ori-vfilter" data-ori-vfilter>
         <div class="ori-vfilter__bar">
-          <div class="ori-pills" role="tablist" aria-label="Filter by vehicle">
+          <div class="ori-vpills" role="tablist" aria-label="Filter by vehicle">
             {%- for block in vehicles -%}
               {%- assign vid = block.settings.label | default: block.settings.collection.title | handleize -%}
               <button
                 type="button"
-                class="ori-pill"
+                class="ori-vpill"
                 role="tab"
                 id="ori-pill-{{ section.id }}-{{ forloop.index }}"
                 aria-controls="vehicle-{{ vid }}"
@@ -173,6 +173,7 @@
       "label": "Card button",
       "options": [
         { "value": "request", "label": "Request this kit (GVM hub)" },
+        { "value": "quote", "label": "Request quote (opens the ORI GVM Quote popup)" },
         { "value": "cart", "label": "Add to cart" },
         { "value": "link", "label": "View details (links to product)" },
         { "value": "none", "label": "None" }
