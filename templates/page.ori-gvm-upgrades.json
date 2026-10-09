@@ -1574,10 +1574,10 @@
       ],
       "settings": {
         "style": "cutout",
-        "image_asset": "ori-hero-gvm-hub-f150.webp",
-        "image_alt": "Ford F150 with an ORI GVM upgrade, Fox suspension and 37 inch tyres",
+        "image_asset": "ori-hero-chevy-2500-red-cutout.webp",
+        "image_alt": "Red Chevrolet Silverado 2500HD with an ORI GVM upgrade, lift kit and LED light bar",
         "media_width": 45,
-        "media_flush": true,
+        "media_flush": false,
         "min_height": 620,
         "badge_text": "",
         "heading_1": "American Truck",
