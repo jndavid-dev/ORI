@@ -1692,8 +1692,9 @@
   margin-bottom: 36px;
 }
 
+/* 50px max (was 60px), in step with the 90px banner headings. */
 .ori .ori-h2 {
-  font-size: clamp(38px, 4.4vw, 60px);
+  font-size: clamp(34px, 3.8vw, 50px);
   line-height: 0.95;
 }
 
@@ -3542,7 +3543,7 @@
 .ori .ori-hero--plain .ori-hero__title,
 .ori-hero--plain .ori-hero__title {
   margin-bottom: 22px;
-  /* Always clearly above section headings (.ori-h2: 38–60px). */
+  /* Always clearly above section headings (.ori-h2: 34–50px). */
   font-size: clamp(50px, 6vw, 88px);
   line-height: 0.92;
 }
@@ -4544,7 +4545,7 @@ a.ori-vcard:hover .ori-vcard__btn svg {
   padding: 0;
   border: 0;
   font-family: var(--ori-display) !important;
-  font-size: clamp(38px, 4.4vw, 60px);
+  font-size: clamp(34px, 3.8vw, 50px);
   font-weight: 800;
   line-height: 0.95;
   letter-spacing: 0;
@@ -5335,7 +5336,7 @@ a.ori-vcard:hover .ori-vcard__btn svg {
   order: 0;
   margin: 0;
   font-family: var(--ori-display) !important;
-  font-size: clamp(38px, 4.4vw, 60px);
+  font-size: clamp(34px, 3.8vw, 50px);
   font-weight: 800;
   letter-spacing: 0;
   line-height: 0.95;
@@ -7086,5 +7087,43 @@ a.ori-vcard:hover .ori-vcard__btn svg {
   .ori-hero--large .ori-pill {
     padding: 9px 22px;
     font-size: clamp(18px, 1.5vw, 26px);
+  }
+}
+
+/* ==========================================================
+   ORI REDESIGN — GVM QUOTE: DARK BAND
+   (sections/ori-gvm-quote.liquid "Dark band") Heading on the dark
+   chassis colour, the form keeps its white card.
+   ========================================================== */
+.ori-quote--dark {
+  background: var(--ori-chassis);
+  color: #eef1f1;
+}
+
+.ori-quote--dark .ori-quote__panel {
+  padding: 0;
+  background: none;
+}
+
+.ori-quote--dark .ori-quote__eyebrow {
+  color: var(--ori-teal);
+}
+
+.ori-quote--dark .ori-head__intro {
+  color: #b7c3c6;
+}
+
+.ori-quote--dark .ori-quote__contact {
+  border-top-color: #334044;
+}
+
+.ori-quote--dark .ori-quote__form-wrap {
+  color: var(--ori-ink);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+}
+
+@media (max-width: 900px) {
+  .ori-quote--dark .ori-quote__panel {
+    padding: 0;
   }
 }

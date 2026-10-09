@@ -276,7 +276,7 @@
   </modal-dialog>
 {%- else -%}
   <div
-    class="ori ori-section ori-quote ori-quote--inline{{ custom_class }}"
+    class="ori ori-section ori-quote ori-quote--inline{% if section.settings.dark %} ori-quote--dark{% endif %}{{ custom_class }}"
     data-ori-quote
     data-form-id="{{ form_id }}"
     style="--ori-pt: {{ section.settings.padding_top }}px; --ori-pb: {{ section.settings.padding_bottom }}px;"
@@ -406,6 +406,13 @@
       "default": "Your enquiry is on its way to our GVM team. We'll be in touch within one business day."
     },
     { "type": "header", "content": "Section" },
+    {
+      "type": "checkbox",
+      "id": "dark",
+      "label": "Dark band (in the page only)",
+      "info": "Dark background with the form as a white card.",
+      "default": false
+    },
     {
       "type": "range",
       "id": "padding_top",
