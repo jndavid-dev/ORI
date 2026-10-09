@@ -6695,8 +6695,8 @@ a.ori-vcard:hover .ori-vcard__btn svg {
   font-size: 16px;
 }
 
-/* Key figures: separate boxes sized to their content instead of a
-   full-width row of equal cells. */
+/* Key figures: separate boxes that share the row by content width (wider
+   text gets a wider box) and together fill the column. */
 .ori-gvm-product--compact .ori-gvmp__figures .ori-figs {
   display: flex;
   flex-wrap: wrap;
@@ -6708,7 +6708,7 @@ a.ori-vcard:hover .ori-vcard__btn svg {
 }
 
 .ori-gvm-product--compact .ori-gvmp__figures .ori-fig {
-  flex: 0 1 auto;
+  flex: 1 1 auto;
   gap: 2px;
   padding: 8px 12px;
   border: 1px solid var(--ori-line);
@@ -6716,11 +6716,11 @@ a.ori-vcard:hover .ori-vcard__btn svg {
 }
 
 .ori-gvm-product--compact .ori-gvmp__figures .ori-fig dt {
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .ori-gvm-product--compact .ori-gvmp__figures .ori-fig dd {
-  font-size: 21px;
+  font-size: 22px;
 }
 
 .ori-gvm-product--compact .ori-gvmp__figures .ori-fig dd s {
@@ -6731,7 +6731,7 @@ a.ori-vcard:hover .ori-vcard__btn svg {
    taller and stretching the whole row. */
 .ori-gvm-product--compact .ori-gvmp__figures .ori-fig dd small {
   margin-top: 2px;
-  font-size: 11px;
+  font-size: 13px;
   white-space: nowrap;
 }
 
