@@ -6710,7 +6710,6 @@ a.ori-vcard:hover .ori-vcard__btn svg {
 .ori-gvm-product--compact .ori-gvmp__figures .ori-fig {
   flex: 0 1 auto;
   gap: 2px;
-  max-width: 200px;
   padding: 8px 12px;
   border: 1px solid var(--ori-line);
   border-radius: 6px;
@@ -6728,9 +6727,12 @@ a.ori-vcard:hover .ori-vcard__btn svg {
   font-size: 14px;
 }
 
+/* The payload note stays on one line, so its box widens instead of growing
+   taller and stretching the whole row. */
 .ori-gvm-product--compact .ori-gvmp__figures .ori-fig dd small {
   margin-top: 2px;
   font-size: 11px;
+  white-space: nowrap;
 }
 
 /* Options */
@@ -6777,7 +6779,10 @@ a.ori-vcard:hover .ori-vcard__btn svg {
   /* Two per row on phones, so the four figures make a neat 2×2. */
   .ori-gvm-product--compact .ori-gvmp__figures .ori-fig {
     flex: 1 1 calc(50% - 4px);
-    max-width: none;
+  }
+
+  .ori-gvm-product--compact .ori-gvmp__figures .ori-fig dd small {
+    white-space: normal;
   }
 
   .ori-gvmp__specs .ori-spec > div {
