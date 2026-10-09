@@ -53,7 +53,9 @@
         "tint_color": "#f4fbfb",
         "container": "container",
         "custom_id": "",
-        "color_schema": ""
+        "color_schema": "",
+        "compact_hero": true,
+        "specs_position": "hero"
       }
     },
     "gvm_benefits": {
@@ -1228,24 +1230,24 @@
       }
     },
     "faq": {
-      "type": "ori-faq",
+      "type": "ori-gvm-faq",
       "blocks": {
-        "faq_included": {
-          "type": "faq_item",
+        "faq_1": {
+          "type": "question",
           "settings": {
             "question": "What is included in this package?",
             "answer": "<p>Fox shocks, BDS components, ORI springs, and full engineering certification.</p>"
           }
         },
-        "faq_legal": {
-          "type": "faq_item",
+        "faq_2": {
+          "type": "question",
           "settings": {
             "question": "Is this a legal GVM upgrade?",
             "answer": "<p>Yes. It is federally approved under the Second Stage of Manufacture (SSM) process.</p>"
           }
         },
-        "faq_quote": {
-          "type": "faq_item",
+        "faq_3": {
+          "type": "question",
           "settings": {
             "question": "How do I get a quote?",
             "answer": "<p>Use the Request Quote button above and send us your vehicle details.</p>"
@@ -1253,23 +1255,18 @@
         }
       },
       "block_order": [
-        "faq_included",
-        "faq_legal",
-        "faq_quote"
+        "faq_1",
+        "faq_2",
+        "faq_3"
       ],
       "settings": {
         "heading": "Frequently Asked Questions",
-        "heading_size": "h2",
-        "subheading": "",
+        "intro": "Answers to the questions we hear most. Can't find yours? Our team is happy to help.",
+        "button_label": "Contact us",
+        "button_link": "/pages/contact-us",
         "open_first": true,
-        "emit_schema": true,
-        "container": "container-narrow",
-        "color_schema": "",
-        "bg_color": "",
-        "padding_top": 60,
-        "padding_bottom": 60,
-        "custom_id": "",
-        "custom_class": ""
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     },
     "ori_quote": {
