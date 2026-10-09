@@ -1,0 +1,379 @@
+{%- comment -%}
+  ORI redesign — GVM quote request. Replaces contact-form-v4 on the pages it
+  is added to, one template at a time; the old form is left alone elsewhere.
+
+  Product mode (this version): the kit is the product being viewed, so the
+  customer never picks a vehicle or stage. A summary card shows the product
+  and a variant select that follows the page's own variant buttons. Hidden
+  fields put the product, variant, SKU and page URL in every email.
+
+  Sends through Shopify's contact form, so enquiries arrive at the store
+  contact email (Settings › General › Store details). assets/ori-gvm-quote.js
+  steps through the fieldsets and submits in the background so the popup
+  stays open; without JS, or when Shopify's spam check asks for a challenge,
+  it falls back to a normal post and reopens itself on the reloaded page.
+
+  Popup mode renders inside the theme's modal-dialog with id
+  PopupModal-<popup id>; ORI GVM Product's "Primary button popup ID" opens it.
+{%- endcomment -%}
+{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
+{%- render 'ori-fonts' -%}
+
+{%- liquid
+  assign custom_class = section.settings.custom_class
+  unless custom_class == blank
+    assign custom_class = custom_class | prepend: ' '
+  endunless
+
+  assign is_popup = false
+  if section.settings.display_mode == 'popup'
+    assign is_popup = true
+  endif
+  assign popup_id = section.settings.popup_id | default: 'ori-gvm-quote' | handle
+  assign form_id = 'OriQuote-' | append: section.id
+
+  assign has_product = false
+  if product != blank
+    assign has_product = true
+    assign current_variant = product.selected_or_first_available_variant | default: product.variants.first
+    assign kit_image = current_variant.image | default: product.featured_image
+    assign has_variants = false
+    if product.variants.size > 1
+      assign has_variants = true
+    endif
+  endif
+
+  assign use_steps = section.settings.use_steps
+  assign reopen_popup = false
+-%}
+
+{%- capture quote_form -%}
+  <div class="ori-quote__form-wrap">
+    {%- form 'contact', id: form_id, class: 'ori-quote__form', novalidate: 'novalidate', data-ori-quote-form: '' -%}
+      {%- if form.posted_successfully? or form.errors -%}
+        {%- assign reopen_popup = true -%}
+      {%- endif -%}
+      {%- if form.posted_successfully? -%}
+        <div class="ori-quote__done" data-ori-quote-done-server>
+          {%- render 'ori-icon', icon: 'check' -%}
+          <h3>{{ section.settings.success_heading }}</h3>
+          <p>{{ section.settings.success_text }}</p>
+        </div>
+      {%- else -%}
+        {%- if form.errors -%}
+          <div class="ori-quote__error" role="alert">{{ form.errors | default_errors }}</div>
+        {%- endif -%}
+
+        {%- comment -%}
+          Hidden context first, so it heads the notification email. JS keeps
+          Variant / SKU / Page URL in step with the variant select.
+        {%- endcomment -%}
+        <input type="hidden" name="contact[Form type]" value="GVM quote request">
+        {%- if has_product -%}
+          <input type="hidden" name="contact[Product]" value="{{ product.title | escape }}">
+          <input type="hidden" name="contact[Variant]" value="{{ current_variant.title | escape }}" data-ori-quote-h="variant">
+          <input type="hidden" name="contact[SKU]" value="{{ current_variant.sku | escape }}" data-ori-quote-h="sku">
+          <input type="hidden" name="contact[Page URL]" value="{{ shop.url }}{{ product.url }}?variant={{ current_variant.id }}" data-ori-quote-h="url">
+        {%- else -%}
+          <input type="hidden" name="contact[Page URL]" value="{{ shop.url }}{{ request.path }}">
+        {%- endif -%}
+        {%- if customer.current_company -%}
+          <input type="hidden" name="contact[Company]" value="{{ customer.current_company.name | escape }}">
+        {%- endif -%}
+
+        {%- if use_steps -%}
+          <ol class="ori-quote__progress" data-ori-quote-progress aria-hidden="true">
+            {%- if has_product -%}<li>Your kit</li>{%- endif -%}
+            <li>Your details</li>
+            <li>Your vehicle</li>
+          </ol>
+        {%- endif -%}
+
+        {%- if has_product -%}
+          <fieldset class="ori-quote__step" data-ori-quote-step>
+            <legend class="ori-quote__legend">Your kit</legend>
+            <div class="ori-quote__kit">
+              <div class="ori-quote__kit-img">
+                {%- if kit_image != blank -%}
+                  <img
+                    src="{{ kit_image | image_url: width: 240 }}"
+                    alt="{{ product.title | escape }}"
+                    width="120"
+                    height="90"
+                    loading="lazy"
+                    data-ori-quote-img
+                  >
+                {%- endif -%}
+              </div>
+              <div class="ori-quote__kit-body">
+                <p class="ori-quote__kit-title">{{ product.title }}</p>
+                <p class="ori-quote__kit-sku" data-ori-quote-sku{% if current_variant.sku == blank %} hidden{% endif %}>
+                  SKU <span>{{ current_variant.sku }}</span>
+                </p>
+              </div>
+            </div>
+            {%- if has_variants -%}
+              <div class="ori-quote__field">
+                <label for="{{ form_id }}-variant">Package option</label>
+                <select id="{{ form_id }}-variant" data-ori-quote-variant>
+                  {%- for v in product.variants -%}
+                    <option value="{{ v.id }}"{% if v.id == current_variant.id %} selected{% endif %}>{{ v.title }}</option>
+                  {%- endfor -%}
+                </select>
+              </div>
+            {%- endif -%}
+          </fieldset>
+        {%- endif -%}
+
+        <fieldset class="ori-quote__step" data-ori-quote-step>
+          <legend class="ori-quote__legend">Your details</legend>
+          <div class="ori-quote__field">
+            <label for="{{ form_id }}-name">Full name <span aria-hidden="true">*</span></label>
+            <input type="text" id="{{ form_id }}-name" name="contact[name]" autocomplete="name" required
+              value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}">
+          </div>
+          <div class="ori-quote__row">
+            <div class="ori-quote__field">
+              <label for="{{ form_id }}-email">Email <span aria-hidden="true">*</span></label>
+              <input type="email" id="{{ form_id }}-email" name="contact[email]" autocomplete="email" spellcheck="false" autocapitalize="off" required
+                value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}">
+            </div>
+            <div class="ori-quote__field">
+              <label for="{{ form_id }}-phone">Phone <span aria-hidden="true">*</span></label>
+              <input type="tel" id="{{ form_id }}-phone" name="contact[phone]" autocomplete="tel" pattern="[0-9\-\+\(\)\s]*" required
+                value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}">
+            </div>
+          </div>
+          <div class="ori-quote__field">
+            <label for="{{ form_id }}-location">Suburb and state <span aria-hidden="true">*</span></label>
+            <input type="text" id="{{ form_id }}-location" name="contact[Location]" autocomplete="address-level2" required placeholder="e.g. Toowoomba QLD">
+          </div>
+        </fieldset>
+
+        <fieldset class="ori-quote__step" data-ori-quote-step>
+          <legend class="ori-quote__legend">Your vehicle</legend>
+          {%- if section.settings.show_vehicle_fields -%}
+            <div class="ori-quote__row">
+              <div class="ori-quote__field">
+                <label for="{{ form_id }}-vin">VIN <small>(optional)</small></label>
+                <input type="text" id="{{ form_id }}-vin" name="contact[VIN]" maxlength="17" autocomplete="off" autocapitalize="characters" placeholder="17 characters">
+              </div>
+              <div class="ori-quote__field">
+                <label for="{{ form_id }}-build">Build date <small>(optional)</small></label>
+                <input type="month" id="{{ form_id }}-build" name="contact[Vehicle build date]" placeholder="MM/YYYY">
+              </div>
+            </div>
+          {%- endif -%}
+          <div class="ori-quote__field">
+            <label for="{{ form_id }}-body">Your enquiry</label>
+            <textarea id="{{ form_id }}-body" name="contact[body]" rows="4" placeholder="{{ section.settings.message_placeholder | escape }}">{{ form.body }}</textarea>
+          </div>
+        </fieldset>
+
+        <div class="ori-quote__actions">
+          {%- if use_steps -%}
+            <button type="button" class="ori-btn ori-btn--line" data-ori-quote-back hidden>Back</button>
+            <button type="button" class="ori-btn ori-btn--teal" data-ori-quote-next hidden>Next</button>
+          {%- endif -%}
+          <button type="submit" class="ori-btn ori-btn--teal" data-ori-quote-submit>{{ section.settings.button_label }}</button>
+        </div>
+        {%- if section.settings.note != blank -%}
+          <p class="ori-quote__note">{{ section.settings.note }}</p>
+        {%- endif -%}
+        <div class="ori-quote__error" role="alert" data-ori-quote-error hidden></div>
+      {%- endif -%}
+
+      <div class="ori-quote__done" data-ori-quote-done hidden tabindex="-1">
+        {%- render 'ori-icon', icon: 'check' -%}
+        <h3>{{ section.settings.success_heading }}</h3>
+        <p>{{ section.settings.success_text }}</p>
+      </div>
+    {%- endform -%}
+  </div>
+{%- endcapture -%}
+
+{%- capture quote_head -%}
+  {%- if section.settings.eyebrow != blank -%}
+    <p class="ori-quote__eyebrow">{{ section.settings.eyebrow }}</p>
+  {%- endif -%}
+  {%- if section.settings.heading != blank -%}
+    <h2 class="ori-h2 ori-quote__heading">{{ section.settings.heading }}</h2>
+  {%- endif -%}
+  {%- if section.settings.intro != blank -%}
+    <p class="ori-head__intro">{{ section.settings.intro }}</p>
+  {%- endif -%}
+{%- endcapture -%}
+
+{%- if is_popup -%}
+  {%- comment -%}
+    data-no-append keeps the dialog inside its own section so the theme
+    editor's re-render doesn't leave an orphaned copy on <body>.
+  {%- endcomment -%}
+  <modal-dialog
+    id="PopupModal-{{ popup_id }}"
+    class="f-modal hidden ori-quote-modal"
+    data-no-append
+    data-ori-quote
+    data-ori-quote-popup
+    {% if reopen_popup %}data-ori-quote-reopen{% endif %}
+    data-form-id="{{ form_id }}"
+    style="--modal-width: {{ section.settings.popup_width }}px"
+  >
+    <div class="f-modal__content" role="dialog" aria-label="{{ section.settings.heading | default: 'Request a quote' | escape }}" aria-modal="true" tabindex="-1">
+      <button id="ModalClose-{{ popup_id }}" type="button" class="f-modal__close" aria-label="{{ 'accessibility.close' | t }}">
+        {% comment %} theme-check-disable {% endcomment %}
+        {{ 'icon-close.svg' | inline_asset_content }}
+        {% comment %} theme-check-enable {% endcomment %}
+      </button>
+      <div class="f-modal__inner ori ori-quote ori-quote--popup{{ custom_class }}">
+        <div class="ori-quote__head">{{ quote_head }}</div>
+        {{ quote_form }}
+      </div>
+    </div>
+  </modal-dialog>
+{%- else -%}
+  <div
+    class="ori ori-section ori-quote ori-quote--inline{{ custom_class }}"
+    data-ori-quote
+    data-form-id="{{ form_id }}"
+    style="--ori-pt: {{ section.settings.padding_top }}px; --ori-pb: {{ section.settings.padding_bottom }}px;"
+  >
+    <div class="ori-wrap">
+      <div class="ori-quote__panel">
+        <div class="ori-quote__head">
+          {{ quote_head }}
+          {%- if section.settings.contact_line != blank -%}
+            <p class="ori-quote__contact">{{ section.settings.contact_line }}</p>
+          {%- endif -%}
+        </div>
+        {{ quote_form }}
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{%- if has_product and has_variants -%}
+  <script type="application/json" data-ori-quote-variants>
+    {
+      {%- for v in product.variants -%}
+        {%- assign v_image = v.image | default: product.featured_image -%}
+        "{{ v.id }}": {
+          "title": {{ v.title | json }},
+          "sku": {{ v.sku | json }},
+          "image": {{ v_image | image_url: width: 240 | json }}
+        }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    }
+  </script>
+{%- endif -%}
+<script src="{{ 'ori-gvm-quote.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "ORI GVM Quote",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "display_mode",
+      "label": "Display",
+      "options": [
+        { "value": "inline", "label": "In the page" },
+        { "value": "popup", "label": "Popup" }
+      ],
+      "default": "inline"
+    },
+    {
+      "type": "text",
+      "id": "popup_id",
+      "label": "Popup ID",
+      "default": "ori-gvm-quote",
+      "info": "Popup only. Put the same ID in ORI GVM Product › Primary button popup ID."
+    },
+    {
+      "type": "range",
+      "id": "popup_width",
+      "label": "Popup width",
+      "min": 480,
+      "max": 800,
+      "step": 20,
+      "unit": "px",
+      "default": 620
+    },
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Get a quote" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Request a Quote" },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Intro",
+      "default": "Tell us where you are and a little about your vehicle. We'll come back with pricing and your nearest approved installer."
+    },
+    {
+      "type": "text",
+      "id": "contact_line",
+      "label": "Contact line (in the page only)",
+      "info": "e.g. Prefer to talk? Call 07 0000 0000"
+    },
+    { "type": "header", "content": "Form" },
+    {
+      "type": "checkbox",
+      "id": "use_steps",
+      "label": "Split into steps",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vehicle_fields",
+      "label": "Ask for VIN and build date (optional fields)",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "message_placeholder",
+      "label": "Message placeholder",
+      "default": "Anything we should know? e.g. towing needs, accessories, timing."
+    },
+    { "type": "text", "id": "button_label", "label": "Submit button label", "default": "Send enquiry" },
+    {
+      "type": "textarea",
+      "id": "note",
+      "label": "Note under the button",
+      "default": "No obligation. Our team will reply within one business day."
+    },
+    { "type": "text", "id": "success_heading", "label": "Success heading", "default": "Thanks, we've got it" },
+    {
+      "type": "textarea",
+      "id": "success_text",
+      "label": "Success message",
+      "default": "Your enquiry is on its way to our GVM team. We'll be in touch within one business day."
+    },
+    { "type": "header", "content": "Section" },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding (in the page only)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding (in the page only)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    { "type": "text", "id": "custom_class", "label": "Custom Class" }
+  ],
+  "presets": [
+    { "name": "ORI GVM Quote" }
+  ]
+}
+{% endschema %}

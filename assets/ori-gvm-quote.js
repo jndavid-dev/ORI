@@ -1,0 +1,214 @@
+/* ORI GVM quote request (sections/ori-gvm-quote.liquid).
+
+   - Steps: one fieldset at a time, each checked before moving on.
+   - Variant: follows the page's own variant buttons (ORI GVM Product writes
+     ?variant= to the URL) and the form's own select, and keeps the hidden
+     Variant / SKU / Page URL fields in step.
+   - Submit: posts to Shopify's contact endpoint in the background so the
+     popup stays open. Shopify redirects a successful post to a URL carrying
+     contact_posted=true; anything else (validation errors, the spam-check
+     challenge page) falls back to a normal post so Shopify can handle it.
+
+   The section can appear twice on a page (popup + in the page), so every
+   [data-ori-quote] root is set up on its own. */
+(function () {
+  if (window.oriGvmQuoteLoaded) return;
+  window.oriGvmQuoteLoaded = true;
+
+  var VARIANTS = null;
+  var dataEl = document.querySelector('[data-ori-quote-variants]');
+  if (dataEl) {
+    try { VARIANTS = JSON.parse(dataEl.textContent); } catch (e) { VARIANTS = null; }
+  }
+
+  function urlVariant() {
+    try { return new URL(window.location.href).searchParams.get('variant'); } catch (e) { return null; }
+  }
+
+  function setup(root) {
+    var form = root.querySelector('[data-ori-quote-form]');
+    if (!form) return;
+
+    var steps = Array.prototype.slice.call(form.querySelectorAll('[data-ori-quote-step]'));
+    var progress = form.querySelectorAll('[data-ori-quote-progress] li');
+    var btnBack = form.querySelector('[data-ori-quote-back]');
+    var btnNext = form.querySelector('[data-ori-quote-next]');
+    var btnSubmit = form.querySelector('[data-ori-quote-submit]');
+    var errorBox = form.querySelector('[data-ori-quote-error]');
+    var done = form.querySelector('[data-ori-quote-done]');
+    var useSteps = !!btnNext && steps.length > 1;
+    var current = 0;
+
+    /* --- Steps --- */
+    function show(i) {
+      current = i;
+      steps.forEach(function (s, n) { s.hidden = useSteps && n !== i; });
+      for (var n = 0; n < progress.length; n++) {
+        progress[n].classList.toggle('is-active', n === i);
+        progress[n].classList.toggle('is-done', n < i);
+      }
+      if (!useSteps) return;
+      var last = i === steps.length - 1;
+      btnBack.hidden = i === 0;
+      btnNext.hidden = last;
+      btnSubmit.hidden = !last;
+    }
+
+    function stepValid(step) {
+      var fields = step.querySelectorAll('input, select, textarea');
+      for (var n = 0; n < fields.length; n++) {
+        if (!fields[n].checkValidity()) {
+          fields[n].reportValidity();
+          return false;
+        }
+      }
+      return true;
+    }
+
+    if (useSteps) {
+      btnNext.addEventListener('click', function () {
+        if (!stepValid(steps[current])) return;
+        show(current + 1);
+        var first = steps[current].querySelector('input, select, textarea');
+        if (first) first.focus();
+      });
+      btnBack.addEventListener('click', function () { show(current - 1); });
+      // Enter in a text field moves to the next step instead of submitting early.
+      form.addEventListener('keydown', function (e) {
+        if (e.key !== 'Enter' || e.target.tagName === 'TEXTAREA') return;
+        if (current < steps.length - 1) {
+          e.preventDefault();
+          btnNext.click();
+        }
+      });
+    }
+    show(0);
+
+    /* --- Variant --- */
+    var select = form.querySelector('[data-ori-quote-variant]');
+    var hVariant = form.querySelector('[data-ori-quote-h="variant"]');
+    var hSku = form.querySelector('[data-ori-quote-h="sku"]');
+    var hUrl = form.querySelector('[data-ori-quote-h="url"]');
+    var img = form.querySelector('[data-ori-quote-img]');
+    var skuLine = form.querySelector('[data-ori-quote-sku]');
+
+    function applyVariant(id) {
+      if (!VARIANTS || !id || !VARIANTS[id]) return;
+      var v = VARIANTS[id];
+      if (select) select.value = String(id);
+      if (hVariant) hVariant.value = v.title || '';
+      if (hSku) hSku.value = v.sku || '';
+      if (hUrl) hUrl.value = hUrl.value.replace(/([?&]variant=)\d+/, '$1' + id);
+      if (img && v.image) img.src = v.image;
+      if (skuLine) {
+        skuLine.hidden = !v.sku;
+        var span = skuLine.querySelector('span');
+        if (span) span.textContent = v.sku || '';
+      }
+    }
+
+    if (select) {
+      select.addEventListener('change', function () { applyVariant(select.value); });
+    }
+    applyVariant(urlVariant());
+    // The product section's variant buttons carry data-gvm-step="<variant id>".
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest && e.target.closest('[data-gvm-step]');
+      if (btn) applyVariant(btn.getAttribute('data-gvm-step'));
+    });
+    if (root.hasAttribute('data-ori-quote-popup')) {
+      root.addEventListener('open', function () { applyVariant(urlVariant()); });
+    }
+
+    /* --- Submit --- */
+    function finish() {
+      steps.forEach(function (s) { s.hidden = true; });
+      Array.prototype.forEach.call(
+        form.querySelectorAll('.ori-quote__progress, .ori-quote__actions, .ori-quote__note'),
+        function (el) { el.hidden = true; }
+      );
+      if (errorBox) errorBox.hidden = true;
+      done.hidden = false;
+      done.focus();
+
+      var detail = {
+        product: (form.querySelector('[name="contact[Product]"]') || {}).value || '',
+        variant: hVariant ? hVariant.value : '',
+        sku: hSku ? hSku.value : ''
+      };
+      root.dispatchEvent(new CustomEvent('ori:quote-submitted', { bubbles: true, detail: detail }));
+      try {
+        if (window.Shopify && Shopify.analytics && Shopify.analytics.publish) {
+          Shopify.analytics.publish('gvm_quote_submitted', detail);
+        }
+        if (window.dataLayer) window.dataLayer.push({ event: 'gvm_quote_submitted', gvm_quote: detail });
+      } catch (e) {}
+    }
+
+    // requestSubmit fires the submit event again, which lets Shopify's own
+    // spam-check listener run; the flag stops this handler catching it.
+    function nativeSubmit() {
+      form.dataset.oriNative = 'true';
+      if (form.requestSubmit) form.requestSubmit();
+      else HTMLFormElement.prototype.submit.call(form);
+    }
+
+    form.addEventListener('submit', function (e) {
+      if (form.dataset.oriNative === 'true') return;
+      e.preventDefault();
+      for (var n = 0; n < steps.length; n++) {
+        if (useSteps && steps[n].hidden) show(n);
+        if (!stepValid(steps[n])) return;
+      }
+      if (useSteps) show(steps.length - 1);
+
+      btnSubmit.disabled = true;
+      btnSubmit.setAttribute('aria-busy', 'true');
+      if (errorBox) errorBox.hidden = true;
+
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'text/html' },
+        credentials: 'same-origin'
+      })
+        .then(function (res) {
+          if (res.url && res.url.indexOf('contact_posted=true') !== -1) {
+            finish();
+          } else {
+            nativeSubmit();
+          }
+        })
+        .catch(function () {
+          btnSubmit.disabled = false;
+          btnSubmit.removeAttribute('aria-busy');
+          if (errorBox) {
+            errorBox.textContent = 'Something went wrong sending your enquiry. Please check your connection and try again.';
+            errorBox.hidden = false;
+          }
+        });
+    });
+
+    /* --- Back from a normal post --- */
+    // The section flags data-ori-quote-reopen when the page was rendered
+    // with this form's success or errors. Shopify adds #<form id> to the
+    // redirect, so a hash naming another form means it wasn't this one.
+    if (root.hasAttribute('data-ori-quote-reopen') && typeof root.show === 'function') {
+      var hash = window.location.hash;
+      if (!hash || hash === '#' + root.getAttribute('data-form-id')) root.show();
+    }
+  }
+
+  function init() {
+    Array.prototype.forEach.call(document.querySelectorAll('[data-ori-quote]'), function (root) {
+      if (root.dataset.oriQuoteReady) return;
+      root.dataset.oriQuoteReady = 'true';
+      setup(root);
+    });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+  // Theme editor re-renders a section in place.
+  document.addEventListener('shopify:section:load', init);
+})();

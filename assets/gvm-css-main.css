@@ -6316,3 +6316,315 @@ a.ori-vcard:hover .ori-vcard__btn svg {
     transition: none;
   }
 }
+
+/* ==========================================================
+   ORI REDESIGN — GVM QUOTE (sections/ori-gvm-quote.liquid,
+   assets/ori-gvm-quote.js)
+   One form, two homes: in the page (panel with the heading on
+   the left) or inside the theme's modal-dialog (.ori-quote-modal).
+   Field styling follows the kit request form.
+   ========================================================== */
+.ori-quote__panel {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: 56px;
+  align-items: start;
+  padding: 48px;
+  border-radius: 6px;
+  background: var(--ori-bone);
+}
+
+.ori-quote__eyebrow {
+  margin-bottom: 10px !important;
+  color: var(--ori-teal-deep);
+  font-family: var(--ori-display);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ori-quote__contact {
+  margin-top: 24px !important;
+  padding-top: 20px;
+  border-top: 1px solid var(--ori-line);
+  font-weight: 600;
+}
+
+.ori-quote__form-wrap {
+  padding: 32px;
+  border-radius: 6px;
+  background: var(--ori-paper);
+}
+
+.ori-quote__form {
+  display: grid;
+  gap: 18px;
+}
+
+/* Popup: the modal supplies the white card, so no inner card. */
+.ori-quote-modal .f-modal__inner {
+  max-height: 90vh;
+  padding: 36px;
+  overflow-y: auto;
+  border-radius: 6px;
+}
+
+.ori-quote--popup .ori-quote__head {
+  margin-bottom: 24px;
+  padding-right: 40px;
+}
+
+.ori .ori-quote--popup .ori-quote__heading,
+.ori-quote--popup .ori-quote__heading {
+  font-size: clamp(30px, 3.2vw, 40px);
+}
+
+.ori-quote--popup .ori-quote__form-wrap {
+  padding: 0;
+}
+
+/* --- Progress --- */
+.ori-quote__progress {
+  display: flex;
+  gap: 6px;
+  margin: 0 0 4px;
+  padding: 0;
+  list-style: none;
+  counter-reset: ori-quote;
+}
+
+.ori-quote__progress li {
+  flex: 1 1 0;
+  padding-top: 10px;
+  border-top: 4px solid var(--ori-line);
+  color: var(--ori-steel);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  counter-increment: ori-quote;
+}
+
+.ori-quote__progress li::before {
+  content: counter(ori-quote) ". ";
+}
+
+.ori-quote__progress li.is-done {
+  border-top-color: var(--ori-teal-deep);
+}
+
+.ori-quote__progress li.is-active {
+  border-top-color: var(--ori-teal);
+  color: var(--ori-ink);
+}
+
+/* --- Steps and fields --- */
+.ori-quote__step {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.ori-quote__legend {
+  margin-bottom: 4px;
+  padding: 0;
+  font-family: var(--ori-display);
+  font-size: 22px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.ori-quote__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.ori-quote__field label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.ori-quote__field label small {
+  color: var(--ori-steel);
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.ori-quote__field label span {
+  color: var(--ori-teal-deep);
+}
+
+.ori-quote input,
+.ori-quote select,
+.ori-quote textarea {
+  width: 100%;
+  min-height: 52px;
+  margin: 0;
+  padding: 0 14px;
+  border: 1px solid #c9cfce;
+  border-radius: 4px;
+  background: #fff;
+  color: var(--ori-ink);
+  font: inherit;
+  font-size: 16px;
+}
+
+.ori-quote textarea {
+  min-height: 112px;
+  padding: 12px 14px;
+  resize: vertical;
+}
+
+.ori-quote input:focus,
+.ori-quote select:focus,
+.ori-quote textarea:focus {
+  border-color: var(--ori-teal);
+  outline: 0;
+  box-shadow: 0 0 0 3px rgba(63, 179, 186, 0.25);
+}
+
+.ori-quote select {
+  padding-right: 36px;
+  appearance: none;
+  background: #fff linear-gradient(45deg, transparent 50%, var(--ori-steel) 50%) calc(100% - 20px) 23px / 5px 5px no-repeat,
+    linear-gradient(135deg, var(--ori-steel) 50%, transparent 50%) calc(100% - 15px) 23px / 5px 5px no-repeat;
+}
+
+/* --- Kit summary --- */
+.ori-quote__kit {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px;
+  border: 1px solid var(--ori-line);
+  border-radius: 6px;
+  background: var(--ori-bone);
+}
+
+.ori-quote--inline .ori-quote__kit {
+  background: var(--ori-paper);
+}
+
+.ori-quote__kit-img {
+  flex: 0 0 96px;
+  aspect-ratio: 4 / 3;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.ori-quote__kit-img img {
+  width: 100%;
+  height: 100%;
+  padding: 6%;
+  object-fit: contain;
+}
+
+.ori-quote__kit-title {
+  font-family: var(--ori-display);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.ori-quote__kit-sku {
+  margin-top: 6px !important;
+  color: var(--ori-steel);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* --- Actions and messages --- */
+.ori-quote__actions {
+  display: flex;
+  gap: 12px;
+}
+
+.ori-quote__actions .ori-btn {
+  flex: 1 1 0;
+}
+
+.ori-quote__actions .ori-btn[aria-busy="true"] {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.ori-quote__note {
+  color: var(--ori-steel);
+  font-size: 14px;
+}
+
+.ori-quote__error {
+  padding: 14px 16px;
+  border: 1px solid #f1c7c0;
+  border-radius: 4px;
+  background: #fbeeec;
+  color: #8a2a1d;
+  font-weight: 600;
+}
+
+.ori-quote__error ul {
+  margin: 6px 0 0;
+  padding-left: 18px;
+}
+
+.ori-quote__done {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  padding: 24px 0;
+  text-align: center;
+  outline: 0;
+}
+
+.ori-quote__done svg {
+  width: 52px;
+  height: 52px;
+  padding: 12px;
+  border-radius: 50%;
+  background: var(--ori-teal);
+  color: #fff;
+}
+
+.ori .ori-quote__done h3 {
+  font-size: 30px;
+}
+
+.ori-quote__done p {
+  max-width: 420px;
+  color: var(--ori-steel);
+}
+
+@media (max-width: 900px) {
+  .ori-quote__panel {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 32px 24px;
+  }
+}
+
+@media (max-width: 639.98px) {
+  .ori-quote-modal .f-modal__inner {
+    padding: 28px 18px;
+    border-radius: 6px 6px 0 0;
+  }
+
+  .ori-quote__form-wrap {
+    padding: 22px 18px;
+  }
+
+  .ori-quote__row {
+    grid-template-columns: 1fr;
+  }
+
+  .ori-quote__progress li {
+    font-size: 11px;
+  }
+}
