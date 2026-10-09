@@ -28,7 +28,7 @@
   assign asset_img = section.settings.image_asset | strip
 -%}
 <div
-  class="ori ori-hero ori-hero--{{ section.settings.style }}{% if section.settings.media_flush %} ori-hero--flush{% endif %}"
+  class="ori ori-hero ori-hero--{{ section.settings.style }}{% if section.settings.media_flush %} ori-hero--flush{% endif %}{% if section.settings.feats_one_row %} ori-hero--feats-row{% endif %}"
   style="--ori-hero-h: {{ section.settings.min_height }}px;{% if section.settings.media_width %} --ori-hero-media-w: {{ section.settings.media_width }}vw;{% endif %}"
 >
   {%- if section.settings.image == blank and asset_img != blank and section.settings.style != 'plain' -%}
@@ -190,6 +190,13 @@
       "id": "media_flush",
       "label": "Sit image on the bottom edge",
       "info": "For cut-outs cropped at the bottom (wheels cut off): the image meets the hero's bottom edge with no ground shadow.",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "feats_one_row",
+      "label": "Feature points in one row on desktop",
+      "info": "Keeps the feature points on a single row from 1360px wide, for a shorter banner. Below that they stack two per row.",
       "default": false
     },
     {

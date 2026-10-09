@@ -6790,3 +6790,40 @@ a.ori-vcard:hover .ori-vcard__btn svg {
     gap: 2px;
   }
 }
+
+/* ==========================================================
+   ORI REDESIGN — HERO: FEATURE POINTS IN ONE ROW
+   (ori-hero "Feature points in one row on desktop")
+   Overrides the two-row layout from the 1500px query and the
+   bottom-edge image block, for a shorter banner. From 1360px
+   only: below that the copy column (62vw) is too narrow for
+   four points side by side, so they fall back to two per row.
+   ========================================================== */
+@media (min-width: 1360px) {
+  .ori-hero.ori-hero--feats-row .ori-feats {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: auto;
+    row-gap: 0;
+  }
+
+  .ori-hero.ori-hero--feats-row .ori-feat {
+    gap: 8px;
+    padding: 0 16px;
+    font-size: 14px;
+  }
+
+  .ori-hero.ori-hero--feats-row .ori-feat:nth-child(n + 2) {
+    padding-left: 16px;
+    border-left: 1px solid rgba(255, 255, 255, 0.25);
+  }
+
+  .ori-hero.ori-hero--feats-row .ori-feat:first-child {
+    padding-left: 0;
+  }
+
+  .ori-hero.ori-hero--feats-row .ori-feat svg {
+    width: 30px;
+    height: 30px;
+  }
+}
