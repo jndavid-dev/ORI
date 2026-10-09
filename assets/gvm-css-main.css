@@ -6972,3 +6972,65 @@ a.ori-vcard:hover .ori-vcard__btn svg {
     display: block;
   }
 }
+
+/* ==========================================================
+   ORI REDESIGN — HERO: CONTAINED LAYOUT (all ori-hero banners)
+   Desktop only (1025px+). Copy and vehicle sit inside a 1440px
+   content width instead of running to the screen edges, the
+   cut-out is smaller, and the feature points are lighter, for a
+   calmer banner. Phones and tablets keep the stacked layout above.
+   Heading size is capped at 90px in the base rule.
+   ========================================================== */
+@media (min-width: 1025px) {
+  .ori-hero {
+    --ori-hero-side: max(var(--ori-edge), calc((100vw - 1440px) / 2));
+  }
+
+  .ori-hero__in {
+    padding-right: var(--ori-hero-side);
+    padding-left: var(--ori-hero-side);
+  }
+
+  .ori-hero__copy {
+    max-width: min(900px, 56vw);
+  }
+
+  /* The vehicle: about 36vw (80% of the section's image width setting),
+     never wider than 700px, lined up with the copy's right edge. */
+  .ori-hero--cutout .ori-hero__media {
+    right: var(--ori-hero-side);
+    width: min(calc(var(--ori-hero-media-w, 45vw) * 0.8), 700px);
+  }
+
+  .ori-hero--photo .ori-hero__media {
+    width: 54%;
+  }
+
+  .ori-hero__brands {
+    margin-bottom: 22px;
+  }
+
+  .ori-hero__brands img {
+    width: 52px;
+    height: 52px;
+  }
+
+  .ori-hero__sub {
+    font-size: 17px;
+  }
+
+  .ori-feat {
+    gap: 10px;
+    font-size: 14px;
+  }
+
+  .ori-feat svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .ori-hero.ori-hero--feats-row .ori-feat svg {
+    width: 28px;
+    height: 28px;
+  }
+}
