@@ -64,18 +64,29 @@
   if current_variant.price > 0
     assign price_display = current_variant.price | money
   endif
-  # Compliance plate figures: metafields first, then the section's fallback
+  # Key figures: metafields first, then the section's fallback
   # settings — the same order snippets/ori-gvm-variant-json.liquid uses, so
   # the first render and a variant switch agree.
-  assign plate_original_gvm = m_original_gvm | default: section.settings.spec_original_gvm
-  assign plate_upgraded_gvm = m_upgraded_gvm | default: section.settings.spec_upgraded_gvm
-  assign plate_upgraded_gcm = m_upgraded_gcm | default: section.settings.spec_gcm
-  assign plate_payload = m_payload_gain | default: section.settings.spec_payload_gain
+  assign fig_original_gvm = m_original_gvm | default: section.settings.spec_original_gvm
+  assign fig_upgraded_gvm = m_upgraded_gvm | default: section.settings.spec_upgraded_gvm
+  assign fig_upgraded_gcm = m_upgraded_gcm | default: section.settings.spec_gcm
+  assign fig_payload = m_payload_gain | default: section.settings.spec_payload_gain
+
+  # Specifications sit in their own band by default, or inside the hero's
+  # content column. Either way they keep the data-gvm-details hooks, so the
+  # variant switch swaps them the same way.
+  assign specs_in_hero = false
+  if section.settings.specs_position == 'hero'
+    assign specs_in_hero = true
+  endif
 -%}
+{%- capture details_html -%}
+  {%- render 'ori-gvm-summary', summary: stage_summary, part: 'details' -%}
+{%- endcapture -%}
 
 <section
   id="{{ section_id }}"
-  class="ori ori-gvm-product ori-gvm-product--{{ section.settings.layout | default: 'classic' }} color-{{ section.settings.color_schema }}{% if section.settings.mobile_slider %} ori-gvm-product--swipe{% endif %}"
+  class="ori ori-gvm-product ori-gvm-product--{{ section.settings.layout | default: 'classic' }} color-{{ section.settings.color_schema }}{% if section.settings.mobile_slider %} ori-gvm-product--swipe{% endif %}{% if section.settings.compact_hero %} ori-gvm-product--compact{% endif %}"
   data-section-type="ori-gvm-product"
   data-gvm-build="variant-steps-1"
   style="--gvm-tint: {{ section.settings.tint_color | default: '#f3f6f7' }}; --gvm-item-logo-h: {{ section.settings.item_logo_height | default: 40 }}px; --gvm-brand-logo-h: {{ section.settings.brand_logo_height | default: 72 }}px; --gvm-hero-media: {{ hero_media_w }}fr; --gvm-hero-content: {{ hero_content_w }}fr;"
@@ -83,8 +94,8 @@
 
   {%- comment -%}
     Hero band — ORI redesign. Gallery left; right: label, title, intro,
-    compliance plate, options, price, actions. The intro, plate and package
-    details come from the stage summary via snippets/ori-gvm-summary.liquid
+    key figures, options, price, actions. The intro, key figures and
+    specifications come from the stage summary via snippets/ori-gvm-summary.liquid
     (metafield figures win when present). Every data-gvm-* hook is kept for
     the variant switching script at the bottom of this file.
   {%- endcomment -%}
@@ -166,16 +177,15 @@
             {%- endif -%}
           </div>
 
-          <div class="ori-gvmp__plate" data-gvm-plate>
+          <div class="ori-gvmp__figures" data-gvm-figures>
             {%- render 'ori-gvm-summary',
               summary: stage_summary,
-              part: 'plate',
-              original_gvm: plate_original_gvm,
-              upgraded_gvm: plate_upgraded_gvm,
+              part: 'figures',
+              original_gvm: fig_original_gvm,
+              upgraded_gvm: fig_upgraded_gvm,
               original_gcm: m_original_gcm,
-              upgraded_gcm: plate_upgraded_gcm,
-              payload: plate_payload,
-              sku: sku_display
+              upgraded_gcm: fig_upgraded_gcm,
+              payload: fig_payload
             -%}
           </div>
 
@@ -256,6 +266,15 @@
               <span>{{ section.settings.calc_label }}</span>
             </a>
           {%- endif -%}
+
+          {%- if specs_in_hero -%}
+            {%- if details_html != blank or has_variants -%}
+              <div class="ori-gvmp__specs" data-gvm-details-band{% if details_html == blank %} hidden{% endif %}>
+                <h2 class="ori-gvmp__specs-title">{{ section.settings.specs_heading | default: 'Specifications' }}</h2>
+                <div data-gvm-details>{{ details_html }}</div>
+              </div>
+            {%- endif -%}
+          {%- endif -%}
         </div>
       </div>
     </div>
@@ -266,10 +285,15 @@
     summary. Present for every variant (data-gvm-details) and hidden when
     the current one has none.
   {%- endcomment -%}
-  {%- capture details_html -%}
-    {%- render 'ori-gvm-summary', summary: stage_summary, part: 'details' -%}
-  {%- endcapture -%}
-  {%- if details_html != blank or has_variants -%}
+  {%- liquid
+    assign show_specs_band = false
+    unless specs_in_hero
+      if details_html != blank or has_variants
+        assign show_specs_band = true
+      endif
+    endunless
+  -%}
+  {%- if show_specs_band -%}
     <div class="ori-gvmp__details-band" data-gvm-details-band{% if details_html == blank %} hidden{% endif %}>
       <div class="ori-wrap">
         <div class="ori-gvmp__details">
@@ -559,7 +583,7 @@
       });
     });
 
-    // Variant switching: each variant's title, intro, plate, package details,
+    // Variant switching: each variant's title, intro, key figures, specifications,
     // price, SKU and image are rendered into the JSON below by
     // snippets/ori-gvm-variant-json.liquid, so a switch is a straight swap.
     var stepButtons = root.querySelectorAll('[data-gvm-step]');
@@ -572,7 +596,7 @@
     var el = {
       title: root.querySelector('[data-gvm-title]'),
       summary: root.querySelector('[data-gvm-summary]'),
-      plate: root.querySelector('[data-gvm-plate]'),
+      figures: root.querySelector('[data-gvm-figures]'),
       details: root.querySelector('[data-gvm-details]'),
       detailsBand: root.querySelector('[data-gvm-details-band]'),
       priceWrap: root.querySelector('[data-gvm-price-wrap]'),
@@ -592,7 +616,7 @@
       if (!d) return;
       if (el.title) el.title.textContent = d.title || '';
       if (el.summary) el.summary.innerHTML = d.introHtml || '';
-      if (el.plate) el.plate.innerHTML = d.plateHtml || '';
+      if (el.figures) el.figures.innerHTML = d.figuresHtml || '';
       if (el.details) {
         el.details.innerHTML = d.detailsHtml || '';
         toggle(el.detailsBand, !!d.detailsHtml);
@@ -673,6 +697,23 @@
       "step": 2,
       "unit": "%",
       "default": 48
+    },
+    {
+      "type": "checkbox",
+      "id": "compact_hero",
+      "label": "Compact hero",
+      "info": "Smaller title, key figure boxes sized to their content, and a tighter price box.",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "specs_position",
+      "label": "Specifications position",
+      "options": [
+        { "value": "band", "label": "Own band below the hero" },
+        { "value": "hero", "label": "In the hero, under the buttons" }
+      ],
+      "default": "band"
     },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "GVM Upgrade Package" },
     { "type": "text", "id": "fallback_title", "label": "Fallback title (used if not on a product)", "default": "Toyota Tundra Stage 1 GVM Upgrade" },

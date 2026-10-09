@@ -6628,3 +6628,160 @@ a.ori-vcard:hover .ori-vcard__btn svg {
     font-size: 11px;
   }
 }
+
+/* ==========================================================
+   ORI REDESIGN — GVM PRODUCT HERO: COMPACT + SPECS IN HERO
+   (sections/ori-gvm-product.liquid, "Compact hero" and
+   "Specifications position: In the hero" settings)
+   Both are opt-in per template, so the standard hero above is
+   unchanged everywhere else.
+   ========================================================== */
+
+/* --- Specifications inside the content column --- */
+.ori-gvmp__specs {
+  width: 100%;
+  margin-top: 6px;
+  padding-top: 20px;
+  border-top: 1px solid var(--ori-line);
+}
+
+.ori .ori-gvmp__specs-title {
+  margin-bottom: 6px;
+  font-size: 22px;
+}
+
+.ori-gvmp__specs .ori-spec {
+  border-top: 0;
+}
+
+.ori-gvmp__specs .ori-spec > div {
+  grid-template-columns: 140px 1fr;
+  gap: 12px;
+  padding: 9px 0;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.ori-gvmp__specs .ori-spec dt {
+  font-size: 15px;
+}
+
+.ori-gvmp__specs .ori-gvmp__notes {
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.ori-gvmp__specs .ori-gvmp__notes .ori-note {
+  background: var(--ori-bone);
+  font-size: 14px;
+}
+
+/* --- Compact hero --- */
+.ori-gvm-product--compact .ori-gvmp__hero {
+  padding-top: 36px;
+  padding-bottom: 56px;
+}
+
+.ori-gvm-product--compact .ori-gvmp__content {
+  gap: 14px;
+}
+
+.ori-gvm-product--compact .ori-gvmp__title {
+  font-size: clamp(28px, 2.6vw, 40px);
+  line-height: 1;
+}
+
+.ori-gvm-product--compact .ori-gvmp__intro {
+  font-size: 16px;
+}
+
+/* Key figures: separate boxes sized to their content instead of a
+   full-width row of equal cells. */
+.ori-gvm-product--compact .ori-gvmp__figures .ori-figs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: none;
+}
+
+.ori-gvm-product--compact .ori-gvmp__figures .ori-fig {
+  flex: 0 1 auto;
+  gap: 2px;
+  max-width: 200px;
+  padding: 8px 12px;
+  border: 1px solid var(--ori-line);
+  border-radius: 6px;
+}
+
+.ori-gvm-product--compact .ori-gvmp__figures .ori-fig dt {
+  font-size: 11px;
+}
+
+.ori-gvm-product--compact .ori-gvmp__figures .ori-fig dd {
+  font-size: 21px;
+}
+
+.ori-gvm-product--compact .ori-gvmp__figures .ori-fig dd s {
+  font-size: 14px;
+}
+
+.ori-gvm-product--compact .ori-gvmp__figures .ori-fig dd small {
+  margin-top: 2px;
+  font-size: 11px;
+}
+
+/* Options */
+.ori-gvm-product--compact .ori-gvmp__opt {
+  min-height: 36px;
+  padding: 0 14px;
+  font-size: 14px;
+}
+
+/* Price: retail and the B2B wholesale box both shrink to their content. */
+.ori-gvm-product--compact .ori-gvmp__amount {
+  font-size: 30px;
+}
+
+.ori-gvm-product--compact .ori-gvmp__pricing .gvm-b2b-pricebox {
+  width: fit-content;
+  max-width: 100%;
+  gap: 4px;
+  padding: 10px 16px;
+}
+
+.ori-gvm-product--compact .ori-gvmp__pricing .gvm-b2b-pricebox__label {
+  font-size: 11px;
+}
+
+.ori-gvm-product--compact .ori-gvmp__pricing .gvm-b2b-pricebox__rrp {
+  padding: 2px 10px;
+  font-size: 13px;
+}
+
+/* Buttons */
+.ori-gvm-product--compact .ori-gvmp__ctas .ori-btn {
+  min-height: 48px;
+  padding: 6px 22px;
+  font-size: 18px;
+}
+
+@media (max-width: 600px) {
+  .ori-gvm-product--compact .ori-gvmp__hero {
+    padding-top: 20px;
+    padding-bottom: 40px;
+  }
+
+  /* Two per row on phones, so the four figures make a neat 2×2. */
+  .ori-gvm-product--compact .ori-gvmp__figures .ori-fig {
+    flex: 1 1 calc(50% - 4px);
+    max-width: none;
+  }
+
+  .ori-gvmp__specs .ori-spec > div {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+}
