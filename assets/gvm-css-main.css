@@ -6938,31 +6938,12 @@ a.ori-vcard:hover .ori-vcard__btn svg {
     padding-right: 18px;
   }
 
-  /* Row labels stay put while the stages scroll past. */
-  .ori-cmp-wrap--scroll .ori-cmp th:first-child {
-    position: sticky;
-    left: 0;
-    z-index: 1;
-    box-shadow: 1px 0 0 var(--ori-line);
-  }
-
+  /* Narrower pinned label column on phones (pinning itself is set
+     for every width in the responsive pass further down). */
   .ori-cmp-wrap--scroll .ori-cmp tbody th {
     min-width: 132px;
     max-width: 150px;
-    background: #fff;
     font-size: 13px;
-  }
-
-  .ori-cmp-wrap--scroll .ori-cmp tbody tr:nth-child(even) th {
-    background: #fafbfb;
-  }
-
-  .ori-cmp-wrap--scroll .ori-cmp tbody tr.is-highlight th {
-    background: #f4fafa;
-  }
-
-  .ori-cmp-wrap--scroll .ori-cmp thead th:first-child {
-    background: var(--ori-chassis);
   }
 
   .ori-cmp-wrap--scroll .ori-cmp--compact td {
@@ -7125,5 +7106,110 @@ a.ori-vcard:hover .ori-vcard__btn svg {
 @media (max-width: 900px) {
   .ori-quote--dark .ori-quote__panel {
     padding: 0;
+  }
+}
+
+/* ==========================================================
+   ORI REDESIGN — RESPONSIVE PASS (2026-10-09)
+   Fixes found in a breakpoint review of the redesign sections.
+   ========================================================== */
+
+/* Hero, small laptops (1025–1279px): the copy (56vw) and the cut-out
+   (36vw) met in the middle, so the heading ran over the truck. */
+@media (min-width: 1025px) and (max-width: 1279px) {
+  .ori-hero__copy {
+    max-width: 52vw;
+  }
+
+  .ori-hero--large .ori-hero__copy {
+    max-width: 54vw;
+  }
+}
+
+/* Hero, tablet and phone: the stacked cut-out keeps 96px above it to
+   clear the plate badge — only needed when there is a badge. */
+@media (max-width: 1024px) {
+  .ori-hero--cutout:not(:has(.ori-plate-badge)) .ori-hero__media {
+    margin-top: 32px;
+  }
+}
+
+/* Hero, phones: buttons full width, stacked, so both are easy taps. */
+@media (max-width: 560px) {
+  .ori-hero__ctas .ori-btn,
+  .ori-hero__ctas .ori-hero__opener > .ori-btn {
+    flex: 1 1 100%;
+  }
+}
+
+/* Spec table, scroll mode: the label column stays pinned whenever the
+   table overflows (7 stages also overflow between 861px and ~1100px),
+   not just on phones. */
+.ori-cmp-wrap--scroll .ori-cmp th:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  box-shadow: 1px 0 0 var(--ori-line);
+}
+
+.ori-cmp-wrap--scroll .ori-cmp tbody th {
+  background: #fff;
+}
+
+.ori-cmp-wrap--scroll .ori-cmp tbody tr:nth-child(even) th {
+  background: #fafbfb;
+}
+
+.ori-cmp-wrap--scroll .ori-cmp tbody tr.is-highlight th {
+  background: #f4fafa;
+}
+
+.ori-cmp-wrap--scroll .ori-cmp thead th:first-child {
+  background: var(--ori-chassis);
+}
+
+/* Installer network, phones: one swipeable row of state tabs (as the
+   product filter pills) instead of three rows of wrapped pills. */
+@media (max-width: 600px) {
+  .ori-inet__tab-nav {
+    flex-wrap: nowrap;
+    margin: 0 -18px 22px;
+    padding: 2px 18px 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .ori-inet__tab-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ori .ori-inet__tab {
+    flex: 0 0 auto;
+  }
+}
+
+/* Quote popup, phones: the theme modal sits 6.4rem from the top, so a
+   90vh card ran off the bottom of the screen. */
+@media (max-width: 767px) {
+  .ori-quote-modal .f-modal__inner {
+    max-height: calc(100vh - 6.4rem);
+    max-height: calc(100dvh - 6.4rem);
+  }
+}
+
+/* Quote form, phones: Back stays narrow so Next / Send keeps the room. */
+@media (max-width: 480px) {
+  .ori-quote__actions [data-ori-quote-back] {
+    flex: 0 0 auto;
+    padding-right: 18px;
+    padding-left: 18px;
+  }
+}
+
+/* GVM product compact hero, phones: the price box fills the column like
+   the figure boxes above it, instead of sitting at its content width. */
+@media (max-width: 600px) {
+  .ori-gvm-product--compact .ori-gvmp__pricing .gvm-b2b-pricebox {
+    width: 100%;
   }
 }
