@@ -937,7 +937,8 @@
         "badge_small": "Car licence",
         "image_asset": "ori-hero-chevy-2500-cutout.webp",
         "image_alt": "Chevrolet Silverado 2500 HD LTZ in Cypress Gray on 37 inch tyres",
-        "media_flush": true
+        "media_flush": true,
+        "size": "large"
       }
     },
     "ori_finder": {

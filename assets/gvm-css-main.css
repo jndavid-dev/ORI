@@ -7034,3 +7034,57 @@ a.ori-vcard:hover .ori-vcard__btn svg {
     height: 28px;
   }
 }
+
+/* ==========================================================
+   ORI REDESIGN — HERO: PILL SIZE + LARGE BANNER
+   Pill: 24px max (was 30px), so it sits beside the 90px heading
+   without crowding it. Large (ori-hero "Banner size: Large", the
+   home page): between the original full-width banner and the
+   contained layout above — 1600px content width, a bigger
+   heading and vehicle.
+   ========================================================== */
+.ori-pill {
+  padding: 8px 20px;
+  font-size: clamp(16px, 1.4vw, 24px);
+}
+
+@media (min-width: 1025px) {
+  .ori-hero--large {
+    --ori-hero-side: max(var(--ori-edge), calc((100vw - 1600px) / 2));
+  }
+
+  .ori-hero--large .ori-hero__copy {
+    max-width: min(1000px, 60vw);
+  }
+
+  .ori.ori-hero--large .ori-hero__title {
+    font-size: clamp(48px, 5.2vw, 100px);
+  }
+
+  .ori-hero--large.ori-hero--cutout .ori-hero__media {
+    width: min(calc(var(--ori-hero-media-w, 45vw) * 0.92), 900px);
+  }
+
+  .ori-hero--large .ori-hero__brands img {
+    width: 56px;
+    height: 56px;
+  }
+
+  .ori-hero--large .ori-hero__sub {
+    font-size: 18px;
+  }
+
+  .ori-hero--large .ori-feat {
+    font-size: 15px;
+  }
+
+  .ori-hero--large .ori-feat svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .ori-hero--large .ori-pill {
+    padding: 9px 22px;
+    font-size: clamp(18px, 1.5vw, 26px);
+  }
+}
