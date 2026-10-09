@@ -6871,7 +6871,7 @@ a.ori-vcard:hover .ori-vcard__btn svg {
 
 .ori-cmp--compact th,
 .ori-cmp--compact td {
-  padding: 10px 12px;
+  padding: 13px 14px;
 }
 
 .ori-cmp--compact thead th {
@@ -6882,15 +6882,26 @@ a.ori-vcard:hover .ori-vcard__btn svg {
 }
 
 .ori-cmp--compact tbody th {
-  min-width: 190px;
-  font-size: 14px;
-  line-height: 1.3;
+  min-width: 200px;
+  color: var(--ori-ink);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.35;
 }
 
+/* Values in the body face at a regular weight: a dozen rows of bold
+   condensed figures was hard on the eyes. Highlighted rows keep a
+   semibold teal so GVM / GCM / payload still stand out. */
 .ori-cmp--compact td {
-  min-width: 92px;
-  font-size: 17px;
-  line-height: 1.2;
+  min-width: 96px;
+  font-family: var(--ori-body);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.ori-cmp--compact .is-highlight td {
+  font-weight: 600;
 }
 
 .ori-cmp--compact tbody tr:nth-child(even) {
@@ -6954,7 +6965,7 @@ a.ori-vcard:hover .ori-vcard__btn svg {
   }
 
   .ori-cmp-wrap--scroll .ori-cmp--compact td {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .ori-cmp-wrap--scroll .ori-cmp-hint {

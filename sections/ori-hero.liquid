@@ -95,10 +95,17 @@
       {%- if section.settings.heading_1 != blank or section.settings.heading_2 != blank -%}
         <{{ heading_tag }} class="ori-hero__title">
           {{- section.settings.heading_1 -}}
+          {%- comment -%}
+            The spaces below are output tags so whitespace control can't strip
+            them: without them the heading's text reads "Ford F150GVM Upgrades"
+            to search engines and screen readers, as the lines are spans.
+          {%- endcomment -%}
           {%- if section.settings.heading_2 != blank or section.settings.pill != blank -%}
+            {{- ' ' -}}
             <span class="ori-hero__l2{% if section.settings.heading_2_white %} ori-hero__l2--white{% endif %}">
               {{- section.settings.heading_2 -}}
               {%- if section.settings.pill != blank -%}
+                {{- ' ' -}}
                 <span class="ori-pill">{{ section.settings.pill | newline_to_br }}</span>
               {%- endif -%}
             </span>
