@@ -5549,6 +5549,19 @@ a.ori-vcard:hover .ori-vcard__btn svg {
   mask-image: linear-gradient(180deg, #000 82%, transparent);
 }
 
+/* The cut-out takes the right side at every width, so the feature points
+   stay in two rows (as below 1500px) instead of one long row that runs
+   into the vehicle on wide screens. */
+.ori-hero--flush .ori-feats {
+  grid-template-columns: repeat(2, auto);
+  row-gap: 16px;
+}
+
+.ori-hero--flush .ori-feat:nth-child(3) {
+  padding-left: 0;
+  border-left: 0;
+}
+
 /* ==========================================================
    ORI REDESIGN — INSTALLER NETWORK (sections/ori-installer-network.liquid,
    also copied into GVM product pages by ori-gvm-approved)
@@ -5667,8 +5680,9 @@ a.ori-vcard:hover .ori-vcard__btn svg {
 /* Landscape box: most installer logos are wide wordmarks. */
 .ori-inet__logo {
   flex: 0 0 96px;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 96px;
   height: 60px;
   padding: 6px;
@@ -5678,9 +5692,14 @@ a.ori-vcard:hover .ori-vcard__btn svg {
   background: #fff;
 }
 
-.ori-inet__logo img {
-  width: 100%;
-  height: 100%;
+/* Fixed pixel caps (the box minus its padding), not 100%: a percentage
+   height has nothing definite to resolve against here, so the image fell
+   back to its 200px width/height attributes and was clipped. */
+.ori .ori-inet__logo img {
+  width: auto;
+  height: auto;
+  max-width: 82px;
+  max-height: 46px;
   object-fit: contain;
 }
 
@@ -5789,7 +5808,7 @@ a.ori-vcard:hover .ori-vcard__btn svg {
 }
 
 .ori-vgrid--wide .ori-vcard__img {
-  aspect-ratio: 16 / 9;
+  aspect-ratio: var(--ori-vratio, 1 / 1);
 }
 
 .ori-vcard__cover {

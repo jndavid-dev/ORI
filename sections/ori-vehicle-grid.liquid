@@ -30,7 +30,17 @@
       </div>
     {%- endif -%}
 
-    <ul class="ori-vgrid ori-vgrid--wide" style="--ori-cols: {{ section.settings.columns }};" role="list">
+    {%- liquid
+      case section.settings.image_ratio
+        when 'portrait'
+          assign vratio = '0.71 / 1'
+        when 'landscape'
+          assign vratio = '16 / 9'
+        else
+          assign vratio = '1 / 1'
+      endcase
+    -%}
+    <ul class="ori-vgrid ori-vgrid--wide" style="--ori-cols: {{ section.settings.columns }}; --ori-vratio: {{ vratio }};" role="list">
       {%- for block in vehicles -%}
         {%- liquid
           assign url = block.settings.url
@@ -46,10 +56,10 @@
             {%- if block.settings.image != blank -%}
               {{
                 block.settings.image
-                | image_url: width: 900
+                | image_url: width: 1080
                 | image_tag:
                   loading: 'lazy',
-                  widths: '450, 700, 900',
+                  widths: '360, 540, 720, 1080',
                   sizes: '(min-width: 1100px) 22vw, (min-width: 600px) 45vw, 100vw',
                   alt: block.settings.title
               }}
@@ -98,6 +108,17 @@
     { "type": "text", "id": "heading", "label": "Heading", "default": "Browse by vehicle" },
     { "type": "textarea", "id": "intro", "label": "Intro" },
     {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Image shape",
+      "options": [
+        { "value": "square", "label": "Square (vehicle tiles)" },
+        { "value": "portrait", "label": "Portrait (GVM hub)" },
+        { "value": "landscape", "label": "Landscape 16:9" }
+      ],
+      "default": "square"
+    },
+    {
       "type": "range",
       "id": "columns",
       "label": "Cards per row (desktop)",
@@ -115,7 +136,7 @@
       "type": "vehicle",
       "name": "Vehicle",
       "settings": [
-        { "type": "image_picker", "id": "image", "label": "Image", "info": "Landscape, about 16:9." },
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "Match the Image shape setting; square tiles by default." },
         { "type": "text", "id": "image_asset", "label": "Fallback image (theme asset file name)" },
         { "type": "text", "id": "title", "label": "Title", "default": "Ford F150" },
         { "type": "text", "id": "specs", "label": "Specs line", "placeholder": "4300 GVM | 8800 GCM | 35\" tyres legal" },

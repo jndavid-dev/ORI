@@ -65,7 +65,8 @@
         "custom_id": "",
         "custom_class": "",
         "enable_bg_zoom_effect": false
-      }
+      },
+      "disabled": true
     },
     "vehicle_cards_CtwwXg": {
       "type": "vehicle-cards",
@@ -158,7 +159,8 @@
         "mobile_layout": "slideshow",
         "slideshow_animation": "fade",
         "slideshow_interval": 4
-      }
+      },
+      "disabled": true
     },
     "dealer_locator_EMPfrF": {
       "type": "dealer-locator",
@@ -889,7 +891,8 @@
         "container_width": 1280,
         "padding_top": 60,
         "padding_bottom": 60
-      }
+      },
+      "disabled": true
     },
     "why_choose_TxqbNE": {
       "type": "why-choose",
@@ -992,7 +995,8 @@
         "mobile_layout": "slideshow",
         "slideshow_animation": "fade",
         "slideshow_interval": 4
-      }
+      },
+      "disabled": true
     },
     "logo_list_tG47ei": {
       "type": "logo-list",
@@ -1479,9 +1483,462 @@
         "custom_class": "",
         "animations": "inherit"
       }
+    },
+    "ori_hero_hub": {
+      "type": "ori-hero",
+      "blocks": {
+        "logo_ori": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__ORI.jpg",
+            "alt": "ORI"
+          }
+        },
+        "logo_fox": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__FOX.jpg",
+            "alt": "Fox"
+          }
+        },
+        "logo_bds": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__BDS.jpg",
+            "alt": "BDS Suspension"
+          }
+        },
+        "logo_husky": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__HUSKY_LINERS.jpg",
+            "alt": "Husky Liners"
+          }
+        },
+        "feature_ssm": {
+          "type": "feature",
+          "settings": {
+            "icon": "shield",
+            "text": "SSM federally approved\nAustralia wide"
+          }
+        },
+        "feature_suspension": {
+          "type": "feature",
+          "settings": {
+            "icon": "suspension",
+            "text": "Fox & BDS suspension\ncomponents"
+          }
+        },
+        "feature_rego": {
+          "type": "feature",
+          "settings": {
+            "icon": "clipboard",
+            "text": "Pre & post rego\nupgrades"
+          }
+        },
+        "feature_tyres": {
+          "type": "feature",
+          "settings": {
+            "icon": "tyre",
+            "text": "35\" | 37\" tyres legal"
+          }
+        },
+        "button_vehicles": {
+          "type": "button",
+          "settings": {
+            "label": "Browse vehicles",
+            "link": "#vehicles",
+            "style": "teal"
+          }
+        },
+        "button_installers": {
+          "type": "button",
+          "settings": {
+            "label": "Find an installer",
+            "link": "#installers",
+            "style": "ghost"
+          }
+        }
+      },
+      "block_order": [
+        "logo_ori",
+        "logo_fox",
+        "logo_bds",
+        "logo_husky",
+        "feature_ssm",
+        "feature_suspension",
+        "feature_rego",
+        "feature_tyres",
+        "button_vehicles",
+        "button_installers"
+      ],
+      "settings": {
+        "style": "cutout",
+        "image_asset": "ori-hero-gvm-hub-f150.webp",
+        "image_alt": "Ford F150 with an ORI GVM upgrade, Fox suspension and 37 inch tyres",
+        "media_width": 45,
+        "media_flush": true,
+        "min_height": 620,
+        "badge_text": "",
+        "heading_1": "American Truck",
+        "heading_2": "GVM & GCM Specialist",
+        "pill": "",
+        "heading_2_white": true,
+        "subheading": "<p>Federally approved GVM & GCM upgrades for full-size American trucks, fitted by authorised installers across Australia.</p>",
+        "heading_tag": "h1",
+        "badge_title": "",
+        "badge_small": ""
+      }
+    },
+    "ori_vehicles": {
+      "type": "ori-vehicle-grid",
+      "blocks": {
+        "v_tundra": {
+          "type": "vehicle",
+          "settings": {
+            "image_asset": "",
+            "title": "Toyota Tundra",
+            "specs": "4300 GVM | 8800 GCM | 35\" tyres legal",
+            "text": "Platinum & Limited.",
+            "url": "/pages/toyota-tundra",
+            "button_label": "View packages & pricing",
+            "pdf_url": "https://cdn.shopify.com/s/files/1/0165/6516/files/GVM_BROCHURE_BACK_Toyota_Tundra.pdf?v=1779415154",
+            "pdf_label": "Download brochure (PDF)",
+            "image": "shopify://shop_images/Toyota-Tundra--tile-ad---20260505-4-1.png"
+          }
+        },
+        "v_s2500": {
+          "type": "vehicle",
+          "settings": {
+            "image_asset": "",
+            "title": "Chevy Silverado 2500HD",
+            "specs": "6T GVM | 37\" tyres legal",
+            "text": "Chevrolet Silverado 2500HD LTZ.",
+            "url": "/pages/chevy-silverado-2500hd-gvm-packages",
+            "button_label": "View packages & pricing",
+            "pdf_url": "https://cdn.shopify.com/s/files/1/0165/6516/files/GVM_BROCHURE_BACK_Chevy_Silverado_2500HD_LTZ.pdf?v=1779415154",
+            "pdf_label": "Download brochure (PDF)",
+            "image": "shopify://shop_images/Chevy-2500--tile-ad---20260505-4_7ce36d9a-1565-4823-b14a-b3e36018df11.png"
+          }
+        },
+        "v_s1500": {
+          "type": "vehicle",
+          "settings": {
+            "image_asset": "",
+            "title": "Silverado 1500 LTZ & ZR2",
+            "specs": "4250 GVM | 8750 GCM",
+            "text": "Federally approved packages.",
+            "url": "/pages/chevrolet-silverado-1500-gvm-package",
+            "button_label": "View packages & pricing",
+            "pdf_url": "https://cdn.shopify.com/s/files/1/0165/6516/files/GVM_BROCHURE_BACK_Chevy_Silverado_1500.pdf?v=1779415153",
+            "pdf_label": "Download brochure (PDF)",
+            "image": "shopify://shop_images/Chevy-Silverado-1500--tile-ad---20260505-4_753e16ce-f09c-454c-8683-7edc168f4eae.png"
+          }
+        },
+        "v_f150": {
+          "type": "vehicle",
+          "settings": {
+            "image_asset": "",
+            "title": "Ford F150",
+            "specs": "4300 GVM | 8800 GCM",
+            "text": "Platinum, Lariat & XLT. Federally approved GVM.",
+            "url": "/pages/ford-150-gvm-packages",
+            "button_label": "View packages & pricing",
+            "pdf_url": "https://cdn.shopify.com/s/files/1/0165/6516/files/GVM_BROCHURE_BACK_Ford_F150.pdf?v=1779415153",
+            "pdf_label": "Download brochure (PDF)",
+            "image": "shopify://shop_images/FORD-F150---tile-ad---20260505-4-3.png"
+          }
+        },
+        "v_f150_lift": {
+          "type": "vehicle",
+          "settings": {
+            "image_asset": "",
+            "title": "Ford F150 lift packages",
+            "specs": "4\" & 6\" lift | 4000kg GVM",
+            "text": "Platinum, Lariat & XLT. Legal on 35\" and 37\" tyres.",
+            "url": "/pages/ford-150-gvm-packages",
+            "button_label": "View packages & pricing",
+            "pdf_url": "https://cdn.shopify.com/s/files/1/0165/6516/files/GVM_BROCHURE_BACK_Ford_F150.pdf?v=1779415153",
+            "pdf_label": "Download brochure (PDF)",
+            "image": "shopify://shop_images/FORD-F150---tile-ad---20260505-4-1_9dcaeba0-a747-4777-a6b3-eb3685b3b98f.png"
+          }
+        }
+      },
+      "block_order": [
+        "v_tundra",
+        "v_s2500",
+        "v_s1500",
+        "v_f150",
+        "v_f150_lift"
+      ],
+      "settings": {
+        "heading": "ORI Federally Approved GVM & GCM Packages",
+        "intro": "Choose your truck to see its staged packages, pricing and certified figures — or download the brochure.",
+        "columns": 5,
+        "anchor": "vehicles",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "image_ratio": "square"
+      }
+    },
+    "ori_products": {
+      "type": "ori-product-grid",
+      "blocks": {
+        "vehicle_silverado_1500": {
+          "type": "vehicle",
+          "settings": {
+            "collection": "chevrolet-silverado-1500-ltz-zr2-trailboss-gvm-upgrade",
+            "label": "Silverado 1500",
+            "link": "shopify://collections/chevrolet-silverado-1500-ltz-zr2-trailboss-gvm-upgrade",
+            "link_label": ""
+          }
+        },
+        "vehicle_silverado_2500": {
+          "type": "vehicle",
+          "settings": {
+            "collection": "chevrolet-silverado-2500-ltz-gvm-upgrade",
+            "label": "Silverado 2500HD",
+            "link": "shopify://collections/chevrolet-silverado-2500-ltz-gvm-upgrade",
+            "link_label": ""
+          }
+        },
+        "vehicle_ford_f150": {
+          "type": "vehicle",
+          "settings": {
+            "collection": "ford-f150-platinum-lariat-xlt-gvm-upgrade",
+            "label": "Ford F150",
+            "link": "shopify://collections/ford-f150-platinum-lariat-xlt-gvm-upgrade",
+            "link_label": ""
+          }
+        },
+        "vehicle_toyota_tundra": {
+          "type": "vehicle",
+          "settings": {
+            "collection": "toyota-tundra-platinum-gvm-upgrade",
+            "label": "Toyota Tundra",
+            "link": "shopify://collections/toyota-tundra-platinum-gvm-upgrade",
+            "link_label": ""
+          }
+        }
+      },
+      "block_order": [
+        "vehicle_silverado_1500",
+        "vehicle_silverado_2500",
+        "vehicle_ford_f150",
+        "vehicle_toyota_tundra"
+      ],
+      "settings": {
+        "heading": "GVM & GCM Packages",
+        "intro": "",
+        "collection": "b2b-gvm-collection",
+        "limit": 12,
+        "button": "cart",
+        "button_label": "",
+        "view_all_label": "",
+        "show_links": true,
+        "fine_print": "",
+        "padding_top": 0,
+        "padding_bottom": 80,
+        "custom_class": ""
+      }
+    },
+    "ori_video": {
+      "type": "ori-video-feature",
+      "settings": {
+        "eyebrow": "Learn",
+        "heading": "GVM & GCM upgrades explained",
+        "text": "<p>A short guide to what a GVM and GCM upgrade changes on your truck, how SSM federal approval works, and what to expect from quote to compliance plate.</p>",
+        "points": "What GVM and GCM mean for your truck\nPre-rego SSM approval vs post-rego engineering\nHow your payload and towing limits change\nWhat happens at your authorised installer",
+        "button_label": "Browse vehicles",
+        "button_link": "#vehicles",
+        "video_left": false,
+        "dark": true,
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "ori_installers": {
+      "type": "ori-gvm-approved",
+      "name": "ORI GVM Approved",
+      "settings": {
+        "source_page": "gvm-approves",
+        "source_section": "[data-section-type=\"ori-installer-network\"]",
+        "custom_selector": "",
+        "heading": "",
+        "fallback_text": "View our authorised installers",
+        "full_width": true,
+        "content_gutter": 24,
+        "flush_top_bottom": false,
+        "layout": "classic",
+        "alt_background": false,
+        "tint_color": "#f3f6f7",
+        "container": "container",
+        "padding_top": 52,
+        "padding_bottom": 52,
+        "custom_id": "installers",
+        "color_schema": "",
+        "replace_heading": "Authorised ORI Platinum Installer Network",
+        "replace_intro": "Find your nearest authorised installer for ORI GVM & GCM upgrades."
+      }
+    },
+    "ori_why": {
+      "type": "ori-why-choose",
+      "blocks": {
+        "reason_1": {
+          "type": "reason",
+          "settings": {
+            "icon": "headset",
+            "heading": "Support",
+            "body": "<p><strong>Upgrade Your American Truck with Offroad Industries</strong><br/>Looking for a one-stop shop for your American truck's GVM and GCM needs? We offer comprehensive support through the entire upgrade process.</p><ul><li><strong>Pre- & Post-Rego:</strong> We handle both pre-registration and post-registration GVM upgrades.</li><li><strong>Nationwide Compliance:</strong> Fully approved across all Australian states and territories.</li><li><strong>Expert Support:</strong> Fantastic customer service from start to finish.</li></ul><p>Ready to get started? Give Offroad Industries a call!</p>"
+          }
+        },
+        "reason_2": {
+          "type": "reason",
+          "settings": {
+            "icon": "network",
+            "heading": "Welcome to the ORI Standard, Australia-Wide!",
+            "body": "<p>At ORI, we are proud to offer an extensive network of approved fitment centres right across the country. But our commitment doesn't stop at geography! We believe that exceptional service begins long before your vehicle ever rolls into the shop. That is why we proactively educate our fitment partners on exactly what your specific vehicle requires and is capable of achieving.</p><p>Our philosophy is simple: <strong>it is never about just selling a kit; it is about providing the </strong><em><strong>right</strong></em><strong> kit, the very first time.</strong></p><p>To guarantee this flawless experience, we provide dedicated, expert technical guidance to all of our workshops. This ensures that your customised ORI GVM package perfectly aligns with your needs while upholding the uncompromising, premium standards we celebrate at ORI.</p>"
+          }
+        },
+        "reason_3": {
+          "type": "reason",
+          "settings": {
+            "icon": "shield",
+            "heading": "SSM Federal Approval",
+            "body": "<p><strong>Skip the red tape.</strong> With ORI’s Federal SSM-certified GVM packages, pre-registration upgrades—including massive lifts (up to 6\") and larger tires (up to 37\")—are baked directly into your federal compliance plate.</p><p>The result? A rig that is 100% road-legal, fully insurable, and ready to roll anywhere in Australia with <strong>zero state-by-state engineering required.</strong></p>"
+          }
+        },
+        "reason_4": {
+          "type": "reason",
+          "settings": {
+            "icon": "warehouse",
+            "heading": "Stock & Availability",
+            "body": "<p>When you choose us, you're backed by the largest distributor of American truck parts and accessories.</p><ul><li><strong>In Stock & Ready:</strong> Your parts are already on our shelves—no waiting around for shipping!</li><li><strong>Expert Fitting:</strong> Ready for seamless fitting by one of our trusted, authorized installers.</li></ul><p><strong>Don't wait. Secure your kit from Offroad Industries today!</strong> </p>"
+          }
+        },
+        "reason_5": {
+          "type": "reason",
+          "settings": {
+            "icon": "award",
+            "heading": "Australian Largest American Truck GVM & GCM Specialist",
+            "body": "<p><strong>Forget boring, standard upgrades. At ORI, we push the limits.</strong> Unlock your vehicle's true potential with upgrades designed to go further and work harder.</p><ul><li><strong>Extreme Capability:</strong> We push the boundaries of what's approved, offering setups from OE wheels right up to massive 37\" tyres.</li><li><strong>Massive Capacity:</strong> Fully legal GVM and GCM upgrades that deliver a serious boost to your payload and towing.</li><li><strong>Proven & Certified:</strong> We don’t guess. We partner with independent testing facilities to secure certified GCM data to strict LS16 standards.</li><li><strong>100% Compliant:</strong> Official, safe, and effective GCM re-rating specifically for full-size American trucks, keeping you completely legal on the road.</li></ul>"
+          }
+        },
+        "reason_6": {
+          "type": "reason",
+          "settings": {
+            "icon": "tow",
+            "heading": "Not Just a GVM, ORI is the GCM Specialist",
+            "body": "<p>Unlock your vehicle's true potential. ORI’s fully legal GVM and GCM upgrades provide a massive increase to your payload and towing capacity, keeping you safe and compliant on the road. We don't just guess. ORI has partnered with independent testing facilities to secure certified GCM data to strict LS16 standards. This means we can officially, safely, and effectively re-rate the GCM on full-size American trucks. Pre and Post rego</p>"
+          }
+        }
+      },
+      "block_order": [
+        "reason_1",
+        "reason_2",
+        "reason_3",
+        "reason_4",
+        "reason_5",
+        "reason_6"
+      ],
+      "settings": {
+        "eyebrow": "Offroad Industries",
+        "heading": "Why choose ORI for your GVM & GCM upgrade?",
+        "intro": "",
+        "dark": true,
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "ori_faq": {
+      "type": "ori-gvm-faq",
+      "blocks": {
+        "faq_1": {
+          "type": "question",
+          "settings": {
+            "question": "What is a GVM upgrade?",
+            "answer": "<p>GVM (Gross Vehicle Mass) is the most your vehicle is legally allowed to weigh when fully loaded. A GVM upgrade raises that limit with certified suspension and engineering, so you can carry more — legally, insured and on the plate.</p><p>ORI packages combine Fox and BDS suspension with ORI heavy-duty springs, and are federally approved through Second Stage of Manufacture (SSM).</p>"
+          }
+        },
+        "faq_2": {
+          "type": "question",
+          "settings": {
+            "question": "How much payload can I legally gain?",
+            "answer": "<p>It depends on your vehicle and the stage you choose. As a guide, ORI packages take the Silverado 1500 to 4250 kg GVM, the F150 and Tundra to 4300 kg, and the Silverado 2500HD to 6 tonnes.</p><p>Each package page lists its certified figures, and the final numbers are the ones on your compliance plate.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "question",
+          "settings": {
+            "question": "Can I increase GVM after vehicle registration?",
+            "answer": "<p>Yes. ORI handles both pre-registration and post-registration upgrades.</p><p>Pre-registration upgrades use SSM federal approval, so the new GVM is on your compliance plate from day one and recognised in every state. Upgrades on vehicles already on the road use state-based engineering instead.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "question",
+          "settings": {
+            "question": "What is the difference between GVM and GCM?",
+            "answer": "<p><strong>GVM</strong> is the maximum legal weight of your vehicle fully loaded. <strong>GCM</strong> (Gross Combined Mass) is the maximum legal weight of your vehicle and trailer together.</p><p>Raising GVM lets you carry more; raising GCM lets you tow more within the law.</p>"
+          }
+        },
+        "faq_5": {
+          "type": "question",
+          "settings": {
+            "question": "Do I need engineering certification?",
+            "answer": "<p>Yes — a GVM or GCM increase is only legal with certification. ORI packages are federally approved under VTA approval numbers through SSM, so pre-registration upgrades need no state-by-state engineering. Post-registration upgrades are certified through state-based engineering.</p>"
+          }
+        },
+        "faq_6": {
+          "type": "question",
+          "settings": {
+            "question": "Will a GVM upgrade affect warranty?",
+            "answer": "<p>Warranty depends on your vehicle manufacturer and dealer, so we recommend checking with them before you proceed. Our team can talk you through what is fitted and the certification that comes with it.</p>"
+          }
+        },
+        "faq_7": {
+          "type": "question",
+          "settings": {
+            "question": "Can I tow more after a GCM upgrade?",
+            "answer": "<p>Yes. A GCM upgrade raises the combined legal weight of your vehicle and trailer. ORI has partnered with independent testing facilities to secure certified GCM data to strict LS16 standards, so your towing capacity is re-rated officially and safely.</p>"
+          }
+        },
+        "faq_8": {
+          "type": "question",
+          "settings": {
+            "question": "Which vehicles can be upgraded?",
+            "answer": "<p>ORI currently offers GVM & GCM packages for the Toyota Tundra, Chevrolet Silverado 1500 LTZ & ZR2, Chevrolet Silverado 2500HD LTZ and Ford F150 (Platinum, Lariat & XLT). More vehicles are coming — contact us if yours isn't listed.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5",
+        "faq_6",
+        "faq_7",
+        "faq_8"
+      ],
+      "settings": {
+        "heading": "GVM & GCM FAQs",
+        "intro": "Answers to the questions we hear most. Can't find yours? Our team is happy to help.",
+        "button_label": "Contact us",
+        "button_link": "/pages/contact-us",
+        "open_first": true,
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
     }
   },
   "order": [
+    "ori_hero_hub",
+    "ori_vehicles",
+    "ori_products",
+    "ori_video",
+    "ori_installers",
+    "ori_why",
+    "ori_faq",
     "main",
     "slideshow_ByTqfK",
     "vehicle_cards_CtwwXg",
