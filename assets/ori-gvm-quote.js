@@ -84,8 +84,10 @@
     /* --- Kit and variant --- */
     // Product pages embed one kit (the product), collection pages one per
     // product. A kit select only exists on collection pages.
+    // The kits JSON sits just outside the <form> (in .ori-quote__form-wrap),
+    // so look it up from the section root, not the form.
     var KITS = {};
-    var kitsEl = form.querySelector('[data-ori-quote-kits]');
+    var kitsEl = root.querySelector('[data-ori-quote-kits]');
     if (kitsEl) {
       try { KITS = JSON.parse(kitsEl.textContent) || {}; } catch (e) { KITS = {}; }
     }
