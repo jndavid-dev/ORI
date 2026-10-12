@@ -38,7 +38,7 @@
           "settings": {
             "label": "Request a Quote",
             "link": "#quote",
-            "popup_id": "ori-gvm-quote",
+            "popup_id": "gvm-quote",
             "style": "teal"
           }
         },
@@ -82,8 +82,8 @@
     "ori_grid": {
       "type": "ori-product-grid",
       "settings": {
-        "heading": "",
-        "intro": "",
+        "heading": "Ford F150\nGVM Packages",
+        "intro": "Federally approved stages for the Platinum, Lariat and XLT. Pick a stage for its full specifications, or request a quote.",
         "limit": 24,
         "button": "quote",
         "button_label": "",
@@ -132,7 +132,7 @@
         "eyebrow": "",
         "heading": "Why Upgrade Your Ford F-150's GVM?",
         "intro": "",
-        "dark": false,
+        "dark": true,
         "padding_top": 56,
         "padding_bottom": 72
       }
@@ -346,7 +346,8 @@
         "padding_top": 64,
         "padding_bottom": 64,
         "custom_class": "",
-        "intro": ""
+        "intro": "",
+        "dark": true
       }
     },
     "ori_related": {
@@ -414,7 +415,7 @@
       "type": "ori-gvm-quote",
       "settings": {
         "display_mode": "popup",
-        "popup_id": "ori-gvm-quote",
+        "popup_id": "gvm-quote",
         "eyebrow": "",
         "heading": "Request a Quote",
         "button_label": "Send my quote request",
