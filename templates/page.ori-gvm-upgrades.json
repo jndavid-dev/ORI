@@ -1755,7 +1755,8 @@
         "video_left": false,
         "dark": true,
         "padding_top": 80,
-        "padding_bottom": 80
+        "padding_bottom": 80,
+        "video_url": "https://www.youtube.com/watch?v=yXnRea3Oz6s"
       }
     },
     "ori_installers": {
