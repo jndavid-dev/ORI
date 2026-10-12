@@ -5452,11 +5452,19 @@ body .ori-bundle .products-bundle__price .f-price--on-sale .f-price-item--sale {
   color: var(--ori-sale);
 }
 
+/* The theme sizes this select to the selected option text measured by
+   its script (width: calc(var(--width) + 3.6rem)), which assumes no padding
+   or border. With the ORI padding and border that cut the text off
+   ("Rear O", "LV"), so it sizes to its options instead. */
 body .ori-bundle .products-bundle__product-option select {
+  width: auto;
+  min-width: 120px;
+  max-width: 100%;
   height: 36px;
   min-height: 36px;
   margin-top: 8px;
   padding: 0 30px 0 10px;
+  text-overflow: ellipsis;
   border: 1px solid var(--ori-line);
   border-radius: 4px;
   background-color: #fff;
