@@ -6,8 +6,6 @@
   video uploaded to Shopify. With neither set, a placeholder frame shows.
   "Video on the left" flips the columns.
 {%- endcomment -%}
-{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
-{%- render 'ori-fonts' -%}
 {%- liquid
   assign points = section.settings.points | newline_to_br | split: '<br />'
   assign ext = section.settings.video_url
@@ -57,7 +55,20 @@
           {%- if poster != blank -%}
             {{ poster | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '600, 900, 1200', sizes: '(min-width: 990px) 55vw, 100vw', alt: '' }}
           {%- elsif ext.type == 'youtube' -%}
-            <img src="https://i.ytimg.com/vi/{{ ext.id }}/hqdefault.jpg" alt="" width="480" height="360" loading="lazy">
+            {%- comment -%}
+              Full-size 1280x720 thumbnail (WebP). hqdefault is only 480x360
+              with letterbox bars, so it looked soft once cropped to 16:9.
+              Not every video has a maxres thumbnail; the script below falls
+              back to hqdefault when YouTube returns its 120x90 placeholder.
+            {%- endcomment -%}
+            <img
+              src="https://i.ytimg.com/vi_webp/{{ ext.id }}/maxresdefault.webp"
+              data-yt-fallback="https://i.ytimg.com/vi/{{ ext.id }}/hqdefault.jpg"
+              alt=""
+              width="1280"
+              height="720"
+              loading="lazy"
+            >
           {%- endif -%}
           <button type="button" class="ori-vfeat__play" aria-label="Play video: {{ section.settings.heading | escape }}">
             {%- render 'ori-icon', icon: 'play' -%}
@@ -81,6 +92,21 @@
 </div>
 <script>
   (function () {
+    // Swap to the standard thumbnail when the full-size one is missing
+    // (an error, or YouTube's 120x90 grey placeholder).
+    document.querySelectorAll('img[data-yt-fallback]').forEach(function (img) {
+      function fallback() {
+        var alt = img.getAttribute('data-yt-fallback');
+        if (!alt) return;
+        img.removeAttribute('data-yt-fallback');
+        img.src = alt;
+      }
+      function check() { if (img.naturalWidth && img.naturalWidth <= 120) fallback(); }
+      img.addEventListener('error', fallback);
+      img.addEventListener('load', check);
+      if (img.complete) check();
+    });
+
     document.querySelectorAll('[data-ori-video]:not([data-ready])').forEach(function (frame) {
       frame.setAttribute('data-ready', '');
       var btn = frame.querySelector('.ori-vfeat__play');
