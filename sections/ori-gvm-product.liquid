@@ -1,6 +1,4 @@
 {{ 'ori-gvm-product.css' | asset_url | stylesheet_tag }}
-{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
-{%- render 'ori-fonts' -%}
 {%- liquid
   assign section_id = section.settings.custom_id | default: section.id
   assign container = section.settings.container | default: 'container'
@@ -241,7 +239,7 @@
             {%- if section.settings.quote_label != blank -%}
               {%- if section.settings.quote_popup_id != blank -%}
                 {%- comment -%}
-                  Opens the Contact form v4 popup with the same id (theme
+                  Opens the ORI GVM Quote popup with the same id (theme
                   modal-opener, which binds to the first <button> inside).
                 {%- endcomment -%}
                 <modal-opener class="ori-gvmp__opener" data-modal="#PopupModal-{{ section.settings.quote_popup_id | handle }}">
@@ -729,7 +727,7 @@
     { "type": "header", "content": "Call to action" },
     { "type": "text", "id": "quote_label", "label": "Primary button label", "default": "Request Quote" },
     { "type": "url", "id": "quote_url", "label": "Primary button URL", "info": "Ignored when a Popup ID is set below." },
-    { "type": "text", "id": "quote_popup_id", "label": "Primary button popup ID", "info": "Opens a Contact form v4 section set to Popup with this same ID, instead of following the URL. Leave blank to use the URL." },
+    { "type": "text", "id": "quote_popup_id", "label": "Primary button popup ID", "info": "Opens the ORI GVM Quote section set to Popup with this same ID (gvm-quote), instead of following the URL. Leave blank to use the URL." },
     { "type": "text", "id": "book_label", "label": "Secondary button label", "default": "Book Installation" },
     { "type": "url", "id": "book_url", "label": "Secondary button URL" },
     { "type": "text", "id": "calc_label", "label": "Weight link label", "info": "Small text link under the buttons. Needs the URL below before it will show.", "default": "Know your weight? Use the GVM calculator" },

@@ -22,8 +22,6 @@
   Popup mode renders inside the theme's modal-dialog with id
   PopupModal-<popup id>; ORI GVM Product's "Primary button popup ID" opens it.
 {%- endcomment -%}
-{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
-{%- render 'ori-fonts' -%}
 
 {%- liquid
   assign custom_class = section.settings.custom_class
@@ -49,8 +47,16 @@
     if product.variants.size > 1
       assign has_variants = true
     endif
-  elsif collection != blank and collection.products.size > 0
-    assign quote_mode = 'collection'
+  else
+    # Kit list: the "Kits from collection" setting (GVM package pages) or the
+    # collection being viewed.
+    assign kit_source = section.settings.kit_collection
+    if kit_source == blank
+      assign kit_source = collection
+    endif
+    if kit_source != blank and kit_source.products.size > 0
+      assign quote_mode = 'collection'
+    endif
   endif
   assign kit_limit = section.settings.kit_limit | default: 30
 
@@ -62,7 +68,7 @@
   {%- if quote_mode == 'product' -%}
     {%- render 'ori-gvm-quote-kit', p: product -%}
   {%- elsif quote_mode == 'collection' -%}
-    {%- for p in collection.products limit: kit_limit -%}
+    {%- for p in kit_source.products limit: kit_limit -%}
       {%- render 'ori-gvm-quote-kit', p: p -%}{%- unless forloop.last -%},{%- endunless -%}
     {%- endfor -%}
   {%- endif -%}
@@ -104,7 +110,7 @@
             <input type="hidden" name="contact[Variant]" value="" data-ori-quote-h="variant">
             <input type="hidden" name="contact[SKU]" value="" data-ori-quote-h="sku">
             <input type="hidden" name="contact[Product URL]" value="" data-ori-quote-h="url">
-            <input type="hidden" name="contact[Page URL]" value="{{ shop.url }}{{ collection.url }}">
+            <input type="hidden" name="contact[Page URL]" value="{{ shop.url }}{{ request.path }}">
           {%- else -%}
             <input type="hidden" name="contact[Page URL]" value="{{ shop.url }}{{ request.path }}">
         {%- endcase -%}
@@ -128,7 +134,7 @@
                 <label for="{{ form_id }}-kit">{{ section.settings.kit_label }}</label>
                 <select id="{{ form_id }}-kit" data-ori-quote-kit-select>
                   <option value="">{{ section.settings.not_sure_label }}</option>
-                  {%- for p in collection.products limit: kit_limit -%}
+                  {%- for p in kit_source.products limit: kit_limit -%}
                     <option value="{{ p.id }}">{{ p.title }}</option>
                   {%- endfor -%}
                 </select>
@@ -195,6 +201,26 @@
 
         <fieldset class="ori-quote__step" data-ori-quote-step>
           <legend class="ori-quote__legend">Your vehicle</legend>
+          {%- if quote_mode == 'none' -%}
+            {%- comment -%}
+              No kit list on this page (e.g. a vehicle without a GVM collection
+              yet), so ask what the kit step would otherwise have told us.
+            {%- endcomment -%}
+            <div class="ori-quote__row">
+              <div class="ori-quote__field">
+                <label for="{{ form_id }}-vehicle">Your vehicle <span aria-hidden="true">*</span></label>
+                <input type="text" id="{{ form_id }}-vehicle" name="contact[Vehicle]" required placeholder="{{ section.settings.vehicle_placeholder | escape }}">
+              </div>
+              <div class="ori-quote__field">
+                <label for="{{ form_id }}-rego">Pre or post rego</label>
+                <select id="{{ form_id }}-rego" name="contact[Pre or post rego]">
+                  <option value="">Not sure</option>
+                  <option value="Pre rego">Pre rego</option>
+                  <option value="Post rego">Post rego</option>
+                </select>
+              </div>
+            </div>
+          {%- endif -%}
           {%- if section.settings.show_vehicle_fields -%}
             <div class="ori-quote__row">
               <div class="ori-quote__field">
@@ -363,6 +389,18 @@
       "id": "variant_label",
       "label": "Variant select label",
       "default": "Package option"
+    },
+    {
+      "type": "collection",
+      "id": "kit_collection",
+      "label": "Kits from collection",
+      "info": "For pages that are not a product or collection (e.g. a GVM package page): the kit dropdown lists this collection. On collection pages it overrides the page's own collection."
+    },
+    {
+      "type": "text",
+      "id": "vehicle_placeholder",
+      "label": "Vehicle field placeholder (no kit list)",
+      "default": "e.g. 2024 RAM 2500 Laramie"
     },
     {
       "type": "range",
