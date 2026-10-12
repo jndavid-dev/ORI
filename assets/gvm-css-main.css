@@ -7214,3 +7214,79 @@ body .ori-marquee--light .f-promotion__item img {
     width: 100%;
   }
 }
+
+/* ==========================================================
+   ORI REDESIGN — GVM QUOTE: SENT STATE + SMALL SCREENS
+   After sending, the popup centres its heading and intro over
+   the thank-you message (.is-done from the script; :has() also
+   covers the server-rendered success after a normal post).
+   ========================================================== */
+.ori-quote--popup.is-done .ori-quote__head,
+.ori-quote--popup:has(.ori-quote__done:not([hidden])) .ori-quote__head {
+  margin-bottom: 4px;
+  padding-right: 40px;
+  padding-left: 40px;
+  text-align: center;
+}
+
+.ori-quote--popup.is-done .ori-head__intro,
+.ori-quote--popup:has(.ori-quote__done:not([hidden])) .ori-head__intro {
+  display: none;
+}
+
+.ori-quote--popup .ori-quote__done {
+  padding: 12px 0 8px;
+}
+
+.ori-quote__done h3,
+.ori-quote__done p {
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+}
+
+/* The in-page form keeps its card height while showing the message. */
+.ori-quote--inline .ori-quote__done {
+  min-height: 260px;
+  align-content: center;
+}
+
+@media (max-width: 480px) {
+  .ori-quote-modal .f-modal__inner {
+    padding: 24px 16px;
+  }
+
+  .ori .ori-quote--popup .ori-quote__heading,
+  .ori-quote--popup .ori-quote__heading {
+    font-size: 28px;
+  }
+
+  .ori-quote--popup .ori-quote__head {
+    margin-bottom: 18px;
+  }
+
+  .ori-quote__kit {
+    gap: 12px;
+    padding: 10px;
+  }
+
+  .ori-quote__kit-img {
+    flex-basis: 72px;
+  }
+
+  .ori-quote__kit-title {
+    font-size: 17px;
+  }
+
+  .ori-quote__legend {
+    font-size: 19px;
+  }
+
+  .ori .ori-quote__done h3 {
+    font-size: 26px;
+  }
+
+  .ori-quote--inline .ori-quote__done {
+    min-height: 0;
+  }
+}

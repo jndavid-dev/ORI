@@ -200,6 +200,9 @@
       );
       if (errorBox) errorBox.hidden = true;
       done.hidden = false;
+      // Lets the popup centre its heading over the thank-you message.
+      var wrap = form.closest('.ori-quote');
+      if (wrap) wrap.classList.add('is-done');
       done.focus();
 
       var detail = {
