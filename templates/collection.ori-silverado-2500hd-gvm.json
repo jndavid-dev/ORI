@@ -320,29 +320,45 @@
         "faq_1": {
           "type": "question",
           "settings": {
-            "question": "What is a GVM upgrade?",
-            "answer": "<p>A GVM (Gross Vehicle Mass) upgrade increases the maximum legal weight your vehicle can carry, using SSM certification.</p>"
+            "question": "What is a GVM upgrade and why do I need one?",
+            "answer": "<p>Gross Vehicle Mass (GVM) is the maximum your Silverado can legally weigh when fully loaded—including the truck, passengers, fuel, accessories (like bull bars and canopies), and tow ball weight. If you are towing heavy or building a touring rig, the factory payload gets eaten up fast. Our GVM upgrades legally increase this limit so you can carry your gear without voiding your insurance or risking hefty fines.</p>"
           }
         },
         "faq_2": {
           "type": "question",
           "settings": {
-            "question": "How much payload can I legally gain?",
-            "answer": "<p>Gains vary by vehicle and stage. Contact us for figures specific to your Chevy Silverado 2500HD.</p>"
+            "question": "What does \"Pre-Rego\" and \"SSM Approval\" mean?",
+            "answer": "<p>SSM stands for Second Stage of Manufacture. When we upgrade your truck <em>before</em> it is registered for the very first time (Pre-Rego), the federal government recognizes ORI as the secondary manufacturer. This means your massive lift, larger tyres, and upgraded GVM are baked into the truck's federal compliance plate. It is 100% legal to drive and insure in every state and territory in Australia.</p>"
           }
         },
         "faq_3": {
           "type": "question",
           "settings": {
-            "question": "What is the difference between the stages?",
-            "answer": "<p>Each stage offers a different GVM and suspension package. See the package grid above.</p>"
+            "question": "Will upgrading my GVM reduce my towing capacity?",
+            "answer": "<p>Not with an ORI package. Some GVM upgrades force you to sacrifice towing capacity to carry more weight in the tub. Our Silverado 2500HD packages retain your factory 12,474 KG GCM (Gross Combination Mass), meaning you keep your full 4.5T braked towing capacity while maximizing your truck's payload.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "question",
+          "settings": {
+            "question": "What does the NB1 to NB2 category upgrade mean?",
+            "answer": "<p>By federal standards, NB1 vehicles are \"Light Goods Vehicles\" (under 4.5 tonnes). Our SSM packages legally reclassify your Silverado 2500HD as an NB2 \"Medium Goods Vehicle\" (over 4.5 tonnes). This reclassification is the secret to legally unlocking that massive 5500 KG–6000 KG GVM.</p>"
+          }
+        },
+        "faq_5": {
+          "type": "question",
+          "settings": {
+            "question": "Are 35-inch and 37-inch tyres actually legal on these builds?",
+            "answer": "<p>Yes! If done Pre-Rego through our Stage 4, 5, 6, or 6.5 SSM packages, the larger tyre sizes are federally engineered and certified as part of the build. No state-based engineering headaches—just turn the key and drive your monster truck legally anywhere in the country.</p>"
           }
         }
       },
       "block_order": [
         "faq_1",
         "faq_2",
-        "faq_3"
+        "faq_3",
+        "faq_4",
+        "faq_5"
       ],
       "settings": {
         "heading": "Frequently Asked Questions",

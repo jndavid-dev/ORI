@@ -293,29 +293,45 @@
         "faq_1": {
           "type": "question",
           "settings": {
-            "question": "What is a GVM upgrade?",
-            "answer": "<p>A GVM (Gross Vehicle Mass) upgrade increases the maximum legal weight your vehicle can carry, using SSM certification.</p>"
+            "question": "RAM 2500 6th Gen GVM Upgrades — Carry More, Tow Better, Go Further",
+            "answer": "<p>The RAM 2500 6th Gen is one of the most capable heavy-duty trucks ever delivered to Australian shores, but its factory GVM rating can still limit what you can legally carry when you're fully kitted out with accessories, a loaded tray, and a trailer in tow. That's where an ORI GVM upgrade comes in.</p><p>A GVM upgrade isn't just a number change on paper — it's a complete engineering solution that gives your RAM 2500 the legal capacity to carry the gear you actually need, with the suspension components to back it up. Whether you're hauling tools for work, touring Australia with a heavy van, or running a tray and canopy conversion, our stage packages give you a fully certified, legal, and capable platform.</p>"
           }
         },
         "faq_2": {
           "type": "question",
           "settings": {
-            "question": "How much payload can I legally gain?",
-            "answer": "<p>Gains vary by vehicle and stage. Contact us for figures specific to your RAM 2500 6th Gen.</p>"
+            "question": "RAM 2500 6th Gen GVM Upgrade — Compliant & Certified for Australia",
+            "answer": "<p>When you upgrade your RAM 2500 6th Gen's GVM with Offroad Industries, you get complete legal coverage across Australia. ORI is a Federally Approved Second Stage Manufacturer (SSM), which means your upgrade is recorded on the official Federal database — giving you true legal status whether you're registering Pre-Rego or Post-Rego.</p><p>Every package includes engineering certification and all relevant documentation. Our GVM kits use only the best components from world-leading brands including Fox Suspension and BDS, all specifically engineered and tested for the RAM 2500 6th Gen platform — nothing generic, nothing untested.</p>"
           }
         },
         "faq_3": {
           "type": "question",
           "settings": {
-            "question": "What is the difference between the stages?",
-            "answer": "<p>Each stage offers a different GVM and suspension package. See the package grid above.</p>"
+            "question": "How to Choose the Right GVM Stage for Your RAM 2500 6th Gen",
+            "answer": "<p>Choosing the right GVM stage comes down to what you carry, what you tow, and what you plan to do with your truck. Stages 1, 2 and 3 all take GVM to 5300 KG on your factory wheels and tyres, so the choice between them is really about the suspension package and how much lift you want, with Stage 3 adding a 3-inch lift and a BDS radius arm kit to keep the front geometry correct.</p><p>Stage 4 and Stage 5 take GVM to 5550 KG for the biggest legal payload in the range, 1914 KG and 1905 KG respectively. Both need load-rated wheels and tyres, and both hold the full 4500 KG braked towing capacity, which makes them the pick for tray conversions, permanent canopies, long-range fuel systems, and heavy towing.</p><p>Not sure which stage suits you? Contact our GVM experts and we’ll help you find the right fit.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "question",
+          "settings": {
+            "question": "RAM 2500 6th Gen GVM Upgrade — Compliance, Insurance & Registration",
+            "answer": "<p>One of the most important aspects of any GVM upgrade is compliance. All ORI GVM packages for the RAM 2500 6th Gen are engineered to meet Australian Design Rules (ADR) and are registered through our SSM approval — meaning your upgrade is legal to drive in any Australian state or territory.</p><p>Because our upgrades go through proper federal engineering channels, your vehicle remains insured and your warranty position is clearly documented. We handle the paperwork and certification so you can focus on the road ahead. If you have questions about the process, our team is happy to walk you through exactly what's involved.</p>"
+          }
+        },
+        "faq_5": {
+          "type": "question",
+          "settings": {
+            "question": "Why Choose ORI for Your RAM 2500 6th Gen GVM Upgrade?",
+            "answer": "<p>Offroad Industries has engineered GVM upgrade systems for some of Australia's most demanding drivers across some of the country's harshest terrain. Our RAM 2500 6th Gen packages were developed specifically for this platform — not adapted from another vehicle — with components tested under Australian conditions.</p><p>With Fox Suspension and BDS as our key partners, every stage delivers premium ride quality, long-term durability, and genuine compliance. From installation and engineering through to certification and handover, ORI takes care of everything. Explore the package range above or get in touch with our team to start your upgrade journey.</p>"
           }
         }
       },
       "block_order": [
         "faq_1",
         "faq_2",
-        "faq_3"
+        "faq_3",
+        "faq_4",
+        "faq_5"
       ],
       "settings": {
         "heading": "Frequently Asked Questions",
