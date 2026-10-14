@@ -5,8 +5,9 @@
   properties → add to cart → checkout, where the company's "Submit all
   orders as drafts for review" setting turns it into a draft order.
 
-  Uses the page's collection, so prices are server-rendered B2B catalog
-  prices. Kit data is embedded as JSON so the script never has to fetch.
+  Uses the page's collection on a collection template, or the picked
+  collection (needed on a page template), so prices are server-rendered
+  B2B catalog prices. Kit data is embedded as JSON so the script never has to fetch.
   "Request this kit" buttons on product cards preselect a kit here
   (assets/ori-gvm-kit-request.js).
 {%- endcomment -%}
@@ -16,6 +17,11 @@
   unless custom_class == blank
     assign custom_class = custom_class | prepend: ' '
   endunless
+
+  assign source = collection
+  if section.settings.collection != blank
+    assign source = section.settings.collection
+  endif
 -%}
 <div
   class="ori ori-section{{ custom_class }}"
@@ -35,7 +41,7 @@
       </div>
     {%- endif -%}
 
-    {%- if collection.products.size == 0 -%}
+    {%- if source.products.size == 0 -%}
       <p class="ori-head__intro">No kits available to request yet.</p>
     {%- else -%}
       <div class="ori-kit" data-ori-kit>
@@ -44,7 +50,7 @@
             <label for="ori-kit-select">Select GVM Kit</label>
             <select id="ori-kit-select" name="kit" required>
               <option value="">Choose a kit&hellip;</option>
-              {%- for product in collection.products -%}
+              {%- for product in source.products -%}
                 <option value="{{ product.id }}">{{ product.title }}</option>
               {%- endfor -%}
             </select>
@@ -94,7 +100,7 @@
 
       <script type="application/json" data-ori-kit-data>
         {
-          {%- for product in collection.products -%}
+          {%- for product in source.products -%}
             "{{ product.id }}": {
               "title": {{ product.title | json }},
               "description": {{ product.description | strip_html | truncatewords: 30 | json }},
@@ -124,6 +130,12 @@
   "name": "ORI GVM Kit Request",
   "tag": "section",
   "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "The kits to offer. Leave empty on a collection page to use that collection; pick one on a page template."
+    },
     {
       "type": "text",
       "id": "heading",

@@ -1,0 +1,509 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "ori_hero": {
+      "type": "ori-hero",
+      "blocks": {
+        "logo_ori": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__ORI.jpg",
+            "alt": "ORI"
+          }
+        },
+        "logo_fox": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__FOX.jpg",
+            "alt": "Fox"
+          }
+        },
+        "logo_bds": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__BDS.jpg",
+            "alt": "BDS Suspension"
+          }
+        },
+        "logo_husky": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__HUSKY_LINERS.jpg",
+            "alt": "Husky Liners"
+          }
+        },
+        "feature_ssm": {
+          "type": "feature",
+          "settings": {
+            "icon": "shield",
+            "text": "SSM federally approved\nAustralia wide"
+          }
+        },
+        "feature_suspension": {
+          "type": "feature",
+          "settings": {
+            "icon": "suspension",
+            "text": "Fox & BDS suspension\ncomponents"
+          }
+        },
+        "feature_rego": {
+          "type": "feature",
+          "settings": {
+            "icon": "clipboard",
+            "text": "Pre-rego only"
+          }
+        },
+        "feature_tyres": {
+          "type": "feature",
+          "settings": {
+            "icon": "tyre",
+            "text": "35\" tyres legal"
+          }
+        },
+        "button_packages": {
+          "type": "button",
+          "settings": {
+            "label": "View GVM packages",
+            "link": "#tab-1",
+            "style": "teal"
+          }
+        },
+        "button_request": {
+          "type": "button",
+          "settings": {
+            "label": "Request a kit",
+            "link": "#tab-4",
+            "style": "ghost"
+          }
+        }
+      },
+      "block_order": [
+        "logo_ori",
+        "logo_fox",
+        "logo_bds",
+        "logo_husky",
+        "feature_ssm",
+        "feature_suspension",
+        "feature_rego",
+        "feature_tyres",
+        "button_packages",
+        "button_request"
+      ],
+      "settings": {
+        "style": "cutout",
+        "image": "shopify://shop_images/silverado-1500-zr2-cutout.webp",
+        "min_height": 600,
+        "heading_1": "Chevrolet Silverado",
+        "heading_2": "1500 LTZ & ZR2",
+        "pill": "GVM & GCM packages\n4250kg & 8750kg",
+        "heading_tag": "h1",
+        "badge_title": "NB1",
+        "badge_small": "Car licence"
+      }
+    },
+    "ori_intro": {
+      "type": "ori-gvm-intro",
+      "blocks": {
+        "trust_1": {
+          "type": "trust_item",
+          "settings": {
+            "text": "Federal / SSM Certification"
+          }
+        },
+        "trust_2": {
+          "type": "trust_item",
+          "settings": {
+            "text": "ADR-Tested & Approved"
+          }
+        },
+        "trust_3": {
+          "type": "trust_item",
+          "settings": {
+            "text": "Australia-Wide Installer Network"
+          }
+        }
+      },
+      "block_order": [
+        "trust_1",
+        "trust_2",
+        "trust_3"
+      ],
+      "settings": {
+        "badge_text": "Federally Approved | ADR-Tested | SSM Certified",
+        "heading_line_1": "Chevrolet Silverado 1500",
+        "heading_line_2": "GVM Upgrades Australia",
+        "band_heading": "Unleash the Full Potential of Your Chevy Silverado 1500 2019 - 2026",
+        "band_background": "#000000",
+        "band_text_color": "#56bdc2",
+        "body": "<p>Stop worrying about weight limits and start adventuring with confidence. <strong>Offroad Industries (ORI)</strong> offers the most comprehensive, Federally Approved GVM (Gross Vehicle Mass) upgrades for the Chevy Silverado 1500 (LTZ, Trail Boss, and ZR2).</p><p>Whether you&rsquo;re a weekend explorer, a tradie with a heavy load, or a serious tourer towing a 4.5T caravan, our staged packages transform your truck&rsquo;s legality, safety, and performance.</p>",
+        "disclaimer": "<p>*Please note that some workshops may apply additional discretionary administration fees to the quoted installation and engineering price. Additionally, all Post-Registration GVM upgrades will incur additional local fees. Shipping is not included in the price.</p>",
+        "padding_top": 80,
+        "padding_bottom": 64
+      }
+    },
+    "ori_tabs": {
+      "type": "ori-gvm-tabs",
+      "blocks": {
+        "tab_1": {
+          "type": "tab_button",
+          "settings": {
+            "label": "Instructions",
+            "tab_id": "tab-1"
+          }
+        },
+        "tab_2": {
+          "type": "tab_button",
+          "settings": {
+            "label": "Pricing",
+            "tab_id": "tab-2"
+          }
+        },
+        "tab_3": {
+          "type": "tab_button",
+          "settings": {
+            "label": "Marketing & Assets",
+            "tab_id": "tab-3"
+          }
+        },
+        "tab_4": {
+          "type": "tab_button",
+          "settings": {
+            "label": "Request a Kit",
+            "tab_id": "tab-4"
+          }
+        }
+      },
+      "block_order": [
+        "tab_1",
+        "tab_2",
+        "tab_3",
+        "tab_4"
+      ],
+      "settings": {
+        "aria_label": "GVM package sections"
+      }
+    },
+    "ori_stages": {
+      "type": "ori-gvm-stages",
+      "blocks": {
+        "stage_1": {
+          "type": "stage",
+          "settings": {
+            "label": "Stage 1",
+            "tab_meta": "3650kg · $11,500*",
+            "acc_meta": "The Weekender Family Getaway · 3650kg · $11,500*",
+            "image": "shopify://shop_images/STAGE_1_CHEVY_1500_all_products_8fbb7dca-ab4d-4468-9a99-a9e4909364c8.png",
+            "eyebrow": "$11,500* · Installed & engineered",
+            "title": "The Weekender Family Getaway",
+            "subtitle": "3650 KG GVM + GCM 8150 KG",
+            "lead": "The perfect entry point for those needing a legal payload boost without a major lift.",
+            "gvm": "Up to 3650 KG (approx. 1077 KG payload).",
+            "features": "Fox 2.5 Performance Series shocks and ORI 200 KG heavy-duty leaf packs matched with heavy duty BDS control arms.",
+            "best_for": "Daily drivers and light towing where you need to clear the \"one-tonne\" mark for tax purposes (ATO compliance) or carry extra tools/gear legally.",
+            "benefit": "Maintains a lifted stance with premium USA-made shocks, while significantly improving stability under load without the need of purchasing load rated wheels.",
+            "part_numbers": "<p>CHV-1500-Stage1-GVM</p>",
+            "note": "",
+            "pdf_file": "",
+            "pdf_url": "",
+            "pdf_label": "Download PDF"
+          }
+        },
+        "stage_2": {
+          "type": "stage",
+          "settings": {
+            "label": "Stage 2",
+            "tab_meta": "3650kg · $7,800*",
+            "acc_meta": "ZR2 Only Performance Level-Up · 3650kg · $7,800*",
+            "image": "shopify://shop_images/STAGE_2_CHEVY_1500_all_products.png",
+            "eyebrow": "$7,800* · Installed & engineered",
+            "title": "ZR2 Only Performance Level-Up",
+            "subtitle": "3650 KG GVM + GCM up to 7850 KG",
+            "lead": "Increased strength without the cost of replacing all your suspension + legal one tonne payload.",
+            "gvm": "3650 KG.",
+            "features": "Adds <strong>BDS Upper Control Arms</strong> and a leveling kit (or 2\" lift options) retains the factory Multimatic Suspension.",
+            "best_for": "Chevy Silverado ZR2 owners only need to clear the \"one-tonne\" mark for tax purposes (ATO compliance) or carry extra tools/gear legally.",
+            "benefit": "Enhanced front-end strength and wheel travel, ideal for ZR2 owner who retain the OEM suspension yet get 1 tonne payload.",
+            "part_numbers": "<p>CHV-1500-Stage2-GVM</p>",
+            "note": "",
+            "pdf_file": "",
+            "pdf_url": "",
+            "pdf_label": "Download PDF"
+          }
+        },
+        "stage_3": {
+          "type": "stage",
+          "settings": {
+            "label": "Stage 3",
+            "tab_meta": "3850kg · $15,999*",
+            "acc_meta": "The Ultimate Tourer · 3850kg · $15,999*",
+            "image": "shopify://shop_images/STAGE_3_CHEVY_1500_all_products.png",
+            "eyebrow": "$15,999* · Installed & engineered",
+            "title": "The Ultimate Tourer",
+            "subtitle": "3850 KG GVM + GCM up to 8350 KG",
+            "lead": "Engineered for the ultimate suspension.",
+            "gvm": "3850 KG (approx. 1272 KG payload). GCM Increase 8050 KG ZR2 or 8350 LTZ.",
+            "features": "Premium <strong>Fox 2.5 DSC (Dual Speed Compression)</strong> adjustable shocks.",
+            "best_for": "Heavy-duty touring. If you have a bull bar, and a heavy tow ball weight from a large caravan, this is your sweet spot without having to upgrade your wheel and tyre package.",
+            "benefit": "The DSC adjustability allows you to \"dial in\" your ride—stiffen it for the highway and soften it for the tracks at the turn of a knob. Fox’s premium shocks setup for the Chevy Silverado 1500.",
+            "part_numbers": "<p>CHV-1500-Stage3-GVM</p>",
+            "note": "",
+            "pdf_file": "",
+            "pdf_url": "",
+            "pdf_label": "Download PDF"
+          }
+        },
+        "stage_4": {
+          "type": "stage",
+          "settings": {
+            "label": "Stage 4",
+            "tab_meta": "4250kg · $16,999*",
+            "acc_meta": "The Heavy Hauler · 4250kg · $16,999*",
+            "image": "shopify://shop_images/STAGE_4_CHEVY_1500_all_products.png",
+            "eyebrow": "$16,999* · Installed & engineered",
+            "title": "The Heavy Hauler",
+            "subtitle": "4250 KG GVM + GCM 8750 KG",
+            "lead": "Maximum legal capacity for the most demanding builds. Ideal for Tray Canopy builds and for the customer who wants to run 35\" Tyres legally.",
+            "gvm": "4250 KG (approx. 1672 KG payload) up to <strong>GCM Increase</strong> rating 8750 KG * ZR2 8450 KG.",
+            "features": "Fox 2.5 Performance Elite suspension, ORI 400 KG leaf packs, and <strong>required load-rated wheels/tyres</strong>.",
+            "best_for": "Fully built rigs with rear drawer systems, rooftop tents, and long-range tanks or the ultimate tourer with Tray and Canopies fitted.",
+            "benefit": "Massive payload increase that transforms the Silverado into a true heavy-duty platform while retaining 4.5T braking towing capacity.",
+            "part_numbers": "<p>200 KG leaf pack: CHV-1500-Stage4-GVM-200</p><p>400 KG leaf pack: CHV-1500-Stage4-GVM-400</p>",
+            "note": "Note: Chevy Silverado ZR2 has reduced GCM due to the 4.2T towing capacity.",
+            "pdf_file": "",
+            "pdf_url": "",
+            "pdf_label": "Download PDF"
+          }
+        },
+        "stage_5": {
+          "type": "stage",
+          "settings": {
+            "label": "Stage 5",
+            "tab_meta": "4250kg · $26,999*",
+            "acc_meta": "The \"No Compromise\" Build · 4250kg · $26,999*",
+            "image": "shopify://shop_images/STAGE_5_CHEVY_1500_all_products.png",
+            "eyebrow": "$26,999* · Installed & engineered",
+            "title": "The \"No Compromise\" Build",
+            "subtitle": "4250 KG GVM + GCM 8750 KG",
+            "lead": "The pinnacle of Silverado suspension engineering.",
+            "gvm": "4250 KG.",
+            "features": "<strong>Fox 3.0 Internal Bypass Race Series Shocks</strong> (front and rear).",
+            "best_for": "The enthusiast who wants it all—maximum legal payload combined with race-bred suspension technology.",
+            "benefit": "The 3.0 Bypass shocks offer unparalleled heat dissipation and damping control. It’s the ultimate \"go-anywhere\" setup that remains legally compliant across Australia.",
+            "part_numbers": "<p>200 KG leaf pack: CHV-1500-Stage5-GVM-200</p><p>400 KG leaf pack: CHV-1500-Stage5-GVM-400</p>",
+            "note": "Note: Chevy Silverado ZR2 has reduced GCM due to the 4.2T towing capacity.",
+            "pdf_file": "",
+            "pdf_url": "",
+            "pdf_label": "Download PDF"
+          }
+        }
+      },
+      "block_order": [
+        "stage_1",
+        "stage_2",
+        "stage_3",
+        "stage_4",
+        "stage_5"
+      ],
+      "settings": {
+        "heading": "ORI Chevy Silverado 1500\nGVM & GCM Packages",
+        "intro": "Five staged packages, from a legal one-tonne payload through to 4250kg GVM with race-series Fox bypass shocks. Each stage has its own installation instructions.",
+        "padding_top": 48,
+        "padding_bottom": 88,
+        "custom_class": "ori-panel ori-panel--1"
+      }
+    },
+    "ori_comparison": {
+      "type": "ori-gvm-comparison",
+      "blocks": {
+        "row_rrp": {
+          "type": "row",
+          "settings": {
+            "label": "Recommended Retail Price (RRP)",
+            "values": "$0 | $11,500* | $7,800* | $15,999* | $16,999* | $26,999*",
+            "highlight": false
+          }
+        },
+        "row_trade": {
+          "type": "row",
+          "settings": {
+            "label": "Your Trade Price",
+            "values": "TBC | TBC | TBC | TBC | TBC | TBC",
+            "highlight": true
+          }
+        }
+      },
+      "block_order": [
+        "row_rrp",
+        "row_trade"
+      ],
+      "settings": {
+        "heading": "Chevy Silverado 1500\nGVM Pricing",
+        "intro": "Recommended retail against your trade price for each stage. Trade prices are set per account.",
+        "columns": "OEM | Stage 1 | Stage 2 | Stage 3 | Stage 4 | Stage 5",
+        "corner_label": "Price",
+        "padding_top": 48,
+        "padding_bottom": 0,
+        "custom_class": "ori-panel ori-panel--2"
+      }
+    },
+    "ori_pricing_grid": {
+      "type": "ori-product-grid",
+      "settings": {
+        "heading": "",
+        "intro": "",
+        "collection": "chevrolet-silverado-1500-ltz-zr2-trailboss-gvm-upgrade",
+        "limit": 24,
+        "button": "request",
+        "button_label": "",
+        "show_links": false,
+        "fine_print": "*Installed & engineered pricing. Workshops may apply additional administration fees; Post-Registration upgrades incur additional local fees. Shipping not included.",
+        "padding_top": 56,
+        "padding_bottom": 88,
+        "custom_class": "ori-panel ori-panel--2"
+      }
+    },
+    "ori_marketing_assets": {
+      "type": "ori-gvm-downloads",
+      "blocks": {
+        "asset_1": {
+          "type": "download",
+          "settings": {
+            "title": "Product Brochure",
+            "description": "",
+            "type_label": "PDF",
+            "icon": "document",
+            "button_label": "Download PDF",
+            "shopify_file": "",
+            "external_url": ""
+          }
+        },
+        "asset_2": {
+          "type": "download",
+          "settings": {
+            "title": "Print Banners",
+            "description": "",
+            "type_label": "PDF",
+            "icon": "banner",
+            "button_label": "View Banners",
+            "shopify_file": "",
+            "external_url": ""
+          }
+        },
+        "asset_3": {
+          "type": "download",
+          "settings": {
+            "title": "Social Media",
+            "description": "",
+            "type_label": "Images",
+            "icon": "social",
+            "button_label": "View Assets",
+            "shopify_file": "",
+            "external_url": ""
+          }
+        },
+        "asset_4": {
+          "type": "download",
+          "settings": {
+            "title": "Product Imagery",
+            "description": "",
+            "type_label": "Images",
+            "icon": "image",
+            "button_label": "View Product Imagery",
+            "shopify_file": "",
+            "external_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "asset_1",
+        "asset_2",
+        "asset_3",
+        "asset_4"
+      ],
+      "settings": {
+        "heading": "Marketing Assets",
+        "intro": "Brochures, print banners, social tiles and product imagery for promoting Silverado 1500 GVM packages in your workshop.",
+        "columns": 4,
+        "padding_top": 48,
+        "padding_bottom": 88,
+        "custom_class": "ori-panel ori-panel--3"
+      }
+    },
+    "ori_kit_request": {
+      "type": "ori-gvm-kit-request",
+      "settings": {
+        "collection": "chevrolet-silverado-1500-ltz-zr2-trailboss-gvm-upgrade",
+        "heading": "Request a Kit",
+        "intro": "Choose the kit and variant, add the vehicle details, and we'll confirm shipping before anything is charged.",
+        "note": "Submitting this request does not charge your account immediately. Your order will be reviewed by our team, who will confirm final shipping and send a secure payment link once approved.",
+        "padding_top": 48,
+        "padding_bottom": 88,
+        "custom_class": "ori-panel ori-panel--4"
+      }
+    },
+    "ori_steps": {
+      "type": "ori-steps",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "Choose the vehicle and stage",
+            "text": "<p>Open the vehicle hub and review the stage instructions and pricing. Your trade price is shown alongside the recommended retail price on every product.</p>",
+            "icon": "truck"
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "Submit a kit request",
+            "text": "<p>Use the Request a Kit tab to select the kit, enter the VIN, vehicle build date and the date you need it, then submit.</p>",
+            "icon": "form"
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "We confirm and invoice",
+            "text": "<p>Your request reaches our team as a draft order for review. We confirm stock, finalise freight and send a secure payment link — nothing is charged when you submit.</p>",
+            "icon": "check"
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3"
+      ],
+      "settings": {
+        "style": "dark",
+        "heading_accent": "",
+        "heading": "How Ordering Works",
+        "intro": "",
+        "button_label": "",
+        "button_link": "",
+        "padding_top": 88,
+        "padding_bottom": 88,
+        "custom_class": ""
+      }
+    }
+  },
+  "order": [
+    "ori_hero",
+    "ori_intro",
+    "ori_tabs",
+    "ori_stages",
+    "ori_comparison",
+    "ori_pricing_grid",
+    "ori_marketing_assets",
+    "ori_kit_request",
+    "ori_steps"
+  ]
+}
