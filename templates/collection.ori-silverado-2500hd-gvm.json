@@ -1,0 +1,455 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "ori_hero": {
+      "type": "ori-hero",
+      "blocks": {
+        "feature_ssm": {
+          "type": "feature",
+          "settings": {
+            "icon": "shield",
+            "text": "Federal / SSM Certification"
+          }
+        },
+        "feature_adr": {
+          "type": "feature",
+          "settings": {
+            "icon": "award",
+            "text": "ADR-Tested & Approved"
+          }
+        },
+        "feature_network": {
+          "type": "feature",
+          "settings": {
+            "icon": "network",
+            "text": "Australia-Wide Installer Network"
+          }
+        },
+        "button_quote": {
+          "type": "button",
+          "settings": {
+            "label": "Request a Quote",
+            "link": "#quote",
+            "popup_id": "gvm-quote",
+            "style": "teal"
+          }
+        },
+        "button_all": {
+          "type": "button",
+          "settings": {
+            "label": "View All GVM Upgrades",
+            "link": "/pages/ori-gvm-upgrades",
+            "style": "ghost"
+          }
+        }
+      },
+      "block_order": [
+        "feature_ssm",
+        "feature_adr",
+        "feature_network",
+        "button_quote",
+        "button_all"
+      ],
+      "settings": {
+        "style": "cutout",
+        "image_asset": "ori-hero-chevy-2500-cutout.webp",
+        "image_alt": "Chevrolet Silverado 2500HD with an ORI GVM upgrade on 37 inch tyres",
+        "media_width": 50,
+        "media_flush": true,
+        "min_height": 600,
+        "badge_text": "Federally Approved | ADR-Tested | SSM Certified",
+        "heading_1": "Chevrolet Silverado 2500HD",
+        "heading_2": "GVM Upgrades Australia",
+        "pill": "",
+        "heading_2_white": true,
+        "subheading": "<p>Federally approved GVM upgrade packages for the Chevrolet Silverado 2500HD. Every stage is ADR-tested, SSM-certified, and installed by our national network of approved specialists.</p>",
+        "heading_tag": "h1",
+        "feats_one_row": true,
+        "text_link_label": "Know Your Weight? Try the GVM Calculator",
+        "text_link_url": "/pages/gvm-calculator",
+        "badge_title": "",
+        "badge_small": ""
+      }
+    },
+    "ori_grid": {
+      "type": "ori-product-grid",
+      "settings": {
+        "heading": "Chevy Silverado 2500HD\nGVM Packages",
+        "intro": "Federally approved stages for the Chevrolet Silverado 2500HD LTZ. Pick a stage for its full specifications, or request a quote.",
+        "limit": 24,
+        "button": "quote",
+        "button_label": "",
+        "view_all_label": "",
+        "show_links": true,
+        "fine_print": "",
+        "padding_top": 72,
+        "padding_bottom": 56,
+        "custom_class": ""
+      }
+    },
+    "ori_why": {
+      "type": "ori-why-choose",
+      "blocks": {
+        "reason_1": {
+          "type": "reason",
+          "settings": {
+            "icon": "truck",
+            "heading": "More Legal Payload",
+            "body": "<p>GVM from 5500 KG up to 6000 KG, taking payload as high as about 2198 KG.</p>"
+          }
+        },
+        "reason_2": {
+          "type": "reason",
+          "settings": {
+            "icon": "suspension",
+            "heading": "Premium Suspension",
+            "body": "<p>Fox 2.5 HTO and DSC Performance Elite shocks with ORI 500 KG leaf packs, engineered to 37 inch tyres.</p>"
+          }
+        },
+        "reason_3": {
+          "type": "reason",
+          "settings": {
+            "icon": "shield",
+            "heading": "Federally Certified",
+            "body": "<p>GCM 12,474 KG, Federally Approved as an SSM upgrade. GMSV vehicles only, private imports are not covered.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "reason_1",
+        "reason_2",
+        "reason_3"
+      ],
+      "settings": {
+        "eyebrow": "",
+        "heading": "Why Upgrade Your Chevy Silverado 2500HD's GVM?",
+        "intro": "",
+        "dark": true,
+        "padding_top": 56,
+        "padding_bottom": 72
+      }
+    },
+    "installers": {
+      "type": "ori-gvm-approved",
+      "settings": {
+        "source_page": "gvm-approves",
+        "source_section": "[data-section-type=\"ori-installer-network\"]",
+        "custom_selector": "",
+        "heading": "",
+        "replace_heading": "Authorised ORI Platinum Installer Network",
+        "replace_intro": "Find your nearest authorised installer for ORI GVM & GCM upgrades.",
+        "fallback_text": "View our authorised installers",
+        "full_width": true,
+        "content_gutter": 24,
+        "flush_top_bottom": false,
+        "layout": "classic",
+        "alt_background": false,
+        "tint_color": "#f3f6f7",
+        "container": "container",
+        "padding_top": 52,
+        "padding_bottom": 52,
+        "custom_id": "installers",
+        "color_schema": ""
+      }
+    },
+    "ori_specs": {
+      "type": "ori-gvm-comparison",
+      "blocks": {
+        "row_1": {
+          "type": "row",
+          "settings": {
+            "label": "Lift Size",
+            "values": " | 3\" | 3\" | 3\" | 3\" | 5\" | 6.5\" | 6.5\" | 6.5\"",
+            "highlight": false
+          }
+        },
+        "row_2": {
+          "type": "row",
+          "settings": {
+            "label": "Suspension Type",
+            "values": " | Torsion | Torsion | Coilover | Coilover + Kelderman | Torsion | Torsion | Coilover | Coilover + Kelderman",
+            "highlight": false
+          }
+        },
+        "row_3": {
+          "type": "row",
+          "settings": {
+            "label": "Gross Vehicle Mass (GVM)",
+            "values": "4495 KG NB1, 5148 KG NB2 | 5500 KG | 6000 KG | 6000 KG | 6000 KG | 6000 KG | 6000 KG | 6000 KG | 6000 KG",
+            "highlight": true
+          }
+        },
+        "row_4": {
+          "type": "row",
+          "settings": {
+            "label": "Braked Towing Capacity (BTC)",
+            "values": "4500 KG | 4500 KG | 4500 KG | 4500 KG | 4500 KG | 4500 KG | 4500 KG | 4500 KG | 4500 KG",
+            "highlight": false
+          }
+        },
+        "row_5": {
+          "type": "row",
+          "settings": {
+            "label": "Gross Combined Mass (GCM)",
+            "values": "12,474 KG | 12,474 KG | 12,474 KG | 12,474 KG | 12,474 KG | 12,474 KG | 12,474 KG | 12,474 KG | 12,474 KG",
+            "highlight": true
+          }
+        },
+        "row_6": {
+          "type": "row",
+          "settings": {
+            "label": "Kerb Weight",
+            "values": "3762 KG | 3792 KG | 3802 KG | 3810 KG | 3810 KG | 3862 KG | 3862 KG | 3862 KG | 3862 KG",
+            "highlight": false
+          }
+        },
+        "row_7": {
+          "type": "row",
+          "settings": {
+            "label": "Payload (based on kerb weight) FROM NB1",
+            "values": "NB1 733 KG, NB2 1386 KG | 1708 KG | 2198 KG | 2190 KG | 2190 KG | 2138 KG | 2138 KG | 2138 KG | 2138 KG",
+            "highlight": true
+          }
+        },
+        "row_8": {
+          "type": "row",
+          "settings": {
+            "label": "Payload Increase (%)",
+            "values": " | 133% | 199% | 198% | 198% | 192% | 192% | 192% | 192%",
+            "highlight": false
+          }
+        },
+        "row_9": {
+          "type": "row",
+          "settings": {
+            "label": "Front Axle Capacity",
+            "values": "2540 KG | 2540 KG | 2722 KG | 2722 KG | 2722 KG | 2722 KG | 2722 KG | 2722 KG | 2722 KG",
+            "highlight": false
+          }
+        },
+        "row_10": {
+          "type": "row",
+          "settings": {
+            "label": "Rear Axle Capacity",
+            "values": "2994 KG | 2994 KG | 3289 KG | 3289 KG | 3289 KG | 3289 KG | 3289 KG | 3289 KG | 3289 KG",
+            "highlight": false
+          }
+        },
+        "row_11": {
+          "type": "row",
+          "settings": {
+            "label": "Wheel Offsets",
+            "values": "POS 47 | Pos 12 / 18 Zero | Pos 12 / 18 Zero | Pos 12 / 18 Zero | Pos 12 / 18 Zero | Zero | Zero | Zero | Zero",
+            "highlight": false
+          }
+        },
+        "row_12": {
+          "type": "row",
+          "settings": {
+            "label": "Wheel Load Rating",
+            "values": " | 1600 KG | 1644 KG | 1644 KG | 1644 KG | 1644 KG | 1644 KG | 1644 KG | 1644 KG",
+            "highlight": false
+          }
+        },
+        "row_13": {
+          "type": "row",
+          "settings": {
+            "label": "Tyre Load Rating",
+            "values": " | 125 Q | 125 Q | 125 Q | 125 Q | 125 Q | 125 Q | 128Q | 128Q",
+            "highlight": false
+          }
+        },
+        "row_14": {
+          "type": "row",
+          "settings": {
+            "label": "Requires Wheel / Tyre Upgrade",
+            "values": " | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes",
+            "highlight": false
+          }
+        },
+        "row_15": {
+          "type": "row",
+          "settings": {
+            "label": "Maximum Tyre Size",
+            "values": " | 35x12.5xR18 / 35x12.5xR20 | 35x12.5xR18 / 35x12.5xR20, 37x12.5xR18 / 37x12.5R20 | 35x12.5xR18 / 35x12.5xR20, 37x12.5xR18 / 37x12.5xR20 | 35x12.5xR18 / 35x12.5xR20, 37x12.5xR18 / 37x12.5xR20 | 35x12.5xR18 / 35x12.5xR20, 37x12.5xR18 / 37x12.5xR20 | 35x12.5xR18 / 35x12.5xR20, 37x12.5xR18 / 37x12.5xR20 | 35x12.5xR18 / 35x12.5xR20, 37x12.5xR18 / 37x12.5xR20 | 35x12.5xR18 / 35x12.5xR20, 37x12.5xR18 / 37x12.5xR20",
+            "highlight": false
+          }
+        }
+      },
+      "block_order": [
+        "row_1",
+        "row_2",
+        "row_3",
+        "row_4",
+        "row_5",
+        "row_6",
+        "row_7",
+        "row_8",
+        "row_9",
+        "row_10",
+        "row_11",
+        "row_12",
+        "row_13",
+        "row_14",
+        "row_15"
+      ],
+      "settings": {
+        "heading": "ORI Chevy Silverado 2500HD\nGVM & GCM Specifications",
+        "intro": "",
+        "columns": "OEM | Stage 1 | Stage 2 | Stage 3 | Stage 3.5 | Stage 4 | Stage 5 | Stage 6 | Stage 6.5",
+        "style": "compact",
+        "mobile": "scroll",
+        "anchor_id": "specifications",
+        "corner_label": "Specification",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "custom_class": ""
+      }
+    },
+    "ori_faq": {
+      "type": "ori-gvm-faq",
+      "blocks": {
+        "faq_1": {
+          "type": "question",
+          "settings": {
+            "question": "What is a GVM upgrade?",
+            "answer": "<p>A GVM (Gross Vehicle Mass) upgrade increases the maximum legal weight your vehicle can carry, using SSM certification.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "question",
+          "settings": {
+            "question": "How much payload can I legally gain?",
+            "answer": "<p>Gains vary by vehicle and stage. Contact us for figures specific to your Chevy Silverado 2500HD.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "question",
+          "settings": {
+            "question": "What is the difference between the stages?",
+            "answer": "<p>Each stage offers a different GVM and suspension package. See the package grid above.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3"
+      ],
+      "settings": {
+        "heading": "Frequently Asked Questions",
+        "intro": "",
+        "button_label": "",
+        "button_link": "",
+        "open_first": true,
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "ori_quote": {
+      "type": "ori-gvm-quote",
+      "settings": {
+        "display_mode": "inline",
+        "eyebrow": "",
+        "heading": "Request a Quote",
+        "button_label": "Send my quote request",
+        "padding_top": 64,
+        "padding_bottom": 64,
+        "custom_class": "",
+        "intro": "",
+        "dark": true
+      }
+    },
+    "ori_related": {
+      "type": "ori-vehicle-grid",
+      "blocks": {
+        "v_s1500": {
+          "type": "vehicle",
+          "settings": {
+            "image_asset": "",
+            "title": "Silverado 1500 LTZ & ZR2",
+            "specs": "4250 GVM | 8750 GCM",
+            "text": "Federally approved packages.",
+            "url": "shopify://collections/chevrolet-silverado-1500-ltz-zr2-trailboss-gvm-upgrade",
+            "button_label": "View packages & pricing",
+            "pdf_url": "https://cdn.shopify.com/s/files/1/0165/6516/files/GVM_BROCHURE_BACK_Chevy_Silverado_1500.pdf?v=1779415153",
+            "pdf_label": "Download brochure (PDF)",
+            "image": "shopify://shop_images/Chevy-Silverado-1500--tile-ad---20260505-4_753e16ce-f09c-454c-8683-7edc168f4eae.png"
+          }
+        },
+        "v_tundra": {
+          "type": "vehicle",
+          "settings": {
+            "image_asset": "",
+            "title": "Toyota Tundra",
+            "specs": "4300 GVM | 8800 GCM | 35\" tyres legal",
+            "text": "Platinum & Limited.",
+            "url": "shopify://collections/toyota-tundra-platinum-gvm-upgrade",
+            "button_label": "View packages & pricing",
+            "pdf_url": "https://cdn.shopify.com/s/files/1/0165/6516/files/GVM_BROCHURE_BACK_Toyota_Tundra.pdf?v=1779415154",
+            "pdf_label": "Download brochure (PDF)",
+            "image": "shopify://shop_images/Toyota-Tundra--tile-ad---20260505-4-1.png"
+          }
+        },
+        "v_f150": {
+          "type": "vehicle",
+          "settings": {
+            "image_asset": "",
+            "title": "Ford F150",
+            "specs": "4300 GVM | 8800 GCM",
+            "text": "Platinum, Lariat & XLT. Federally approved GVM.",
+            "url": "shopify://collections/ford-f150-platinum-lariat-xlt-gvm-upgrade",
+            "button_label": "View packages & pricing",
+            "pdf_url": "https://cdn.shopify.com/s/files/1/0165/6516/files/GVM_BROCHURE_BACK_Ford_F150.pdf?v=1779415153",
+            "pdf_label": "Download brochure (PDF)",
+            "image": "shopify://shop_images/FORD-F150---tile-ad---20260505-4-3.png"
+          }
+        }
+      },
+      "block_order": [
+        "v_s1500",
+        "v_tundra",
+        "v_f150"
+      ],
+      "settings": {
+        "heading": "Related Models",
+        "intro": "",
+        "columns": 3,
+        "anchor": "related-models",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "image_ratio": "square"
+      }
+    },
+    "ori_quote_popup": {
+      "type": "ori-gvm-quote",
+      "settings": {
+        "display_mode": "popup",
+        "popup_id": "gvm-quote",
+        "eyebrow": "",
+        "heading": "Request a Quote",
+        "button_label": "Send my quote request",
+        "intro": ""
+      }
+    }
+  },
+  "order": [
+    "ori_hero",
+    "ori_grid",
+    "ori_why",
+    "installers",
+    "ori_specs",
+    "ori_faq",
+    "ori_quote",
+    "ori_related",
+    "ori_quote_popup"
+  ]
+}

@@ -1,0 +1,428 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "ori_hero": {
+      "type": "ori-hero",
+      "blocks": {
+        "feature_ssm": {
+          "type": "feature",
+          "settings": {
+            "icon": "shield",
+            "text": "Federal / SSM Certification"
+          }
+        },
+        "feature_adr": {
+          "type": "feature",
+          "settings": {
+            "icon": "award",
+            "text": "ADR-Tested & Approved"
+          }
+        },
+        "feature_network": {
+          "type": "feature",
+          "settings": {
+            "icon": "network",
+            "text": "Australia-Wide Installer Network"
+          }
+        },
+        "button_quote": {
+          "type": "button",
+          "settings": {
+            "label": "Request a Quote",
+            "link": "#quote",
+            "popup_id": "gvm-quote",
+            "style": "teal"
+          }
+        },
+        "button_all": {
+          "type": "button",
+          "settings": {
+            "label": "View All GVM Upgrades",
+            "link": "/pages/ori-gvm-upgrades",
+            "style": "ghost"
+          }
+        }
+      },
+      "block_order": [
+        "feature_ssm",
+        "feature_adr",
+        "feature_network",
+        "button_quote",
+        "button_all"
+      ],
+      "settings": {
+        "style": "cutout",
+        "image_asset": "ori-hero-ram-2500-6th-cutout.webp",
+        "image_alt": "RAM 2500 6th Gen with an ORI GVM upgrade and Fox & BDS suspension",
+        "media_width": 50,
+        "media_flush": true,
+        "min_height": 600,
+        "badge_text": "Federally Approved | ADR-Tested | SSM Certified",
+        "heading_1": "RAM 2500 6th Gen",
+        "heading_2": "GVM Upgrades Australia",
+        "pill": "",
+        "heading_2_white": true,
+        "subheading": "<p>Federally approved GVM upgrade packages for the RAM 2500 6th Gen. Every stage is ADR-tested, SSM-certified, and installed by our national network of approved specialists.</p>",
+        "heading_tag": "h1",
+        "feats_one_row": true,
+        "text_link_label": "",
+        "text_link_url": "",
+        "badge_title": "",
+        "badge_small": ""
+      }
+    },
+    "ori_grid": {
+      "type": "ori-product-grid",
+      "settings": {
+        "heading": "RAM 2500 6th Gen\nGVM Packages",
+        "intro": "Federally approved stages for the RAM 2500 6th Gen. Pick a stage for its full specifications, or request a quote.",
+        "limit": 24,
+        "button": "quote",
+        "button_label": "",
+        "view_all_label": "",
+        "show_links": true,
+        "fine_print": "",
+        "padding_top": 72,
+        "padding_bottom": 56,
+        "custom_class": ""
+      }
+    },
+    "ori_why": {
+      "type": "ori-why-choose",
+      "blocks": {
+        "reason_1": {
+          "type": "reason",
+          "settings": {
+            "icon": "truck",
+            "heading": "More Legal Payload",
+            "body": "<p>GVM from 5500 KG to 5890 KG, the full legal capacity of the 6th Gen programme.</p>"
+          }
+        },
+        "reason_2": {
+          "type": "reason",
+          "settings": {
+            "icon": "suspension",
+            "heading": "Premium Suspension",
+            "body": "<p>Fox 2.5 HTO Performance Series shocks with ORI front and rear coils on a 2 inch lift, legal to 35 inch tyres.</p>"
+          }
+        },
+        "reason_3": {
+          "type": "reason",
+          "settings": {
+            "icon": "shield",
+            "heading": "Federally Certified",
+            "body": "<p>GCM 12,750 KG and 4500 KG braked towing, approved as a Federal Second Stage Manufacturer.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "reason_1",
+        "reason_2",
+        "reason_3"
+      ],
+      "settings": {
+        "eyebrow": "",
+        "heading": "Why Upgrade Your RAM 2500 6th Gen's GVM?",
+        "intro": "",
+        "dark": true,
+        "padding_top": 56,
+        "padding_bottom": 72
+      }
+    },
+    "installers": {
+      "type": "ori-gvm-approved",
+      "settings": {
+        "source_page": "gvm-approves",
+        "source_section": "[data-section-type=\"ori-installer-network\"]",
+        "custom_selector": "",
+        "heading": "",
+        "replace_heading": "Authorised ORI Platinum Installer Network",
+        "replace_intro": "Find your nearest authorised installer for ORI GVM & GCM upgrades.",
+        "fallback_text": "View our authorised installers",
+        "full_width": true,
+        "content_gutter": 24,
+        "flush_top_bottom": false,
+        "layout": "classic",
+        "alt_background": false,
+        "tint_color": "#f3f6f7",
+        "container": "container",
+        "padding_top": 52,
+        "padding_bottom": 52,
+        "custom_id": "installers",
+        "color_schema": ""
+      }
+    },
+    "ori_specs": {
+      "type": "ori-gvm-comparison",
+      "blocks": {
+        "row_1": {
+          "type": "row",
+          "settings": {
+            "label": "Gross Vehicle Mass (GVM)",
+            "values": "4495 KG NB1 | 5500 KG | 5890 KG | 5890 KG | 5890 KG | 5890 KG | 5800 KG",
+            "highlight": true
+          }
+        },
+        "row_2": {
+          "type": "row",
+          "settings": {
+            "label": "Braked Towing Capacity (BTC)",
+            "values": "4500 KG | 4500 KG | 4500 KG | 4500 KG | 4500 KG | 4500 KG | 4500 KG",
+            "highlight": false
+          }
+        },
+        "row_3": {
+          "type": "row",
+          "settings": {
+            "label": "Gross Combined Mass (GCM)",
+            "values": "12,750 KG | 12,750 KG | 12,750 KG | 12,750 KG | 12,750 KG | 12,750 KG | 12,750 KG",
+            "highlight": true
+          }
+        },
+        "row_4": {
+          "type": "row",
+          "settings": {
+            "label": "Kerb Weight",
+            "values": "3710 KG | 3760 KG | 3770 KG | 3830 KG | 3830 KG | 3830 KG | 3830 KG",
+            "highlight": false
+          }
+        },
+        "row_5": {
+          "type": "row",
+          "settings": {
+            "label": "Payload (based on kerb weight)",
+            "values": "886 KG | 1740 KG | 2120 KG | 2060 KG | 2060 KG | 2060 KG | 2060 KG",
+            "highlight": true
+          }
+        },
+        "row_6": {
+          "type": "row",
+          "settings": {
+            "label": "Front Axle Capacity",
+            "values": "2722 KG | 2722 KG | 2722 KG | 2722 KG | 2722 KG | 2722 KG | 2722 KG",
+            "highlight": false
+          }
+        },
+        "row_7": {
+          "type": "row",
+          "settings": {
+            "label": "Rear Axle Capacity",
+            "values": "2740 KG | 3175 KG | 3175 KG | 3175 KG | 3175 KG | 3175 KG | 3075 KG",
+            "highlight": false
+          }
+        },
+        "row_8": {
+          "type": "row",
+          "settings": {
+            "label": "Wheel Offsets",
+            "values": "POS 47 | Pos 18 | Pos 18 | Pos 18 | Pos 18 | Pos 18 | Pos 12 / Zero / -11",
+            "highlight": false
+          }
+        },
+        "row_9": {
+          "type": "row",
+          "settings": {
+            "label": "Wheel Load Rating",
+            "values": "1587 KG | 1600 KG | 1600 KG | 1600 KG | 1600 KG | 1600 KG | 1600 KG",
+            "highlight": false
+          }
+        },
+        "row_10": {
+          "type": "row",
+          "settings": {
+            "label": "Minimum Tyre Load Rating",
+            "values": " | 124 Q | 124 Q | 124 Q | 124 Q | 124 Q | 124 Q",
+            "highlight": false
+          }
+        },
+        "row_11": {
+          "type": "row",
+          "settings": {
+            "label": "Requires Wheel / Tyre Upgrade",
+            "values": "OEM | Yes | Yes | Yes | Yes | Yes | Yes",
+            "highlight": false
+          }
+        },
+        "row_12": {
+          "type": "row",
+          "settings": {
+            "label": "Maximum Tyre Size",
+            "values": " | 35x12.5xR18, 35x12.5xR20 | 35x12.5xR18, 35x12.5xR20 | 37x12.5xR18, 37x12.5xR20 | 37x12.5xR18, 37x12.5xR20 | 37x12.5xR18, 37x12.5xR20 | 40x13.5R17 / 40x13.5R18 / 40x13.5R20",
+            "highlight": false
+          }
+        }
+      },
+      "block_order": [
+        "row_1",
+        "row_2",
+        "row_3",
+        "row_4",
+        "row_5",
+        "row_6",
+        "row_7",
+        "row_8",
+        "row_9",
+        "row_10",
+        "row_11",
+        "row_12"
+      ],
+      "settings": {
+        "heading": "ORI RAM 2500 6th Gen\nGVM & GCM Specifications",
+        "intro": "",
+        "columns": "OEM | Stage 1 | Stage 2 | Stage 3 | Stage 4 | Stage 5 | Stage 6",
+        "style": "compact",
+        "mobile": "scroll",
+        "anchor_id": "specifications",
+        "corner_label": "Specification",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "custom_class": ""
+      }
+    },
+    "ori_faq": {
+      "type": "ori-gvm-faq",
+      "blocks": {
+        "faq_1": {
+          "type": "question",
+          "settings": {
+            "question": "What is a GVM upgrade?",
+            "answer": "<p>A GVM (Gross Vehicle Mass) upgrade increases the maximum legal weight your vehicle can carry, using SSM certification.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "question",
+          "settings": {
+            "question": "How much payload can I legally gain?",
+            "answer": "<p>Gains vary by vehicle and stage. Contact us for figures specific to your RAM 2500 6th Gen.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "question",
+          "settings": {
+            "question": "What is the difference between the stages?",
+            "answer": "<p>Each stage offers a different GVM and suspension package. See the package grid above.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3"
+      ],
+      "settings": {
+        "heading": "Frequently Asked Questions",
+        "intro": "",
+        "button_label": "",
+        "button_link": "",
+        "open_first": true,
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "ori_quote": {
+      "type": "ori-gvm-quote",
+      "settings": {
+        "display_mode": "inline",
+        "eyebrow": "",
+        "heading": "Request a Quote",
+        "button_label": "Send my quote request",
+        "padding_top": 64,
+        "padding_bottom": 64,
+        "custom_class": "",
+        "intro": "",
+        "dark": true
+      }
+    },
+    "ori_related": {
+      "type": "ori-vehicle-grid",
+      "blocks": {
+        "v_s2500": {
+          "type": "vehicle",
+          "settings": {
+            "image_asset": "",
+            "title": "Chevy Silverado 2500HD",
+            "specs": "6T GVM | 37\" tyres legal",
+            "text": "Chevrolet Silverado 2500HD LTZ.",
+            "url": "shopify://collections/chevrolet-silverado-2500-ltz-gvm-upgrade",
+            "button_label": "View packages & pricing",
+            "pdf_url": "https://cdn.shopify.com/s/files/1/0165/6516/files/GVM_BROCHURE_BACK_Chevy_Silverado_2500HD_LTZ.pdf?v=1779415154",
+            "pdf_label": "Download brochure (PDF)",
+            "image": "shopify://shop_images/Chevy-2500--tile-ad---20260505-4_7ce36d9a-1565-4823-b14a-b3e36018df11.png"
+          }
+        },
+        "v_tundra": {
+          "type": "vehicle",
+          "settings": {
+            "image_asset": "",
+            "title": "Toyota Tundra",
+            "specs": "4300 GVM | 8800 GCM | 35\" tyres legal",
+            "text": "Platinum & Limited.",
+            "url": "shopify://collections/toyota-tundra-platinum-gvm-upgrade",
+            "button_label": "View packages & pricing",
+            "pdf_url": "https://cdn.shopify.com/s/files/1/0165/6516/files/GVM_BROCHURE_BACK_Toyota_Tundra.pdf?v=1779415154",
+            "pdf_label": "Download brochure (PDF)",
+            "image": "shopify://shop_images/Toyota-Tundra--tile-ad---20260505-4-1.png"
+          }
+        },
+        "v_f150": {
+          "type": "vehicle",
+          "settings": {
+            "image_asset": "",
+            "title": "Ford F150",
+            "specs": "4300 GVM | 8800 GCM",
+            "text": "Platinum, Lariat & XLT. Federally approved GVM.",
+            "url": "shopify://collections/ford-f150-platinum-lariat-xlt-gvm-upgrade",
+            "button_label": "View packages & pricing",
+            "pdf_url": "https://cdn.shopify.com/s/files/1/0165/6516/files/GVM_BROCHURE_BACK_Ford_F150.pdf?v=1779415153",
+            "pdf_label": "Download brochure (PDF)",
+            "image": "shopify://shop_images/FORD-F150---tile-ad---20260505-4-3.png"
+          }
+        }
+      },
+      "block_order": [
+        "v_s2500",
+        "v_tundra",
+        "v_f150"
+      ],
+      "settings": {
+        "heading": "Related Models",
+        "intro": "",
+        "columns": 3,
+        "anchor": "related-models",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "image_ratio": "square"
+      }
+    },
+    "ori_quote_popup": {
+      "type": "ori-gvm-quote",
+      "settings": {
+        "display_mode": "popup",
+        "popup_id": "gvm-quote",
+        "eyebrow": "",
+        "heading": "Request a Quote",
+        "button_label": "Send my quote request",
+        "intro": ""
+      }
+    }
+  },
+  "order": [
+    "ori_hero",
+    "ori_grid",
+    "ori_why",
+    "installers",
+    "ori_specs",
+    "ori_faq",
+    "ori_quote",
+    "ori_related",
+    "ori_quote_popup"
+  ]
+}
