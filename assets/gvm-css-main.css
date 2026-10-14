@@ -6983,7 +6983,7 @@ body .ori-marquee--light .f-promotion__item img {
   }
 
   .ori-hero__copy {
-    max-width: min(900px, 56vw);
+    max-width: 1030px;
   }
 
   /* The vehicle: about 36vw (80% of the section's image width setting),
