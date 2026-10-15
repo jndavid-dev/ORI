@@ -7443,6 +7443,36 @@ body .ori-marquee--light .f-promotion__item img {
   text-transform: uppercase;
 }
 
+/* Shopify Forms draws inside a shadow root and sets its look as custom
+   properties on :host. Page rules on the host element outrank :host, so
+   these restyle the form to match the ORI fields and buttons (same as
+   .ori-quote). Only the properties the app exposes can be changed. */
+.ori-appform__card shopify-forms-embed {
+  --forms-body-font: normal 400 16px var(--ori-body);
+  --forms-base-font-size: 16px;
+  --forms-heading-font: normal 700 30px var(--ori-display);
+  --forms-heading-font-size: 30px;
+  --heading-font-size: 30px;
+  --heading-text-color: var(--ori-ink);
+  --body-text-color: var(--ori-steel);
+  --forms-accent-color: var(--ori-teal-deep);
+  --link-text-color: var(--ori-teal-deep);
+  --form-text-color: var(--ori-ink);
+  --form-placeholder-color: #8a9295;
+  --form-background-color: #fff;
+  --form-error-color: var(--ori-sale);
+  --form-field-border: 0 0 0 1px #c9cfce;
+  --form-field-border-focused: 0 0 0 2px var(--ori-teal);
+  --form-field-border-radius: 4px;
+  --button-background-color: var(--ori-teal);
+  --button-text-color: #fff;
+  --button-border: 2px solid var(--ori-teal);
+  --button-border-radius: 4px;
+  --container-max-w: 100%;
+  --inline-container-max-width: 100%;
+  --min-form-width: 0px;
+}
+
 @media (max-width: 989px) {
   .ori-appform__grid {
     grid-template-columns: minmax(0, 1fr);
