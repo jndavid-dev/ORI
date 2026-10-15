@@ -7468,8 +7468,10 @@ body .ori-marquee--light .f-promotion__item img {
   --button-text-color: #fff;
   --button-border: 2px solid var(--ori-teal);
   --button-border-radius: 4px;
-  --container-max-w: 100%;
-  --inline-container-max-width: 100%;
+  /* The app's container is width 100% plus a 2px margin with overflow
+     hidden, so leave room for the margin or the right edge is clipped. */
+  --container-max-w: calc(100% - 4px);
+  --inline-container-max-width: calc(100% - 4px);
   --min-form-width: 0px;
 }
 
