@@ -1,0 +1,83 @@
+{%- comment -%}
+  ORI redesign — brand bar. "Shop by brand" strip of linked logo tiles,
+  meant to sit under a hero: a light band with a teal rule at the top so
+  it reads as its own row without competing with the banner or the
+  products. One row of tiles on desktop; on phones and tablets the row
+  scrolls sideways instead of wrapping into a block of logos.
+
+  Each brand block takes a logo, a link (a collection or any URL) and a
+  name, used as the alt text and shown under the logo when switched on.
+{%- endcomment -%}
+{%- assign brands = section.blocks | where: 'type', 'brand' -%}
+{%- if brands.size > 0 -%}
+  <div
+    class="ori ori-brandbar"
+    style="--ori-pt: {{ section.settings.padding_top }}px; --ori-pb: {{ section.settings.padding_bottom }}px;"
+  >
+    <div class="ori-wrap ori-brandbar__in">
+      {%- if section.settings.heading != blank -%}
+        <div class="ori-brandbar__head">
+          <h2 class="ori-brandbar__title">{{ section.settings.heading }}</h2>
+          {%- if section.settings.text != blank -%}
+            <p class="ori-brandbar__text">{{ section.settings.text }}</p>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+      <ul class="ori-brandbar__list" role="list">
+        {%- for block in brands -%}
+          {%- liquid
+            assign brand_url = block.settings.link
+            if brand_url == blank and block.settings.collection != blank
+              assign brand_url = block.settings.collection.url
+            endif
+            assign brand_name = block.settings.title | default: block.settings.collection.title
+          -%}
+          <li class="ori-brandbar__item" {{ block.shopify_attributes }}>
+            {%- if brand_url != blank -%}<a class="ori-brandbar__tile" href="{{ brand_url }}">{%- else -%}<span class="ori-brandbar__tile">{%- endif -%}
+            <span class="ori-brandbar__logo">
+              {%- if block.settings.image != blank -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 320
+                  | image_tag: loading: 'lazy', widths: '160, 240, 320', sizes: '140px', alt: brand_name
+                }}
+              {%- else -%}
+                <span class="ori-brandbar__wordmark">{{ brand_name }}</span>
+              {%- endif -%}
+            </span>
+            {%- if section.settings.show_names and brand_name != blank -%}
+              <span class="ori-brandbar__name">{{ brand_name }}</span>
+            {%- endif -%}
+            {%- if brand_url != blank -%}</a>{%- else -%}</span>{%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "ORI Brand bar",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Shop by brand" },
+    { "type": "text", "id": "text", "label": "Text" },
+    { "type": "checkbox", "id": "show_names", "label": "Show brand names under the logos", "default": false },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 28 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 28 }
+  ],
+  "blocks": [
+    {
+      "type": "brand",
+      "name": "Brand",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Logo", "info": "Square or wide logo on a white or transparent background." },
+        { "type": "collection", "id": "collection", "label": "Brand collection" },
+        { "type": "url", "id": "link", "label": "Link", "info": "Overrides the collection link." },
+        { "type": "text", "id": "title", "label": "Name", "info": "Empty uses the collection title." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "ORI Brand bar" }]
+}
+{% endschema %}

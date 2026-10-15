@@ -1,0 +1,144 @@
+{%- comment -%}
+  ORI redesign — collection hero. The ORI Hero banner (same .ori-hero
+  styles as sections/ori-hero.liquid), filled from the collection itself
+  so every collection on the default templates gets it with no editing:
+
+  - Heading: the collection title (or the Heading setting when filled).
+  - Text: metafield custom.collection_summary (rich text) when set, else
+    the Text setting. Live has the metafield; staging doesn't.
+  - Image: metafield custom.banner_image when set → "Photo" look, the
+    picture on the right faded into the dark. Without it → the dark
+    ridge-line texture. The picker below overrides both.
+  - Breadcrumb: Home / Collections / title.
+
+  Metafields are read here in Liquid rather than linked as dynamic
+  sources in the template JSON, because a push to a store without the
+  metafield definitions (staging) rejects templates that link them.
+{%- endcomment -%}
+{%- liquid
+  assign hero_title = section.settings.heading | default: collection.title
+  if hero_title == blank
+    assign hero_title = 'Collection'
+  endif
+
+  assign hero_text = section.settings.text
+  assign summary = collection.metafields.custom.collection_summary
+  if section.settings.use_summary and summary != blank
+    assign hero_text = summary | metafield_tag
+  endif
+
+  assign hero_image = section.settings.image
+  if hero_image == blank and section.settings.use_banner
+    assign hero_image = collection.metafields.custom.banner_image.value
+  endif
+
+  assign hero_style = 'plain'
+  if hero_image != blank
+    assign hero_style = 'photo'
+  endif
+-%}
+<div
+  class="ori ori-hero ori-hero--{{ hero_style }} ori-hero--collection"
+  style="--ori-hero-h: {{ section.settings.min_height }}px;"
+>
+  {%- if hero_image != blank -%}
+    <div class="ori-hero__media">
+      {{
+        hero_image
+        | image_url: width: 2000
+        | image_tag:
+          widths: '800, 1200, 1600, 2000',
+          sizes: '(min-width: 1025px) 54vw, 100vw',
+          fetchpriority: 'high',
+          alt: hero_image.alt
+      }}
+    </div>
+  {%- endif -%}
+
+  <div class="ori-hero__in">
+    <div class="ori-hero__copy">
+      {%- if section.settings.show_breadcrumb -%}
+        <nav class="ori-crumbs" aria-label="Breadcrumb">
+          <ol role="list">
+            <li><a href="{{ routes.root_url }}">Home</a></li>
+            <li><a href="{{ routes.collections_url }}">Collections</a></li>
+            <li aria-current="page">{{ hero_title }}</li>
+          </ol>
+        </nav>
+      {%- endif -%}
+
+      {%- if section.settings.badge_text != blank -%}
+        <span class="ori-badge ori-badge--dark">
+          {%- render 'ori-icon', icon: 'shield' -%}
+          {{- section.settings.badge_text -}}
+        </span>
+      {%- endif -%}
+
+      <h1 class="ori-hero__title">{{ hero_title }}</h1>
+
+      {%- if hero_text != blank -%}
+        <div class="ori-hero__sub">{{ hero_text }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.show_count and collection.products_count > 0 -%}
+        <p class="ori-hero__count">
+          {{- collection.products_count }}
+          {{ collection.products_count | pluralize: 'product', 'products' -}}
+        </p>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "ORI Collection hero",
+  "tag": "section",
+  "class": "ori-hero-section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Fills itself from the collection: its title, the collection_summary metafield and the banner_image metafield. Leave the fields below empty to use those."
+    },
+    { "type": "text", "id": "heading", "label": "Heading", "info": "Empty uses the collection title." },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "info": "Shown when the collection has no collection_summary metafield."
+    },
+    {
+      "type": "checkbox",
+      "id": "use_summary",
+      "label": "Use the collection summary metafield",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "Empty uses the collection's banner_image metafield, or the dark texture when that's empty too."
+    },
+    {
+      "type": "checkbox",
+      "id": "use_banner",
+      "label": "Use the collection banner metafield",
+      "default": true
+    },
+    { "type": "text", "id": "badge_text", "label": "Badge" },
+    { "type": "checkbox", "id": "show_breadcrumb", "label": "Show breadcrumb", "default": true },
+    { "type": "checkbox", "id": "show_count", "label": "Show product count", "default": true },
+    {
+      "type": "range",
+      "id": "min_height",
+      "label": "Minimum height (desktop)",
+      "min": 240,
+      "max": 600,
+      "step": 20,
+      "unit": "px",
+      "default": 360
+    }
+  ],
+  "presets": [{ "name": "ORI Collection hero" }]
+}
+{% endschema %}

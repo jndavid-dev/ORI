@@ -1,0 +1,110 @@
+{%- comment -%}
+  ORI redesign — collection feature rows. Image-and-text rows filled from
+  the collection's custom.collection_additional_information metafield (a
+  metaobject with collection_title_N, collection_description_N (rich
+  text), collection_image_N, collection_button_label_N and
+  collection_button_url_N for rows 1 and 2) — the same data the old
+  "custom-content" sections showed on live. Rows alternate image left /
+  image right on desktop and stack on mobile.
+
+  A row shows when it has a title or text; a row without an image is
+  text only. The section renders nothing when the collection has none
+  (staging has no metafields, so it's empty there).
+{%- endcomment -%}
+{%- liquid
+  assign info = collection.metafields.custom.collection_additional_information.value
+  assign rows_found = false
+  if info != blank
+    for i in (1..2)
+      assign t_key = 'collection_title_' | append: i
+      assign d_key = 'collection_description_' | append: i
+      if info[t_key].value != blank or info[d_key].value != blank
+        assign rows_found = true
+      endif
+    endfor
+  endif
+-%}
+{%- if rows_found -%}
+  <div
+    class="ori ori-section ori-cfeat"
+    style="--ori-pt: {{ section.settings.padding_top }}px; --ori-pb: {{ section.settings.padding_bottom }}px;"
+  >
+    <div class="ori-wrap ori-cfeat__list">
+      {%- for i in (1..2) -%}
+        {%- liquid
+          assign t_key = 'collection_title_' | append: i
+          assign d_key = 'collection_description_' | append: i
+          assign img_key = 'collection_image_' | append: i
+          assign bl_key = 'collection_button_label_' | append: i
+          assign bu_key = 'collection_button_url_' | append: i
+
+          assign row_title = info[t_key].value | default: info[t_key]
+          assign row_text = info[d_key] | metafield_tag
+          if info[d_key].value == blank
+            assign row_text = ''
+          endif
+          assign row_image = info[img_key].value
+          assign row_label = info[bl_key].value | default: info[bl_key]
+          assign row_url = info[bu_key].value | default: info[bu_key]
+
+          assign flip = false
+          assign mod = forloop.index | modulo: 2
+          if mod == 0
+            assign flip = true
+          endif
+          if section.settings.image_first == false
+            if flip
+              assign flip = false
+            else
+              assign flip = true
+            endif
+          endif
+        -%}
+        {%- if row_title != blank or row_text != blank -%}
+          <div class="ori-cfeat__row{% if row_image == blank %} ori-cfeat__row--text{% endif %}{% if flip %} ori-cfeat__row--flip{% endif %}">
+            {%- if row_image != blank -%}
+              <div class="ori-cfeat__media">
+                {{
+                  row_image
+                  | image_url: width: 1400
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '600, 900, 1200, 1400',
+                    sizes: '(min-width: 990px) 50vw, 100vw',
+                    alt: row_title
+                }}
+              </div>
+            {%- endif -%}
+            <div class="ori-cfeat__copy">
+              {%- if row_title != blank -%}
+                <h2 class="ori-h2">{{ row_title }}</h2>
+              {%- endif -%}
+              {%- if row_text != blank -%}
+                <div class="ori-cfeat__text ori-rte">{{ row_text }}</div>
+              {%- endif -%}
+              {%- if row_label != blank and row_url != blank -%}
+                <a class="ori-btn ori-btn--teal" href="{{ row_url }}">{{ row_label }}</a>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "ORI Collection features",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Image and text rows from the collection's collection_additional_information metafield. Hidden when the collection doesn't have it."
+    },
+    { "type": "checkbox", "id": "image_first", "label": "First row: image on the left", "default": true },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 72 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 72 }
+  ],
+  "presets": [{ "name": "ORI Collection features" }]
+}
+{% endschema %}

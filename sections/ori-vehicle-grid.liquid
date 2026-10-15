@@ -3,13 +3,13 @@
   from the GVM hub (snippets/ori-vehicle-card.liquid, .ori-vcard styles),
   but with a block per vehicle so each page can list its own set, plus a
   specs line and an optional brochure (PDF) link under the main button.
+  The card itself is snippets/ori-vgrid-card.liquid, shared with the
+  ORI GVM packages section.
 
   A card with no link renders "Coming soon" instead of a dead button. Each
   block's image falls back to a theme asset (e.g. the vehicle crops shipped
   with the theme) when no image is picked.
 {%- endcomment -%}
-{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
-{%- render 'ori-fonts' -%}
 {%- assign vehicles = section.blocks | where: 'type', 'vehicle' -%}
 <div
   {% if section.settings.anchor != blank %}id="{{ section.settings.anchor | handleize }}"{% endif %}
@@ -43,59 +43,23 @@
     <ul class="ori-vgrid ori-vgrid--wide" style="--ori-cols: {{ section.settings.columns }}; --ori-vratio: {{ vratio }};" role="list">
       {%- for block in vehicles -%}
         {%- liquid
-          assign url = block.settings.url
-          assign live = true
-          if url == blank or url == '#'
-            assign live = false
-          endif
           assign asset_img = block.settings.image_asset | strip
+          if asset_img != blank
+            assign asset_img = asset_img | asset_url
+          endif
         -%}
-        <li class="ori-vcard{% unless live %} ori-vcard--soon{% endunless %}" {{ block.shopify_attributes }}>
-          <div class="ori-vcard__img">
-            {%- unless live -%}<span class="ori-flag">Coming soon</span>{%- endunless -%}
-            {%- if block.settings.image != blank -%}
-              {{
-                block.settings.image
-                | image_url: width: 1080
-                | image_tag:
-                  loading: 'lazy',
-                  widths: '360, 540, 720, 1080',
-                  sizes: '(min-width: 1100px) 22vw, (min-width: 600px) 45vw, 100vw',
-                  alt: block.settings.title
-              }}
-            {%- elsif asset_img != blank -%}
-              <img src="{{ asset_img | asset_url }}" alt="{{ block.settings.title | escape }}" width="1000" height="565" loading="lazy">
-            {%- endif -%}
-            {%- if live -%}<a class="ori-vcard__cover" href="{{ url }}" tabindex="-1" aria-hidden="true"></a>{%- endif -%}
-          </div>
-          <div class="ori-vcard__body">
-            <h3 class="ori-vcard__title">
-              {%- if live -%}<a href="{{ url }}">{{ block.settings.title }}</a>{%- else -%}{{ block.settings.title }}{%- endif -%}
-            </h3>
-            {%- if block.settings.specs != blank -%}
-              <p class="ori-vcard__specs">{{ block.settings.specs }}</p>
-            {%- endif -%}
-            {%- if block.settings.text != blank -%}
-              <p class="ori-vcard__text">{{ block.settings.text }}</p>
-            {%- endif -%}
-            <div class="ori-vcard__actions">
-              {%- if live -%}
-                <a class="ori-btn ori-btn--line ori-vcard__btn" href="{{ url }}">
-                  {{- block.settings.button_label | default: 'View packages & pricing' -}}
-                  {%- render 'ori-icon', icon: 'arrow' -%}
-                </a>
-              {%- else -%}
-                <span class="ori-vcard__soon">Hub coming soon</span>
-              {%- endif -%}
-              {%- if block.settings.pdf_url != blank -%}
-                <a class="ori-vcard__pdf" href="{{ block.settings.pdf_url }}" target="_blank" rel="noopener">
-                  {%- render 'ori-icon', icon: 'download' -%}
-                  {{- block.settings.pdf_label | default: 'Download brochure (PDF)' -}}
-                </a>
-              {%- endif -%}
-            </div>
-          </div>
-        </li>
+        {%- render 'ori-vgrid-card',
+          title: block.settings.title,
+          specs: block.settings.specs,
+          text: block.settings.text,
+          url: block.settings.url,
+          image: block.settings.image,
+          image_src: asset_img,
+          button_label: block.settings.button_label,
+          pdf_url: block.settings.pdf_url,
+          pdf_label: block.settings.pdf_label,
+          attrs: block.shopify_attributes
+        -%}
       {%- endfor -%}
     </ul>
   </div>

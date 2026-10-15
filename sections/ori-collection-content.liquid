@@ -1,0 +1,115 @@
+{%- comment -%}
+  ORI redesign — collection content. The collection's own description
+  (the text editor on the collection in the admin), styled for long SEO
+  copy: condensed headings, teal links, bullet lists, and images or
+  videos inside the text scaled to the column with rounded corners.
+
+  Long text is cut to a set height with a fade and a "Read more" button.
+  The full text is always in the page (search engines read all of it);
+  the cut is added by the script below only when the text is taller than
+  the limit, so short descriptions show in full with no button and the
+  text stays fully visible without JavaScript.
+
+  Hidden when the collection has no description.
+{%- endcomment -%}
+{%- assign body = collection.description | strip -%}
+{%- if section.settings.text != blank and body == blank -%}
+  {%- assign body = section.settings.text -%}
+{%- endif -%}
+{%- if body != blank -%}
+  <div
+    class="ori ori-section ori-ccontent{% if section.settings.tinted %} ori-ccontent--tint{% endif %}"
+    style="--ori-pt: {{ section.settings.padding_top }}px; --ori-pb: {{ section.settings.padding_bottom }}px; --ori-cut: {{ section.settings.collapsed_height }}px;"
+  >
+    <div class="ori-wrap">
+      <div class="ori-ccontent__inner">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="ori-ccontent__eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        <div class="ori-ccontent__body ori-rte" id="OriContent-{{ section.id }}">
+          {{ body }}
+        </div>
+        {%- if section.settings.collapse -%}
+          <button
+            type="button"
+            class="ori-ccontent__toggle"
+            aria-controls="OriContent-{{ section.id }}"
+            aria-expanded="false"
+            hidden
+          >
+            <span data-more>{{ section.settings.more_label | default: 'Read more' }}</span>
+            <span data-less hidden>{{ section.settings.less_label | default: 'Read less' }}</span>
+            <span class="ori-ccontent__chev" aria-hidden="true"></span>
+          </button>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  {%- if section.settings.collapse -%}
+    <script>
+      (function () {
+        var body = document.getElementById('OriContent-{{ section.id }}');
+        if (!body) return;
+        var toggle = body.parentNode.querySelector('.ori-ccontent__toggle');
+        var cut = {{ section.settings.collapsed_height }};
+
+        // Only collapse when the text is clearly taller than the cut,
+        // so a few extra lines never hide behind a button.
+        function setup() {
+          if (body.scrollHeight <= cut + 120) return;
+          body.classList.add('is-cut');
+          toggle.hidden = false;
+        }
+
+        toggle.addEventListener('click', function () {
+          var open = toggle.getAttribute('aria-expanded') === 'true';
+          toggle.setAttribute('aria-expanded', String(!open));
+          body.classList.toggle('is-cut', open);
+          toggle.querySelector('[data-more]').hidden = !open;
+          toggle.querySelector('[data-less]').hidden = open;
+          if (open) body.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        });
+
+        if (document.readyState === 'complete') setup();
+        else window.addEventListener('load', setup);
+      })();
+    </script>
+  {%- endif -%}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "ORI Collection content",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Shows the collection's description from the admin. Hidden when it's empty."
+    },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Fallback text",
+      "info": "Only shown when the collection has no description."
+    },
+    { "type": "checkbox", "id": "collapse", "label": "Shorten long text with \"Read more\"", "default": true },
+    {
+      "type": "range",
+      "id": "collapsed_height",
+      "label": "Height before \"Read more\"",
+      "min": 200,
+      "max": 800,
+      "step": 20,
+      "unit": "px",
+      "default": 420
+    },
+    { "type": "text", "id": "more_label", "label": "Read more label", "default": "Read more" },
+    { "type": "text", "id": "less_label", "label": "Read less label", "default": "Read less" },
+    { "type": "checkbox", "id": "tinted", "label": "Light grey background", "default": false },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 72 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 72 }
+  ],
+  "presets": [{ "name": "ORI Collection content" }]
+}
+{% endschema %}

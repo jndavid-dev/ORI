@@ -1,0 +1,91 @@
+{%- comment -%}
+  ORI redesign — collection FAQ. The ORI FAQ look (.ori-gfaq styles from
+  sections/ori-gvm-faq.liquid: heading on the left, accordion on the
+  right) filled from the collection's metafields, the same data the old
+  collection-faq-metafields section read on live:
+  - custom.collection_faq: list of FAQ metaobjects (question, answer)
+  - custom.faq_title / custom.faq_subtitle: heading and intro
+  Falls back to the Heading and Intro settings when those are empty.
+  Questions are also output as FAQPage structured data.
+
+  Renders nothing when the collection has no FAQs.
+{%- endcomment -%}
+{%- liquid
+  assign faqs = collection.metafields.custom.collection_faq.value
+  assign faq_title = collection.metafields.custom.faq_title.value | default: section.settings.heading
+  assign faq_intro = ''
+  if collection.metafields.custom.faq_subtitle != blank
+    assign faq_intro = collection.metafields.custom.faq_subtitle | metafield_tag
+  elsif section.settings.intro != blank
+    assign faq_intro = section.settings.intro
+  endif
+-%}
+{%- if faqs != blank and faqs.count > 0 -%}
+  <div
+    class="ori ori-section ori-gfaq"
+    style="--ori-pt: {{ section.settings.padding_top }}px; --ori-pb: {{ section.settings.padding_bottom }}px;"
+  >
+    <div class="ori-wrap ori-gfaq__grid">
+      <div class="ori-gfaq__intro">
+        {%- if faq_title != blank -%}
+          <h2 class="ori-h2">{{ faq_title }}</h2>
+        {%- endif -%}
+        {%- if faq_intro != blank -%}
+          <div class="ori-head__intro">{{ faq_intro }}</div>
+        {%- endif -%}
+        {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
+          <a class="ori-btn ori-btn--teal" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a>
+        {%- endif -%}
+      </div>
+      <div class="ori-gfaq__list">
+        {%- for faq in faqs -%}
+          {%- assign q = faq.question.value | default: faq.question -%}
+          <details class="ori-gfaq__item"{% if forloop.first and section.settings.open_first %} open{% endif %}>
+            <summary class="ori-gfaq__q">
+              <span>{{ q }}</span>
+              <span class="ori-gfaq__icon" aria-hidden="true"></span>
+            </summary>
+            <div class="ori-gfaq__a">{{ faq.answer | metafield_tag }}</div>
+          </details>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {%- for faq in faqs -%}
+          {%- assign q = faq.question.value | default: faq.question -%}
+          {%- capture a -%}{{ faq.answer | metafield_tag }}{%- endcapture -%}
+          {
+            "@type": "Question",
+            "name": {{ q | strip_html | json }},
+            "acceptedAnswer": { "@type": "Answer", "text": {{ a | strip_html | strip | json }} }
+          }{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      ]
+    }
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "ORI Collection FAQ",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Questions come from the collection's collection_faq metafield, the heading from faq_title. Hidden when the collection has no FAQs."
+    },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Frequently asked questions", "info": "Used when the collection has no faq_title." },
+    { "type": "textarea", "id": "intro", "label": "Intro", "info": "Used when the collection has no faq_subtitle." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Contact us" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "checkbox", "id": "open_first", "label": "Open the first question", "default": true },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 80 }
+  ],
+  "presets": [{ "name": "ORI Collection FAQ" }]
+}
+{% endschema %}

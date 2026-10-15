@@ -1,0 +1,85 @@
+{%- comment -%}
+  ORI redesign — ORI Federally Approved GVM & GCM Packages. The vehicle
+  card grid (.ori-vcard, same as the GVM hub) with its list of vehicles
+  kept in ONE place, snippets/ori-gvm-packages-list.liquid, so every page
+  that adds this section shows the same, up-to-date cards. Only the
+  heading, intro and layout are set per page.
+{%- endcomment -%}
+{%- liquid
+  case section.settings.image_ratio
+    when 'portrait'
+      assign vratio = '0.71 / 1'
+    when 'landscape'
+      assign vratio = '16 / 9'
+    else
+      assign vratio = '1 / 1'
+  endcase
+-%}
+<div
+  {% if section.settings.anchor != blank %}id="{{ section.settings.anchor | handleize }}"{% endif %}
+  class="ori ori-section ori-vgrid-section{% if section.settings.tinted %} ori-vgrid-section--tint{% endif %}"
+  style="--ori-pt: {{ section.settings.padding_top }}px; --ori-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="ori-wrap">
+    {%- if section.settings.heading != blank or section.settings.intro != blank -%}
+      <div class="ori-head">
+        <div>
+          {%- if section.settings.heading != blank -%}
+            <h2 class="ori-h2">{{ section.settings.heading }}</h2>
+          {%- endif -%}
+          {%- if section.settings.intro != blank -%}
+            <p class="ori-head__intro">{{ section.settings.intro }}</p>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.link_label != blank and section.settings.link != blank -%}
+          <a class="ori-link" href="{{ section.settings.link }}">{{ section.settings.link_label }}</a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+    <ul
+      class="ori-vgrid ori-vgrid--wide"
+      style="--ori-cols: {{ section.settings.columns }}; --ori-vratio: {{ vratio }};"
+      role="list"
+    >
+      {%- render 'ori-gvm-packages-list' -%}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "ORI GVM packages",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "The vehicles are shared by every page with this section and are edited in snippets/ori-gvm-packages-list.liquid."
+    },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "ORI Federally Approved GVM & GCM Packages" },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Intro",
+      "default": "Choose your truck to see its staged packages, pricing and certified figures — or download the brochure."
+    },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "All GVM upgrades" },
+    { "type": "url", "id": "link", "label": "Link" },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Image shape",
+      "options": [
+        { "value": "square", "label": "Square (vehicle tiles)" },
+        { "value": "portrait", "label": "Portrait" },
+        { "value": "landscape", "label": "Landscape 16:9" }
+      ],
+      "default": "square"
+    },
+    { "type": "range", "id": "columns", "label": "Cards per row (desktop)", "min": 3, "max": 5, "step": 1, "default": 5 },
+    { "type": "checkbox", "id": "tinted", "label": "Light grey background", "default": false },
+    { "type": "text", "id": "anchor", "label": "Anchor ID" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 80 }
+  ],
+  "presets": [{ "name": "ORI GVM packages" }]
+}
+{% endschema %}
