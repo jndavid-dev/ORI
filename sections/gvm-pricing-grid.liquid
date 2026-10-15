@@ -100,6 +100,26 @@
               {%- render 'price', product: product, alignment: 'left' -%}
 
               <div class="{{ b2b_stock_class }}">{{ b2b_stock_label }}</div>
+
+              {%- comment -%}
+                Hands the shopper straight from pricing to ordering: this
+                switches to whichever tab holds the kit request form and
+                preselects this product in its dropdown. Wired up in
+                assets/gvm-kit-request.js, which owns that form -- the button
+                only has to name the product. Rendered only when the form is
+                actually on the page, so this section stays safe to use on a
+                hub that has no ordering tab.
+              {%- endcomment -%}
+              {%- if section.settings.show_request_button -%}
+                <button
+                  type="button"
+                  class="btn btn--primary gvm-pricing-card__request"
+                  data-gvm-request-kit="{{ product.id }}"
+                  hidden
+                >
+                  {{ section.settings.request_button_label | default: 'Request this kit' }}
+                </button>
+              {%- endif -%}
             </div>
           </div>
         {%- endfor -%}
@@ -112,6 +132,19 @@
 {
   "name": "GVM Pricing Grid",
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_request_button",
+      "label": "Show \"Request this kit\" button",
+      "info": "Jumps to the kit request tab with this product already selected. The button only appears if the kit request form is present on the page.",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "request_button_label",
+      "label": "Request button label",
+      "default": "Request this kit"
+    },
     {
       "type": "range",
       "id": "padding_top",

@@ -4,6 +4,34 @@
    ========================================================== */
 
 document.addEventListener('DOMContentLoaded', function () {
+  /* --- Mobile menu toggle ---
+     Below 767px the row of items collapses behind a single button
+     instead of scrolling sideways, where most of the menu sat
+     off-screen with nothing indicating it was there. The list itself
+     is the same markup either way -- only its layout changes -- so
+     nothing needs re-rendering when the viewport crosses the
+     breakpoint. */
+  var subnav = document.querySelector('.gvm-subnav');
+  var toggle = document.querySelector('.gvm-subnav__toggle');
+
+  if (subnav && toggle) {
+    toggle.addEventListener('click', function () {
+      var isOpen = subnav.classList.toggle('is-menu-open');
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    // Collapse when a link is followed, so the menu isn't left open
+    // behind the next page in browsers that restore scroll state.
+    subnav.querySelectorAll('.gvm-subnav__children a, .gvm-subnav__parent--link').forEach(
+      function (link) {
+        link.addEventListener('click', function () {
+          subnav.classList.remove('is-menu-open');
+          toggle.setAttribute('aria-expanded', 'false');
+        });
+      }
+    );
+  }
+
   /* --- Only one dropdown open at a time ---
      Native <details> elements don't do this on their own -- close
      every other open dropdown whenever one is opened. */

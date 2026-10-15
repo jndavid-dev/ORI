@@ -1,64 +1,47 @@
 {%- comment -%}
-  ORI GVM Installation Process.
-
-  A numbered row of steps: teal counter disc, title, description, joined by a
-  connector line that runs from one disc edge to the next. Numbers come from a
-  CSS counter, so adding or reordering steps renumbers them automatically.
-
-  Under 750px it becomes a single centred column and the connector rotates to
-  run vertically between the discs. The connector is drawn on each step except
-  the last, and its length is derived from the grid gap, so it never leaves the
-  stub of a line hanging off the end of the row.
-
-  The outer wrapper keeps the .ori-gvm-product and layout classes so the band
-  background matches the sections around it. Everything inside uses its own
-  .ori-gvm-steps namespace.
+  ORI GVM Installation Process — ORI redesign.
+  Numbered step cards joined by a teal line, in the same design as the hub's
+  "How ordering works" (styles shared with sections/ori-steps.liquid). Numbers
+  follow block order, so adding or reordering steps renumbers them. Three
+  across on desktop, stacked with vertical connectors on tablet and mobile.
+  Same settings and step blocks as before; "Use tinted background" gives the
+  light band, otherwise the dark one.
 {%- endcomment -%}
-
-{{ 'ori-gvm-product.css' | asset_url | stylesheet_tag }}
-{{ 'ori-gvm-steps.css' | asset_url | stylesheet_tag }}
-
 {%- liquid
   assign section_id = section.settings.custom_id | default: section.id
-  assign container = section.settings.container | default: 'container'
   assign steps = section.blocks | where: 'type', 'step'
 -%}
-
 {%- if steps.size > 0 -%}
   <div
     id="{{ section_id }}"
-    class="ori-gvm-product ori-gvm-product--{{ section.settings.layout | default: 'classic' }} color-{{ section.settings.color_schema }}"
+    class="ori ori-section ori-steps ori-steps--{% if section.settings.alt_background %}light{% else %}dark{% endif %}"
     data-section-type="ori-gvm-steps"
-    style="--gvm-tint: {{ section.settings.tint_color | default: '#f3f6f7' }};"
+    style="--ori-pt: {{ section.settings.padding_top }}px; --ori-pb: {{ section.settings.padding_bottom }}px;"
   >
-    <div
-      class="ori-gvm-product__band ori-gvm-product__band--steps{% if section.settings.alt_background %} ori-gvm-product__band--alt{% endif %}"
-      style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;"
-    >
-      <div class="{{ container }}">
-        {%- if section.settings.heading != blank -%}
-          <h2 class="ori-gvm-steps__heading h3 ori-gvm-steps__heading--{{ section.settings.heading_align | default: 'center' }}">
-            {{ section.settings.heading }}
-          </h2>
-        {%- endif -%}
-
-        <ol
-          class="ori-gvm-steps"
-          style="--steps-count: {{ steps.size }}; --step-dot: {{ section.settings.dot_size | default: 54 }}px;"
-        >
-          {%- for block in steps -%}
-            <li class="ori-gvm-steps__step" {{ block.shopify_attributes }}>
-              <span class="ori-gvm-steps__dot" aria-hidden="true"></span>
-              {%- if block.settings.heading != blank -%}
-                <h3 class="ori-gvm-steps__title">{{ block.settings.heading }}</h3>
-              {%- endif -%}
-              {%- if block.settings.text != blank -%}
-                <p class="ori-gvm-steps__text">{{ block.settings.text }}</p>
-              {%- endif -%}
-            </li>
-          {%- endfor -%}
-        </ol>
-      </div>
+    <div class="ori-wrap">
+      {%- if section.settings.heading != blank -%}
+        <div class="ori-head ori-head--{{ section.settings.heading_align | default: 'center' }}">
+          <div><h2 class="ori-h2">{{ section.settings.heading }}</h2></div>
+        </div>
+      {%- endif -%}
+      <ol class="ori-steps__list" style="--ori-n: {{ steps.size }};">
+        {%- for block in steps -%}
+          <li class="ori-step" {{ block.shopify_attributes }}>
+            <div class="ori-step__top">
+              <span class="ori-step__num" aria-hidden="true">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+            </div>
+            {%- if block.settings.heading != blank -%}
+              <h3 class="ori-step__title">
+                <span class="ori-sr">Step {{ forloop.index }}: </span>
+                {{- block.settings.heading -}}
+              </h3>
+            {%- endif -%}
+            {%- if block.settings.text != blank -%}
+              <div class="ori-step__text"><p>{{ block.settings.text }}</p></div>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ol>
     </div>
   </div>
 {%- endif -%}

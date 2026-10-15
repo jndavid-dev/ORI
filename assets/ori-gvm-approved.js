@@ -89,6 +89,7 @@
 
             this.target.innerHTML = '';
             this.target.appendChild(document.importNode(found, true));
+            this.retitle(this.target);
             runScripts(this.target);
             this.setAttribute('data-state', 'loaded');
           }.bind(this)
@@ -98,6 +99,19 @@
             this.fail('error');
           }.bind(this)
         );
+    }
+
+    /* Optional per-page wording: the source keeps its own heading and intro,
+       this page can show different ones (data-heading / data-intro). */
+    retitle(root) {
+      var h = this.getAttribute('data-heading');
+      var p = this.getAttribute('data-intro');
+      var heading = root.querySelector('h2');
+      if (h && heading) heading.textContent = h;
+      if (p) {
+        var intro = root.querySelector('.ori-head__intro');
+        if (intro) intro.textContent = p;
+      }
     }
 
     fail(reason) {
