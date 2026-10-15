@@ -386,7 +386,98 @@
                               {%- endif -%}
 
                             {% when 'price_range' %}
-                              {%- comment -%} keep your existing price range block here if you need it {%- endcomment -%}
+                              {%- comment -%}
+                                Price filter: two price boxes and a slider, driven by the
+                                theme's <price-range> element (assets/facets.js). Was left
+                                as an empty placeholder, so "Price" showed no options.
+                              {%- endcomment -%}
+                              {% liquid
+                                assign currencies_using_comma_decimals = 'ANG,ARS,BRL,BYN,BYR,CLF,CLP,COP,CRC,CZK,DKK,EUR,HRK,HUF,IDR,ISK,MZN,NOK,PLN,RON,RUB,SEK,TRY,UYU,VES,VND' | split: ','
+                                assign uses_comma_decimals = false
+                                if currencies_using_comma_decimals contains cart.currency.iso_code
+                                  assign uses_comma_decimals = true
+                                endif
+
+                                if uses_comma_decimals
+                                  assign from_value = filter.min_value.value | money_without_currency | replace: '.', '' | replace: ',', '.'
+                                  assign to_value = filter.max_value.value | money_without_currency | replace: '.', '' | replace: ',', '.'
+                                  assign max = filter.range_max | money_without_currency | replace: '.', '' | replace: ',', '.'
+                                else
+                                  assign from_value = filter.min_value.value | money_without_currency | replace: ',', ''
+                                  assign to_value = filter.max_value.value | money_without_currency | replace: ',', ''
+                                  assign max = filter.range_max | money_without_currency | replace: ',', ''
+                                endif
+                                assign max = max | ceil
+                                assign range_from = from_value | default: 0 | floor
+                                assign range_to = to_value | default: max | ceil
+                                assign price_gap = 5
+                                assign pct_min = range_from | times: 100.0 | divided_by: max
+                                assign pct_max = range_to | times: 100.0 | divided_by: max
+                              %}
+                              <price-range
+                                class="f-facets-price"
+                                data-price-gap="{{ price_gap }}"
+                                data-price-max="{{ max }}"
+                                style="--price-min: {{ pct_min }}%; --price-max: {{ pct_max }}%;"
+                              >
+                                <div class="f-facets-price__range-group">
+                                  <input
+                                    class="f-facets-price__range"
+                                    type="range"
+                                    min="0"
+                                    max="{{ max }}"
+                                    step="1"
+                                    value="{{ range_from }}"
+                                    data-type="min-range"
+                                    aria-label="{{ 'products.facets.from' | t }}"
+                                  >
+                                  <input
+                                    class="f-facets-price__range"
+                                    type="range"
+                                    min="0"
+                                    max="{{ max }}"
+                                    step="1"
+                                    value="{{ range_to }}"
+                                    data-type="max-range"
+                                    aria-label="{{ 'products.facets.to' | t }}"
+                                  >
+                                </div>
+                                <div class="f-facets-price__inputs">
+                                  <div class="f-facets-price__field">
+                                    <span class="visually-hidden">{{ 'products.facets.from' | t }}</span>
+                                    <span class="f-facets-price__field-currency">{{ cart.currency.symbol }}</span>
+                                    <input
+                                      class="form-control"
+                                      name="{{ filter.min_value.param_name }}"
+                                      id="Filter-{{ filter.label | escape }}-GTE-{{ section.id }}"
+                                      {%- if filter.min_value.value %} value="{{ from_value }}"{% endif %}
+                                      type="number"
+                                      inputmode="numeric"
+                                      placeholder="0"
+                                      min="0"
+                                      max="{{ range_to | minus: price_gap }}"
+                                      data-type="min-input"
+                                    >
+                                  </div>
+                                  <span class="f-facets-price__to">{{ 'products.facets.to' | t }}</span>
+                                  <div class="f-facets-price__field">
+                                    <span class="visually-hidden">{{ 'products.facets.to' | t }}</span>
+                                    <span class="f-facets-price__field-currency">{{ cart.currency.symbol }}</span>
+                                    <input
+                                      class="form-control"
+                                      name="{{ filter.max_value.param_name }}"
+                                      id="Filter-{{ filter.label | escape }}-LTE-{{ section.id }}"
+                                      {%- if filter.max_value.value %} value="{{ to_value }}"{% endif %}
+                                      type="number"
+                                      inputmode="numeric"
+                                      min="{{ range_from | plus: price_gap }}"
+                                      max="{{ max }}"
+                                      placeholder="{{ max }}"
+                                      data-type="max-input"
+                                    >
+                                  </div>
+                                </div>
+                              </price-range>
                           {% endcase %}
                         </div>
                       </collapsible-tab>

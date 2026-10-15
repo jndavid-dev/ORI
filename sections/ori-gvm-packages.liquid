@@ -17,7 +17,7 @@
 -%}
 <div
   {% if section.settings.anchor != blank %}id="{{ section.settings.anchor | handleize }}"{% endif %}
-  class="ori ori-section ori-vgrid-section{% if section.settings.tinted %} ori-vgrid-section--tint{% endif %}"
+  class="ori ori-section ori-vgrid-section ori-pkgs{% if section.settings.tinted %} ori-vgrid-section--tint{% endif %}"
   style="--ori-pt: {{ section.settings.padding_top }}px; --ori-pb: {{ section.settings.padding_bottom }}px;"
 >
   <div class="ori-wrap">

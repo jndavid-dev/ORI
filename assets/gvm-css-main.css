@@ -7736,10 +7736,12 @@ a.ori-brandbar__tile:hover .ori-brandbar__logo {
   }
 
   /* One row that scrolls sideways, with the next logo peeking in. */
+  /* Bleeds to the screen edge (the .ori-wrap gutter: 32px, 18px on
+     phones) so logos scroll out of view instead of being cut short. */
   .ori-brandbar__list {
     grid-auto-columns: 140px;
-    margin: 0 -18px;
-    padding: 2px 18px 6px;
+    margin: 0 -32px;
+    padding: 2px 32px 6px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
@@ -7816,8 +7818,7 @@ a.ori-brandbar__tile:hover .ori-brandbar__logo {
   font-weight: 600;
 }
 
-.ori-cgrid .collection-sortby select,
-.ori-cgrid .f-facets__block-sortby select {
+.ori-cgrid .collection-sortby select {
   min-height: 44px;
   padding-inline: 14px 36px;
   border: 1px solid #c9cfce;
@@ -7863,7 +7864,7 @@ a.ori-brandbar__tile:hover .ori-brandbar__logo {
 }
 
 .ori-cgrid .f-facets__block-header .text-button {
-  font-family: var(--ori-display);
+  font-family: var(--ori-display) !important;
   font-size: 19px;
   font-weight: 800;
   letter-spacing: 0.02em;
@@ -7996,6 +7997,145 @@ a.ori-brandbar__tile:hover .ori-brandbar__logo {
   font-family: var(--ori-display) !important;
   font-size: 19px;
   text-transform: uppercase;
+}
+
+/* --- Filter drawer (tablet and phone): header, sort row, price,
+   and Clear all + Apply side by side in the footer. --- */
+.ori-cgrid .f-facets__header {
+  height: auto;
+  min-height: 64px;
+  padding: 14px 20px;
+}
+
+.ori-cgrid .f-facets__header .collection-product-count {
+  font-size: 14px;
+}
+
+.ori-cgrid .f-facets__block-sortby {
+  margin: 0 -20px;
+  border-bottom: 1px solid var(--ori-line);
+}
+
+.ori-cgrid .f-facets__block-sortby .flex {
+  min-height: 60px;
+  padding: 0 20px;
+}
+
+.ori-cgrid .f-facets__block-sortby label {
+  margin: 0;
+  font-family: var(--ori-display) !important;
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.ori-cgrid .f-facets__block-sortby select {
+  max-width: 60%;
+  border: 0;
+  background-color: transparent;
+  color: var(--ori-teal-deep);
+  font-family: var(--ori-body);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.ori-cgrid .f-facets-price__range-group {
+  margin: 14px 8px 4px;
+}
+
+.ori-cgrid .f-facets-price__inputs {
+  padding-top: 18px;
+}
+
+.ori-cgrid .f-facets-price__to {
+  margin: 0 12px;
+  color: var(--ori-steel);
+  font-size: 14px;
+}
+
+.ori-cgrid .f-facets__footer {
+  gap: 12px;
+  padding: 14px 20px calc(14px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--ori-line);
+  background: #fff;
+}
+
+.ori-cgrid .f-facets__footer facet-remove {
+  flex: 1;
+}
+
+.ori-cgrid .f-facets__footer facet-apply {
+  flex: 1.6;
+}
+
+.ori-cgrid .f-facets__footer .btn {
+  width: 100%;
+  min-height: 50px;
+  border-radius: 4px;
+  font-family: var(--ori-display) !important;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.ori-cgrid .f-facets__footer .btn--underline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--ori-ink);
+  background: #fff;
+  color: var(--ori-ink);
+  text-decoration: none;
+}
+
+.ori-cgrid .f-facets__footer .btn--underline::before,
+.ori-cgrid .f-facets__footer .btn--underline::after {
+  display: none;
+}
+
+/* "Show more" under long filter lists: a text link, not a teal pill. */
+.ori-cgrid .button-show-more.btn--underline {
+  min-height: 0;
+  margin-top: 6px;
+  padding: 0 0 2px !important;
+  border: 0;
+  border-bottom: 2px solid var(--ori-teal);
+  border-radius: 0;
+  background: none;
+  color: var(--ori-ink);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* --- Phones: collection hero and brand bar --- */
+@media (max-width: 700px) {
+  .ori-brandbar__list {
+    margin: 0 -18px;
+    padding-inline: 18px;
+  }
+
+  .ori .ori-hero--collection .ori-hero__title {
+    font-size: clamp(36px, 10vw, 46px);
+  }
+
+  .ori-hero--collection .ori-hero__sub {
+    font-size: 15px;
+  }
+
+  /* Long summaries: only the first paragraph on phones so the products
+     aren't pushed far down. The rest stays in the page for SEO. */
+  .ori-hero--collection .ori-hero__sub p ~ p {
+    display: none;
+  }
+
+  .ori-cgrid .main-collection__wrapper {
+    margin-top: 16px;
+  }
+
+  .ori-cgrid .product-grid__header {
+    margin-bottom: 18px;
+  }
 }
 
 /* --- Rich text from the admin (descriptions, metafield rich text) --- */
@@ -8376,6 +8516,30 @@ a.ori-brandbar__tile:hover .ori-brandbar__logo {
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+/* Phones: the shared packages list swipes sideways (next card peeking
+   in) instead of stacking five tall cards under the products. */
+@media (max-width: 560px) {
+  .ori-pkgs .ori-vgrid--wide {
+    grid-template-columns: none;
+    grid-auto-columns: 78%;
+    grid-auto-flow: column;
+    gap: 14px;
+    margin: 0 -18px;
+    padding: 0 18px 8px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .ori-pkgs .ori-vgrid--wide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ori-pkgs .ori-vcard {
+    scroll-snap-align: start;
+  }
 }
 
 /* --- ORI card inside the theme's own grids and sliders (featured
