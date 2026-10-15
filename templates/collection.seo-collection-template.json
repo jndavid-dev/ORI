@@ -15,12 +15,12 @@
         "heading": "",
         "text": "",
         "use_summary": true,
+        "overlay": 55,
         "use_banner": true,
         "badge_text": "",
         "show_breadcrumb": true,
         "show_count": true,
-        "min_height": 360,
-        "overlay": 55
+        "min_height": 360
       }
     },
     "ori_brands": {
@@ -29,7 +29,7 @@
         "brand_amp_research_power_s": {
           "type": "brand",
           "settings": {
-            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__AMP.jpg",
+            "image": "shopify://shop_images/AMP.png",
             "collection": "amp-research-power-steps-bed-steps-bed-guard-australia",
             "link": "",
             "title": "AMP Research"
@@ -38,7 +38,7 @@
         "brand_husky": {
           "type": "brand",
           "settings": {
-            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__HUSKY_LINERS.jpg",
+            "image": "shopify://shop_images/husky.png",
             "collection": "husky",
             "link": "",
             "title": "Husky"
@@ -47,7 +47,7 @@
         "brand_addictive_desert_des": {
           "type": "brand",
           "settings": {
-            "image": "shopify://shop_images/ICONS_FOR_WEBSITE_ADD.png",
+            "image": "shopify://shop_images/add.png",
             "collection": "addictive-desert-designs",
             "link": "",
             "title": "ADD OFFROAD"
@@ -56,7 +56,7 @@
         "brand_bds_suspension_austr": {
           "type": "brand",
           "settings": {
-            "image": "shopify://shop_images/ICONS_FOR_WEBSITE_BDS.png",
+            "image": "shopify://shop_images/bds.png",
             "collection": "bds-suspension-australian-distributor",
             "link": "",
             "title": "BDS"
@@ -65,7 +65,7 @@
         "brand_fox_suspension": {
           "type": "brand",
           "settings": {
-            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__FOX.jpg",
+            "image": "shopify://shop_images/fox.png",
             "collection": "fox-suspension",
             "link": "",
             "title": "FOX"
@@ -74,7 +74,7 @@
         "brand_bushwacker": {
           "type": "brand",
           "settings": {
-            "image": "shopify://shop_images/ICONS_FOR_WEBSITE_BUSHWACKER.png",
+            "image": "shopify://shop_images/bushwacker.png",
             "collection": "bushwacker",
             "link": "",
             "title": "BUSHWACKER"
@@ -120,16 +120,20 @@
         "tag_filter_heading": "By Vehicle",
         "tag_filter_exclude_prefixes": "spo-,filter-",
         "tag_filter_include_prefixes": "",
+        "card_button": "cart",
         "paginate_type": "number",
         "padding_top": 0,
-        "padding_bottom": 80,
-        "card_button": "cart"
+        "padding_bottom": 80
       }
     },
     "ori_content": {
       "type": "ori-collection-content",
       "settings": {
         "eyebrow": "About the range",
+        "show_title": true,
+        "help_text": "Not sure what fits your truck? Our team can help you choose.",
+        "help_label": "Contact our team",
+        "help_link": "/pages/contact",
         "text": "",
         "collapse": true,
         "collapsed_height": 420,
@@ -137,11 +141,7 @@
         "less_label": "Read less",
         "tinted": true,
         "padding_top": 72,
-        "padding_bottom": 72,
-        "show_title": true,
-        "help_text": "Not sure what fits your truck? Our team can help you choose.",
-        "help_label": "Contact our team",
-        "help_link": "/pages/contact"
+        "padding_bottom": 72
       }
     },
     "ori_features": {
