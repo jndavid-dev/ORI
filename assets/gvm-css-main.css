@@ -7742,6 +7742,7 @@ a.ori-brandbar__tile:hover .ori-brandbar__logo {
     grid-auto-columns: 140px;
     margin: 0 -32px;
     padding: 2px 32px 6px;
+    scroll-padding-inline: 32px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
@@ -8053,19 +8054,62 @@ a.ori-brandbar__tile:hover .ori-brandbar__logo {
   font-size: 14px;
 }
 
+/* The theme stacks the footer as a column pushed to the bottom with
+   flex: 2; here it's one row, Clear all beside Apply, at the bottom. */
 .ori-cgrid .f-facets__footer {
+  flex: 0 0 auto;
+  flex-flow: row nowrap;
+  align-items: stretch;
+  justify-content: space-between;
   gap: 12px;
+  margin-top: auto;
   padding: 14px 20px calc(14px + env(safe-area-inset-bottom));
   border-top: 1px solid var(--ori-line);
   background: #fff;
 }
 
 .ori-cgrid .f-facets__footer facet-remove {
+  display: block;
   flex: 1;
+  width: auto;
 }
 
 .ori-cgrid .f-facets__footer facet-apply {
+  display: block;
   flex: 1.6;
+  width: auto;
+}
+
+/* Close (X): the theme's teal-button rule turned it white on white. */
+.ori-cgrid .f-drawer__close {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ori-ink);
+}
+
+.ori-cgrid .f-drawer__close svg {
+  width: 20px;
+  height: 20px;
+  color: var(--ori-ink);
+  stroke: currentColor;
+}
+
+/* Sort/filter bar: sticks below the GVM portal menu bar when that bar is
+   fixed (gvm-subnav.js publishes --gvm-subnav-height, 0px otherwise), and
+   under its z-index (89) so the open portal menu drops over it. */
+.ori-cgrid .product-grid__header {
+  top: var(--gvm-subnav-height, 0px);
+  z-index: 88;
+}
+
+.header-pinned .ori-cgrid .product-grid__header {
+  top: calc(var(--f-header-height, 0px) - 2px + var(--gvm-subnav-height, 0px));
 }
 
 .ori-cgrid .f-facets__footer .btn {
@@ -8113,6 +8157,7 @@ a.ori-brandbar__tile:hover .ori-brandbar__logo {
   .ori-brandbar__list {
     margin: 0 -18px;
     padding-inline: 18px;
+    scroll-padding-inline: 18px;
   }
 
   .ori .ori-hero--collection .ori-hero__title {
@@ -8528,6 +8573,7 @@ a.ori-brandbar__tile:hover .ori-brandbar__logo {
     gap: 14px;
     margin: 0 -18px;
     padding: 0 18px 8px;
+    scroll-padding-inline: 18px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
