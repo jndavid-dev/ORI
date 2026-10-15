@@ -978,158 +978,18 @@
       }
     },
     "contact_form_v4_3VcJeR": {
-      "type": "contact-form-v4",
-      "blocks": {
-        "name_PK3HdB": {
-          "type": "name",
-          "settings": {
-            "label": "Name",
-            "field_name": "Name",
-            "placeholder": "Enter your name",
-            "field_width": "full",
-            "hide_label": true,
-            "required": true
-          }
-        },
-        "email_VajCJ3": {
-          "type": "email",
-          "settings": {
-            "label": "Email",
-            "placeholder": "Enter your email",
-            "field_width": "full",
-            "hide_label": true
-          }
-        },
-        "phone_L44CfG": {
-          "type": "phone",
-          "settings": {
-            "label": "Phone number",
-            "placeholder": "Enter your phone number",
-            "field_width": "full",
-            "hide_label": true,
-            "required": true
-          }
-        },
-        "rego_status_wYBXXK": {
-          "type": "rego_status",
-          "settings": {
-            "label": "Pre or Post rego",
-            "field_name": "Pre or Post rego",
-            "placeholder": "Pre or Post-Rego",
-            "options": "Pre rego, Post rego",
-            "field_width": "full",
-            "hide_label": true,
-            "required": true
-          }
-        },
-        "custom_select_9yNqx8": {
-          "type": "custom_select",
-          "settings": {
-            "label": "Which Vehicle",
-            "field_name": "Which Vehicle",
-            "placeholder": "Which Vehicle",
-            "options": "Ford F150, Chevy 1500, Chevy 2500HD, Toyota Tundra, RAM 2500 (5th Gen), RAM 2500 (6th Gen), Toyota LC300",
-            "depends_on": "",
-            "options_map": "",
-            "empty_text": "Select the field above first",
-            "field_width": "100",
-            "hide_label": true,
-            "required": true
-          }
-        },
-        "custom_select_VgiUD8": {
-          "type": "custom_select",
-          "settings": {
-            "label": "What Stage GVM Package",
-            "field_name": "What Stage GVM Package",
-            "placeholder": "What Stage GVM Package",
-            "options": "Stage 1, Stage 2, Stage 3, Stage 4, Stage 5, Stage 6",
-            "depends_on": "",
-            "options_map": "",
-            "empty_text": "Select the field above first",
-            "field_width": "100",
-            "hide_label": true,
-            "required": true
-          }
-        },
-        "location_fJEea9": {
-          "type": "location",
-          "settings": {
-            "label": "What is your location",
-            "field_name": "Location",
-            "placeholder": "What is your location?",
-            "field_width": "full",
-            "hide_label": true,
-            "required": true
-          }
-        },
-        "message_RnLkxr": {
-          "type": "message",
-          "settings": {
-            "label": "Message",
-            "placeholder": "Which GVM Package do you want further information on?",
-            "rows": 3,
-            "field_width": "100",
-            "hide_label": true
-          }
-        },
-        "step_your_enquiry_3VcJeR": {
-          "type": "step",
-          "settings": {
-            "title": "Your enquiry",
-            "caption": "Anything else we should know."
-          }
-        },
-        "step_your_vehicle_3VcJeR": {
-          "type": "step",
-          "settings": {
-            "title": "Your vehicle",
-            "caption": "Helps us match the right GVM package."
-          }
-        },
-        "step_your_details_3VcJeR": {
-          "type": "step",
-          "settings": {
-            "title": "Your details",
-            "caption": "So we know who to send the quote to."
-          }
-        }
-      },
-      "block_order": [
-        "step_your_details_3VcJeR",
-        "name_PK3HdB",
-        "email_VajCJ3",
-        "phone_L44CfG",
-        "step_your_vehicle_3VcJeR",
-        "rego_status_wYBXXK",
-        "custom_select_9yNqx8",
-        "custom_select_VgiUD8",
-        "step_your_enquiry_3VcJeR",
-        "location_fJEea9",
-        "message_RnLkxr"
-      ],
-      "name": "Contact form v4",
+      "type": "ori-gvm-quote",
       "settings": {
-        "container": "container",
-        "color_schema": "",
-        "heading": "GVM Enquiry? Contact us Now",
-        "subheading": "",
-        "description": "",
         "display_mode": "inline",
         "popup_id": "gvm-quote",
-        "popup_width": 560,
-        "form_design": "design-1",
-        "form_width": 500,
-        "form_alignment": "center",
+        "eyebrow": "",
+        "heading": "GVM Enquiry? Contact us Now",
+        "intro": "",
         "button_label": "Send",
-        "button_style": "btn--primary",
         "padding_top": 40,
         "padding_bottom": 40,
-        "show_section_divider": false,
-        "divider_width": "container",
-        "custom_id": "",
         "custom_class": "",
-        "animations": "inherit"
+        "kit_collection": "toyota-tundra-platinum-gvm-upgrade"
       }
     },
     "rich_text_4AxLyp": {

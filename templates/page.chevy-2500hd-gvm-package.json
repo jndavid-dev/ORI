@@ -1540,158 +1540,18 @@
       }
     },
     "contact_form_v4_YzWJbE": {
-      "type": "contact-form-v4",
-      "blocks": {
-        "step_your_details_YzWJbE": {
-          "type": "step",
-          "settings": {
-            "title": "Your details",
-            "caption": "So we know who to send the quote to."
-          }
-        },
-        "name_GV7LzQ": {
-          "type": "name",
-          "settings": {
-            "label": "Name",
-            "field_name": "Name",
-            "placeholder": "Enter your name",
-            "field_width": "full",
-            "hide_label": true,
-            "required": true
-          }
-        },
-        "email_CnB7aV": {
-          "type": "email",
-          "settings": {
-            "label": "Email",
-            "placeholder": "Enter your email",
-            "field_width": "full",
-            "hide_label": true
-          }
-        },
-        "phone_xxDBjJ": {
-          "type": "phone",
-          "settings": {
-            "label": "Phone number",
-            "placeholder": "Enter your phone number",
-            "field_width": "full",
-            "hide_label": true,
-            "required": true
-          }
-        },
-        "step_your_vehicle_YzWJbE": {
-          "type": "step",
-          "settings": {
-            "title": "Your vehicle",
-            "caption": "Helps us match the right GVM package."
-          }
-        },
-        "rego_status_GHUeAg": {
-          "type": "rego_status",
-          "settings": {
-            "label": "Pre or Post rego",
-            "field_name": "Pre or Post rego",
-            "placeholder": "Select one",
-            "options": "Pre rego, Post rego",
-            "field_width": "full",
-            "hide_label": true,
-            "required": true
-          }
-        },
-        "custom_select_4BAt7V": {
-          "type": "custom_select",
-          "settings": {
-            "label": "Which Vehicle",
-            "field_name": "Which Vehicle",
-            "placeholder": "Which Vehicle",
-            "options": "Ford F150, Chevy 1500, Chevy 2500HD, Toyota Tundra, RAM 2500 (5th Gen), RAM 2500 (6th Gen), Toyota LC300",
-            "depends_on": "",
-            "options_map": "",
-            "empty_text": "Select the field above first",
-            "field_width": "100",
-            "hide_label": true,
-            "required": true
-          }
-        },
-        "custom_select_d7bihk": {
-          "type": "custom_select",
-          "settings": {
-            "label": "What Stage GVM Package",
-            "field_name": "What Stage GVM Package",
-            "placeholder": "What Stage GVM Package",
-            "options": "Stage 1, Stage 2, Stage 3, Stage 4, Stage 5, Stage 6",
-            "depends_on": "",
-            "options_map": "",
-            "empty_text": "Select the field above first",
-            "field_width": "100",
-            "hide_label": true,
-            "required": true
-          }
-        },
-        "step_your_enquiry_YzWJbE": {
-          "type": "step",
-          "settings": {
-            "title": "Your enquiry",
-            "caption": "Anything else we should know."
-          }
-        },
-        "location_TLebdV": {
-          "type": "location",
-          "settings": {
-            "label": "What is your location",
-            "field_name": "Location",
-            "placeholder": "What is your location?",
-            "field_width": "full",
-            "hide_label": true,
-            "required": true
-          }
-        },
-        "message_QFCAgC": {
-          "type": "message",
-          "settings": {
-            "label": "Message",
-            "placeholder": "Which GVM Package do you want further information on?",
-            "rows": 3,
-            "field_width": "100",
-            "hide_label": true
-          }
-        }
-      },
-      "block_order": [
-        "step_your_details_YzWJbE",
-        "name_GV7LzQ",
-        "email_CnB7aV",
-        "phone_xxDBjJ",
-        "step_your_vehicle_YzWJbE",
-        "rego_status_GHUeAg",
-        "custom_select_4BAt7V",
-        "custom_select_d7bihk",
-        "step_your_enquiry_YzWJbE",
-        "location_TLebdV",
-        "message_QFCAgC"
-      ],
-      "name": "Contact form v4",
+      "type": "ori-gvm-quote",
       "settings": {
-        "container": "container",
-        "color_schema": "",
-        "heading": "GVM Enquiry? Contact us Now",
-        "subheading": "",
-        "description": "",
         "display_mode": "inline",
         "popup_id": "gvm-quote",
-        "popup_width": 560,
-        "form_design": "design-1",
-        "form_width": 500,
-        "form_alignment": "center",
+        "eyebrow": "",
+        "heading": "GVM Enquiry? Contact us Now",
+        "intro": "",
         "button_label": "Send",
-        "button_style": "btn--primary",
         "padding_top": 40,
         "padding_bottom": 40,
-        "show_section_divider": false,
-        "divider_width": "container",
-        "custom_id": "",
         "custom_class": "",
-        "animations": "inherit"
+        "kit_collection": "chevrolet-silverado-2500-ltz-gvm-upgrade"
       }
     },
     "contact_form_v2_RPLgEE": {
