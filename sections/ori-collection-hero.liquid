@@ -6,9 +6,10 @@
   - Heading: the collection title (or the Heading setting when filled).
   - Text: metafield custom.collection_summary (rich text) when set, else
     the Text setting. Live has the metafield; staging doesn't.
-  - Image: metafield custom.banner_image when set → "Photo" look, the
-    picture on the right faded into the dark. Without it → the dark
-    ridge-line texture. The picker below overrides both.
+  - Image: metafield custom.banner_image when set → full background
+    image behind the copy with a dark shade (as on the live site).
+    Without it → the dark ridge-line texture. The picker below
+    overrides both.
   - Breadcrumb: Home / Collections / title.
 
   Metafields are read here in Liquid rather than linked as dynamic
@@ -34,23 +35,23 @@
 
   assign hero_style = 'plain'
   if hero_image != blank
-    assign hero_style = 'photo'
+    assign hero_style = 'bg'
   endif
 -%}
 <div
   class="ori ori-hero ori-hero--{{ hero_style }} ori-hero--collection"
-  style="--ori-hero-h: {{ section.settings.min_height }}px;"
+  style="--ori-hero-h: {{ section.settings.min_height }}px; --ori-hero-shade: {{ section.settings.overlay | divided_by: 100.0 }};"
 >
   {%- if hero_image != blank -%}
-    <div class="ori-hero__media">
+    <div class="ori-hero__bg">
       {{
         hero_image
-        | image_url: width: 2000
+        | image_url: width: 2400
         | image_tag:
-          widths: '800, 1200, 1600, 2000',
-          sizes: '(min-width: 1025px) 54vw, 100vw',
+          widths: '750, 1100, 1500, 2000, 2400',
+          sizes: '100vw',
           fetchpriority: 'high',
-          alt: hero_image.alt
+          alt: ''
       }}
     </div>
   {%- endif -%}
@@ -117,7 +118,17 @@
       "type": "image_picker",
       "id": "image",
       "label": "Image",
-      "info": "Empty uses the collection's banner_image metafield, or the dark texture when that's empty too."
+      "info": "Background image. Empty uses the collection's banner_image metafield, or the dark texture when that's empty too."
+    },
+    {
+      "type": "range",
+      "id": "overlay",
+      "label": "Background image shade",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "default": 55
     },
     {
       "type": "checkbox",

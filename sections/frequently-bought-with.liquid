@@ -47,14 +47,10 @@
       {%- unless seen contains dedupe_key -%}
         {%- assign seen = seen | append: dedupe_key -%}
         <li class="fbw__slide">
-          {%- render 'product-card',
-            product: product,
-            color_schema: section.settings.color_schema,
-            image_ratio: image_ratio,
-            show_vendor: show_vendor,
-            section_index: section.index,
-            index: forloop.index
-          -%}
+          {%- comment -%} ORI redesign card (snippets/ori-product-card.liquid) {%- endcomment -%}
+          <div class="ori ori-card-cell">
+            {%- render 'ori-product-card', product: product, button: 'cart' -%}
+          </div>
         </li>
       {%- endunless -%}
     {%- endfor -%}

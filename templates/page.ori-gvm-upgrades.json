@@ -1592,94 +1592,18 @@
       }
     },
     "ori_vehicles": {
-      "type": "ori-vehicle-grid",
-      "blocks": {
-        "v_tundra": {
-          "type": "vehicle",
-          "settings": {
-            "image_asset": "",
-            "title": "Toyota Tundra",
-            "specs": "4300 GVM | 8800 GCM | 35\" tyres legal",
-            "text": "Platinum & Limited.",
-            "url": "shopify://collections/toyota-tundra-platinum-gvm-upgrade",
-            "button_label": "View packages & pricing",
-            "pdf_url": "https://cdn.shopify.com/s/files/1/0165/6516/files/GVM_BROCHURE_BACK_Toyota_Tundra.pdf?v=1779415154",
-            "pdf_label": "Download brochure (PDF)",
-            "image": "shopify://shop_images/Toyota-Tundra--tile-ad---20260505-4-1.png"
-          }
-        },
-        "v_s2500": {
-          "type": "vehicle",
-          "settings": {
-            "image_asset": "",
-            "title": "Chevy Silverado 2500HD",
-            "specs": "6T GVM | 37\" tyres legal",
-            "text": "Chevrolet Silverado 2500HD LTZ.",
-            "url": "shopify://collections/chevrolet-silverado-2500-ltz-gvm-upgrade",
-            "button_label": "View packages & pricing",
-            "pdf_url": "https://cdn.shopify.com/s/files/1/0165/6516/files/GVM_BROCHURE_BACK_Chevy_Silverado_2500HD_LTZ.pdf?v=1779415154",
-            "pdf_label": "Download brochure (PDF)",
-            "image": "shopify://shop_images/Chevy-2500--tile-ad---20260505-4_7ce36d9a-1565-4823-b14a-b3e36018df11.png"
-          }
-        },
-        "v_s1500": {
-          "type": "vehicle",
-          "settings": {
-            "image_asset": "",
-            "title": "Silverado 1500 LTZ & ZR2",
-            "specs": "4250 GVM | 8750 GCM",
-            "text": "Federally approved packages.",
-            "url": "shopify://collections/chevrolet-silverado-1500-ltz-zr2-trailboss-gvm-upgrade",
-            "button_label": "View packages & pricing",
-            "pdf_url": "https://cdn.shopify.com/s/files/1/0165/6516/files/GVM_BROCHURE_BACK_Chevy_Silverado_1500.pdf?v=1779415153",
-            "pdf_label": "Download brochure (PDF)",
-            "image": "shopify://shop_images/Chevy-Silverado-1500--tile-ad---20260505-4_753e16ce-f09c-454c-8683-7edc168f4eae.png"
-          }
-        },
-        "v_f150": {
-          "type": "vehicle",
-          "settings": {
-            "image_asset": "",
-            "title": "Ford F150",
-            "specs": "4300 GVM | 8800 GCM",
-            "text": "Platinum, Lariat & XLT. Federally approved GVM.",
-            "url": "shopify://collections/ford-f150-platinum-lariat-xlt-gvm-upgrade",
-            "button_label": "View packages & pricing",
-            "pdf_url": "https://cdn.shopify.com/s/files/1/0165/6516/files/GVM_BROCHURE_BACK_Ford_F150.pdf?v=1779415153",
-            "pdf_label": "Download brochure (PDF)",
-            "image": "shopify://shop_images/FORD-F150---tile-ad---20260505-4-3.png"
-          }
-        },
-        "v_f150_lift": {
-          "type": "vehicle",
-          "settings": {
-            "image_asset": "",
-            "title": "Ford F150 lift packages",
-            "specs": "4\" & 6\" lift | 4000kg GVM",
-            "text": "Platinum, Lariat & XLT. Legal on 35\" and 37\" tyres.",
-            "url": "shopify://collections/ford-f150-platinum-lariat-xlt-gvm-upgrade",
-            "button_label": "View packages & pricing",
-            "pdf_url": "https://cdn.shopify.com/s/files/1/0165/6516/files/GVM_BROCHURE_BACK_Ford_F150.pdf?v=1779415153",
-            "pdf_label": "Download brochure (PDF)",
-            "image": "shopify://shop_images/FORD-F150---tile-ad---20260505-4-1_9dcaeba0-a747-4777-a6b3-eb3685b3b98f.png"
-          }
-        }
-      },
-      "block_order": [
-        "v_tundra",
-        "v_s2500",
-        "v_s1500",
-        "v_f150",
-        "v_f150_lift"
-      ],
+      "type": "ori-gvm-packages",
       "settings": {
         "heading": "ORI Federally Approved GVM & GCM Packages",
         "intro": "Choose your truck to see its staged packages, pricing and certified figures — or download the brochure.",
+        "link_label": "",
+        "link": "",
+        "image_ratio": "square",
         "columns": 5,
+        "tinted": false,
         "anchor": "vehicles",
         "padding_top": 80,
-        "padding_bottom": 80,
-        "image_ratio": "square"
+        "padding_bottom": 80
       }
     },
     "ori_products": {

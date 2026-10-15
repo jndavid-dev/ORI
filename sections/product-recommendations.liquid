@@ -70,13 +70,10 @@
           >
             {%- for product in recommendations.products -%}
               <div class="f-column">
-                {%- render 'product-card',
-                  color_schema: section.settings.color_schema,
-                  section_index: section.index,
-                  index: forloop.index,
-                  product: product,
-                  remove_params: remove_params
-                -%}
+                {%- comment -%} ORI redesign card (snippets/ori-product-card.liquid) {%- endcomment -%}
+                <div class="ori ori-card-cell">
+                  {%- render 'ori-product-card', product: product, button: 'cart' -%}
+                </div>
               </div>
             {%- endfor -%}
           </flickity-component>

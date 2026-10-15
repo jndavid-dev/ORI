@@ -80,7 +80,7 @@
       }
     },
     "product-grid": {
-      "type": "main-collection-product-grid",
+      "type": "ori-collection-grid",
       "settings": {
         "container": "container",
         "products_per_page": 15,

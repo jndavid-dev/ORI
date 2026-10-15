@@ -21,11 +21,30 @@
     class="ori ori-section ori-ccontent{% if section.settings.tinted %} ori-ccontent--tint{% endif %}"
     style="--ori-pt: {{ section.settings.padding_top }}px; --ori-pb: {{ section.settings.padding_bottom }}px; --ori-cut: {{ section.settings.collapsed_height }}px;"
   >
-    <div class="ori-wrap">
+    <div class="ori-wrap ori-ccontent__grid">
+      {%- comment -%}
+        Side column: a label, not a heading, so the description's own
+        H2s stay the page's content headings for search engines.
+      {%- endcomment -%}
+      <aside class="ori-ccontent__aside">
+        <div class="ori-ccontent__aside-in">
+          {%- if section.settings.eyebrow != blank -%}
+            <p class="ori-ccontent__eyebrow">{{ section.settings.eyebrow }}</p>
+          {%- endif -%}
+          {%- if section.settings.show_title and collection.title != blank -%}
+            <p class="ori-ccontent__title">{{ collection.title }}</p>
+          {%- endif -%}
+          {%- if section.settings.help_text != blank -%}
+            <div class="ori-ccontent__help">
+              <p>{{ section.settings.help_text }}</p>
+              {%- if section.settings.help_label != blank and section.settings.help_link != blank -%}
+                <a class="ori-link" href="{{ section.settings.help_link }}">{{ section.settings.help_label }}</a>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      </aside>
       <div class="ori-ccontent__inner">
-        {%- if section.settings.eyebrow != blank -%}
-          <p class="ori-ccontent__eyebrow">{{ section.settings.eyebrow }}</p>
-        {%- endif -%}
         <div class="ori-ccontent__body ori-rte" id="OriContent-{{ section.id }}">
           {{ body }}
         </div>
@@ -86,7 +105,11 @@
       "type": "paragraph",
       "content": "Shows the collection's description from the admin. Hidden when it's empty."
     },
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "About the range" },
+    { "type": "checkbox", "id": "show_title", "label": "Show the collection title in the side column", "default": true },
+    { "type": "textarea", "id": "help_text", "label": "Help text", "default": "Not sure what fits your truck? Our team can help you choose." },
+    { "type": "text", "id": "help_label", "label": "Help link label", "default": "Contact our team" },
+    { "type": "url", "id": "help_link", "label": "Help link" },
     {
       "type": "richtext",
       "id": "text",
@@ -106,7 +129,7 @@
     },
     { "type": "text", "id": "more_label", "label": "Read more label", "default": "Read more" },
     { "type": "text", "id": "less_label", "label": "Read less label", "default": "Read less" },
-    { "type": "checkbox", "id": "tinted", "label": "Light grey background", "default": false },
+    { "type": "checkbox", "id": "tinted", "label": "Light grey background", "default": true },
     { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 72 },
     { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 72 }
   ],

@@ -84,14 +84,10 @@
         {%- if product_list != blank -%}
           {%- for product in product_list limit: product_to_show -%}
             <div class="f-column">
-              {% render 'product-card',
-                color_schema: section.settings.color_schema,
-                product: product,
-                image_ratio: image_ratio,
-                show_vendor: show_vendor,
-                section_index: section.index,
-                index: forloop.index
-              %}
+              {%- comment -%} ORI redesign card (snippets/ori-product-card.liquid) {%- endcomment -%}
+              <div class="ori ori-card-cell">
+                {%- render 'ori-product-card', product: product, button: 'cart' -%}
+              </div>
             </div>
           {%- endfor -%}
         {%- else -%}

@@ -19,7 +19,8 @@
         "badge_text": "",
         "show_breadcrumb": true,
         "show_count": true,
-        "min_height": 360
+        "min_height": 360,
+        "overlay": 55
       }
     },
     "ori_brands": {
@@ -128,15 +129,19 @@
     "ori_content": {
       "type": "ori-collection-content",
       "settings": {
-        "eyebrow": "",
+        "eyebrow": "About the range",
         "text": "",
         "collapse": true,
         "collapsed_height": 420,
         "more_label": "Read more",
         "less_label": "Read less",
-        "tinted": false,
+        "tinted": true,
         "padding_top": 72,
-        "padding_bottom": 72
+        "padding_bottom": 72,
+        "show_title": true,
+        "help_text": "Not sure what fits your truck? Our team can help you choose.",
+        "help_label": "Contact our team",
+        "help_link": "/pages/contact"
       }
     },
     "ori_features": {

@@ -7480,3 +7480,913 @@ body .ori-marquee--light .f-promotion__item img {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* ==========================================================
+   ORI REDESIGN — COLLECTION PAGE
+   sections/ori-collection-hero.liquid, ori-brand-bar.liquid,
+   ori-collection-grid.liquid, ori-collection-content.liquid,
+   ori-collection-features.liquid, ori-collection-faq.liquid
+   (uses the .ori-gfaq FAQ styles), ori-gvm-packages.liquid
+   (uses the .ori-vcard vehicle cards).
+   ========================================================== */
+
+/* --- Hero: centred copy, wide measure. With a banner image (bg) the
+   picture fills the whole hero behind a dark shade, as on live. --- */
+.ori-hero--collection .ori-hero__in {
+  justify-content: center;
+  text-align: center;
+}
+
+.ori-hero--collection .ori-hero__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: min(1100px, 100%);
+  margin: 0 auto;
+}
+
+.ori .ori-hero--collection .ori-hero__title {
+  margin-bottom: 18px;
+  font-size: clamp(42px, 5.4vw, 84px);
+}
+
+.ori-hero--collection .ori-hero__sub {
+  max-width: 900px;
+  margin: 0 auto 20px;
+}
+
+.ori-hero--collection .ori-crumbs ol {
+  justify-content: center;
+}
+
+.ori-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.ori-hero__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ori-hero__bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(0deg, rgba(13, 17, 19, 0.85), rgba(13, 17, 19, 0) 45%),
+    rgba(13, 17, 19, var(--ori-hero-shade, 0.55));
+}
+
+.ori-hero--bg .ori-hero__sub {
+  color: #dfe6e7;
+}
+
+.ori-crumbs {
+  margin-bottom: 18px;
+  font-size: 14px;
+}
+
+.ori-crumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ori-crumbs li {
+  color: #8f9a9d;
+}
+
+.ori-crumbs li + li::before {
+  content: "/";
+  margin: 0 10px;
+  color: #56626a;
+}
+
+.ori-crumbs a {
+  color: #b7c3c6;
+  text-decoration: none;
+}
+
+.ori-crumbs a:hover {
+  color: var(--ori-teal);
+}
+
+.ori-crumbs [aria-current] {
+  color: #fff;
+}
+
+.ori-hero__count {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--ori-teal);
+  font-family: var(--ori-display);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.ori-hero__count::before {
+  content: "";
+  width: 28px;
+  height: 2px;
+  background: currentColor;
+}
+
+@media (max-width: 1024px) {
+  .ori-hero--collection .ori-hero__in {
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+}
+
+/* --- Brand bar: light band, teal rule, one row of logo tiles --- */
+.ori-brandbar {
+  padding: var(--ori-pt, 28px) 0 var(--ori-pb, 28px);
+  border-top: 3px solid var(--ori-teal);
+  border-bottom: 1px solid var(--ori-line);
+  background: var(--ori-bone);
+}
+
+.ori-brandbar__in {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.ori-brandbar__head {
+  flex: 0 0 auto;
+  max-width: 220px;
+}
+
+.ori .ori-brandbar__title {
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.ori-brandbar__title::after {
+  content: "";
+  display: block;
+  width: 36px;
+  height: 3px;
+  margin-top: 10px;
+  background: var(--ori-teal);
+}
+
+.ori-brandbar__text {
+  margin-top: 10px !important;
+  color: var(--ori-steel);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.ori-brandbar__list {
+  display: grid;
+  flex: 1;
+  grid-auto-columns: minmax(110px, 1fr);
+  grid-auto-flow: column;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ori-brandbar__tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  height: 100%;
+  color: var(--ori-ink);
+  text-decoration: none;
+}
+
+.ori-brandbar__logo {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 84px;
+  overflow: hidden;
+  border: 1px solid var(--ori-line);
+  border-radius: 6px;
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+/* Pinned inside the tile: the theme's global image rules otherwise let
+   the logo keep its own height and hang out of the bottom. */
+.ori .ori-brandbar__logo img {
+  position: absolute;
+  inset: 10px 14px;
+  width: calc(100% - 28px) !important;
+  max-width: none;
+  height: calc(100% - 20px) !important;
+  object-fit: contain;
+}
+
+a.ori-brandbar__tile:hover .ori-brandbar__logo {
+  border-color: var(--ori-teal);
+  box-shadow: 0 10px 24px -16px rgba(21, 25, 27, 0.45);
+  transform: translateY(-2px);
+}
+
+.ori-brandbar__wordmark {
+  font-family: var(--ori-display);
+  font-size: 18px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.ori-brandbar__name {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+@media (max-width: 990px) {
+  .ori-brandbar__in {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .ori-brandbar__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 14px;
+    max-width: none;
+  }
+
+  .ori-brandbar__title::after {
+    display: none;
+  }
+
+  .ori-brandbar__text {
+    margin-top: 0 !important;
+  }
+
+  /* One row that scrolls sideways, with the next logo peeking in. */
+  .ori-brandbar__list {
+    grid-auto-columns: 128px;
+    margin: 0 -18px;
+    padding: 2px 18px 6px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .ori-brandbar__list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ori-brandbar__item {
+    scroll-snap-align: start;
+  }
+
+  .ori-brandbar__logo {
+    height: 72px;
+  }
+}
+
+/* --- Product grid: ORI cards, filters, sort bar, pagination.
+   The theme's facets markup and scripts are unchanged; these only
+   restyle them inside .ori-cgrid. --- */
+.ori-cgrid {
+  font-family: var(--ori-body);
+  color: var(--ori-ink);
+}
+
+.ori-cgrid .main-collection__wrapper {
+  margin-top: 40px;
+}
+
+.ori-cgrid .ori-cgrid__grid {
+  display: grid;
+  grid-template-columns: repeat(var(--ori-cols, 4), minmax(0, 1fr));
+  gap: 40px 22px;
+}
+
+.ori-cgrid .ori-cgrid__grid > .f-column {
+  display: flex;
+  min-width: 0;
+}
+
+.ori-cgrid .ori-cgrid__grid > .f-column > .ori-card {
+  flex: 1;
+}
+
+@media (max-width: 1399px) {
+  .ori-cgrid .ori-cgrid__grid {
+    grid-template-columns: repeat(min(var(--ori-cols, 4), 3), minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 989px) {
+  .ori-cgrid .ori-cgrid__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px 14px;
+  }
+
+  /* The theme's one/two column switcher on phones. */
+  .ori-cgrid .ori-cgrid__grid.f-grid-1-cols {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Sort bar + count above the grid */
+.ori-cgrid .product-grid__header {
+  margin-bottom: 26px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--ori-line);
+}
+
+.ori-cgrid .collection-product-count {
+  color: var(--ori-steel);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.ori-cgrid .collection-sortby select,
+.ori-cgrid .f-facets__block-sortby select {
+  min-height: 44px;
+  padding-inline: 14px 36px;
+  border: 1px solid #c9cfce;
+  border-radius: 4px;
+  background-color: #fff;
+  color: var(--ori-ink);
+  font-family: var(--ori-body);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 42px;
+}
+
+.ori-cgrid .collection-sortby select:hover,
+.ori-cgrid .collection-sortby select:focus-visible {
+  border-color: var(--ori-teal);
+}
+
+.ori-cgrid .btn--filter-sort {
+  min-height: 44px;
+  border: 1px solid var(--ori-ink);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--ori-ink);
+  font-family: var(--ori-display) !important;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* Sidebar */
+.ori-cgrid .f-facets__block {
+  border-bottom: 1px solid var(--ori-line);
+}
+
+.ori-cgrid .f-facets__block ~ .f-facets__block {
+  margin-top: 0;
+}
+
+.ori-cgrid .f-facets__block-header {
+  padding: 16px 0;
+  color: var(--ori-ink);
+}
+
+.ori-cgrid .f-facets__block-header .text-button {
+  font-family: var(--ori-display);
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.ori-cgrid .f-facets__block-content {
+  padding-bottom: 14px;
+}
+
+.ori-cgrid .f-checkbox {
+  min-height: 34px;
+  color: var(--ori-ink);
+  font-size: 15px;
+}
+
+.ori-cgrid .f-checkbox input {
+  border-color: #b9c1c3;
+  border-radius: 3px;
+}
+
+.ori-cgrid .f-checkbox input:checked {
+  border-color: var(--ori-teal);
+  background: var(--ori-teal);
+}
+
+.ori-cgrid .f-checkbox input:checked ~ .checkmark {
+  background-color: #fff;
+}
+
+.ori-cgrid .f-facets__results-count {
+  color: var(--ori-steel);
+  font-size: 13px;
+}
+
+.ori-cgrid .f-facets-price .form-control {
+  border: 1px solid #c9cfce;
+  border-radius: 4px;
+  font-family: var(--ori-body);
+}
+
+.ori-cgrid .f-facets-price .form-control:focus {
+  border-color: var(--ori-teal);
+  box-shadow: 0 0 0 3px rgba(63, 179, 186, 0.25);
+}
+
+.ori-cgrid .f-facets-price__range-group {
+  background: linear-gradient(
+    to right,
+    var(--ori-line) var(--price-min),
+    var(--ori-teal) var(--price-min),
+    var(--ori-teal) var(--price-max),
+    var(--ori-line) var(--price-max)
+  );
+}
+
+.ori-cgrid .f-facets-price__range::-webkit-slider-thumb {
+  box-shadow: 0 0 0 7px var(--ori-teal) inset;
+}
+
+.ori-cgrid .f-facets-price__range::-moz-range-thumb {
+  box-shadow: 0 0 0 7px var(--ori-teal) inset;
+}
+
+/* Filter drawer (tablet and phone) */
+.ori-cgrid .f-facets__header .f-facets__heading {
+  font-family: var(--ori-display);
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.ori-cgrid .f-facets__footer .btn--primary {
+  border-color: var(--ori-teal);
+  border-radius: 4px;
+  background: var(--ori-teal);
+  color: #fff;
+  font-family: var(--ori-display) !important;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+/* Pagination */
+.ori-cgrid .main-collection__pagination {
+  margin-top: 48px;
+}
+
+.ori-cgrid .f-pagination__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.ori-cgrid .f-pagination__item {
+  min-width: 44px;
+  min-height: 44px;
+  border: 1px solid var(--ori-line);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--ori-ink);
+  font-family: var(--ori-display);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 42px;
+  text-decoration: none;
+}
+
+.ori-cgrid a.f-pagination__item:hover {
+  border-color: var(--ori-teal);
+  color: var(--ori-teal-deep);
+}
+
+.ori-cgrid .f-pagination__item--current {
+  border-color: var(--ori-ink);
+  background: var(--ori-ink);
+  color: #fff;
+}
+
+.ori-cgrid .f-pagination__item--prev,
+.ori-cgrid .f-pagination__item--next {
+  padding-inline: 12px;
+}
+
+.ori-cgrid .btn-loadmore {
+  min-height: 52px;
+  border: 2px solid var(--ori-ink);
+  border-radius: 4px;
+  background: none;
+  color: var(--ori-ink);
+  font-family: var(--ori-display) !important;
+  font-size: 19px;
+  text-transform: uppercase;
+}
+
+/* --- Rich text from the admin (descriptions, metafield rich text) --- */
+.ori-rte {
+  color: #3a4246;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.ori-rte > * + * {
+  margin-top: 16px;
+}
+
+.ori .ori-rte :where(h1, h2, h3, h4, h5, h6) {
+  margin-top: 36px;
+  margin-bottom: 4px;
+  color: var(--ori-ink);
+  line-height: 1.05;
+}
+
+.ori .ori-rte > :where(h1, h2, h3, h4, h5, h6):first-child {
+  margin-top: 0;
+}
+
+.ori .ori-rte :where(h1, h2) {
+  font-size: clamp(26px, 2.6vw, 34px);
+}
+
+.ori .ori-rte :where(h3, h4, h5, h6) {
+  font-size: clamp(21px, 2vw, 25px);
+}
+
+.ori-rte a {
+  color: var(--ori-teal-deep);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.ori-rte a:hover {
+  color: var(--ori-ink);
+}
+
+.ori-rte strong,
+.ori-rte b {
+  color: var(--ori-ink);
+}
+
+.ori-rte :where(ul, ol) {
+  display: grid;
+  gap: 8px;
+  padding-left: 22px;
+}
+
+.ori-rte ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.ori-rte ul > li {
+  position: relative;
+  padding-left: 22px;
+}
+
+.ori-rte ul > li::before {
+  content: "";
+  position: absolute;
+  top: 0.68em;
+  left: 2px;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--ori-teal);
+}
+
+.ori-rte ol > li::marker {
+  color: var(--ori-teal-deep);
+  font-weight: 700;
+}
+
+/* Images and videos inside the text: full column width at most,
+   rounded, never stretched. Floated images from the editor keep
+   their float on desktop and go full width on phones. */
+.ori-rte img {
+  display: inline-block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+.ori-rte :where(p, div) > img:only-child {
+  display: block;
+  margin: 8px auto;
+}
+
+.ori-rte img[style*="float: left"],
+.ori-rte img[align="left"] {
+  margin: 4px 24px 12px 0;
+}
+
+.ori-rte img[style*="float: right"],
+.ori-rte img[align="right"] {
+  margin: 4px 0 12px 24px;
+}
+
+.ori-rte iframe,
+.ori-rte video {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: 6px;
+}
+
+.ori-rte table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.ori-rte :where(th, td) {
+  padding: 10px 12px;
+  border: 1px solid var(--ori-line);
+  text-align: left;
+}
+
+.ori-rte th {
+  background: var(--ori-bone);
+  color: var(--ori-ink);
+}
+
+.ori-rte blockquote {
+  margin-left: 0;
+  padding: 4px 0 4px 18px;
+  border-left: 3px solid var(--ori-teal);
+  color: var(--ori-ink);
+}
+
+@media (max-width: 700px) {
+  .ori-rte {
+    font-size: 16px;
+  }
+
+  .ori-rte img[style*="float"],
+  .ori-rte img[align] {
+    float: none !important;
+    display: block;
+    margin: 8px 0;
+  }
+
+  .ori-rte table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+/* --- Collection content (description with Read more) --- */
+.ori-ccontent--tint {
+  background: var(--ori-bone);
+}
+
+/* Full width: a side column (label, collection title, help link) that
+   stays in view while reading, and the text in the remaining width. */
+.ori-ccontent__grid {
+  display: grid;
+  grid-template-columns: minmax(220px, 300px) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: start;
+}
+
+.ori-ccontent__aside-in {
+  position: sticky;
+  top: 120px;
+  padding-top: 18px;
+  border-top: 4px solid var(--ori-teal);
+}
+
+.ori .ori-ccontent__title {
+  font-family: var(--ori-display);
+  font-size: clamp(30px, 3vw, 42px);
+  font-weight: 800;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.ori-ccontent__help {
+  display: grid;
+  justify-items: start;
+  gap: 12px;
+  margin-top: 28px;
+  padding: 20px;
+  border-radius: 6px;
+  background: var(--ori-chassis);
+  color: #dfe6e7;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.ori-ccontent__help .ori-link {
+  color: #fff;
+}
+
+.ori-ccontent__inner {
+  min-width: 0;
+  padding: clamp(24px, 3.5vw, 48px);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.ori-ccontent__body::after {
+  background: linear-gradient(rgba(255, 255, 255, 0), #fff);
+}
+
+@media (max-width: 989px) {
+  .ori-ccontent__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .ori-ccontent__aside-in {
+    position: static;
+  }
+
+  .ori-ccontent__help {
+    display: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .ori-ccontent__inner {
+    margin: 0 -18px;
+    padding: 24px 18px;
+    border-radius: 0;
+  }
+}
+
+.ori-ccontent__eyebrow {
+  margin-bottom: 14px !important;
+  color: var(--ori-teal-deep);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ori-ccontent__body {
+  position: relative;
+}
+
+.ori-ccontent__body::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 0;
+  pointer-events: none;
+  background: linear-gradient(rgba(255, 255, 255, 0), #fff);
+  transition: height 0.2s;
+}
+
+.ori-ccontent__body.is-cut {
+  max-height: var(--ori-cut, 420px);
+  overflow: hidden;
+}
+
+.ori-ccontent__body.is-cut::after {
+  height: 140px;
+}
+
+.ori .ori-ccontent__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  padding-bottom: 2px;
+  border-bottom: 2px solid var(--ori-teal);
+  color: var(--ori-ink);
+  font-family: var(--ori-display) !important;
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.ori .ori-ccontent__toggle[hidden] {
+  display: none !important;
+}
+
+.ori-ccontent__chev {
+  width: 9px;
+  height: 9px;
+  margin-top: -4px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.2s;
+}
+
+.ori-ccontent__toggle[aria-expanded="true"] .ori-ccontent__chev {
+  margin-top: 4px;
+  transform: rotate(-135deg);
+}
+
+/* --- Collection feature rows (metaobject image + text) --- */
+.ori-cfeat__list {
+  display: grid;
+  gap: clamp(48px, 6vw, 88px);
+}
+
+.ori-cfeat__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(28px, 5vw, 72px);
+  align-items: center;
+}
+
+.ori-cfeat__row--flip .ori-cfeat__media {
+  order: 2;
+}
+
+.ori-cfeat__row--text {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 900px;
+}
+
+.ori-cfeat__media {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--ori-bone);
+}
+
+.ori-cfeat__media img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.ori-cfeat__media::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 4px;
+  background: var(--ori-teal);
+}
+
+.ori-cfeat__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+}
+
+.ori-cfeat__copy .ori-btn {
+  margin-top: 6px;
+}
+
+@media (max-width: 989px) {
+  .ori-cfeat__row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ori-cfeat__row--flip .ori-cfeat__media {
+    order: 0;
+  }
+}
+
+/* --- GVM packages: optional tinted band, plain list --- */
+.ori-vgrid-section--tint {
+  background: var(--ori-bone);
+}
+
+.ori-vgrid-section .ori-vgrid {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* --- ORI card inside the theme's own grids and sliders (featured
+   collection, recommendations, search, frequently bought with, B2B
+   grid, product tabs, custom content). The cell gives the card the
+   .ori context and fills the column so cards in a row line up. --- */
+.ori-card-cell {
+  display: flex;
+  height: 100%;
+}
+
+.ori-card-cell > .ori-card {
+  flex: 1;
+  min-width: 0;
+}
