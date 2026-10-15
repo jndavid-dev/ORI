@@ -7377,6 +7377,11 @@ body .ori-marquee--light .f-promotion__item img {
   color: var(--ori-teal-deep);
 }
 
+.ori-appform__icon svg {
+  width: 26px;
+  height: 26px;
+}
+
 .ori-appform--dark .ori-appform__icon {
   color: var(--ori-teal);
 }
