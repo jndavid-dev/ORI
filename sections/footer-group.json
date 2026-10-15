@@ -11,55 +11,6 @@
   "type": "footer",
   "name": "t:sections.footer.name",
   "sections": {
-    "ori_footer": {
-      "type": "ori-footer",
-      "blocks": {
-        "brand": {
-          "type": "brand",
-          "settings": {
-            "logo": "shopify://shop_images/image.webp",
-            "text": "Subscribe for store updates and discounts.",
-            "show_newsletter": true,
-            "placeholder": "Your email",
-            "button_label": "Subscribe",
-            "legal": "<p>By subscribing you agree to the <a href=\"/policies/terms-of-service\" title=\"Terms of Service\">Terms of Use</a> & <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\">Privacy Policy.</a></p>"
-          }
-        },
-        "info": {
-          "type": "link_list",
-          "settings": {
-            "heading": "Important Information",
-            "menu": "footer"
-          }
-        },
-        "dealers": {
-          "type": "link_list",
-          "settings": {
-            "heading": "ORI Authorised Dealers",
-            "menu": ""
-          }
-        },
-        "contact": {
-          "type": "contact",
-          "settings": {
-            "heading": "Contact",
-            "phone": "0483 930 639",
-            "email": "sales@offroadindustries.com.au",
-            "text": ""
-          }
-        }
-      },
-      "block_order": [
-        "brand",
-        "info",
-        "dealers",
-        "contact"
-      ],
-      "settings": {
-        "show_social": true,
-        "show_payments": false
-      }
-    },
     "footer": {
       "type": "footer",
       "blocks": {
@@ -94,7 +45,7 @@
           "settings": {
             "heading": "ORI Authorised Dealers",
             "heading_size": "h6",
-            "menu": "",
+            "menu": "footer-1",
             "width": 25,
             "open_default_collapsible_tab": false,
             "show_divider": false
@@ -150,7 +101,6 @@
         "8ea5fbcc-a81e-48ae-a337-2436b19c38af",
         "logo_8tjEnj"
       ],
-      "disabled": true,
       "custom_css": [],
       "settings": {
         "container": "container",
@@ -308,7 +258,6 @@
     }
   },
   "order": [
-    "ori_footer",
     "footer",
     "mobile-sticky-bar",
     "popup",
