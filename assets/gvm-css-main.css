@@ -3232,8 +3232,17 @@
 }
 
 .ori-footer__logo img {
-  width: auto;
-  height: 44px;
+  display: block;
+  width: var(--ori-footer-logo, 160px);
+  max-width: 100%;
+  height: auto;
+}
+
+/* Square logo files carry empty space above and below the artwork:
+   crop to a wide box so the mark itself shows at the set width. */
+.ori-footer__logo--trim img {
+  aspect-ratio: 2.4 / 1;
+  object-fit: cover;
 }
 
 .ori-footer__wordmark {
@@ -7296,5 +7305,141 @@ body .ori-marquee--light .f-promotion__item img {
 
   .ori-quote--inline .ori-quote__done {
     min-height: 0;
+  }
+}
+
+/* ==========================================================
+   ORI REDESIGN — APP FORM (sections/ori-app-form.liquid)
+   Copy and points on the left, the app's form in a white card
+   on the right. One column below 990px, card under the copy.
+   ========================================================== */
+.ori-appform {
+  background: var(--ori-bone);
+}
+
+.ori-appform--dark {
+  background: var(--ori-chassis);
+  color: #eef1f1;
+}
+
+.ori-appform__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: start;
+}
+
+.ori-appform__eyebrow {
+  margin-bottom: 10px !important;
+  color: var(--ori-teal-deep);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ori-appform--dark .ori-appform__eyebrow {
+  color: var(--ori-teal);
+}
+
+.ori-appform__intro {
+  max-width: 560px;
+  margin-top: 14px;
+  color: var(--ori-steel);
+}
+
+.ori-appform--dark .ori-appform__intro {
+  color: #b9c1c3;
+}
+
+.ori-appform__points {
+  display: grid;
+  gap: 22px;
+  margin: 32px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ori-appform__point {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.ori-appform__icon {
+  flex: 0 0 48px;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--ori-teal) 14%, transparent);
+  color: var(--ori-teal-deep);
+}
+
+.ori-appform--dark .ori-appform__icon {
+  color: var(--ori-teal);
+}
+
+.ori .ori-appform__point-title {
+  margin: 2px 0 4px;
+  font-family: var(--ori-display);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.ori-appform__point p {
+  margin: 0;
+  color: var(--ori-steel);
+}
+
+.ori-appform--dark .ori-appform__point p {
+  color: #b9c1c3;
+}
+
+.ori-appform__login {
+  margin-top: 32px !important;
+  padding-top: 24px;
+  border-top: 1px solid var(--ori-line);
+  font-weight: 600;
+}
+
+.ori-appform--dark .ori-appform__login {
+  border-top-color: rgba(255, 255, 255, 0.14);
+}
+
+.ori-appform__login a {
+  color: var(--ori-teal-deep);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.ori-appform--dark .ori-appform__login a {
+  color: var(--ori-teal);
+}
+
+.ori-appform__card {
+  padding: clamp(24px, 3.5vw, 44px);
+  border-top: 4px solid var(--ori-teal);
+  border-radius: 8px;
+  background: var(--ori-paper);
+  color: var(--ori-ink);
+  box-shadow: 0 18px 40px -24px rgba(21, 25, 27, 0.35);
+}
+
+.ori .ori-appform__card-title {
+  margin: 0 0 20px;
+  font-family: var(--ori-display);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+@media (max-width: 989px) {
+  .ori-appform__grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

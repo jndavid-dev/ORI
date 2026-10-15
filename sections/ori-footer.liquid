@@ -19,12 +19,18 @@
         {%- case block.type -%}
           {%- when 'brand' -%}
             <div class="ori-footer__brand" {{ block.shopify_attributes }}>
-              <a class="ori-footer__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
+              <a
+                class="ori-footer__logo{% if block.settings.logo_trim %} ori-footer__logo--trim{% endif %}"
+                href="{{ routes.root_url }}"
+                aria-label="{{ shop.name | escape }}"
+                style="--ori-footer-logo: {{ block.settings.logo_width | default: 160 }}px;"
+              >
                 {%- if block.settings.logo != blank -%}
+                  {%- capture logo_sizes -%}{{ block.settings.logo_width | default: 160 }}px{%- endcapture -%}
                   {{
                     block.settings.logo
-                    | image_url: width: 400
-                    | image_tag: loading: 'lazy', widths: '200, 300, 400', sizes: '200px', alt: shop.name
+                    | image_url: width: 600
+                    | image_tag: loading: 'lazy', widths: '200, 300, 400, 600', sizes: logo_sizes, alt: shop.name
                   }}
                 {%- else -%}
                   <span class="ori-footer__wordmark">{{ shop.name }}</span>
@@ -150,6 +156,14 @@
       "limit": 1,
       "settings": [
         { "type": "image_picker", "id": "logo", "label": "Logo" },
+        { "type": "range", "id": "logo_width", "label": "Logo width", "min": 80, "max": 260, "step": 10, "unit": "px", "default": 160 },
+        {
+          "type": "checkbox",
+          "id": "logo_trim",
+          "label": "Trim empty space around the logo",
+          "info": "For a square logo file with space above and below the artwork: shows it as a wide banner. Turn off for a logo already cropped tight.",
+          "default": true
+        },
         { "type": "text", "id": "text", "label": "Text", "default": "Subscribe for store updates and discounts." },
         { "type": "checkbox", "id": "show_newsletter", "label": "Show newsletter sign-up", "default": true },
         { "type": "text", "id": "placeholder", "label": "Email placeholder", "default": "Your email" },

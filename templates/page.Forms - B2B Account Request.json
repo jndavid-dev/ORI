@@ -9,102 +9,150 @@
  */
 {
   "sections": {
-    "ori_gvm_hero_wholesaler": {
-      "type": "ori-gvm-hero",
+    "ori_hero_b2b": {
+      "type": "ori-hero",
       "blocks": {
-        "trust_1": {
-          "type": "trust_item",
+        "feature_ssm": {
+          "type": "feature",
           "settings": {
-            "text": "Federal / SSM Certification",
-            "icon": "✓"
+            "icon": "shield",
+            "text": "Federal / SSM\ncertification"
           }
         },
-        "trust_2": {
-          "type": "trust_item",
+        "feature_adr": {
+          "type": "feature",
           "settings": {
-            "text": "ADR-Tested & Approved",
-            "icon": "✓"
+            "icon": "clipboard",
+            "text": "ADR-tested &\napproved"
           }
         },
-        "trust_3": {
-          "type": "trust_item",
+        "feature_network": {
+          "type": "feature",
           "settings": {
-            "text": "Australia-Wide Installer Network",
-            "icon": "✓"
+            "icon": "network",
+            "text": "Australia-wide\ninstaller network"
+          }
+        },
+        "feature_trade": {
+          "type": "feature",
+          "settings": {
+            "icon": "award",
+            "text": "Wholesale\ntrade pricing"
+          }
+        },
+        "button_apply": {
+          "type": "button",
+          "settings": {
+            "label": "Apply for an account",
+            "link": "#apply",
+            "style": "teal"
+          }
+        },
+        "button_login": {
+          "type": "button",
+          "settings": {
+            "label": "Partner log in",
+            "link": "/account/login",
+            "style": "ghost"
           }
         }
       },
       "block_order": [
-        "trust_1",
-        "trust_2",
-        "trust_3"
+        "feature_ssm",
+        "feature_adr",
+        "feature_network",
+        "feature_trade",
+        "button_apply",
+        "button_login"
       ],
       "settings": {
-        "badge_text": "Federally Approved | ADR-Tested | SSM Certified",
-        "heading": "ORI GVM Wholesale Partner Portal",
-        "heading_size": "h1",
-        "subheading": "<p>Federally approved GVM upgrade packages for America's most popular trucks and 4WDs. Every stage is ADR-tested, SSM-certified, and installed by our national network of approved specialists. Apply below for wholesale trade access, or log in if you're already an approved partner.</p>",
-        "btn_1_text": "",
-        "btn_1_url": "",
-        "btn_1_opens_quote": false,
-        "quote_popup_id": "gvm-quote",
-        "btn_1_style": "btn--primary",
-        "btn_2_text": "",
-        "btn_2_url": "",
-        "btn_2_style": "btn--outline",
-        "btn_3_text": "",
-        "btn_3_url": "",
-        "btn_3_style": "quiet",
-        "btn_3_show_icon": true,
-        "overlay_opacity": 45,
-        "container": "container",
-        "color_schema": "",
-        "padding_top": 80,
-        "padding_bottom": 0,
-        "custom_id": "",
-        "custom_class": ""
+        "style": "cutout",
+        "image_asset": "ori-hero-chevy-2500-cutout.webp",
+        "image_alt": "Chevrolet Silverado 2500HD with an ORI GVM upgrade",
+        "media_width": 45,
+        "media_flush": false,
+        "feats_one_row": true,
+        "size": "standard",
+        "min_height": 560,
+        "badge_text": "",
+        "heading_1": "Wholesale",
+        "heading_2": "Partner Portal",
+        "pill": "",
+        "heading_2_white": false,
+        "subheading": "<p>Federally approved GVM upgrade packages for America's most popular trucks and 4WDs. Apply below for wholesale trade access, or log in if you're already an approved partner.</p>",
+        "heading_tag": "h1",
+        "badge_title": "",
+        "badge_small": ""
       }
     },
-    "forms": {
-      "type": "apps",
+    "ori_apply": {
+      "type": "ori-app-form",
       "blocks": {
         "c3ff3c52-83ed-43fa-9fe1-a69340aef55d": {
           "type": "shopify://apps/forms/blocks/inline/8744a304-fcb1-4347-b211-bb6b4759a76a",
           "settings": {
             "form_id": "1155026",
-            "text_color": "#202020",
-            "button_background_color": "#202020",
+            "text_color": "#15191b",
+            "button_background_color": "#3fb3ba",
             "button_label_color": "#ffffff",
-            "links_color": "#1878b9",
-            "errors_color": "#e02229",
-            "text_alignment": "center",
-            "form_alignment": "center",
+            "links_color": "#2a8f95",
+            "errors_color": "#d2412f",
+            "text_alignment": "left",
+            "form_alignment": "left",
             "padding_top": 0,
-            "padding_bottom": 24,
+            "padding_bottom": 0,
             "padding_right": 0,
             "padding_left": 0
+          }
+        },
+        "point_pricing": {
+          "type": "point",
+          "settings": {
+            "icon": "award",
+            "heading": "Trade pricing",
+            "text": "Platinum, Gold and Silver tiers across the ORI GVM range, shown once you're logged in."
+          }
+        },
+        "point_ordering": {
+          "type": "point",
+          "settings": {
+            "icon": "clipboard",
+            "text": "Order kits and request quotes for your customers' vehicles straight from the portal.",
+            "heading": "Simple ordering"
+          }
+        },
+        "point_support": {
+          "type": "point",
+          "settings": {
+            "icon": "headset",
+            "heading": "Specialist support",
+            "text": "Help with fitment, paperwork and certification from the ORI team."
           }
         }
       },
       "block_order": [
+        "point_pricing",
+        "point_ordering",
+        "point_support",
         "c3ff3c52-83ed-43fa-9fe1-a69340aef55d"
       ],
       "settings": {
-        "container": "container",
-        "color_schema": "",
-        "heading": "",
-        "highlight_style": "none",
-        "enable_highlight_text_color": false,
-        "heading_size": "h2",
-        "heading_color": "",
-        "description": "",
-        "padding_top": 40,
-        "padding_bottom": 40
+        "eyebrow": "Trade accounts",
+        "heading": "Apply for wholesale access",
+        "intro": "<p>Fill in your business details and our team will review your application.</p>",
+        "card_heading": "",
+        "login_text": "Already an approved partner?",
+        "login_label": "Log in",
+        "login_url": "",
+        "anchor": "apply",
+        "dark": false,
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     }
   },
   "order": [
-    "ori_gvm_hero_wholesaler",
-    "forms"
+    "ori_hero_b2b",
+    "ori_apply"
   ]
 }
