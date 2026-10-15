@@ -36,11 +36,24 @@
             {%- if brand_url != blank -%}<a class="ori-brandbar__tile" href="{{ brand_url }}">{%- else -%}<span class="ori-brandbar__tile">{%- endif -%}
             <span class="ori-brandbar__logo">
               {%- if block.settings.image != blank -%}
-                {{
-                  block.settings.image
-                  | image_url: width: 320
-                  | image_tag: loading: 'lazy', widths: '160, 240, 320', sizes: '140px', alt: brand_name
-                }}
+                {%- comment -%}
+                  Served at the file's own size (capped at 640px) with no
+                  srcset: a srcset makes the browser size the logo to the
+                  "sizes" width, which enlarges and blurs small logo files.
+                  CSS then only ever shrinks it to fit the tile.
+                {%- endcomment -%}
+                {%- liquid
+                  assign logo = block.settings.image
+                  assign logo_w = logo.width | at_most: 640
+                  assign logo_h = logo_w | times: 1.0 | divided_by: logo.aspect_ratio | round
+                -%}
+                <img
+                  src="{{ logo | image_url: width: logo_w }}"
+                  alt="{{ brand_name | escape }}"
+                  width="{{ logo_w }}"
+                  height="{{ logo_h }}"
+                  loading="lazy"
+                >
               {%- else -%}
                 <span class="ori-brandbar__wordmark">{{ brand_name }}</span>
               {%- endif -%}

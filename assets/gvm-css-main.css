@@ -7682,14 +7682,15 @@ body .ori-marquee--light .f-promotion__item img {
   transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
 }
 
-/* Pinned inside the tile: the theme's global image rules otherwise let
-   the logo keep its own height and hang out of the bottom. */
+/* Natural size, never enlarged: logos are small files, so stretching
+   them to the tile blurs them. They only shrink to fit the tile, and
+   the explicit maxima stop the theme's global image rules letting a
+   logo hang out of the bottom. */
 .ori .ori-brandbar__logo img {
-  position: absolute;
-  inset: 12px 16px;
-  width: calc(100% - 32px) !important;
-  max-width: none;
-  height: calc(100% - 24px) !important;
+  width: auto !important;
+  height: auto !important;
+  max-width: calc(100% - 28px);
+  max-height: calc(100% - 20px);
   object-fit: contain;
 }
 
