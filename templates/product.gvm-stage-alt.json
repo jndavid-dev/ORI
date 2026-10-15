@@ -1074,157 +1074,18 @@
       }
     },
     "gvm_quote_popup": {
-      "type": "contact-form-v4",
-      "blocks": {
-        "s1": {
-          "type": "step",
-          "settings": {
-            "title": "Your details",
-            "caption": "So we know who to send the quote to."
-          }
-        },
-        "f_name": {
-          "type": "name",
-          "settings": {
-            "label": "Name",
-            "field_name": "Name",
-            "placeholder": "Enter your name",
-            "field_width": "full",
-            "hide_label": true,
-            "required": true
-          }
-        },
-        "f_email": {
-          "type": "email",
-          "settings": {
-            "label": "Email",
-            "placeholder": "Enter your email",
-            "field_width": "full",
-            "hide_label": true
-          }
-        },
-        "f_phone": {
-          "type": "phone",
-          "settings": {
-            "label": "Phone number",
-            "placeholder": "Enter your phone number",
-            "field_width": "full",
-            "hide_label": true,
-            "required": true
-          }
-        },
-        "s2": {
-          "type": "step",
-          "settings": {
-            "title": "Your vehicle",
-            "caption": "Helps us match the right GVM package."
-          }
-        },
-        "f_rego": {
-          "type": "rego_status",
-          "settings": {
-            "label": "Pre or Post rego",
-            "field_name": "Pre or Post rego",
-            "placeholder": "Select one",
-            "options": "Pre rego, Post rego",
-            "field_width": "full",
-            "hide_label": true,
-            "required": true
-          }
-        },
-        "f_vehicle": {
-          "type": "custom_select",
-          "settings": {
-            "label": "Which Vehicle",
-            "field_name": "Which Vehicle",
-            "placeholder": "Which Vehicle",
-            "options": "Ford F150, Chevy 1500, Chevy 2500HD, Toyota Tundra, RAM 2500 (5th Gen), RAM 2500 (6th Gen), Toyota LC300",
-            "depends_on": "",
-            "options_map": "",
-            "empty_text": "Select the field above first",
-            "field_width": "100",
-            "hide_label": true,
-            "required": true
-          }
-        },
-        "f_stage": {
-          "type": "custom_select",
-          "settings": {
-            "label": "What Stage GVM Package",
-            "field_name": "What Stage GVM Package",
-            "placeholder": "What Stage GVM Package",
-            "options": "Stage 1, Stage 2, Stage 3, Stage 3.5, Stage 4, Stage 5, Stage 6, Stage 6.5",
-            "depends_on": "Which Vehicle",
-            "options_map": "Ford F150 | Stage 1, Stage 2, Stage 3, Stage 4, Stage 5, Stage 6\nChevy 1500 | Stage 1, Stage 2, Stage 3, Stage 4, Stage 5\nChevy 2500HD | Stage 1, Stage 2, Stage 3, Stage 3.5, Stage 4, Stage 5, Stage 6, Stage 6.5\nToyota Tundra | Stage 1, Stage 2, Stage 3, Stage 4\nRAM 2500 (5th Gen) | Stage 1, Stage 2, Stage 3, Stage 4, Stage 5\nRAM 2500 (6th Gen) | Stage 1, Stage 2, Stage 3, Stage 4, Stage 5\nToyota LC300 | Stage 1, Stage 2",
-            "empty_text": "Choose your vehicle first",
-            "field_width": "100",
-            "hide_label": true,
-            "required": true
-          }
-        },
-        "s3": {
-          "type": "step",
-          "settings": {
-            "title": "Your enquiry",
-            "caption": "Anything else we should know."
-          }
-        },
-        "f_location": {
-          "type": "location",
-          "settings": {
-            "label": "What is your location",
-            "field_name": "Location",
-            "placeholder": "What is your location?",
-            "field_width": "full",
-            "hide_label": true,
-            "required": true
-          }
-        },
-        "f_message": {
-          "type": "message",
-          "settings": {
-            "label": "Message",
-            "placeholder": "Which GVM Package do you want further information on?",
-            "rows": 3,
-            "field_width": "100",
-            "hide_label": true
-          }
-        }
-      },
-      "block_order": [
-        "s1",
-        "f_name",
-        "f_email",
-        "f_phone",
-        "s2",
-        "f_rego",
-        "f_vehicle",
-        "f_stage",
-        "s3",
-        "f_location",
-        "f_message"
-      ],
+      "type": "ori-gvm-quote",
       "settings": {
-        "container": "container",
-        "color_schema": "",
-        "heading": "GVM Enquiry? Contact us Now",
-        "subheading": "",
-        "description": "",
         "display_mode": "popup",
         "popup_id": "gvm-quote",
-        "popup_width": 560,
-        "form_design": "design-1",
-        "form_width": 500,
-        "form_alignment": "center",
+        "eyebrow": "",
+        "heading": "GVM Enquiry? Contact us Now",
+        "intro": "",
         "button_label": "Send",
-        "button_style": "btn--primary",
         "padding_top": 40,
         "padding_bottom": 40,
-        "show_section_divider": false,
-        "divider_width": "container",
-        "custom_id": "",
         "custom_class": "",
-        "animations": "inherit"
+        "popup_width": 560
       }
     }
   },
