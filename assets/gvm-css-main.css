@@ -8601,3 +8601,622 @@ a.ori-brandbar__tile:hover .ori-brandbar__logo {
   flex: 1;
   min-width: 0;
 }
+
+
+/* ==========================================================
+   ORI REDESIGN — PRODUCT PAGE (sections/main-product.liquid,
+   "ORI design" setting → .ori-pdp wrapper)
+   Skin only: the theme's markup, variant/cart scripts and app
+   hooks are untouched, so everything here overrides theme
+   classes from under .ori-pdp. brand-guidelines.css forces
+   heading/button fonts with !important, hence the !important
+   on font-family below.
+   ========================================================== */
+.ori-pdp {
+  padding-bottom: 56px;
+  color: var(--ori-ink);
+  font-family: var(--ori-body);
+}
+
+/* The theme puts its section spacing (100px) on the main product
+   section as margin; the ORI page sets its own via padding. */
+.f-section:has(> .ori-pdp) {
+  margin-bottom: 0;
+}
+
+.ori-pdp .container {
+  box-sizing: border-box;
+  max-width: var(--ori-wrap);
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 32px;
+  padding-left: 32px;
+}
+
+/* --- Breadcrumb --- */
+.ori-pdp .breadcrumbs {
+  flex-wrap: wrap;
+  padding: 22px 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ori-steel);
+}
+
+.ori-pdp .breadcrumbs a {
+  color: var(--ori-steel);
+  text-decoration: none;
+}
+
+.ori-pdp .breadcrumbs a:hover {
+  color: var(--ori-teal-deep);
+}
+
+.ori-pdp .breadcrumbs--sep {
+  margin: 0 8px;
+  color: #a4adb0;
+}
+
+.ori-pdp .breadcrumbs--last {
+  color: var(--ori-ink);
+}
+
+/* --- Gallery: bone tiles like the product cards; multiply drops
+   the white backgrounds of the pack shots onto the tile. --- */
+.ori-pdp [data-media-viewer] {
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--ori-bone);
+}
+
+.ori-pdp .f-product__media,
+.ori-pdp .f-product__media-thumbnails-item-wrap {
+  background: var(--ori-bone);
+}
+
+.ori-pdp .f-product__media img,
+.ori-pdp .f-product__media-thumbnails img {
+  mix-blend-mode: multiply;
+}
+
+.ori-pdp .f-product__media-thumbnails-wrapper {
+  margin-top: 14px;
+}
+
+.ori-pdp .f-product__media-thumbnails-item-wrap {
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.ori-pdp .f-product__media-thumbnails-item-wrap::before {
+  border: 2px solid var(--ori-teal);
+  border-radius: 4px;
+}
+
+.ori-pdp .f-product__media-thumbnails-item:hover .f-product__media-thumbnails-item-wrap::before {
+  opacity: 0.5;
+}
+
+.ori-pdp .f-product__media-thumbnails-item.is-selected .f-product__media-thumbnails-item-wrap::before {
+  opacity: 1;
+}
+
+/* --- Info column --- */
+.ori-pdp .f-product__type,
+.ori-pdp .f-product__vendor {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+  color: var(--ori-teal-deep);
+  font-family: var(--ori-display) !important;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.ori-pdp .f-product__type::before,
+.ori-pdp .f-product__vendor::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 28px;
+  height: 2px;
+  background: currentColor;
+}
+
+.ori-pdp .f-product__type a,
+.ori-pdp .f-product__vendor a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.ori-pdp .f-product-single__title {
+  color: var(--ori-ink);
+  font-family: var(--ori-display) !important;
+  font-size: clamp(34px, 3.3vw, 50px);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.ori-pdp .f-product-single__block--price {
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--ori-line);
+}
+
+.ori-pdp .f-price-item {
+  color: var(--ori-ink);
+  font-family: var(--ori-display);
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.ori-pdp .f-price--on-sale .f-price-item--sale {
+  color: var(--ori-sale);
+}
+
+.ori-pdp .f-price--on-sale s.f-price-item--regular {
+  margin-left: 10px;
+  color: var(--ori-steel);
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.ori-pdp .f-badge {
+  border-radius: 3px;
+  font-family: var(--ori-display);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.ori-pdp .f-badge--sale {
+  background: var(--ori-sale);
+  color: #fff;
+}
+
+.ori-pdp .product-sku {
+  margin-top: 10px !important;
+  color: var(--ori-steel);
+  font-size: 14px !important;
+  letter-spacing: 0.02em;
+  opacity: 1 !important;
+}
+
+.ori-pdp .f-inventory--icon-text {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* --- Options --- */
+.ori-pdp .variant-picker .form__label,
+.ori-pdp .quantity__label {
+  color: var(--ori-ink);
+  font-family: var(--ori-display) !important;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.ori-pdp .variant-picker .form__label .font-semibold {
+  font-weight: 700;
+}
+
+.ori-pdp .variant-picker__option-button--button {
+  min-height: 48px;
+  padding: 10px 18px;
+  border: 1.5px solid var(--ori-line);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--ori-ink);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.ori-pdp .variant-picker__input input[type=radio] + label:hover.variant-picker__option-button--button {
+  border-color: var(--ori-ink);
+  background: #fff;
+  color: var(--ori-ink);
+}
+
+.ori-pdp .variant-picker__input input[type=radio]:checked + label.variant-picker__option-button--button {
+  border-color: var(--ori-ink);
+  background: var(--ori-ink);
+  color: #fff;
+}
+
+.ori-pdp .f-quantity {
+  width: 150px;
+  height: 54px;
+  border: 1.5px solid var(--ori-line);
+  border-radius: 4px;
+  background: #fff;
+}
+
+.ori-pdp .f-quantity__button {
+  width: 44px;
+  min-height: 0;
+  height: 100%;
+  border: 0 !important;
+  background: none !important;
+  color: var(--ori-ink) !important;
+}
+
+.ori-pdp .f-quantity__input {
+  color: var(--ori-ink);
+  font-size: 17px;
+  font-weight: 700;
+}
+
+/* --- Buy buttons: teal add to cart, ink Buy it now (was red) --- */
+.ori-pdp .f-product-form__submit,
+.ori-pdp .shopify-payment-button__button--unbranded {
+  min-height: 58px;
+  border-radius: 4px !important;
+  font-family: var(--ori-display) !important;
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.ori-pdp .f-product-form__submit {
+  border: 2px solid var(--ori-teal) !important;
+  background: var(--ori-teal) !important;
+  color: #fff !important;
+}
+
+.ori-pdp .f-product-form__submit:hover {
+  border-color: var(--ori-teal-deep) !important;
+  background: var(--ori-teal-deep) !important;
+}
+
+.ori-pdp .shopify-payment-button__button--unbranded {
+  background: var(--ori-ink) !important;
+  color: #fff !important;
+}
+
+.ori-pdp .shopify-payment-button__button--unbranded:hover:not([disabled]) {
+  background: var(--ori-chassis) !important;
+}
+
+.ori-pdp .shopify-payment-button__more-options {
+  color: var(--ori-steel);
+  font-size: 14px;
+}
+
+/* --- Shipping / perks lines --- */
+.ori-pdp .f-product-single__block--shipping {
+  padding-top: 20px;
+  border-top: 1px solid var(--ori-line);
+}
+
+.ori-pdp .f-product-single__block--shipping,
+.ori-pdp .f-product__text {
+  color: var(--ori-ink);
+  font-size: 15px;
+}
+
+.ori-pdp .f-product-single__block--shipping p {
+  margin: 0;
+}
+
+.ori-pdp .f-product-single__block--shipping svg,
+.ori-pdp .f-product__text svg,
+.ori-pdp .pickup-availability-preview svg {
+  color: var(--ori-teal-deep);
+}
+
+.ori-pdp .pickup-availability-info {
+  font-size: 14px;
+}
+
+/* --- Share / Ask a question: plain links (brand-guidelines paints
+   every .btn teal) --- */
+.ori-pdp .f-product-single__addon-buttons .btn--plain {
+  border: 0;
+  background: none;
+  color: var(--ori-ink);
+}
+
+.ori-pdp .f-product-single__addon-buttons .btn--plain:hover {
+  color: var(--ori-teal-deep);
+}
+
+/* --- Buy it with (complementary block) --- */
+.ori-pdp .f-complementary-products h2,
+.ori-pdp .f-complementary-products h3,
+.ori-pdp .f-complementary-products .h5 {
+  font-family: var(--ori-display) !important;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 767px) {
+  .ori-pdp .container {
+    padding-right: 18px;
+    padding-left: 18px;
+  }
+
+  .ori-pdp .breadcrumbs {
+    padding: 14px 0;
+    font-size: 13px;
+  }
+
+  .ori-pdp .f-price-item {
+    font-size: 34px;
+  }
+}
+
+
+/* ==========================================================
+   ORI REDESIGN — PRODUCT TABS (sections/product-tabs-guidelines
+   .liquid, Style "ORI redesign" → .ori-ptabs)
+   Bone band, display-face tab bar with a teal rule, content on a
+   white panel. One tab with content → .ori-ptabs--single: a
+   heading instead of the bar. The panel holds product
+   description / metafield HTML, so the rich-text rules restore
+   the spacing the .ori resets take away.
+   ========================================================== */
+.ori-ptabs {
+  padding: var(--ori-pt, 64px) 0 var(--ori-pb, 64px);
+  border-top: 1px solid var(--ori-line);
+  background: var(--ori-bone);
+}
+
+.ori-ptabs .pc-tabs__nav {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  border-bottom: 2px solid var(--ori-line);
+  scrollbar-width: none;
+}
+
+.ori-ptabs .pc-tabs__nav::-webkit-scrollbar {
+  display: none;
+}
+
+.ori-ptabs .pc-tabs__tab {
+  flex: 0 0 auto;
+  margin-bottom: -2px;
+  padding: 14px 22px 13px;
+  border-bottom: 3px solid transparent;
+  color: var(--ori-steel);
+  font-family: var(--ori-display) !important;
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.ori-ptabs .pc-tabs__tab:hover {
+  color: var(--ori-ink);
+}
+
+.ori-ptabs .pc-tabs__tab.is-active {
+  border-bottom-color: var(--ori-teal);
+  color: var(--ori-ink);
+}
+
+.ori-ptabs .pc-tabs__panels {
+  padding: clamp(24px, 3.5vw, 52px);
+  border: 1px solid var(--ori-line);
+  border-top: 0;
+  border-radius: 0 0 6px 6px;
+  background: var(--ori-paper);
+}
+
+.ori-ptabs--single .pc-tabs__heading {
+  margin-bottom: 24px;
+}
+
+.ori-ptabs--single .pc-tabs__panels {
+  border-top: 3px solid var(--ori-teal);
+}
+
+/* Rich text inside a panel */
+.ori-ptabs .pc-tabs__panel {
+  max-width: 980px;
+  color: #2b3134;
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.ori-ptabs .pc-tabs__panel :where(p, ul, ol, table, blockquote) {
+  margin: 0 0 14px;
+}
+
+.ori-ptabs .pc-tabs__panel :where(h1, h2, h3, h4, h5, h6) {
+  margin: 32px 0 12px;
+  color: var(--ori-ink);
+  font-family: var(--ori-display) !important;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.ori-ptabs .pc-tabs__panel :where(h1, h2) {
+  font-size: clamp(28px, 2.6vw, 36px);
+}
+
+.ori-ptabs .pc-tabs__panel h3 {
+  font-size: 26px;
+}
+
+.ori-ptabs .pc-tabs__panel :where(h4, h5, h6) {
+  font-size: 21px;
+}
+
+.ori-ptabs .pc-tabs__panel > :first-child {
+  margin-top: 0;
+}
+
+.ori-ptabs .pc-tabs__panel > :last-child {
+  margin-bottom: 0;
+}
+
+.ori-ptabs .pc-tabs__panel ul {
+  padding: 0;
+  list-style: none;
+}
+
+.ori-ptabs .pc-tabs__panel ul li {
+  position: relative;
+  margin: 6px 0;
+  padding-left: 22px;
+}
+
+.ori-ptabs .pc-tabs__panel ul li::before {
+  content: "";
+  position: absolute;
+  top: 0.62em;
+  left: 2px;
+  width: 8px;
+  height: 8px;
+  border-radius: 1px;
+  background: var(--ori-teal);
+}
+
+.ori-ptabs .pc-tabs__panel ol {
+  padding-left: 22px;
+}
+
+.ori-ptabs .pc-tabs__panel a {
+  color: var(--ori-teal-deep);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.ori-ptabs .pc-tabs__panel img {
+  height: auto;
+  margin: 20px 0;
+}
+
+.ori-ptabs .pc-tabs__panel table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.ori-ptabs .pc-tabs__panel :where(th, td) {
+  padding: 10px 14px;
+  border: 1px solid var(--ori-line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.ori-ptabs .pc-tabs__panel th {
+  background: var(--ori-bone);
+  font-weight: 700;
+}
+
+@media (max-width: 700px) {
+  .ori-ptabs .pc-tabs__tab {
+    padding: 12px 14px 11px;
+    font-size: 18px;
+  }
+
+  .ori-ptabs .pc-tabs__panels {
+    padding: 22px 18px;
+  }
+
+  .ori-ptabs .pc-tabs__panel {
+    font-size: 16px;
+  }
+}
+
+
+/* ==========================================================
+   ORI REDESIGN — PRODUCT EXTRA CONTENT (sections/ori-product-extra
+   .liquid) — image + text rows from the product metaobject.
+   ========================================================== */
+.ori-pextra__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(28px, 5vw, 80px);
+  align-items: center;
+}
+
+.ori-pextra__row + .ori-pextra__row {
+  margin-top: clamp(40px, 6vw, 88px);
+}
+
+.ori-pextra__row--flip .ori-pextra__media {
+  order: 2;
+}
+
+.ori-pextra__row--text {
+  grid-template-columns: minmax(0, 860px);
+}
+
+.ori-pextra__media {
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--ori-bone);
+}
+
+.ori-pextra__media img {
+  width: 100%;
+  height: auto;
+}
+
+.ori .ori-pextra__title {
+  margin-bottom: 16px;
+}
+
+.ori-pextra__text {
+  color: #2b3134;
+}
+
+.ori-pextra__text :where(p, ul, ol) {
+  margin: 0 0 12px;
+}
+
+.ori-pextra__copy .ori-btn {
+  margin-top: 14px;
+}
+
+.ori-pextra--empty {
+  padding: 18px 0;
+  background: #fff8e1;
+  font-size: 15px;
+}
+
+@media (max-width: 900px) {
+  .ori-pextra__row {
+    grid-template-columns: 1fr;
+  }
+
+  .ori-pextra__row--flip .ori-pextra__media {
+    order: 0;
+  }
+}
+
+
+/* ==========================================================
+   ORI REDESIGN — RELATED PRODUCTS (sections/product-recommendations
+   .liquid, "ORI design" → .ori-related). Uses the recently viewed
+   scroll row (.ori-recent__track / __item) from above.
+   ========================================================== */
+.ori-related {
+  --ori-recent-gap: 22px;
+}
+
+.ori-related__in {
+  border-top: 1px solid var(--ori-line);
+  background: var(--ori-paper);
+}
+
+@media (max-width: 600px) {
+  .ori-related {
+    --ori-recent-gap: 14px;
+  }
+}

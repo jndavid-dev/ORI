@@ -52,11 +52,21 @@
   assign enable_sticky_info = section.settings.enable_sticky_info
 
   assign animation_effect = settings.animations
+
+  # ORI redesign, opt-in per template ("ORI design" setting). Only adds the
+  # .ori-pdp wrapper that assets/gvm-css-main.css styles. Markup, scripts and
+  # app hooks (Selleasy, Timesact, Bold, Xeon) stay exactly as the theme's.
+  assign ori_design = section.settings.ori_design
+  assign crumbs_justify = 'center'
+  if ori_design
+    assign crumbs_justify = 'start'
+  endif
 -%}
+{%- if ori_design -%}<div class="ori-pdp">{%- endif -%}
 {%- if section.settings.show_breadcrumb -%}
   {%- render 'breadcrumb',
     container: section.settings.container,
-    justify: 'center'
+    justify: crumbs_justify
   -%}
 {%- endif -%}
 <product-info
@@ -111,6 +121,7 @@
     {{ product | json }}
   </script>
 </product-info>
+{%- if ori_design -%}</div>{%- endif -%}
 
 {% render 'so-special-order-modal' %}
 
@@ -1579,6 +1590,13 @@
       ],
       "default": "container",
       "label": "t:sections.common.container.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "ori_design",
+      "label": "ORI design",
+      "default": false,
+      "info": "Applies the ORI redesign look to this product page. Functionality and app blocks are unchanged."
     },
     {
       "type": "checkbox",

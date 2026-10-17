@@ -2,257 +2,229 @@
   Product Tabs (Guidelines)
   - Tabs are blocks so you can add/remove/reorder easily
   - Tabs auto-hide if their content is empty (metafield/page/custom/liquid)
-  - Reviews: best is anchor scroll to reviews section; optional embed via custom liquid
+  - Reviews: a scroll-to anchor. It only shows when "Reviews scroll selector"
+    is set AND that element exists on the page (checked in the script below),
+    so there is never an empty Reviews tab when no reviews app is installed.
+  - If only one tab has content, it renders as a plain headed block with no
+    tab bar ("Overview" on its own is not a tab).
+  - Style "ORI" (setting) uses the redesign look from assets/gvm-css-main.css
+    (ORI REDESIGN — PRODUCT TABS). "Classic" is the original bordered box.
 {% endcomment %}
 
-{%- assign visible_count = 0 -%}
-{%- assign first_visible_block_id = '' -%}
+{%- liquid
+  assign is_ori = false
+  if section.settings.style == 'ori'
+    assign is_ori = true
+  endif
 
-{%- for block in section.blocks -%}
-  {%- assign show_tab = false -%}
+  # One pass decides which tabs have content. visible_ids is a |id| list so a
+  # contains check can't match one id inside another.
+  assign visible_ids = '|'
+  assign visible_count = 0
+  assign content_count = 0
+  assign first_visible_block_id = ''
 
-  {%- case block.settings.content_type -%}
-    {%- when 'product_description' -%}
-      {%- assign desc_text = product.description | strip_html | strip -%}
-      {%- if desc_text != blank -%}
-        {%- assign show_tab = true -%}
-      {%- endif -%}
+  for block in section.blocks
+    assign show_tab = false
 
-    {%- when 'metafield' -%}
-      {%- assign ns = block.settings.metafield_namespace | strip -%}
-      {%- assign key = block.settings.metafield_key | strip -%}
-      {%- assign mf = blank -%}
+    case block.settings.content_type
+      when 'product_description'
+        assign desc_text = product.description | strip_html | strip
+        if desc_text != blank
+          assign show_tab = true
+        endif
 
-      {%- if ns != blank and key != blank -%}
-        {%- assign mf = product.metafields[ns][key] -%}
-      {%- endif -%}
+      when 'metafield'
+        assign ns = block.settings.metafield_namespace | strip
+        assign key = block.settings.metafield_key | strip
+        assign mf_text = ''
+        if ns != blank and key != blank
+          assign mf = product.metafields[ns][key]
+          if mf != blank
+            assign mf_text = mf | metafield_tag | strip_html | strip
+          endif
+        endif
+        if mf_text != blank
+          assign show_tab = true
+        endif
 
-      {%- capture mf_html -%}
-        {%- if mf != blank -%}
-          {{ mf | metafield_tag }}
-        {%- endif -%}
-      {%- endcapture -%}
-      {%- assign mf_text = mf_html | strip_html | strip -%}
+      when 'page'
+        if block.settings.page != blank
+          assign page_text = pages[block.settings.page].content | strip_html | strip
+          if page_text != blank
+            assign show_tab = true
+          endif
+        endif
 
-      {%- if mf_text != blank -%}
-        {%- assign show_tab = true -%}
-      {%- endif -%}
+      when 'custom'
+        assign custom_text = block.settings.custom_richtext | strip_html | strip
+        if custom_text != blank
+          assign show_tab = true
+        endif
 
-    {%- when 'page' -%}
-      {%- if block.settings.page != blank -%}
-        {%- assign page_html = pages[block.settings.page].content -%}
-        {%- assign page_text = page_html | strip_html | strip -%}
-        {%- if page_text != blank -%}
-          {%- assign show_tab = true -%}
-        {%- endif -%}
-      {%- endif -%}
+      when 'custom_liquid'
+        assign liq_raw = block.settings.custom_liquid | strip
+        if liq_raw != blank
+          assign show_tab = true
+        endif
 
-    {%- when 'custom' -%}
-      {%- assign custom_text = block.settings.custom_richtext | strip_html | strip -%}
-      {%- if custom_text != blank -%}
-        {%- assign show_tab = true -%}
-      {%- endif -%}
+      when 'reviews_anchor'
+        assign selector = block.settings.scroll_selector | strip
+        if selector != blank
+          assign show_tab = true
+        endif
+    endcase
 
-    {%- when 'custom_liquid' -%}
-      {%- assign liq_raw = block.settings.custom_liquid | strip -%}
-      {%- if liq_raw != blank -%}
-        {%- assign show_tab = true -%}
-      {%- endif -%}
+    if request.design_mode
+      assign show_tab = true
+    endif
 
-    {%- when 'reviews_anchor' -%}
-      {%- assign show_tab = true -%}
-  {%- endcase -%}
+    if show_tab
+      assign visible_ids = visible_ids | append: block.id | append: '|'
+      assign visible_count = visible_count | plus: 1
+      if block.settings.content_type != 'reviews_anchor'
+        assign content_count = content_count | plus: 1
+      endif
+      if first_visible_block_id == '' and block.settings.content_type != 'reviews_anchor'
+        assign first_visible_block_id = block.id
+      endif
+    endif
+  endfor
 
-  {%- if request.design_mode -%}
-    {%- assign show_tab = true -%}
-  {%- endif -%}
+  # A single content tab (with or without a reviews anchor) drops the tab bar.
+  assign single = false
+  if content_count == 1 and request.design_mode == false
+    assign single = true
+  endif
 
-  {%- if show_tab -%}
-    {%- assign visible_count = visible_count | plus: 1 -%}
-    {%- if first_visible_block_id == '' -%}
-      {%- assign first_visible_block_id = block.id -%}
-    {%- endif -%}
-  {%- endif -%}
-{%- endfor -%}
+  assign section_class = 'pc-tabs'
+  if is_ori
+    assign section_class = 'pc-tabs ori ori-ptabs'
+    if single
+      assign section_class = section_class | append: ' ori-ptabs--single'
+    endif
+  endif
+-%}
 
-{%- if visible_count > 0 or request.design_mode -%}
-<section id="Tabs-{{ section.id }}" class="pc-tabs">
-  <div class="pc-tabs__wrap">
-    <div class="pc-tabs__nav" role="tablist" aria-label="Product tabs">
+{%- if content_count > 0 or request.design_mode -%}
+<section
+  id="Tabs-{{ section.id }}"
+  class="{{ section_class }}"
+  {% if is_ori %}style="--ori-pt: {{ section.settings.padding_top }}px; --ori-pb: {{ section.settings.padding_bottom }}px;"{% endif %}
+>
+  <div class="pc-tabs__wrap{% if is_ori %} ori-wrap{% endif %}">
+    {%- if single -%}
       {%- for block in section.blocks -%}
-        {%- assign show_tab = false -%}
-
-        {%- case block.settings.content_type -%}
-          {%- when 'product_description' -%}
-            {%- assign desc_text = product.description | strip_html | strip -%}
-            {%- if desc_text != blank -%}{%- assign show_tab = true -%}{%- endif -%}
-
-          {%- when 'metafield' -%}
-            {%- assign ns = block.settings.metafield_namespace | strip -%}
-            {%- assign key = block.settings.metafield_key | strip -%}
-            {%- assign mf = blank -%}
-            {%- if ns != blank and key != blank -%}
-              {%- assign mf = product.metafields[ns][key] -%}
-            {%- endif -%}
-
-            {%- capture mf_html -%}
-              {%- if mf != blank -%}{{ mf | metafield_tag }}{%- endif -%}
-            {%- endcapture -%}
-            {%- assign mf_text = mf_html | strip_html | strip -%}
-            {%- if mf_text != blank -%}{%- assign show_tab = true -%}{%- endif -%}
-
-          {%- when 'page' -%}
-            {%- if block.settings.page != blank -%}
-              {%- assign page_html = pages[block.settings.page].content -%}
-              {%- assign page_text = page_html | strip_html | strip -%}
-              {%- if page_text != blank -%}{%- assign show_tab = true -%}{%- endif -%}
-            {%- endif -%}
-
-          {%- when 'custom' -%}
-            {%- assign custom_text = block.settings.custom_richtext | strip_html | strip -%}
-            {%- if custom_text != blank -%}{%- assign show_tab = true -%}{%- endif -%}
-
-          {%- when 'custom_liquid' -%}
-            {%- assign liq_raw = block.settings.custom_liquid | strip -%}
-            {%- if liq_raw != blank -%}{%- assign show_tab = true -%}{%- endif -%}
-
-          {%- when 'reviews_anchor' -%}
-            {%- assign show_tab = true -%}
-        {%- endcase -%}
-
-        {%- if request.design_mode -%}{%- assign show_tab = true -%}{%- endif -%}
-
-        {%- if show_tab -%}
-          {%- assign tab_id = 'tab-' | append: section.id | append: '-' | append: block.id -%}
-          {%- assign panel_id = 'panel-' | append: section.id | append: '-' | append: block.id -%}
-          {%- assign is_first = false -%}
-          {%- if block.id == first_visible_block_id -%}{%- assign is_first = true -%}{%- endif -%}
-
-          <button
-            id="{{ tab_id }}"
-            class="pc-tabs__tab{% if is_first %} is-active{% endif %}"
-            type="button"
-            role="tab"
-            aria-selected="{% if is_first %}true{% else %}false{% endif %}"
-            aria-controls="{{ panel_id }}"
-            data-panel="{{ panel_id }}"
-            tabindex="{% if is_first %}0{% else %}-1{% endif %}"
-            {% if block.settings.content_type == 'reviews_anchor' and block.settings.scroll_selector != blank %}
-              data-scroll-selector="{{ block.settings.scroll_selector | escape }}"
-            {% endif %}
-            {{ block.shopify_attributes }}
-          >
-            {{ block.settings.title | escape }}
-          </button>
+        {%- if block.id == first_visible_block_id -%}
+          <h2 class="pc-tabs__heading{% if is_ori %} ori-h2{% endif %}" {{ block.shopify_attributes }}>
+            {{- block.settings.title | escape -}}
+          </h2>
         {%- endif -%}
       {%- endfor -%}
-    </div>
+    {%- else -%}
+      <div class="pc-tabs__nav" role="tablist" aria-label="Product information">
+        {%- for block in section.blocks -%}
+          {%- assign needle = '|' | append: block.id | append: '|' -%}
+          {%- if visible_ids contains needle -%}
+            {%- assign tab_id = 'tab-' | append: section.id | append: '-' | append: block.id -%}
+            {%- assign panel_id = 'panel-' | append: section.id | append: '-' | append: block.id -%}
+            {%- assign is_first = false -%}
+            {%- if block.id == first_visible_block_id -%}{%- assign is_first = true -%}{%- endif -%}
+            <button
+              id="{{ tab_id }}"
+              class="pc-tabs__tab{% if is_first %} is-active{% endif %}"
+              type="button"
+              role="tab"
+              aria-selected="{% if is_first %}true{% else %}false{% endif %}"
+              aria-controls="{{ panel_id }}"
+              data-panel="{{ panel_id }}"
+              tabindex="{% if is_first %}0{% else %}-1{% endif %}"
+              {% if block.settings.content_type == 'reviews_anchor' %}
+                data-reviews-tab
+                data-scroll-selector="{{ block.settings.scroll_selector | strip | escape }}"
+              {% endif %}
+              {{ block.shopify_attributes }}
+            >
+              {{ block.settings.title | escape }}
+            </button>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
 
     <div class="pc-tabs__panels">
       {%- for block in section.blocks -%}
-        {%- assign show_tab = false -%}
+        {%- assign needle = '|' | append: block.id | append: '|' -%}
+        {%- unless visible_ids contains needle -%}{%- continue -%}{%- endunless -%}
+        {%- if single and block.id != first_visible_block_id -%}{%- continue -%}{%- endif -%}
 
-        {%- case block.settings.content_type -%}
-          {%- when 'product_description' -%}
-            {%- assign desc_text = product.description | strip_html | strip -%}
-            {%- if desc_text != blank -%}{%- assign show_tab = true -%}{%- endif -%}
+        {%- assign panel_id = 'panel-' | append: section.id | append: '-' | append: block.id -%}
+        {%- assign tab_id = 'tab-' | append: section.id | append: '-' | append: block.id -%}
+        {%- assign is_first = false -%}
+        {%- if block.id == first_visible_block_id -%}{%- assign is_first = true -%}{%- endif -%}
 
-          {%- when 'metafield' -%}
-            {%- assign ns = block.settings.metafield_namespace | strip -%}
-            {%- assign key = block.settings.metafield_key | strip -%}
-            {%- assign mf = blank -%}
-            {%- if ns != blank and key != blank -%}
-              {%- assign mf = product.metafields[ns][key] -%}
-            {%- endif -%}
-
-            {%- capture mf_html -%}
-              {%- if mf != blank -%}{{ mf | metafield_tag }}{%- endif -%}
-            {%- endcapture -%}
-            {%- assign mf_text = mf_html | strip_html | strip -%}
-            {%- if mf_text != blank -%}{%- assign show_tab = true -%}{%- endif -%}
-
-          {%- when 'page' -%}
-            {%- if block.settings.page != blank -%}
-              {%- assign page_html = pages[block.settings.page].content -%}
-              {%- assign page_text = page_html | strip_html | strip -%}
-              {%- if page_text != blank -%}{%- assign show_tab = true -%}{%- endif -%}
-            {%- endif -%}
-
-          {%- when 'custom' -%}
-            {%- assign custom_text = block.settings.custom_richtext | strip_html | strip -%}
-            {%- if custom_text != blank -%}{%- assign show_tab = true -%}{%- endif -%}
-
-          {%- when 'custom_liquid' -%}
-            {%- assign liq_raw = block.settings.custom_liquid | strip -%}
-            {%- if liq_raw != blank -%}{%- assign show_tab = true -%}{%- endif -%}
-
-          {%- when 'reviews_anchor' -%}
-            {%- assign show_tab = true -%}
-        {%- endcase -%}
-
-        {%- if request.design_mode -%}{%- assign show_tab = true -%}{%- endif -%}
-
-        {%- if show_tab -%}
-          {%- assign panel_id = 'panel-' | append: section.id | append: '-' | append: block.id -%}
-          {%- assign tab_id = 'tab-' | append: section.id | append: '-' | append: block.id -%}
-          {%- assign is_first = false -%}
-          {%- if block.id == first_visible_block_id -%}{%- assign is_first = true -%}{%- endif -%}
-
-          <div
-            id="{{ panel_id }}"
-            class="pc-tabs__panel rte{% if is_first %} is-active{% endif %}"
+        <div
+          id="{{ panel_id }}"
+          class="pc-tabs__panel rte{% if is_first %} is-active{% endif %}"
+          {% unless single %}
             role="tabpanel"
             aria-labelledby="{{ tab_id }}"
             {% unless is_first %}hidden{% endunless %}
-          >
-            {% case block.settings.content_type %}
-              {% when 'product_description' %}
-                {{ product.description }}
+          {% endunless %}
+        >
+          {% case block.settings.content_type %}
+            {% when 'product_description' %}
+              {{ product.description }}
 
-              {% when 'metafield' %}
-                {% assign ns = block.settings.metafield_namespace | strip %}
-                {% assign key = block.settings.metafield_key | strip %}
-                {% assign mf = blank %}
-                {% if ns != blank and key != blank %}
-                  {% assign mf = product.metafields[ns][key] %}
-                {% endif %}
+            {% when 'metafield' %}
+              {% assign ns = block.settings.metafield_namespace | strip %}
+              {% assign key = block.settings.metafield_key | strip %}
+              {% assign mf = blank %}
+              {% if ns != blank and key != blank %}
+                {% assign mf = product.metafields[ns][key] %}
+              {% endif %}
 
-                {% if mf != blank %}
-                  {{ mf | metafield_tag }}
-                {% else %}
-                  {% if request.design_mode %}
-                    <p><strong>Metafield is empty.</strong> This tab will hide on live if left empty.</p>
-                  {% endif %}
-                {% endif %}
+              {% if mf != blank %}
+                {{ mf | metafield_tag }}
+              {% elsif request.design_mode %}
+                <p><strong>Metafield is empty.</strong> This tab will hide on live if left empty.</p>
+              {% endif %}
 
-              {% when 'page' %}
-                {% if block.settings.page != blank %}
-                  {{ pages[block.settings.page].content }}
-                {% endif %}
+            {% when 'page' %}
+              {% if block.settings.page != blank %}
+                {{ pages[block.settings.page].content }}
+              {% endif %}
 
-              {% when 'custom' %}
-                {{ block.settings.custom_richtext }}
+            {% when 'custom' %}
+              {{ block.settings.custom_richtext }}
 
-              {% when 'custom_liquid' %}
-                {{ block.settings.custom_liquid }}
+            {% when 'custom_liquid' %}
+              {{ block.settings.custom_liquid }}
 
-              {% when 'reviews_anchor' %}
-                {% if request.design_mode %}
-                  <p>This tab scrolls to your reviews section.</p>
-                  <p>Set <code>Scroll selector</code> (example: <code>#judgeme_product_reviews</code>).</p>
-                {% endif %}
-            {% endcase %}
-          </div>
-        {%- endif -%}
+            {% when 'reviews_anchor' %}
+              {% if request.design_mode %}
+                <p>This tab scrolls to your reviews section and hides when that section isn't on the page.</p>
+                <p>Set <code>Reviews scroll selector</code> (example: <code>#judgeme_product_reviews</code>).</p>
+              {% endif %}
+          {% endcase %}
+        </div>
       {%- endfor -%}
     </div>
   </div>
 
+  {%- unless is_ori -%}
   <style>
     #Tabs-{{ section.id }} .pc-tabs__wrap{
       border: 2px solid #000;
       padding: 26px 28px;
       background: #fff;
+    }
+    #Tabs-{{ section.id }} .pc-tabs__heading{
+      margin: 0 0 10px;
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: .06em;
+      text-transform: uppercase;
     }
     #Tabs-{{ section.id }} .pc-tabs__nav{
       display: flex;
@@ -302,26 +274,44 @@
       #Tabs-{{ section.id }} .pc-tabs__nav{ gap: 22px; }
     }
   </style>
+  {%- endunless -%}
 
+  {%- unless single -%}
   <script>
     (function() {
       var root = document.getElementById("Tabs-{{ section.id }}");
       if (!root) return;
 
-      var tabs = root.querySelectorAll('[role="tab"]');
-      var panels = root.querySelectorAll('[role="tabpanel"]');
-      if (!tabs.length || !panels.length) return;
+      // Reviews anchor: hide the tab when its target isn't on the page.
+      // Runs again after load, because review apps usually inject late.
+      function pruneReviews() {
+        if (window.Shopify && Shopify.designMode) return;
+        root.querySelectorAll('[data-reviews-tab]').forEach(function(tab) {
+          var target = null;
+          try { target = document.querySelector(tab.dataset.scrollSelector); } catch (e) {}
+          tab.hidden = !target;
+        });
+      }
 
-      function activateTab(tabEl) {
+      function tabs() {
+        return root.querySelectorAll('[role="tab"]:not([hidden])');
+      }
+
+      function activateTab(tabEl, scroll) {
+        if (tabEl.dataset.scrollSelector) {
+          var target = null;
+          try { target = document.querySelector(tabEl.dataset.scrollSelector); } catch (e) {}
+          if (target && scroll) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          return;
+        }
+
         var panelId = tabEl.getAttribute('data-panel');
-
-        tabs.forEach(function(t){
+        root.querySelectorAll('[role="tab"]').forEach(function(t){
           t.classList.remove('is-active');
           t.setAttribute('aria-selected', 'false');
           t.setAttribute('tabindex', '-1');
         });
-
-        panels.forEach(function(p){
+        root.querySelectorAll('[role="tabpanel"]').forEach(function(p){
           p.classList.remove('is-active');
           p.hidden = true;
         });
@@ -335,43 +325,70 @@
           panel.classList.add('is-active');
           panel.hidden = false;
         }
-
-        if (tabEl.dataset.scrollSelector) {
-          var target = document.querySelector(tabEl.dataset.scrollSelector);
-          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
       }
 
-      tabs.forEach(function(tab){
+      root.querySelectorAll('[role="tab"]').forEach(function(tab){
         tab.addEventListener('click', function(){
-          activateTab(tab);
+          activateTab(tab, true);
         });
 
         tab.addEventListener('keydown', function(e){
-          var idx = Array.prototype.indexOf.call(tabs, tab);
-          if (e.key === 'ArrowRight') {
+          var list = Array.prototype.slice.call(tabs());
+          var idx = list.indexOf(tab);
+          var next = null;
+          if (e.key === 'ArrowRight') next = list[idx + 1] || list[0];
+          if (e.key === 'ArrowLeft') next = list[idx - 1] || list[list.length - 1];
+          if (next) {
             e.preventDefault();
-            var next = tabs[idx + 1] || tabs[0];
-            next.focus(); activateTab(next);
-          }
-          if (e.key === 'ArrowLeft') {
-            e.preventDefault();
-            var prev = tabs[idx - 1] || tabs[tabs.length - 1];
-            prev.focus(); activateTab(prev);
+            next.focus();
+            activateTab(next, false);
           }
         });
       });
 
-      activateTab(tabs[0]);
+      pruneReviews();
+      window.addEventListener('load', pruneReviews);
     })();
   </script>
+  {%- endunless -%}
 </section>
 {%- endif -%}
 
 {% schema %}
 {
   "name": "Product tabs (Guidelines)",
-  "settings": [],
+  "settings": [
+    {
+      "type": "select",
+      "id": "style",
+      "label": "Style",
+      "default": "classic",
+      "options": [
+        { "value": "classic", "label": "Classic (bordered box)" },
+        { "value": "ori", "label": "ORI redesign" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding (ORI style)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding (ORI style)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    }
+  ],
   "blocks": [
     {
       "type": "tab",
@@ -397,7 +414,12 @@
         { "type": "page", "id": "page", "label": "Select page" },
         { "type": "richtext", "id": "custom_richtext", "label": "Custom content" },
         { "type": "liquid", "id": "custom_liquid", "label": "Custom liquid (optional)" },
-        { "type": "text", "id": "scroll_selector", "label": "Reviews scroll selector (e.g. #judgeme_product_reviews)" }
+        {
+          "type": "text",
+          "id": "scroll_selector",
+          "label": "Reviews scroll selector (e.g. #judgeme_product_reviews)",
+          "info": "The Reviews tab only shows when this is set and the element is on the page."
+        }
       ]
     }
   ],

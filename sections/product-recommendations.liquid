@@ -36,6 +36,49 @@
 
   assign remove_params = section.settings.remove_params
 -%}
+{%- comment -%}
+  ORI redesign, opt-in ("ORI design" setting). Same data flow as the theme
+  version below: the <product-recommendations> element (assets/global.js)
+  fetches this section with the recommendations and swaps its contents in.
+  Cards are snippets/ori-product-card.liquid in the same horizontal scroll
+  row as the ORI recently viewed band (.ori-recent__track). The padding sits
+  inside the element, so with no recommendations the band takes no space.
+{%- endcomment -%}
+{%- if section.settings.ori_design -%}
+  <div id="{{ section_id }}" class="product-recommendations ori ori-related no-js-hidden{{ custom_class }}">
+    <product-recommendations
+      class="product-recommendations block"
+      data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product_id }}&limit={{ section.settings.limit | default: 4 }}"
+    >
+      {%- if recommendations.performed and recommendations.products_count > 0 -%}
+        <div
+          class="ori-section ori-related__in"
+          style="--ori-pt: {{ section.settings.padding_top }}px; --ori-pb: {{ section.settings.padding_bottom }}px; --ori-cols: {{ columns }};"
+        >
+          <div class="ori-wrap">
+            {%- if section.settings.heading != blank -%}
+              <div class="ori-head">
+                <div>
+                  <h2 class="ori-h2">{{ section.settings.heading }}</h2>
+                  {%- if section.settings.description != blank -%}
+                    <div class="ori-head__intro">{{ section.settings.description }}</div>
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- endif -%}
+            <div class="ori-recent__track" role="list">
+              {%- for product in recommendations.products -%}
+                <div class="ori-recent__item" role="listitem">
+                  {%- render 'ori-product-card', product: product, button: 'cart' -%}
+                </div>
+              {%- endfor -%}
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+    </product-recommendations>
+  </div>
+{%- else -%}
 {% render 'divider',
   show_divider: section.settings.show_section_divider,
   divider_width: section.settings.divider_width
@@ -82,6 +125,7 @@
     {%- endif -%}
   </product-recommendations>
 </div>
+{%- endif -%}
 {% schema %}
 {
   "name": "t:sections.product-recommendations.name",
@@ -120,6 +164,13 @@
       ],
       "default": "container",
       "label": "t:sections.common.container.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "ori_design",
+      "label": "ORI design",
+      "default": false,
+      "info": "ORI cards in a scrolling row. Uses Heading, Description, Products per row, Product limit and padding."
     },
     {
       "type": "color_scheme",

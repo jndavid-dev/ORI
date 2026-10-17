@@ -1,0 +1,130 @@
+{%- comment -%}
+  ORI redesign — product "additional contents" rows.
+  Replaces the two theme custom-content sections that live binds to the
+  product metaobject custom.product_additional_contents (image / title /
+  description / button, two rows). Those were dynamic-source settings, which
+  can't be pushed to a store without the metafield definition (staging), so
+  the same fields are read here in Liquid instead.
+
+  Metaobject fields (as bound on live):
+    row 1: additional_content_image_1, additional_content_title_1,
+           additional_content_description_1 (rich text),
+           additional_content_button_label_1, additional_content_button_url
+    row 2: the same with _2 (button url: additional_content_button_url_2)
+
+  A row renders only when it has a title, text or image; the section renders
+  nothing when neither row does (every product on staging, most on live).
+  Row 1 has the image on the left, row 2 on the right, as on live.
+{%- endcomment -%}
+{%- liquid
+  assign mo = product.metafields.custom.product_additional_contents.value
+
+  assign rows = ''
+  if mo != blank
+    for i in (1..2)
+      assign k_img = 'additional_content_image_' | append: i
+      assign k_title = 'additional_content_title_' | append: i
+      assign k_text = 'additional_content_description_' | append: i
+      if mo[k_img].value != blank or mo[k_title].value != blank or mo[k_text].value != blank
+        assign rows = rows | append: i | append: ','
+      endif
+    endfor
+  endif
+  assign rows = rows | split: ','
+-%}
+
+{%- if rows.size > 0 -%}
+  <div
+    id="{{ section.id }}"
+    class="ori ori-section ori-pextra"
+    style="--ori-pt: {{ section.settings.padding_top }}px; --ori-pb: {{ section.settings.padding_bottom }}px;"
+  >
+    <div class="ori-wrap">
+      {%- for i in rows -%}
+        {%- liquid
+          assign k_img = 'additional_content_image_' | append: i
+          assign k_title = 'additional_content_title_' | append: i
+          assign k_text = 'additional_content_description_' | append: i
+          assign k_label = 'additional_content_button_label_' | append: i
+          assign k_url = 'additional_content_button_url_' | append: i
+          if i == '1'
+            assign k_url = 'additional_content_button_url'
+          endif
+
+          assign row_image = mo[k_img].value
+          assign row_title = mo[k_title].value
+          assign row_label = mo[k_label].value
+          assign row_url = mo[k_url].value
+        -%}
+        <div class="ori-pextra__row{% if i == '2' %} ori-pextra__row--flip{% endif %}{% if row_image == blank %} ori-pextra__row--text{% endif %}">
+          {%- if row_image != blank -%}
+            <div class="ori-pextra__media">
+              {{- row_image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '400, 600, 800, 1000, 1200', sizes: '(min-width: 990px) 50vw, 100vw' -}}
+            </div>
+          {%- endif -%}
+          <div class="ori-pextra__copy">
+            {%- if row_title != blank -%}
+              <h2 class="ori-h2 ori-pextra__title">{{ row_title }}</h2>
+            {%- endif -%}
+            {%- if mo[k_text].value != blank -%}
+              <div class="ori-pextra__text rte">{{ mo[k_text] | metafield_tag }}</div>
+            {%- endif -%}
+            {%- if row_label != blank and row_url != blank -%}
+              <a class="ori-btn ori-btn--teal" href="{{ row_url }}">{{ row_label | escape }}</a>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+{%- elsif request.design_mode -%}
+  <div class="ori ori-pextra ori-pextra--empty">
+    <div class="ori-wrap">
+      <p>
+        <strong>Product additional contents:</strong> this product has no
+        <code>custom.product_additional_contents</code> metaobject, so nothing shows on the live page.
+      </p>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "ORI product extra content",
+  "class": "ori-pextra-section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Image + text rows from the product metaobject custom.product_additional_contents. Hidden when the product has none."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    }
+  ],
+  "enabled_on": {
+    "templates": ["product"]
+  },
+  "presets": [
+    {
+      "name": "ORI product extra content"
+    }
+  ]
+}
+{% endschema %}

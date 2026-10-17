@@ -1823,7 +1823,7 @@ class ProductRecommendations extends HTMLElement {
             __reInitTooltip(this);
           }
 
-          if (html.querySelector(".product-card")) {
+          if (html.querySelector(".product-card, .ori-card")) {
             this.classList.add("product-recommendations--loaded");
           } else {
             this.classList.add("f-hidden");
