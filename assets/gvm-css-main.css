@@ -8890,6 +8890,25 @@ a.ori-brandbar__tile:hover .ori-brandbar__logo {
   font-size: 14px;
 }
 
+/* Desktop: Add to cart and Buy it now side by side. Only when Shopify
+   renders the payment button (it doesn't for B2B buyers), so Add to
+   cart never sits half-width next to an empty slot. Anything else in
+   the row (error message, app-injected elements) spans both columns. */
+@media (min-width: 990px) {
+  .ori-pdp .f-product-form__buttons:has(> .f-product-form__button-dynamic .shopify-payment-button) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+
+  .ori-pdp .f-product-form__buttons:has(> .f-product-form__button-dynamic .shopify-payment-button) > :not(.f-product-form__submit):not(.f-product-form__button-dynamic) {
+    grid-column: 1 / -1;
+  }
+
+  .ori-pdp .f-product-form__button-dynamic .shopify-payment-button__button--unbranded {
+    height: 58px;
+  }
+}
+
 /* --- Shipping / perks lines --- */
 .ori-pdp .f-product-single__block--shipping {
   padding-top: 20px;
