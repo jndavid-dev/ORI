@@ -9385,35 +9385,6 @@ a.ori-brandbar__tile:hover .ori-brandbar__logo {
   }
 }
 
-/* Tablet and phone: slides stack image over copy. The vehicle and the
-   approval band run the full content width, and each slide's content is
-   centred vertically, so a shorter slide splits its spare height above
-   and below instead of leaving it all under the button. (The slider
-   keeps one height for every slide so the page below never jumps.) */
-@media (max-width: 1024px) {
-  .ori-hslider .ori-hero {
-    justify-content: center;
-  }
-
-  .ori-hslider .ori-hero > .ori-hero__in {
-    flex: 0 0 auto;
-  }
-
-  .ori-hslider .ori-hero__in {
-    align-items: flex-start;
-  }
-
-  /* Full width up to 760px; on wide tablets a full-width truck made
-     the banner taller than the screen. */
-  .ori-hslider .ori-hero--cutout .ori-hero__media {
-    max-width: 760px;
-  }
-
-  .ori-hslider .ori-hero-approval {
-    width: 100%;
-  }
-}
-
 /* Phones: swipe instead of arrows. */
 @media (max-width: 767px) {
   .ori-hslider .ori-hslider__arrow:not(.ori-hslider__pause) {
@@ -9737,18 +9708,166 @@ body .ori-marquee .f-promotion__item img {
   }
 }
 
-/* Tablets: the approval on one line (phones keep two). */
+/* ==========================================================
+   ORI REDESIGN — HERO SLIDER: TABLET & PHONE (1024px and below)
+   One layout for every slide once the banner stacks:
+   1. Top gap, the same on every slide, clears the plate badge or
+      the corner logos.
+   2. Vehicle stage: the same fixed height on every slide
+      (--ori-hs-stage). The cut-out fills it at 100% width, kept in
+      proportion (contain) and standing on the stage floor, so a tall
+      vehicle is limited by the height and a wide group shot by the
+      width. Copy therefore starts at the same point on every slide.
+   3. Copy, full width: the heading flows on one line where it fits
+      (a white line 1 keeps its own line), feature points in one row
+      of four from 700px, the approval band full width.
+   Spare height (slides differ only in their copy) is split above and
+   below. The slider keeps one height so the page never jumps.
+   ========================================================== */
+@media (max-width: 1024px) {
+  .ori-hslider {
+    --ori-hs-top: 84px;
+    --ori-hs-stage: clamp(170px, 34vw, 330px);
+  }
+
+  .ori-hslider .ori-hero {
+    justify-content: center;
+  }
+
+  .ori-hslider .ori-hero > .ori-hero__in {
+    flex: 0 0 auto;
+    padding-top: 28px;
+  }
+
+  .ori-hslider .ori-hero__in {
+    align-items: flex-start;
+  }
+
+  /* Vehicle stage */
+  .ori-hslider .ori-hero.ori-hero--cutout .ori-hero__media,
+  .ori-hslider .ori-hero.ori-hero--photo .ori-hero__media {
+    width: auto;
+    max-width: none;
+    height: var(--ori-hs-stage);
+    margin: var(--ori-hs-top) var(--ori-edge) 0;
+  }
+
+  .ori-hslider .ori-hero .ori-hero__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center bottom;
+  }
+
+  /* Copy */
+  .ori-hslider .ori-hero__copy {
+    max-width: none;
+  }
+
+  /* Heading as one wrapping row: line 1, line 2 and the pill sit side by
+     side while they fit, and wrap whole (the pill to its own line, flush
+     left) when they don't. A white line 1 always takes its own row. */
+  .ori-hslider .ori-hero__title {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: 0.25em;
+  }
+
+  .ori-hslider .ori-hero__l2 {
+    display: contents;
+  }
+
+  .ori-hslider .ori-hero__l1--white {
+    flex-basis: 100%;
+  }
+
+  .ori-hslider .ori-pill {
+    margin: 8px 0;
+  }
+
+  .ori-hslider .ori-hero__sub {
+    max-width: none;
+  }
+
+  .ori-hslider .ori-hero-approval {
+    width: 100%;
+  }
+}
+
+/* Tablets: feature points in one row of four; approval on one line. */
+@media (min-width: 700px) and (max-width: 1024px) {
+  .ori-hslider .ori-hero .ori-feats {
+    grid-template-columns: repeat(4, auto);
+    row-gap: 0;
+  }
+
+  .ori-hslider .ori-hero .ori-feat {
+    padding: 0 16px;
+    font-size: 14px;
+  }
+
+  .ori-hslider .ori-hero .ori-feat:nth-child(3) {
+    padding-left: 16px;
+    border-left: 1px solid rgba(255, 255, 255, 0.25);
+  }
+
+  .ori-hslider .ori-hero .ori-feat:first-child {
+    padding-left: 0;
+  }
+
+  .ori-hslider .ori-hero .ori-feat svg {
+    width: 28px;
+    height: 28px;
+  }
+}
+
 @media (min-width: 561px) and (max-width: 1024px) {
   .ori-hero--slide .ori-hero-approval__title br {
     display: none;
   }
 }
 
-/* Tablets: the wide, short two-truck image (slides with the approval
-   band) can take the full content width; only tall images need the
-   760px cap above. */
-@media (max-width: 1024px) {
-  .ori-hslider .ori-hero--cutout:has(.ori-hero-approval) .ori-hero__media {
-    max-width: none;
+/* Large phones / small tablets: feature points in two even columns. */
+@media (min-width: 481px) and (max-width: 699px) {
+  .ori-hslider .ori-hero .ori-feats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 14px;
+  }
+}
+
+/* Phones: one feature point per line, each on a single line of text
+   (the editor's line breaks only suit the wide layout). */
+@media (max-width: 480px) {
+  .ori-hslider .ori-hero .ori-feats {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 10px;
+  }
+
+  .ori-hslider .ori-hero .ori-feat,
+  .ori-hslider .ori-hero .ori-feat:nth-child(3) {
+    padding: 0;
+    border-left: 0;
+    font-size: 14px;
+  }
+
+  .ori-hslider .ori-hero .ori-feat br {
+    display: none;
+  }
+
+  .ori-hslider .ori-hero .ori-feat svg {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+/* Phones: smaller heading and top gap. */
+@media (max-width: 560px) {
+  .ori-hslider {
+    --ori-hs-top: 76px;
+  }
+
+  .ori-hslider .ori .ori-hero__title {
+    font-size: 38px;
   }
 }
