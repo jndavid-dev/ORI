@@ -12256,3 +12256,173 @@ body .f-pagination__item--current {
 .ori-rte .ori-rte-blank {
   display: none;
 }
+
+/* ==========================================================
+   ORI REDESIGN — POLICY PAGES (/policies/*)
+   Shopify renders these itself (.shopify-policy__container), so the
+   look comes from CSS only: the title becomes a full-width dark hero
+   band (ridge texture + teal rule, like the default page hero) and
+   the body matches the default page's .ori-rte reading column.
+   Applies to every policy: privacy, terms of service, refund,
+   shipping, contact information.
+   ========================================================== */
+#MainContent .shopify-policy__container {
+  max-width: none !important;
+  margin: 0;
+  padding: 0;
+}
+
+.shopify-policy__title {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(56px, 7vw, 104px) var(--ori-edge) clamp(64px, 7vw, 112px);
+  background: #0d1113;
+}
+
+.shopify-policy__title::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(ellipse 50% 80% at 12% 40%, rgba(63, 179, 186, 0.1), transparent 70%);
+}
+
+.shopify-policy__title::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  z-index: -1;
+  height: 60%;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--ori-teal), var(--ori-teal)) bottom / 100% 3px no-repeat,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 400' preserveAspectRatio='none'%3E%3Cpath fill='%23161c1f' d='M0 260 120 170l70 40 110-120 90 70 60-40 150 150 90-60 120 80 110-130 140 110 80-40 130 90 120-70 110 60 100-50v360H0z'/%3E%3Cpath fill='%23121819' d='M0 320 160 250l120 50 140-80 160 90 120-40 200 70 140-60 180 60 160-50 220 70v140H0z'/%3E%3C/svg%3E") bottom / 100% 100% no-repeat;
+}
+
+.shopify-policy__title h1 {
+  max-width: 1360px;
+  margin: 0 auto;
+  color: #fff;
+  font-family: var(--ori-display);
+  font-size: clamp(42px, 4.8vw, 76px);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: 0;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.shopify-policy__body {
+  padding: var(--ori-space) var(--ori-edge);
+  background: var(--ori-paper);
+}
+
+.shopify-policy__body .rte {
+  max-width: 760px;
+  margin: 0 auto;
+  color: #2b3235;
+  font-family: var(--ori-body);
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.shopify-policy__body .rte :is(h1, h2, h3, h4, h5, h6) {
+  margin: 1.8em 0 0.5em;
+  color: var(--ori-ink);
+  font-family: var(--ori-display);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.shopify-policy__body .rte :is(h1, h2) {
+  font-size: clamp(28px, 3vw, 38px);
+}
+
+.shopify-policy__body .rte h3 {
+  font-size: clamp(22px, 2.2vw, 27px);
+}
+
+.shopify-policy__body .rte :is(h4, h5, h6) {
+  font-size: 20px;
+}
+
+.shopify-policy__body .rte :is(p, ul, ol, table) {
+  margin: 0 0 1.1em;
+}
+
+.shopify-policy__body .rte > div > p:first-child {
+  color: var(--ori-steel);
+  font-size: 15px;
+}
+
+.shopify-policy__body .rte :is(strong, b) {
+  color: var(--ori-ink);
+}
+
+.shopify-policy__body .rte a {
+  color: var(--ori-teal-deep);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+
+.shopify-policy__body .rte a:hover {
+  color: var(--ori-ink);
+}
+
+.shopify-policy__body .rte ul {
+  padding-left: 0;
+  list-style: none;
+}
+
+.shopify-policy__body .rte ul > li {
+  position: relative;
+  padding-left: 1.5em;
+}
+
+.shopify-policy__body .rte ul > li::before {
+  content: "";
+  position: absolute;
+  top: 0.68em;
+  left: 0.2em;
+  width: 8px;
+  height: 8px;
+  background: var(--ori-teal);
+  transform: rotate(45deg);
+}
+
+.shopify-policy__body .rte ol {
+  padding-left: 1.4em;
+}
+
+.shopify-policy__body .rte li + li {
+  margin-top: 0.35em;
+}
+
+.shopify-policy__body .rte table {
+  display: block;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.shopify-policy__body .rte :is(th, td) {
+  padding: 10px 14px;
+  border: 1px solid var(--ori-line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.shopify-policy__body .rte th {
+  background: var(--ori-bone);
+}
+
+@media (max-width: 600px) {
+  .shopify-policy__body .rte {
+    font-size: 16px;
+  }
+}
