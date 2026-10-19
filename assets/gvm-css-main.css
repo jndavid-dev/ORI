@@ -9575,9 +9575,10 @@ body .ori-marquee .f-promotion__item img {
      banner and running off the right edge (the far truck may crop). */
   .ori-hero--slide.ori-hero--cutout:has(.ori-hero-approval) .ori-hero__media {
     top: 50%;
-    /* -9vw off the screen edge up to 1600px wide; on wider screens it
-       follows the centred content instead of drifting to the edge. */
-    right: calc(var(--ori-hero-side) - var(--ori-edge) - 9vw);
+    /* --ori-hs-shift past the content's right edge, so the far truck
+       runs off the screen up to 1600px wide; on wider screens it follows
+       the centred content instead of drifting to the screen edge. */
+    right: calc(var(--ori-hero-side) - var(--ori-edge) - var(--ori-hs-shift, 12vw));
     bottom: auto;
     width: min(60vw, 1200px);
     transform: translateY(-42%);
@@ -9714,10 +9715,12 @@ body .ori-marquee .f-promotion__item img {
    1. Top gap, the same on every slide, clears the plate badge or
       the corner logos.
    2. Vehicle stage: the same fixed height on every slide
-      (--ori-hs-stage). The cut-out fills it at 100% width, kept in
-      proportion (contain) and standing on the stage floor, so a tall
-      vehicle is limited by the height and a wide group shot by the
-      width. Copy therefore starts at the same point on every slide.
+      (--ori-hs-stage), so copy starts at the same point on every
+      slide. The cut-out is sized by the stage height, centred and
+      standing on its floor: a tall vehicle fits inside, a wide group
+      shot runs past both screen edges (the hero clips it). The bleed
+      is capped by --ori-hs-bleed (share of the content width); past
+      the cap the picture scales down in proportion.
    3. Copy, full width: the heading flows on one line where it fits
       (a white line 1 keeps its own line), feature points in one row
       of four from 700px, the approval band full width.
@@ -9727,7 +9730,8 @@ body .ori-marquee .f-promotion__item img {
 @media (max-width: 1024px) {
   .ori-hslider {
     --ori-hs-top: 84px;
-    --ori-hs-stage: clamp(170px, 34vw, 330px);
+    --ori-hs-stage: clamp(190px, 34vw, 330px);
+    --ori-hs-bleed: 112%;
   }
 
   .ori-hslider .ori-hero {
@@ -9753,10 +9757,14 @@ body .ori-marquee .f-promotion__item img {
   }
 
   .ori-hslider .ori-hero .ori-hero__media img {
-    width: 100%;
+    position: relative;
+    left: 50%;
+    width: auto;
+    max-width: var(--ori-hs-bleed);
     height: 100%;
     object-fit: contain;
     object-position: center bottom;
+    transform: translateX(-50%);
   }
 
   /* Copy */
@@ -9865,6 +9873,7 @@ body .ori-marquee .f-promotion__item img {
 @media (max-width: 560px) {
   .ori-hslider {
     --ori-hs-top: 76px;
+    --ori-hs-bleed: 135%;
   }
 
   .ori-hslider .ori .ori-hero__title {
