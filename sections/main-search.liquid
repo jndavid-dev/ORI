@@ -1,19 +1,46 @@
+{%- comment -%}
+  ORI redesign — search results. Same build as the ORI collection grid
+  (sections/ori-collection-grid.liquid), so search gets the working filter
+  sidebar (the store's search filters: availability and price, plus any
+  added in the Search & Discovery app), the sort bar, the ORI product cards
+  and the ORI pagination styles; facets.js and product-grid-container.js
+  drive them through the same ids (#ProductGridContainer, #product-grid).
+  Header: an ORI band with the query, result count and the search field
+  (predictive search markup kept). Articles and pages in the results show
+  as simple ORI cards after the products. Styles: "ORI REDESIGN — SEARCH"
+  in gvm-css-main.css.
+{%- endcomment -%}
 {%- liquid
   assign limit = section.settings.limit
   assign container = section.settings.container
   assign columns = section.settings.columns
-
-  assign columns_tablet = columns | minus: 1
-  if columns < 3 or request.design_mode
-    assign columns_tablet = columns
-  endif
 
   assign enable_filtering = section.settings.enable_filtering
   assign enable_sorting = section.settings.enable_sorting
   assign enable_product_count = section.settings.enable_product_count
   assign sidebar_position = section.settings.sidebar_position
 
+  comment
+    snippets/facets.liquid only shows the Brand (vendor) filter on search.
+    The sidebar shows when that filter exists (live: Search & Discovery);
+    otherwise it is dropped and the grid uses the full width (staging).
+  endcomment
+  assign show_sidebar = false
+  if enable_filtering
+    for filter in search.filters
+      assign label_lc = filter.label | downcase
+      if filter.param_name == 'filter.p.vendor' or label_lc == 'brand' or label_lc == 'vendor'
+        assign show_sidebar = true
+      endif
+    endfor
+  endif
+  assign columns_lg = columns
+  if show_sidebar and sidebar_position != 'drawer'
+    assign columns_lg = columns | at_most: 3
+  endif
+
   assign predictive_search_enabled = settings.predictive_search_enabled
+  assign animation_effect = settings.animations
 -%}
 {{ 'search.css' | asset_url | stylesheet_tag }}
 {{ 'search-drawer.css' | asset_url | stylesheet_tag }}
@@ -33,16 +60,21 @@
 <script src="{{ 'product-grid-container.js' | asset_url }}" defer="defer"></script>
 
 <div
-  class="f-template-search f-section-padding{% unless search.performed and search.results_count > 0 %} f-template-search--empty{% endunless %}"
-  style="--section-padding-top: {{ section.settings.padding_top }}px; --section-padding-bottom: {{ section.settings.padding_bottom }}px;"
+  class="f-template-search ori-search{% unless search.performed and search.results_count > 0 %} f-template-search--empty{% endunless %}"
 >
-  <div class="f-template-search__header container text-center">
-    {%- if search.performed -%}
-      <h1 class="h2">{{ 'templates.search.title' | t }}</h1>
-    {%- else -%}
-      <h1 class="h2">{{ 'general.search.search' | t }}</h1>
-    {%- endif -%}
-    <div class="f-template-search__search">
+  <div class="ori ori-shead">
+    <div class="ori-wrap ori-shead__in">
+      {%- if search.performed -%}
+        <p class="ori-shead__eyebrow">{{ 'templates.search.title' | t }}</p>
+        <h1 class="ori-shead__title">
+          {%- if search.terms != blank -%}&ldquo;{{ search.terms | escape }}&rdquo;{%- else -%}{{ 'general.search.search' | t }}{%- endif -%}
+        </h1>
+        {%- comment -%} The count shows once, in the sort bar below, which also updates with filters. {%- endcomment -%}
+      {%- else -%}
+        <h1 class="ori-shead__title">{{ 'general.search.search' | t }}</h1>
+        <p class="ori-shead__count">Search parts, brands, vehicles and GVM packages.</p>
+      {%- endif -%}
+      <div class="f-template-search__search ori-shead__search">
       {%- if predictive_search_enabled -%}
         <predictive-search class="h-full" data-loading-text="{{ 'accessibility.loading' | t }}">
       {%- endif -%}
@@ -112,104 +144,120 @@
       {%- if predictive_search_enabled -%}
         </predictive-search>
       {%- endif -%}
-    </div>
-    {%- if search.performed -%}
-      <div class="f-template-search__status">
-        {%- unless section.settings.enable_filtering or section.settings.enable_sorting or enable_product_count -%}
-          {%- if search.results_count > 0 -%}
-            <p role="status" class="h5">
-              {{ 'templates.search.results_with_count_and_term' | t: terms: search.terms, count: search.results_count }}
-            </p>
-          {%- endif -%}
-        {%- endunless -%}
-        {%- if search.results_count == 0 and search.filters == empty -%}
-          <p role="status" class="h5">{{ 'templates.search.no_results' | t: terms: search.terms }}</p>
-        {%- endif -%}
       </div>
-    {%- endif -%}
+    </div>
   </div>
+
   {%- if search.performed -%}
-    {%- if search.results.size > 0 -%}
+    {%- if search.results_count == 0 and search.filters == empty -%}
+      <div class="ori ori-section ori-search__none">
+        <div class="ori-wrap">
+          <h2 class="ori-search__none-title">No results for &ldquo;{{ search.terms | escape }}&rdquo;</h2>
+          <p>Check the spelling, try a part number or brand, or browse by vehicle.</p>
+          <div class="ori-search__none-actions">
+            <a class="ori-btn ori-btn--teal" href="{{ routes.all_products_collection_url }}">Browse all parts</a>
+            <a class="ori-btn ori-search__btn-line" href="/pages/ori-gvm-upgrades">GVM &amp; GCM upgrades</a>
+          </div>
+        </div>
+      </div>
+    {%- else -%}
       <div
         id="ProductGridContainer"
-        class="main-collection"
         data-section-id="{{ section.id }}"
-        style=""
+        class="main-collection ori-cgrid block f-section-padding"
+        style="--section-padding-top: {{ section.settings.padding_top }}px; --section-padding-bottom: {{ section.settings.padding_bottom }}px; --ori-cols: {{ columns }}; --ori-cols-lg: {{ columns_lg }};"
       >
-        <product-grid-container class="main-collection__container block" data-section-id="{{ section.id }}">
-          <div class="{{ container }}">
-            {% paginate search.results by limit %}
-              {% assign products_list = search.results | where: 'object_type', 'product' %}
-              {% assign articles_list = search.results | where: 'object_type', 'article' %}
-              {% assign pages_list = search.results | where: 'object_type', 'page' %}
-
-              <div class="main-collection__wrapper flex main-collection__wrapper--{{ sidebar_position }}{% unless enable_filtering %} main-collection__wrapper--hide-filters{% endunless %}">
-                {% if enable_filtering or enable_sorting %}
-                  {% render 'facets', results: search, sidebar_position: sidebar_position %}
-                  <noscript>
-                    {% render 'facets-nojs', results: search, form_id: 'facets-3', sidebar_position: sidebar_position %}
-                  </noscript>
-                {% endif %}
-                <div class="main-collection__list" data-product-container>
-                  {% render 'product-grid-header',
+        <div class="main-collection__container">
+          {%- paginate search.results by limit -%}
+            {%- liquid
+              assign products_list = search.results | where: 'object_type', 'product'
+              assign articles_list = search.results | where: 'object_type', 'article'
+              assign pages_list = search.results | where: 'object_type', 'page'
+            -%}
+            <div class="{{ container }}">
+              <div class="main-collection__wrapper main-collection__wrapper--{{ sidebar_position }} flex{% unless show_sidebar %} main-collection__wrapper--hide-filters{% endunless %}">
+                {%- if show_sidebar -%}
+                  {% render 'facets',
                     results: search,
                     sidebar_position: sidebar_position,
-                    enable_filtering: enable_filtering,
                     enable_sorting: enable_sorting,
-                    enable_product_count: enable_product_count
+                    animation_effect: animation_effect,
+                    show_faceted_filters: enable_filtering
                   %}
-                  <div
-                    id="product-grid"
-                    data-id="{{ section.id }}"
-                    class="template-search__results product-grid f-grid f-grid-2-cols md:f-grid-{{ columns_tablet }}-cols xl:f-grid-{{ columns }}-cols f-grid--gap-{{ section.settings.column_gap }} f-grid--row-gap-{{ section.settings.row_gap }}"
-                    data-products-grid
-                  >
-                    {%- for product in products_list -%}
-                      <div class="f-column">
-                        {%- comment -%} ORI redesign card (snippets/ori-product-card.liquid) {%- endcomment -%}
-                        <div class="ori ori-card-cell">
-                          {%- render 'ori-product-card', product: product, button: 'cart' -%}
+                  <noscript>
+                    {% render 'facets-nojs',
+                      results: search,
+                      form_id: 'facets-3',
+                      sidebar_position: sidebar_position,
+                      enable_sorting: enable_sorting,
+                      animation_effect: animation_effect
+                    %}
+                  </noscript>
+                {%- endif -%}
+
+                <div class="main-collection__list" data-product-container>
+                  <product-grid-container data-section-id="{{ section.id }}">
+                    {% render 'product-grid-header',
+                      results: search,
+                      sidebar_position: sidebar_position,
+                      enable_filtering: show_sidebar,
+                      products_per_page: limit,
+                      enable_sorting: enable_sorting,
+                      enable_product_count: enable_product_count
+                    %}
+
+                    {%- if search.results.size == 0 -%}
+                      <div class="product-grid product-grid--empty" data-id="{{ section.id }}">
+                        <div class="text-center">
+                          <h2 class="h4">{{ 'sections.collection_template.empty' | t }}</h2>
+                          <p>{{ 'sections.collection_template.use_fewer_filters_html' | t: link: search.url, class: 'underlined-link' }}</p>
                         </div>
                       </div>
-                    {%- endfor -%}
-
-                    {% for article in articles_list %}
-                      <div class="f-column">
-                        {{ 'blog.css' | asset_url | stylesheet_tag }}
-                        {%- render 'article-card',
-                          article: article,
-                          show_date: true,
-                          show_excerpt: true,
-                          show_readmore: true,
-                          lazy_load: lazy_load
-                        -%}
-                      </div>
-                    {% endfor %}
-                    {% for page in pages_list %}
-                      <div class="f-column">
-                        <a href="{{ page.url }}" class="f-card">
-                          <div class="f-card__inner">
-                            <div class="f-card__content">
-                              <h3 class="text-product-title h5">{{ page.title | escape }}</h3>
-                            </div>
-                            <div class="f-card__badge">
-                              <span class="f-badge">{{ 'templates.search.page' | t }}</span>
-                            </div>
+                    {%- else -%}
+                      <grid-list
+                        id="product-grid"
+                        data-id="{{ section.id }}"
+                        class="ori ori-grid ori-cgrid__grid f-grid-2-cols"
+                        data-products-grid
+                      >
+                        {%- for product in products_list -%}
+                          <div class="f-column">
+                            {%- render 'ori-product-card', product: product, button: 'cart' -%}
                           </div>
-                        </a>
+                        {%- endfor -%}
+                        {%- for article in articles_list -%}
+                          <div class="f-column">
+                            <a class="ori-search__card" href="{{ article.url }}">
+                              {%- if article.image -%}
+                                {{ article.image | image_url: width: 600 | image_tag: widths: '300, 600', sizes: '(min-width: 990px) 25vw, 50vw', loading: 'lazy', class: 'ori-search__card-img', alt: article.title }}
+                              {%- endif -%}
+                              <span class="ori-search__card-tag">Article</span>
+                              <span class="ori-search__card-title">{{ article.title | escape }}</span>
+                            </a>
+                          </div>
+                        {%- endfor -%}
+                        {%- for page in pages_list -%}
+                          <div class="f-column">
+                            <a class="ori-search__card" href="{{ page.url }}">
+                              <span class="ori-search__card-tag">{{ 'templates.search.page' | t }}</span>
+                              <span class="ori-search__card-title">{{ page.title | escape }}</span>
+                            </a>
+                          </div>
+                        {%- endfor -%}
+                      </grid-list>
+                    {%- endif -%}
+
+                    {%- if paginate.pages > 1 -%}
+                      <div class="main-collection__pagination f-pagination__wrapper text-center">
+                        {%- render 'pagination', paginate: paginate -%}
                       </div>
-                    {% endfor %}
-                  </div>
-                  {%- if paginate.pages > 1 -%}
-                    <div class="f-pagination__wrapper text-center">
-                      {% render 'pagination', paginate: paginate %}
-                    </div>
-                  {%- endif -%}
+                    {%- endif -%}
+                  </product-grid-container>
                 </div>
               </div>
-            {% endpaginate %}
-          </div>
-        </product-grid-container>
+            </div>
+          {%- endpaginate -%}
+        </div>
       </div>
     {%- endif -%}
   {%- endif -%}

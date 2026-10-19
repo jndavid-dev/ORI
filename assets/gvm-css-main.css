@@ -10040,6 +10040,17 @@ body .ori-marquee .f-promotion__item img {
   color: var(--ori-teal);
 }
 
+/* Small phones: logo and arrow only; the line wrapped to three rows. */
+@media (max-width: 400px) {
+  .ori-mnav__gvm-text {
+    display: none;
+  }
+
+  .ori-mnav__gvm-arrow {
+    grid-column: 3;
+  }
+}
+
 /* Menu */
 .ori-mnav .f-mobile-nav__inner {
   flex: 0 0 auto;
@@ -10700,4 +10711,613 @@ body .ori-marquee .f-promotion__item img {
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+
+/* Cart drawer — order note / discount accordions: quiet rows with a
+   teal +/-, a rounded note box with a small "Close" text link, and the
+   discount field and Apply button side by side. */
+.f-drawer-cart .f-drawer__footer .collapsible__item {
+  border-bottom: 1px solid var(--ori-line);
+}
+
+.f-drawer-cart .f-drawer__footer .collapsible__button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 48px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ori-ink);
+  font-family: var(--ori-body);
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: none;
+  cursor: pointer;
+}
+
+.f-drawer-cart .f-drawer__footer [data-collapsible-icon] {
+  color: var(--ori-teal);
+}
+
+.f-drawer-cart .f-drawer__footer .collapsible__content,
+.f-drawer-cart .f-drawer__footer [data-content] {
+  padding: 0;
+}
+
+.f-drawer-cart .f-cart-drawer__note,
+.f-drawer-cart .f-cart-drawer__discount {
+  padding: 2px 0 14px;
+}
+
+.f-drawer-cart .f-cart-drawer__note .form-label {
+  display: block;
+  margin: 0 0 6px;
+  color: var(--ori-steel);
+  font-size: 13px;
+}
+
+.f-drawer-cart .f-drawer__footer .form-control {
+  width: 100%;
+  height: 46px;
+  padding: 0 14px;
+  border: 1px solid var(--ori-line);
+  border-radius: 6px;
+  background: var(--ori-paper);
+  color: var(--ori-ink);
+  font-family: var(--ori-body);
+  font-size: 15px;
+}
+
+.f-drawer-cart .f-drawer__footer .form-control:focus {
+  border-color: var(--ori-teal);
+  outline: 0;
+  box-shadow: 0 0 0 3px rgba(63, 179, 186, 0.2);
+}
+
+.f-drawer-cart .f-drawer__footer .form-control--textarea {
+  height: 84px;
+  min-height: 84px;
+  padding: 10px 14px;
+  resize: vertical;
+}
+
+.f-drawer-cart .f-cart-drawer__note .btn-cancel {
+  display: inline-block;
+  min-height: 0;
+  margin-top: 8px;
+  padding: 4px 0;
+  border: 0;
+  background: none !important;
+  color: var(--ori-teal-deep) !important;
+  font-family: var(--ori-body);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-decoration: underline;
+  text-transform: none;
+}
+
+.f-drawer-cart .f-cart-drawer__note .btn-cancel::before,
+.f-drawer-cart .f-cart-drawer__note .btn-cancel::after {
+  display: none;
+}
+
+.f-drawer-cart .f-cart-discount__form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+}
+
+.f-drawer-cart .f-cart-discount__form .form-field {
+  margin: 0;
+}
+
+.f-drawer-cart .f-cart-discount__form .form-message {
+  grid-column: 1 / -1;
+}
+
+.f-drawer-cart .f-cart-discount__form .btn {
+  width: auto;
+  height: 46px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--ori-ink);
+  color: #fff;
+  font-family: var(--ori-display);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.f-drawer-cart .f-cart-discount__form .btn:hover {
+  background: var(--ori-teal);
+}
+
+/* ==========================================================
+   ORI REDESIGN — SEARCH (sections/main-search.liquid)
+   Bone header band: "Search results" eyebrow, the query as the H1,
+   the result count and a wide search field with a teal button.
+   Results use the ORI collection grid (.ori-cgrid), so filters,
+   sort bar, cards and pagination share the collection styles.
+   ========================================================== */
+.ori-shead {
+  border-bottom: 1px solid var(--ori-line);
+  background: var(--ori-bone);
+}
+
+.ori-shead__in {
+  padding-top: clamp(36px, 5vw, 64px);
+  padding-bottom: clamp(32px, 4vw, 52px);
+}
+
+.ori .ori-shead__eyebrow {
+  margin: 0 0 6px;
+  color: var(--ori-teal-deep);
+  font-family: var(--ori-display);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ori .ori-shead__title {
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: var(--ori-ink);
+  font-family: var(--ori-display);
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 800;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.ori .ori-shead__count {
+  margin: 10px 0 0;
+  color: var(--ori-steel);
+  font-size: 16px;
+}
+
+.ori-search {
+  padding: 0;
+}
+
+/* The theme puts a top margin on .f-section; the band starts under the header. */
+.f-section:has(> .ori-search),
+.shopify-section:has(> .ori-search) {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.ori-shead .ori-shead__search {
+  width: 100%;
+  max-width: 640px;
+  margin: 24px 0 0;
+}
+
+.ori-shead .f-template-search__field {
+  position: relative;
+  display: flex;
+}
+
+.ori-shead .f-search-drawer__input {
+  width: 100%;
+  height: 54px;
+  padding: 0 64px 0 18px;
+  border: 1px solid #c9cfcd;
+  border-radius: 6px;
+  background: var(--ori-paper);
+  color: var(--ori-ink);
+  font-family: var(--ori-body);
+  font-size: 16px;
+}
+
+.ori-shead .f-search-drawer__input:focus {
+  border-color: var(--ori-teal);
+  outline: 0;
+  box-shadow: 0 0 0 3px rgba(63, 179, 186, 0.2);
+}
+
+.ori-shead .f-template-search__field > button[type="submit"] {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 5px;
+  background: var(--ori-teal) !important;
+  color: #fff !important;
+  inset-inline-end: 5px;
+}
+
+.ori-shead .f-template-search__field > button[type="submit"]:hover {
+  background: var(--ori-teal-deep) !important;
+}
+
+.ori-shead .f-template-search__field > button[type="submit"] svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* No results */
+.ori-search__none {
+  --ori-pt: 56px;
+  --ori-pb: 72px;
+  text-align: center;
+}
+
+.ori .ori-search__none-title {
+  margin: 0 0 10px;
+  overflow-wrap: anywhere;
+  color: var(--ori-ink);
+  font-family: var(--ori-display);
+  font-size: clamp(28px, 3.4vw, 40px);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.ori-search__none p {
+  color: var(--ori-steel);
+}
+
+.ori-search__none-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.ori .ori-search__btn-line {
+  border: 1px solid var(--ori-ink);
+  background: var(--ori-paper);
+  color: var(--ori-ink);
+}
+
+/* Article / page results */
+.ori-search__card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+  padding: 14px;
+  border: 1px solid var(--ori-line);
+  border-radius: 8px;
+  background: var(--ori-paper);
+  color: var(--ori-ink);
+  text-decoration: none;
+  transition: border-color 0.15s ease;
+}
+
+.ori-search__card:hover {
+  border-color: var(--ori-teal);
+}
+
+.ori-search__card-img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.ori-search__card-tag {
+  align-self: flex-start;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--ori-bone);
+  color: var(--ori-steel);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ori-search__card-title {
+  font-family: var(--ori-display);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+/* ORI hero: a plain (no tile) brand logo, e.g. the wide GVM & GCM logo. */
+.ori-hero__brands img.ori-hero__brand-plain {
+  width: clamp(170px, 16vw, 240px);
+  height: auto;
+  padding: 0;
+  border-radius: 0;
+  background: none;
+}
+
+/* ==========================================================
+   ORI REDESIGN — CONTACT (sections/ori-contact.liquid)
+   Dark hero band (ridge line, like ori-hero) with the H1; below it
+   the form card (left, wider) and the business card (right): photo,
+   address / phone / email rows with teal icons, hours note and a
+   directions button. Tablets and phones: one column, form first.
+   ========================================================== */
+.ori-contact {
+  background: var(--ori-bone);
+}
+
+.ori-contact__hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding: clamp(48px, 6vw, 88px) 0 clamp(96px, 9vw, 140px);
+  background: #0d1113;
+  color: #fff;
+}
+
+.ori-contact__hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  z-index: -1;
+  height: 60%;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 400' preserveAspectRatio='none'%3E%3Cpath fill='%23161c1f' d='M0 260 120 170l70 40 110-120 90 70 60-40 150 150 90-60 120 80 110-130 140 110 80-40 130 90 120-70 110 60 100-50v360H0z'/%3E%3Cpath fill='%23121819' d='M0 320 160 250l120 50 140-80 160 90 120-40 200 70 140-60 180 60 160-50 220 70v140H0z'/%3E%3C/svg%3E") bottom / 100% 100% no-repeat;
+}
+
+.ori .ori-contact__eyebrow {
+  margin: 0 0 8px;
+  color: var(--ori-teal);
+  font-family: var(--ori-display);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ori .ori-contact__title {
+  margin: 0;
+  color: #fff;
+  font-family: var(--ori-display);
+  font-size: clamp(40px, 5.6vw, 80px);
+  font-weight: 800;
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+
+.ori .ori-contact__intro {
+  max-width: 620px;
+  margin: 16px 0 0;
+  color: #b7c3c6;
+  font-size: 18px;
+}
+
+.ori-contact__grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+  margin-top: clamp(-90px, -6vw, -56px);
+  padding-bottom: clamp(56px, 6vw, 96px);
+}
+
+.ori-contact__form-card,
+.ori-contact__card {
+  overflow: hidden;
+  border: 1px solid var(--ori-line);
+  border-radius: 10px;
+  background: var(--ori-paper);
+  box-shadow: 0 24px 48px -28px rgba(0, 0, 0, 0.35);
+}
+
+.ori-contact__form-card {
+  padding: clamp(24px, 3vw, 40px);
+}
+
+.ori .ori-contact__h2 {
+  margin: 0 0 6px;
+  color: var(--ori-ink);
+  font-family: var(--ori-display);
+  font-size: clamp(26px, 2.4vw, 34px);
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.ori .ori-contact__muted {
+  margin: 0 0 20px;
+  color: var(--ori-steel);
+  font-size: 15px;
+}
+
+.ori-contact__fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.ori-contact__field {
+  display: grid;
+  gap: 6px;
+}
+
+.ori-contact__field--full {
+  grid-column: 1 / -1;
+}
+
+.ori-contact__field label {
+  color: var(--ori-ink);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.ori-contact__field label span {
+  color: var(--ori-teal-deep);
+}
+
+.ori-contact__field input,
+.ori-contact__field textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid #cfd5d3;
+  border-radius: 6px;
+  background: var(--ori-paper);
+  color: var(--ori-ink);
+  font-family: var(--ori-body);
+  font-size: 16px;
+  line-height: 1.4;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.ori-contact__field textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.ori-contact__field input:focus,
+.ori-contact__field textarea:focus {
+  border-color: var(--ori-teal);
+  outline: 0;
+  box-shadow: 0 0 0 3px rgba(63, 179, 186, 0.2);
+}
+
+.ori .ori-contact__submit {
+  width: 100%;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.ori .ori-contact__fine {
+  margin: 10px 0 0;
+  color: var(--ori-steel);
+  font-size: 13px;
+}
+
+.ori-contact__notice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  padding: 12px 14px;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.ori-contact__notice svg {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+}
+
+.ori-contact__notice--ok {
+  background: #e6f6f4;
+  color: #1f6b5e;
+}
+
+.ori-contact__notice--error {
+  background: #fdecea;
+  color: var(--ori-sale);
+}
+
+.ori-contact__notice--error ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+/* Business card */
+.ori-contact__photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.ori-contact__card-body {
+  padding: clamp(22px, 2.6vw, 32px);
+}
+
+.ori-contact__list {
+  display: grid;
+  gap: 14px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ori-contact__list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: var(--ori-ink);
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.ori-contact__list svg {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  color: var(--ori-teal);
+}
+
+.ori-contact__list a {
+  overflow-wrap: anywhere;
+  color: var(--ori-ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.ori-contact__list a:hover {
+  color: var(--ori-teal-deep);
+}
+
+.ori-contact__hours {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--ori-line);
+  color: var(--ori-steel);
+  font-size: 14px;
+}
+
+.ori-contact__hours p {
+  margin: 0 0 8px;
+}
+
+.ori-contact__hours strong {
+  color: var(--ori-ink);
+}
+
+.ori .ori-contact__map {
+  width: 100%;
+  margin-top: 18px;
+  justify-content: center;
+  border: 1px solid var(--ori-ink);
+  background: var(--ori-paper);
+  color: var(--ori-ink);
+}
+
+.ori .ori-contact__map:hover {
+  border-color: var(--ori-teal);
+  background: var(--ori-teal);
+  color: #fff;
+}
+
+@media (max-width: 1024px) {
+  .ori-contact__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .ori-contact__fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ori .ori-contact__intro {
+    font-size: 16px;
+  }
 }

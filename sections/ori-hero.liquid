@@ -26,11 +26,20 @@
 {%- capture logos_html -%}
   {%- for block in logos -%}
     {%- if block.settings.image != blank -%}
-      {{
-        block.settings.image
-        | image_url: width: 120
-        | image_tag: width: 58, height: 58, alt: block.settings.alt, loading: 'eager'
-      }}
+      {%- if block.settings.style == 'plain' -%}
+        {%- assign logo_h = 300 | divided_by: block.settings.image.aspect_ratio | round -%}
+        {{
+          block.settings.image
+          | image_url: width: 600
+          | image_tag: width: 300, height: logo_h, widths: '300, 600', sizes: '240px', class: 'ori-hero__brand-plain', alt: block.settings.alt, loading: 'eager'
+        }}
+      {%- else -%}
+        {{
+          block.settings.image
+          | image_url: width: 120
+          | image_tag: width: 58, height: 58, alt: block.settings.alt, loading: 'eager'
+        }}
+      {%- endif -%}
     {%- endif -%}
   {%- endfor -%}
 {%- endcapture -%}
@@ -245,7 +254,17 @@
       "limit": 8,
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Logo" },
-        { "type": "text", "id": "alt", "label": "Brand name (for screen readers)" }
+        { "type": "text", "id": "alt", "label": "Brand name (for screen readers)" },
+        {
+          "type": "select",
+          "id": "style",
+          "label": "Style",
+          "options": [
+            { "value": "tile", "label": "Square white tile" },
+            { "value": "plain", "label": "Plain, no tile (wide logos)" }
+          ],
+          "default": "tile"
+        }
       ]
     },
     {

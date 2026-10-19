@@ -1,0 +1,141 @@
+{%- comment -%}
+  ORI redesign — contact page. A dark hero band with the page heading (H1)
+  and intro, then two columns: the business card (photo, address, phone,
+  email, hours note, directions) and the enquiry form in a white card.
+  Stacks on tablets and phones, form first so it is the first thing to
+  act on.
+
+  The form is Shopify's contact form with the same field names as the old
+  contact-form-v3 section, so enquiries reach the store contact email
+  (Settings › General) in the same format as before.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign form_id = 'OriContact-' | append: section.id
+  assign phone_href = s.phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-'
+-%}
+<div class="ori ori-contact">
+  <div class="ori-contact__hero">
+    <div class="ori-wrap">
+      {%- if s.eyebrow != blank -%}<p class="ori-contact__eyebrow">{{ s.eyebrow }}</p>{%- endif -%}
+      <h1 class="ori-contact__title">{{ s.heading | default: page.title }}</h1>
+      {%- if s.intro != blank -%}<p class="ori-contact__intro">{{ s.intro }}</p>{%- endif -%}
+    </div>
+  </div>
+
+  <div class="ori-wrap ori-contact__grid">
+    <div class="ori-contact__form-card" id="enquiry">
+      <h2 class="ori-contact__h2">{{ s.form_heading }}</h2>
+      {%- if s.form_intro != blank -%}<p class="ori-contact__muted">{{ s.form_intro }}</p>{%- endif -%}
+
+      {%- form 'contact', id: form_id, class: 'ori-contact__form' -%}
+        {%- if form.posted_successfully? -%}
+          <div class="ori-contact__notice ori-contact__notice--ok" role="status" tabindex="-1" autofocus>
+            {%- render 'ori-icon', icon: 'check' -%}
+            <span>{{ s.success_message }}</span>
+          </div>
+        {%- endif -%}
+        {%- if form.errors -%}
+          <div class="ori-contact__notice ori-contact__notice--error" role="alert" tabindex="-1" autofocus>
+            {{ form.errors | default_errors }}
+          </div>
+        {%- endif -%}
+
+        <div class="ori-contact__fields">
+          <div class="ori-contact__field">
+            <label for="{{ form_id }}-first">First name <span aria-hidden="true">*</span></label>
+            <input id="{{ form_id }}-first" type="text" name="contact[First Name]" autocomplete="given-name" required>
+          </div>
+          <div class="ori-contact__field">
+            <label for="{{ form_id }}-last">Last name <span aria-hidden="true">*</span></label>
+            <input id="{{ form_id }}-last" type="text" name="contact[Last Name]" autocomplete="family-name" required>
+          </div>
+          <div class="ori-contact__field">
+            <label for="{{ form_id }}-email">Email <span aria-hidden="true">*</span></label>
+            <input id="{{ form_id }}-email" type="email" name="contact[email]" autocomplete="email" spellcheck="false" autocapitalize="off" value="{{ form.email }}" required>
+          </div>
+          <div class="ori-contact__field">
+            <label for="{{ form_id }}-phone">Phone <span aria-hidden="true">*</span></label>
+            <input id="{{ form_id }}-phone" type="tel" name="contact[Phone Number]" autocomplete="tel" pattern="[0-9\-\+\(\)\s]*" required>
+          </div>
+          <div class="ori-contact__field ori-contact__field--full">
+            <label for="{{ form_id }}-vehicle">Vehicle make, year &amp; model</label>
+            <input id="{{ form_id }}-vehicle" type="text" name="contact[Car Make, Year & Model]" placeholder="e.g. 2024 Chevrolet Silverado 2500HD">
+          </div>
+          <div class="ori-contact__field ori-contact__field--full">
+            <label for="{{ form_id }}-body">Your enquiry <span aria-hidden="true">*</span></label>
+            <textarea id="{{ form_id }}-body" name="contact[body]" rows="6" required>{{ form.body }}</textarea>
+          </div>
+        </div>
+        <button type="submit" class="ori-btn ori-btn--teal ori-contact__submit">{{ s.button_label }}</button>
+        <p class="ori-contact__fine">Fields marked * are required.</p>
+      {%- endform -%}
+    </div>
+
+    <aside class="ori-contact__card">
+      {%- if s.image != blank -%}
+        <div class="ori-contact__photo">
+          {{ s.image | image_url: width: 1200 | image_tag: widths: '400, 800, 1200', sizes: '(min-width: 1025px) 40vw, 100vw', loading: 'lazy', alt: s.image.alt | default: s.business_name }}
+        </div>
+      {%- endif -%}
+      <div class="ori-contact__card-body">
+        <h2 class="ori-contact__h2">{{ s.business_name }}</h2>
+        <ul class="ori-contact__list" role="list">
+          {%- if s.address != blank -%}
+            <li>
+              {%- render 'ori-icon', icon: 'network' -%}
+              <span>{{ s.address }}</span>
+            </li>
+          {%- endif -%}
+          {%- if s.phone != blank -%}
+            <li>
+              {%- render 'ori-icon', icon: 'headset' -%}
+              <a href="tel:{{ phone_href }}">{{ s.phone }}</a>
+            </li>
+          {%- endif -%}
+          {%- if s.email != blank -%}
+            <li>
+              {%- render 'ori-icon', icon: 'form' -%}
+              <a href="mailto:{{ s.email }}">{{ s.email }}</a>
+            </li>
+          {%- endif -%}
+        </ul>
+        {%- if s.hours != blank -%}
+          <div class="ori-contact__hours">{{ s.hours }}</div>
+        {%- endif -%}
+        {%- if s.map_label != blank and s.map_link != blank -%}
+          <a class="ori-btn ori-contact__map" href="{{ s.map_link }}" target="_blank" rel="noopener">{{ s.map_label }}</a>
+        {%- endif -%}
+      </div>
+    </aside>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "ORI Contact",
+  "tag": "section",
+  "class": "ori-contact-section",
+  "settings": [
+    { "type": "header", "content": "Hero" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Get in touch" },
+    { "type": "text", "id": "heading", "label": "Heading (H1)", "info": "Defaults to the page title.", "default": "Contact Offroad Industries" },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Questions about a GVM upgrade, a part or an order? Send us the details and our team will get back to you." },
+    { "type": "header", "content": "Business details" },
+    { "type": "image_picker", "id": "image", "label": "Photo" },
+    { "type": "text", "id": "business_name", "label": "Business name", "default": "Offroad Industries" },
+    { "type": "text", "id": "address", "label": "Address" },
+    { "type": "text", "id": "phone", "label": "Phone" },
+    { "type": "text", "id": "email", "label": "Email" },
+    { "type": "richtext", "id": "hours", "label": "Hours / response note" },
+    { "type": "text", "id": "map_label", "label": "Directions button label", "default": "Get directions" },
+    { "type": "url", "id": "map_link", "label": "Directions link" },
+    { "type": "header", "content": "Form" },
+    { "type": "text", "id": "form_heading", "label": "Heading", "default": "Send an enquiry" },
+    { "type": "textarea", "id": "form_intro", "label": "Intro" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Send enquiry" },
+    { "type": "text", "id": "success_message", "label": "Success message", "default": "Thanks! We received your enquiry and will get back to you soon." }
+  ],
+  "presets": [{ "name": "ORI Contact" }]
+}
+{% endschema %}
