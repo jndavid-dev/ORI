@@ -11321,3 +11321,268 @@ body .ori-marquee .f-promotion__item img {
     font-size: 16px;
   }
 }
+
+/* ==========================================================
+   ORI REDESIGN — CART PAGE (templates/cart.json: main-cart-items,
+   main-cart-footer, product-recommendations "ORI design")
+   Scoped to body.template-cart. Matches the cart drawer: display-
+   face title, image + details rows, ORI quantity stepper, quiet
+   trash-icon Remove; the subtotal, tax note and Check out sit in a
+   bone summary card on the right; the order note is a quiet row.
+   ========================================================== */
+.template-cart .f-cart__title-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px 24px;
+  margin-bottom: 24px;
+}
+
+.template-cart .f-cart__title-wrapper .f-title {
+  margin: 0;
+  color: var(--ori-ink);
+  font-family: var(--ori-display);
+  font-size: clamp(36px, 4.4vw, 60px);
+  font-weight: 800;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.template-cart .ori-cart-continue {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ori-teal-deep);
+  font-family: var(--ori-body);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.template-cart .ori-cart-continue:hover {
+  color: var(--ori-ink);
+}
+
+/* Table head + rows */
+.template-cart .f-cart-items thead th {
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--ori-line);
+  color: var(--ori-steel);
+  font-family: var(--ori-body);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.template-cart .f-cart-items tbody tr,
+.template-cart .f-cart-items .f-cart-item {
+  border-bottom: 1px solid var(--ori-line);
+}
+
+.template-cart .f-cart-items td {
+  padding-top: 22px;
+  padding-bottom: 22px;
+  vertical-align: top;
+}
+
+.template-cart .f-cart-item__image {
+  overflow: hidden;
+  border: 1px solid var(--ori-line);
+  border-radius: 6px;
+  background: var(--ori-paper);
+}
+
+.template-cart .f-cart-item__image img {
+  object-fit: contain;
+}
+
+.template-cart .f-cart-item__name {
+  color: var(--ori-ink);
+  font-family: var(--ori-body);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.template-cart .f-cart-item__name:hover {
+  color: var(--ori-teal-deep);
+}
+
+.template-cart .f-cart-item .product-option {
+  color: var(--ori-steel);
+  font-size: 14px;
+}
+
+.template-cart .f-cart-item__totals,
+.template-cart .f-cart-item__price {
+  color: var(--ori-ink);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* Quantity stepper */
+.template-cart .f-quantity {
+  display: inline-flex;
+  align-items: center;
+  width: auto;
+  height: 42px;
+  border: 1px solid var(--ori-line);
+  border-radius: 6px;
+  background: var(--ori-paper);
+}
+
+.template-cart .f-quantity__button {
+  width: 40px;
+  height: 40px;
+  color: var(--ori-ink);
+}
+
+.template-cart .f-quantity__input {
+  width: 44px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ori-ink);
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Remove */
+.template-cart .ori-cart-remove {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  color: var(--ori-steel);
+  font-size: 13px;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.template-cart .ori-cart-remove:hover {
+  color: var(--ori-sale);
+}
+
+/* Footer: note row + summary card */
+.template-cart .f-cart__footer .collapsible__button {
+  min-height: 52px;
+  color: var(--ori-ink);
+  font-family: var(--ori-body);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.template-cart .f-cart__footer [data-collapsible-icon] {
+  color: var(--ori-teal);
+}
+
+.template-cart .f-cart__footer .form-control--textarea {
+  min-height: 110px;
+  padding: 12px 14px;
+  border: 1px solid #cfd5d3;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.template-cart .f-cart__footer .form-control--textarea:focus {
+  border-color: var(--ori-teal);
+  outline: 0;
+  box-shadow: 0 0 0 3px rgba(63, 179, 186, 0.2);
+}
+
+.template-cart .f-cart__block--subtotal,
+.template-cart .f-cart__footer .f-cart__block:has(.totals) {
+  padding: 24px;
+  border-radius: 10px;
+  background: var(--ori-bone);
+}
+
+.template-cart .totals {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.template-cart .totals__subtotal {
+  margin: 0;
+  color: var(--ori-ink);
+  font-family: var(--ori-display);
+  font-size: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.template-cart .totals__subtotal-value {
+  margin: 0;
+  color: var(--ori-ink);
+  font-family: var(--ori-display);
+  font-size: 34px;
+  font-weight: 700;
+}
+
+.template-cart .tax-note {
+  margin: 6px 0 18px;
+  color: var(--ori-steel);
+  font-size: 13px;
+  text-align: left;
+}
+
+.template-cart .cart__checkout-button {
+  width: 100%;
+  height: 54px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--ori-teal);
+  color: #fff;
+  font-family: var(--ori-display);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.template-cart .cart__checkout-button:hover {
+  background: var(--ori-teal-deep);
+}
+
+/* Empty cart */
+.template-cart .f-cart__empty-text {
+  color: var(--ori-ink);
+  font-family: var(--ori-display);
+  font-size: 28px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.template-cart .f-cart__warnings .btn--primary {
+  border-radius: 6px;
+  background: var(--ori-teal);
+  font-family: var(--ori-display);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.template-cart a.f-cart-item__name,
+.template-cart .f-cart-item__name,
+.template-cart .f-cart-item__name * {
+  font-family: var(--ori-body) !important;
+  font-weight: 600;
+  text-transform: none !important;
+}
+
+.template-cart .totals {
+  width: 100%;
+  justify-content: space-between !important;
+}
+
+.template-cart .f-cart__footer .tax-note {
+  text-align: left !important;
+}
