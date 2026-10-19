@@ -1231,7 +1231,6 @@
             "subheading": "",
             "badge_title": "",
             "badge_small": "",
-            "logo_1": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__ORI.jpg",
             "feature_1_icon": "shield",
             "feature_1_text": "",
             "feature_2_icon": "suspension",
@@ -1251,7 +1250,8 @@
             "band_code": "VTA-066635",
             "corner_logo": "shopify://shop_images/gvm-gcm-logo-white.webp",
             "title_size": "small",
-            "logos_in_corner": true
+            "corner_logo_2_asset": "ori-logo-teal.webp",
+            "corner_logo_2_alt": "Offroad Industries (ORI)"
           }
         }
       },

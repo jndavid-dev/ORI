@@ -255,12 +255,18 @@
           "info": "e.g. the white GVM & GCM Upgrades logo. Use instead of the plate badge."
         },
         {
-          "type": "checkbox",
-          "id": "logos_in_corner",
-          "label": "Show the brand logos beside the corner logo",
-          "info": "Instead of above the heading.",
-          "default": false
+          "type": "image_picker",
+          "id": "corner_logo_2",
+          "label": "Second logo, left of it",
+          "info": "A transparent logo with no white box, e.g. the ORI logo."
         },
+        {
+          "type": "text",
+          "id": "corner_logo_2_asset",
+          "label": "Second logo fallback (theme asset file name)",
+          "info": "Used when no second logo is picked, e.g. ori-logo-teal.webp."
+        },
+        { "type": "text", "id": "corner_logo_2_alt", "label": "Second logo fallback alt text" },
         { "type": "header", "content": "Plate badge (top right)" },
         { "type": "text", "id": "badge_title", "label": "Badge", "info": "e.g. NB2. Leave empty for no badge." },
         { "type": "text", "id": "badge_small", "label": "Badge small text" },

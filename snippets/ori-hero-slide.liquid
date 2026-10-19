@@ -60,16 +60,17 @@
     </div>
   {%- endif -%}
 
-  {%- liquid
-    assign logos_in_corner = false
-    if s.logos_in_corner and s.corner_logo != blank and logos_html != blank
-      assign logos_in_corner = true
-    endif
-  -%}
+  {%- assign corner_2_asset = s.corner_logo_2_asset | strip -%}
   {%- if s.corner_logo != blank -%}
     <div class="ori-hero__corner">
-      {%- if logos_in_corner -%}
-        <div class="ori-hero__brands ori-hero__brands--corner">{{ logos_html }}</div>
+      {%- if s.corner_logo_2 != blank -%}
+        <div class="ori-hero__corner-logo ori-hero__corner-logo--2">
+          {{ s.corner_logo_2 | image_url: width: 400 | image_tag: widths: '200, 400', sizes: '200px', alt: s.corner_logo_2.alt, loading: img_loading }}
+        </div>
+      {%- elsif corner_2_asset != blank -%}
+        <div class="ori-hero__corner-logo ori-hero__corner-logo--2">
+          <img src="{{ corner_2_asset | asset_url }}" alt="{{ s.corner_logo_2_alt | escape }}" width="486" height="187" loading="{{ img_loading }}">
+        </div>
       {%- endif -%}
       <div class="ori-hero__corner-logo">
         {{ s.corner_logo | image_url: width: 520 | image_tag: widths: '260, 520', sizes: '260px', alt: s.corner_logo.alt, loading: img_loading }}
@@ -93,7 +94,7 @@
         </span>
       {%- endif -%}
 
-      {%- if logos_html != blank and logos_in_corner == false -%}
+      {%- if logos_html != blank -%}
         <div class="ori-hero__brands">{{ logos_html }}</div>
       {%- endif -%}
 

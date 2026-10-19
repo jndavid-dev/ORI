@@ -9541,9 +9541,10 @@ body .ori-marquee .f-promotion__item img {
   height: auto;
 }
 
-.ori-hero .ori-hero__brands--corner {
-  flex-wrap: nowrap;
-  margin: 0;
+/* Second corner logo (e.g. ORI) left of the main one, sized to match
+   its height: no tile, so it needs a transparent file. */
+.ori-hero__corner-logo.ori-hero__corner-logo--2 {
+  width: clamp(118px, 11.5vw, 185px);
 }
 
 /* Desktop, slides with the approval band (the Silverado 1500 banner). */
@@ -9565,8 +9566,8 @@ body .ori-marquee .f-promotion__item img {
   }
 
   .ori-hero--slide .ori-hero-approval__seal {
-    padding-right: 190px;
-    background: linear-gradient(90deg, #2fa3aa 0, #45b8bf 40%, #6ccdd2 calc(100% - 190px), rgba(108, 205, 210, 0) 100%);
+    padding-right: 100px;
+    background: linear-gradient(90deg, #2fa3aa 0, #45b8bf 40%, #6ccdd2 calc(100% - 100px), rgba(108, 205, 210, 0) 100%);
   }
 
   .ori-hero--slide .ori-hero-approval__title br {
@@ -9574,7 +9575,7 @@ body .ori-marquee .f-promotion__item img {
   }
 
   .ori-hero--slide .ori-hero-approval__title {
-    font-size: 58px;
+    font-size: 50px;
     white-space: nowrap;
   }
 
@@ -9582,7 +9583,9 @@ body .ori-marquee .f-promotion__item img {
      banner and running off the right edge (the far truck may crop). */
   .ori-hero--slide.ori-hero--cutout:has(.ori-hero-approval) .ori-hero__media {
     top: 50%;
-    right: -9vw;
+    /* -9vw off the screen edge up to 1600px wide; on wider screens it
+       follows the centred content instead of drifting to the edge. */
+    right: calc(var(--ori-hero-side) - var(--ori-edge) - 9vw);
     bottom: auto;
     width: min(60vw, 1200px);
     transform: translateY(-42%);
@@ -9605,7 +9608,7 @@ body .ori-marquee .f-promotion__item img {
   }
 
   .ori-hero--slide .ori-hero-approval__title {
-    font-size: 44px;
+    font-size: 42px;
   }
 
   .ori-hero-approval__code {
@@ -9613,8 +9616,8 @@ body .ori-marquee .f-promotion__item img {
   }
 
   .ori-hero--slide .ori-hero-approval__seal {
-    padding-right: 140px;
-    background: linear-gradient(90deg, #2fa3aa 0, #45b8bf 40%, #6ccdd2 calc(100% - 140px), rgba(108, 205, 210, 0) 100%);
+    padding-right: 80px;
+    background: linear-gradient(90deg, #2fa3aa 0, #45b8bf 40%, #6ccdd2 calc(100% - 80px), rgba(108, 205, 210, 0) 100%);
   }
 }
 
@@ -9629,9 +9632,8 @@ body .ori-marquee .f-promotion__item img {
     width: 140px;
   }
 
-  .ori-hero .ori-hero__brands--corner img {
-    width: 44px;
-    height: 44px;
+  .ori-hero__corner-logo.ori-hero__corner-logo--2 {
+    width: 108px;
   }
 
   /* The stacked cut-out starts below the corner logos. */
@@ -9709,8 +9711,7 @@ body .ori-marquee .f-promotion__item img {
     width: 120px;
   }
 
-  .ori-hero .ori-hero__brands--corner img {
-    width: 38px;
-    height: 38px;
+  .ori-hero__corner-logo.ori-hero__corner-logo--2 {
+    width: 92px;
   }
 }
