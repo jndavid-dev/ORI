@@ -80,6 +80,13 @@
         <div class="ori-rte">
           {{ page.content }}
         </div>
+        <script>
+          // Hide blank headings / paragraphs left by the page editor (only
+          // spaces, <br> or empty tags), so they don't add stray space.
+          document.querySelectorAll('.ori-rte :is(h1,h2,h3,h4,h5,h6,p)').forEach(function (el) {
+            if (!el.textContent.replace(/ /g, ' ').trim() && !el.querySelector('img,iframe,video,svg,input,a[href]')) el.classList.add('ori-rte-blank');
+          });
+        </script>
       </div>
     </div>
   {%- endif -%}

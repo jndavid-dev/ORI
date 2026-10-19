@@ -12243,3 +12243,16 @@ body .f-pagination__item--current {
   word-break: normal;
   hyphens: manual;
 }
+
+/* Page content headings: no teal bars (user decision 2026-10-19).
+   Empty headings left in pasted content are hidden so they don't
+   add blank space. */
+.ori-rte h2::after,
+.ori-rte h3::after {
+  content: none;
+  display: none;
+}
+
+.ori-rte .ori-rte-blank {
+  display: none;
+}
