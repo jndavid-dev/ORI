@@ -1,0 +1,90 @@
+{%- comment -%}
+  ORI redesign — default page (templates/page.json): hero + page content.
+
+  Hero: the page title as the H1 (or the heading setting), an optional
+  eyebrow and intro, over a dark banner built from two layers: a toned
+  photo background (darkened, desaturated, blurred, faded in from the
+  left) and a crisp vehicle cut-out on the right. Both default to theme
+  assets made from the Fox F150 shoot (ori-page-hero-bg.webp,
+  ori-page-hero-f150-cutout.webp) and can be replaced per page.
+
+  Body: page.content in a readable column (.ori-rte), styled for the
+  redesign: headings, lists, links, quotes, tables (scroll on phones),
+  images and video embeds (iframes become 16:9 and full width).
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign heading = s.heading | default: page.title
+  assign bg_asset = s.bg_asset | strip
+  assign cut_asset = s.cutout_asset | strip
+-%}
+<div class="ori ori-page{% if s.width == 'wide' %} ori-page--wide{% endif %}">
+  <div class="ori-page-hero{% if s.show_vehicle == false %} ori-page-hero--no-vehicle{% endif %}">
+    <div class="ori-page-hero__bg" aria-hidden="true">
+      {%- if s.bg_image != blank -%}
+        {{ s.bg_image | image_url: width: 1800 | image_tag: widths: '800, 1200, 1800', sizes: '100vw', loading: 'eager', fetchpriority: 'high', alt: '' }}
+      {%- elsif bg_asset != blank -%}
+        <img src="{{ bg_asset | asset_url }}" alt="" width="1600" height="1067" loading="eager" fetchpriority="high">
+      {%- endif -%}
+    </div>
+
+    <div class="ori-wrap ori-page-hero__in">
+      <div class="ori-page-hero__copy">
+        {%- if s.eyebrow != blank -%}<p class="ori-page-hero__eyebrow">{{ s.eyebrow }}</p>{%- endif -%}
+        <h1 class="ori-page-hero__title">{{ heading }}</h1>
+        {%- if s.intro != blank -%}<div class="ori-page-hero__intro">{{ s.intro }}</div>{%- endif -%}
+      </div>
+      {%- if s.show_vehicle -%}
+        <div class="ori-page-hero__vehicle">
+          {%- if s.cutout_image != blank -%}
+            {{ s.cutout_image | image_url: width: 1400 | image_tag: widths: '600, 1000, 1400', sizes: '(min-width: 1025px) 46vw, 92vw', loading: 'eager', alt: s.cutout_image.alt }}
+          {%- elsif cut_asset != blank -%}
+            <img src="{{ cut_asset | asset_url }}" alt="{{ s.cutout_alt | escape }}" width="1285" height="490" loading="eager">
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- if page.content != blank -%}
+    <div class="ori-page__body">
+      <div class="ori-wrap">
+        <div class="ori-rte">
+          {{ page.content }}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "ORI Page",
+  "tag": "section",
+  "class": "ori-main-page-section",
+  "settings": [
+    { "type": "header", "content": "Hero" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "info": "Small line above the heading, e.g. Offroad Industries." },
+    { "type": "text", "id": "heading", "label": "Heading (H1)", "info": "Defaults to the page title." },
+    { "type": "richtext", "id": "intro", "label": "Intro" },
+    { "type": "image_picker", "id": "bg_image", "label": "Background photo", "info": "Darkened and blurred automatically. Landscape, 1800px wide." },
+    { "type": "text", "id": "bg_asset", "label": "Background fallback (theme asset)", "default": "ori-page-hero-bg.webp" },
+    { "type": "checkbox", "id": "show_vehicle", "label": "Show vehicle cut-out", "default": true },
+    { "type": "image_picker", "id": "cutout_image", "label": "Vehicle cut-out", "info": "Transparent PNG/WebP, side-on, around 1400px wide." },
+    { "type": "text", "id": "cutout_asset", "label": "Cut-out fallback (theme asset)", "default": "ori-page-hero-f150-cutout.webp" },
+    { "type": "text", "id": "cutout_alt", "label": "Cut-out alt text", "default": "Ford F150 with Fox suspension, Method wheels and an ADD chase rack" },
+    { "type": "header", "content": "Content" },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Content width",
+      "options": [
+        { "value": "reading", "label": "Reading (best for text)" },
+        { "value": "wide", "label": "Wide (pages with large images or tables)" }
+      ],
+      "default": "reading"
+    }
+  ],
+  "presets": [{ "name": "ORI Page" }]
+}
+{% endschema %}
