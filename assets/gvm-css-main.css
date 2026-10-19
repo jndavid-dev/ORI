@@ -9443,3 +9443,136 @@ body .ori-marquee .f-promotion__item img {
     padding: 6px 10px;
   }
 }
+
+/* ==========================================================
+   ORI REDESIGN — HERO: APPROVAL BAND + CORNER LOGO
+   (snippets/ori-hero-slide.liquid, slider slide settings)
+   The Silverado 1500 banner's approval strip, built in HTML and
+   straightened: a dark question panel, then a teal panel with a
+   shield and the approval in the display face. The corner logo
+   (GVM & GCM Upgrades) sits top right where the plate badge goes.
+   ========================================================== */
+.ori-hero-approval {
+  display: inline-flex;
+  align-items: stretch;
+  max-width: 100%;
+  margin: 0 0 30px;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 18px 40px -18px rgba(0, 0, 0, 0.7);
+}
+
+.ori .ori-hero-approval__ask {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 16px 26px;
+  background: linear-gradient(90deg, #0b0e0f, #22292c);
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.ori-hero-approval__seal {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 28px 14px 20px;
+  background: linear-gradient(90deg, var(--ori-teal), #5cc4ca);
+}
+
+.ori-hero-approval__shield {
+  flex: 0 0 auto;
+  width: 64px;
+  height: 74px;
+}
+
+.ori .ori-hero-approval__text {
+  display: grid;
+  margin: 0;
+  font-family: var(--ori-display);
+  font-weight: 800;
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+
+.ori-hero-approval__eyebrow {
+  margin-bottom: 4px;
+  color: #fff;
+  font-size: 17px;
+  letter-spacing: 0.04em;
+}
+
+.ori-hero-approval__title {
+  color: var(--ori-ink, #15191b);
+  font-size: 34px;
+  font-weight: 800;
+}
+
+.ori-hero-approval__code {
+  margin-top: 4px;
+  color: #fff;
+  font-size: 24px;
+  letter-spacing: 0.04em;
+}
+
+.ori-hero__corner-logo {
+  position: absolute;
+  top: 28px;
+  right: var(--ori-hero-side, var(--ori-edge));
+  z-index: 1;
+  width: clamp(150px, 15vw, 240px);
+}
+
+.ori-hero__corner-logo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 1024px) {
+  .ori-hero__corner-logo {
+    top: 18px;
+    right: var(--ori-edge);
+    width: 140px;
+  }
+
+  /* The stacked cut-out starts below the logo, as it does for the badge. */
+  .ori-hero--cutout:has(.ori-hero__corner-logo) .ori-hero__media {
+    margin-top: 80px;
+  }
+}
+
+@media (max-width: 560px) {
+  .ori-hero-approval {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ori .ori-hero-approval__ask {
+    padding: 12px 18px;
+    font-size: 18px;
+  }
+
+  .ori-hero-approval__seal {
+    padding: 12px 18px;
+  }
+
+  .ori-hero-approval__shield {
+    width: 48px;
+    height: 56px;
+  }
+
+  .ori-hero-approval__eyebrow {
+    font-size: 14px;
+  }
+
+  .ori-hero-approval__title {
+    font-size: 27px;
+  }
+
+  .ori-hero-approval__code {
+    font-size: 19px;
+  }
+}

@@ -362,8 +362,8 @@
         "image_V8QxeT": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__BDS.jpg",
-            "image_height": 150,
+            "image": "shopify://shop_images/bds.png",
+            "image_height": 56,
             "image_link": "shopify://collections/bds-suspension-australian-distributor",
             "use_custom_spacing": false,
             "margin_left": 10,
@@ -378,12 +378,12 @@
             "text": "BDS Suspension",
             "font_family": "heading",
             "text_size": 30,
-            "text_link": "",
+            "text_link": "shopify://collections/bds-suspension-australian-distributor",
             "use_custom_spacing": true,
             "margin_left": 0,
-            "margin_right": 30,
+            "margin_right": 0,
             "margin_left_mobile": 0,
-            "margin_right_mobile": 16
+            "margin_right_mobile": 0
           }
         },
         "divider_ra8kGw": {
@@ -400,9 +400,9 @@
         "image_JkfQc4": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__FOX.jpg",
-            "image_height": 168,
-            "image_link": "https://www.offroadindustries.com.au/collections/fox-suspension",
+            "image": "shopify://shop_images/fox.png",
+            "image_height": 56,
+            "image_link": "shopify://collections/fox-suspension",
             "use_custom_spacing": false,
             "margin_left": 10,
             "margin_right": 10,
@@ -416,12 +416,12 @@
             "text": "Fox Suspension",
             "font_family": "heading",
             "text_size": 30,
-            "text_link": "",
+            "text_link": "shopify://collections/fox-suspension",
             "use_custom_spacing": true,
             "margin_left": 0,
-            "margin_right": 20,
+            "margin_right": 0,
             "margin_left_mobile": 0,
-            "margin_right_mobile": 13
+            "margin_right_mobile": 0
           }
         },
         "divider_HyyX8h": {
@@ -438,10 +438,10 @@
         "image_CMHfbV": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__BAJA_DESIGNS.jpg",
-            "image_height": 120,
+            "image": "shopify://shop_images/baja.png",
+            "image_height": 56,
             "image_link": "shopify://collections/baja-designs",
-            "use_custom_spacing": true,
+            "use_custom_spacing": false,
             "margin_left": 0,
             "margin_right": 20,
             "margin_left_mobile": 0,
@@ -453,20 +453,20 @@
           "settings": {
             "text": "Baja Designs",
             "font_family": "heading",
-            "text_size": 34,
-            "text_link": "",
+            "text_size": 30,
+            "text_link": "shopify://collections/baja-designs",
             "use_custom_spacing": true,
             "margin_left": 0,
-            "margin_right": 30,
+            "margin_right": 0,
             "margin_left_mobile": 0,
-            "margin_right_mobile": 16
+            "margin_right_mobile": 0
           }
         },
         "divider_qMNDMW": {
           "type": "divider",
           "settings": {
             "width": 64,
-            "use_custom_spacing": true,
+            "use_custom_spacing": false,
             "margin_left": 0,
             "margin_right": 30,
             "margin_left_mobile": 0,
@@ -476,10 +476,10 @@
         "image_cqXJGB": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/ADD-OFFROAD-21-FORD-RAPTOR-Phantom-Rear-Bumper-Installation-Guide-1.png",
-            "image_height": 80,
-            "image_link": "https://www.offroadindustries.com.au/collections/addictive-desert-designs",
-            "use_custom_spacing": true,
+            "image": "shopify://shop_images/add.png",
+            "image_height": 56,
+            "image_link": "shopify://collections/addictive-desert-designs",
+            "use_custom_spacing": false,
             "margin_left": 0,
             "margin_right": 20,
             "margin_left_mobile": 0,
@@ -491,20 +491,20 @@
           "settings": {
             "text": "Addictive Desert Designs",
             "font_family": "heading",
-            "text_size": 34,
-            "text_link": "",
+            "text_size": 30,
+            "text_link": "shopify://collections/addictive-desert-designs",
             "use_custom_spacing": true,
             "margin_left": 0,
-            "margin_right": 30,
+            "margin_right": 0,
             "margin_left_mobile": 0,
-            "margin_right_mobile": 16
+            "margin_right_mobile": 0
           }
         },
         "divider_nWecrt": {
           "type": "divider",
           "settings": {
             "width": 64,
-            "use_custom_spacing": true,
+            "use_custom_spacing": false,
             "margin_left": 0,
             "margin_right": 30,
             "margin_left_mobile": 0,
@@ -514,10 +514,10 @@
         "image_xj6yaA": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/huskyliners-logo-fullcolor-24206_4x_68ee4016-c4a6-4e86-b15e-f8f048d6e1d0.png",
-            "image_height": 60,
+            "image": "shopify://shop_images/husky.png",
+            "image_height": 56,
             "image_link": "shopify://collections/husky",
-            "use_custom_spacing": true,
+            "use_custom_spacing": false,
             "margin_left": 0,
             "margin_right": 20,
             "margin_left_mobile": 0,
@@ -529,20 +529,20 @@
           "settings": {
             "text": "Husky Liners",
             "font_family": "heading",
-            "text_size": 34,
-            "text_link": "",
+            "text_size": 30,
+            "text_link": "shopify://collections/husky",
             "use_custom_spacing": true,
             "margin_left": 0,
-            "margin_right": 30,
+            "margin_right": 0,
             "margin_left_mobile": 0,
-            "margin_right_mobile": 16
+            "margin_right_mobile": 0
           }
         },
         "divider_VyRtkM": {
           "type": "divider",
           "settings": {
             "width": 64,
-            "use_custom_spacing": true,
+            "use_custom_spacing": false,
             "margin_left": 0,
             "margin_right": 30,
             "margin_left_mobile": 0,
@@ -844,103 +844,6 @@
         "padding_bottom": 60
       }
     },
-    "ori_hero_home": {
-      "type": "ori-hero",
-      "blocks": {
-        "logo_ori": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__ORI.jpg",
-            "alt": "ORI"
-          }
-        },
-        "logo_fox": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__FOX.jpg",
-            "alt": "Fox"
-          }
-        },
-        "logo_bds": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__BDS.jpg",
-            "alt": "BDS Suspension"
-          }
-        },
-        "logo_husky": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__HUSKY_LINERS.jpg",
-            "alt": "Husky Liners"
-          }
-        },
-        "feature_ssm": {
-          "type": "feature",
-          "settings": {
-            "icon": "shield",
-            "text": "SSM federally approved\nAustralia wide"
-          }
-        },
-        "feature_suspension": {
-          "type": "feature",
-          "settings": {
-            "icon": "suspension",
-            "text": "Fox & BDS suspension\ncomponents"
-          }
-        },
-        "feature_rego": {
-          "type": "feature",
-          "settings": {
-            "icon": "clipboard",
-            "text": "Pre-rego only"
-          }
-        },
-        "feature_tyres": {
-          "type": "feature",
-          "settings": {
-            "icon": "tyre",
-            "text": "35\" | 37\" tyres"
-          }
-        },
-        "button_gvm": {
-          "type": "button",
-          "settings": {
-            "label": "6T GVM upgrades",
-            "link": "/pages/chevy-silverado-2500hd-gvm-packages",
-            "style": "teal"
-          }
-        }
-      },
-      "block_order": [
-        "logo_ori",
-        "logo_fox",
-        "logo_bds",
-        "logo_husky",
-        "feature_ssm",
-        "feature_suspension",
-        "feature_rego",
-        "feature_tyres",
-        "button_gvm"
-      ],
-      "settings": {
-        "style": "cutout",
-        "min_height": 620,
-        "badge_text": "",
-        "heading_1": "Chevrolet Silverado",
-        "heading_2": "2500 HD LTZ",
-        "pill": "3\" to 6.5\" upgrades\n6000kg GVM packages",
-        "heading_2_white": false,
-        "subheading": "",
-        "heading_tag": "h1",
-        "badge_title": "NB2",
-        "badge_small": "Car licence",
-        "image_asset": "ori-hero-chevy-2500-cutout.webp",
-        "image_alt": "Chevrolet Silverado 2500 HD LTZ in Cypress Gray on 37 inch tyres",
-        "media_flush": true,
-        "size": "large"
-      }
-    },
     "ori_finder": {
       "type": "ori-finder",
       "blocks": {
@@ -1095,12 +998,13 @@
           "settings": {
             "name": "Silverado 1500",
             "title": "Chevrolet Silverado 1500",
-            "years": "2019 – 2026 · LTZ, Trail Boss, ZR2",
-            "link": "/pages/chevrolet-silverado-1500-gvm-package",
-            "stages": 3,
-            "original_gvm": "3,493 kg",
-            "upgraded_gvm": "4,300 kg",
-            "original_gcm": "7,400 kg",
+            "years": "LTZ · ZR2 · Trail Boss",
+            "collection": "chevrolet-silverado-1500-ltz-zr2-trailboss-gvm-upgrade",
+            "link": "",
+            "stages": "Stage 1 | 3,650 kg\nStage 2 | 3,650 kg\nStage 3 | 3,850 kg\nStage 4 | 4,250 kg\nStage 5 | 4,250 kg",
+            "original_gvm": "3,300 kg",
+            "upgraded_gvm": "4,250 kg",
+            "original_gcm": "7,160 kg",
             "upgraded_gcm": "8,750 kg",
             "towing": "4,500 kg"
           }
@@ -1110,43 +1014,46 @@
           "settings": {
             "name": "Silverado 2500HD",
             "title": "Chevrolet Silverado 2500HD",
-            "years": "2020 – 2026",
-            "link": "/pages/chevy-silverado-2500hd-gvm-packages",
-            "stages": 5,
-            "original_gvm": "4,490 kg",
+            "years": "LTZ",
+            "collection": "chevrolet-silverado-2500-ltz-gvm-upgrade",
+            "link": "",
+            "stages": "Stage 1 | 5,500 kg\nStage 2 | 6,000 kg\nStage 3 | 6,000 kg\nStage 3.5 | 6,000 kg\nStage 4 | 6,000 kg\nStage 5 | 6,000 kg\nStage 6 | 6,000 kg\nStage 6.5 | 6,000 kg",
+            "original_gvm": "4,495 kg",
             "upgraded_gvm": "6,000 kg",
-            "original_gcm": "10,500 kg",
-            "upgraded_gcm": "11,800 kg",
+            "original_gcm": "12,474 kg",
+            "upgraded_gcm": "12,474 kg",
             "towing": "4,500 kg"
           }
         },
         "v_ram5": {
           "type": "vehicle",
           "settings": {
-            "name": "Ram 2500HD 5th gen",
-            "title": "Ram 2500HD · 5th gen",
-            "years": "2019 – 2024",
-            "link": "/pages/ram-2500hd-5th-gen-gvm",
-            "stages": 4,
-            "original_gvm": "4,490 kg",
-            "upgraded_gvm": "4,950 kg",
-            "original_gcm": "10,300 kg",
-            "upgraded_gcm": "11,500 kg",
+            "name": "RAM 2500 5th Gen",
+            "title": "RAM 2500 5th Gen",
+            "years": "",
+            "collection": "ram-2500-gvm-5th-gen-gvm",
+            "link": "",
+            "stages": "Stage 1 | 5,300 kg\nStage 2 | 5,550 kg\nStage 3 | 5,550 kg",
+            "original_gvm": "4,495 kg",
+            "upgraded_gvm": "5,550 kg",
+            "original_gcm": "12,695 kg",
+            "upgraded_gcm": "12,695 kg",
             "towing": "4,500 kg"
           }
         },
         "v_ram6": {
           "type": "vehicle",
           "settings": {
-            "name": "Ram 2500 6th gen",
-            "title": "Ram 2500 · 6th gen",
-            "years": "2025 +",
-            "link": "/pages/ram-2500-6th-gen-gvm",
-            "stages": 4,
-            "original_gvm": "4,490 kg",
-            "upgraded_gvm": "4,950 kg",
-            "original_gcm": "10,300 kg",
-            "upgraded_gcm": "11,500 kg",
+            "name": "RAM 2500 6th Gen",
+            "title": "RAM 2500 6th Gen",
+            "years": "",
+            "collection": "ram-2500-gvm-6th-gen-gvm",
+            "link": "",
+            "stages": "Stage 1 | 5,500 kg\nStage 2 | 5,890 kg\nStage 3 | 5,890 kg\nStage 4 | 5,890 kg\nStage 5 | 5,890 kg\nStage 6 | 5,800 kg",
+            "original_gvm": "4,495 kg",
+            "upgraded_gvm": "5,890 kg",
+            "original_gcm": "12,750 kg",
+            "upgraded_gcm": "12,750 kg",
             "towing": "4,500 kg"
           }
         },
@@ -1155,12 +1062,13 @@
           "settings": {
             "name": "Ford F150",
             "title": "Ford F150",
-            "years": "2021 – 2026",
-            "link": "/pages/ori-gvm-upgrade-ford-f150",
-            "stages": 3,
-            "original_gvm": "3,270 kg",
+            "years": "Platinum · Lariat · XLT",
+            "collection": "ford-f150-platinum-lariat-xlt-gvm-upgrade",
+            "link": "",
+            "stages": "Stage 1 | 3,700 kg\nStage 2 | 3,700 kg\nStage 3 | 4,300 kg\nStage 4 | 4,300 kg\nStage 5 | 4,000 kg\nStage 6 | 3,700 kg",
+            "original_gvm": "3,220 kg",
             "upgraded_gvm": "4,300 kg",
-            "original_gcm": "7,700 kg",
+            "original_gcm": "7,720 kg",
             "upgraded_gcm": "8,800 kg",
             "towing": "4,500 kg"
           }
@@ -1170,12 +1078,13 @@
           "settings": {
             "name": "Toyota Tundra",
             "title": "Toyota Tundra",
-            "years": "2022 – 2026",
-            "link": "/pages/toyota-tundra",
-            "stages": 3,
-            "original_gvm": "3,400 kg",
+            "years": "Limited · Platinum",
+            "collection": "toyota-tundra-platinum-gvm-upgrade",
+            "link": "",
+            "stages": "Stage 1 | 3,850 kg\nStage 2 | 3,850 kg\nStage 3 | 4,300 kg\nStage 4 | 4,300 kg",
+            "original_gvm": "3,536 kg",
             "upgraded_gvm": "4,300 kg",
-            "original_gcm": "7,900 kg",
+            "original_gcm": "7,825 kg",
             "upgraded_gcm": "8,800 kg",
             "towing": "4,500 kg"
           }
@@ -1193,14 +1102,15 @@
         "heading_1": "GVM upgrades",
         "heading_2": "that go on the plate",
         "intro": "Staged, federally approved packages that raise your legal carrying and towing limits — tested to ADR and certified, not just a spring swap.",
-        "stage_labels": "Springs, Shocks, Brakes, Tow rating, Full build",
         "button_prefix": "View",
         "button_suffix": "packages",
-        "ghost_label": "Book a consult",
-        "ghost_link": "/pages/contact-us",
-        "note": "Example figures — replace with each vehicle's certified ratings, or pick its GVM product to read them from metafields.",
+        "ghost_label": "Request a quote",
+        "ghost_link": "",
+        "note": "",
         "padding_top": 88,
-        "padding_bottom": 88
+        "padding_bottom": 88,
+        "stages_label": "GVM by stage",
+        "ghost_anchor": "quote"
       }
     },
     "ori_amp": {
@@ -1237,7 +1147,7 @@
             "heading": "Find an installer",
             "text": "GVM upgrades are fitted by ORI authorised installers. Find one near you.",
             "button_label": "Find an installer",
-            "link": "/pages/store-locator-1",
+            "link": "shopify://pages/gvm-approves",
             "button_style": "light"
           }
         },
@@ -1247,7 +1157,7 @@
             "heading": "Become a dealer",
             "text": "Workshops and fitters get trade pricing, GVM kit ordering and marketing assets.",
             "button_label": "Apply for a trade account",
-            "link": "/pages/dealer-2",
+            "link": "shopify://pages/b2b-account-request",
             "button_style": "dark"
           }
         }
@@ -1260,11 +1170,104 @@
         "padding_top": 72,
         "padding_bottom": 72
       }
+    },
+    "ori_hero_slider": {
+      "type": "ori-hero-slider",
+      "blocks": {
+        "slide_2500hd": {
+          "type": "slide",
+          "settings": {
+            "style": "cutout",
+            "image_asset": "ori-hero-chevy-2500-cutout.webp",
+            "image_alt": "Chevrolet Silverado 2500 HD LTZ in Cypress Gray on 37 inch tyres",
+            "media_width": 45,
+            "media_flush": true,
+            "size": "large",
+            "min_height": 620,
+            "badge_text": "",
+            "heading_1": "Chevrolet Silverado",
+            "heading_1_white": false,
+            "heading_2": "2500 HD LTZ",
+            "heading_2_white": false,
+            "pill": "3\" to 6.5\" upgrades\n6000kg GVM packages",
+            "subheading": "",
+            "badge_title": "NB2",
+            "badge_small": "Car licence",
+            "logo_1": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__ORI.jpg",
+            "logo_2": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__FOX.jpg",
+            "logo_3": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__BDS.jpg",
+            "logo_4": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__HUSKY_LINERS.jpg",
+            "feature_1_icon": "shield",
+            "feature_1_text": "SSM federally approved\nAustralia wide",
+            "feature_2_icon": "suspension",
+            "feature_2_text": "Fox & BDS suspension\ncomponents",
+            "feature_3_icon": "clipboard",
+            "feature_3_text": "Pre-rego only",
+            "feature_4_icon": "tyre",
+            "feature_4_text": "35\" | 37\" tyres",
+            "button_1_label": "6T GVM upgrades",
+            "button_1_link": "shopify://collections/chevrolet-silverado-2500-ltz-gvm-upgrade",
+            "button_1_style": "teal",
+            "button_2_label": "",
+            "button_2_style": "ghost"
+          }
+        },
+        "slide_1500": {
+          "type": "slide",
+          "settings": {
+            "style": "cutout",
+            "image_asset": "ori-hero-silverado-1500-duo-cutout.webp",
+            "image_alt": "Chevrolet Silverado 1500 ZR2 in red and Silverado 1500 LTZ in silver",
+            "media_width": 60,
+            "media_flush": false,
+            "size": "large",
+            "min_height": 620,
+            "badge_text": "",
+            "heading_1": "Do you own a",
+            "heading_1_white": true,
+            "heading_2": "MY26i Silverado 1500 LTZ or ZR2?",
+            "heading_2_white": false,
+            "pill": "",
+            "subheading": "",
+            "badge_title": "",
+            "badge_small": "",
+            "logo_1": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__ORI.jpg",
+            "feature_1_icon": "shield",
+            "feature_1_text": "",
+            "feature_2_icon": "suspension",
+            "feature_2_text": "",
+            "feature_3_icon": "clipboard",
+            "feature_3_text": "",
+            "feature_4_icon": "tyre",
+            "feature_4_text": "",
+            "button_1_label": "Silverado 1500 GVM upgrades",
+            "button_1_link": "shopify://collections/chevrolet-silverado-1500-ltz-zr2-trailboss-gvm-upgrade",
+            "button_1_style": "teal",
+            "button_2_label": "",
+            "button_2_style": "ghost",
+            "band_question": "Wanting a\nGVM & GCM\nUpgrade?",
+            "band_eyebrow": "ORI GVM upgrades",
+            "band_title": "Federally\napproved",
+            "band_code": "VTA-066635",
+            "corner_logo": "shopify://shop_images/gvm-gcm-logo-white.webp"
+          }
+        }
+      },
+      "block_order": [
+        "slide_2500hd",
+        "slide_1500"
+      ],
+      "settings": {
+        "autoplay": true,
+        "autoplay_speed": 7,
+        "heading_tag": "h1",
+        "label": "Featured GVM upgrades"
+      }
     }
   },
   "order": [
     "1653903038c126b831",
-    "ori_hero_home",
+    "ori_hero_slider",
     "ori_finder",
     "1770092251a8cb32bd",
     "ori_amp",

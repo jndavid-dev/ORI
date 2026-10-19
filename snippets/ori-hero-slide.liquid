@@ -60,6 +60,12 @@
     </div>
   {%- endif -%}
 
+  {%- if s.corner_logo != blank -%}
+    <div class="ori-hero__corner-logo">
+      {{ s.corner_logo | image_url: width: 520 | image_tag: widths: '260, 520', sizes: '260px', alt: s.corner_logo.alt, loading: img_loading }}
+    </div>
+  {%- endif -%}
+
   {%- if s.badge_title != blank -%}
     <div class="ori-plate-badge">
       {{- s.badge_title -}}
@@ -107,6 +113,30 @@
 
       {%- if s.subheading != blank -%}
         <div class="ori-hero__sub">{{ s.subheading }}</div>
+      {%- endif -%}
+
+      {%- if s.band_title != blank -%}
+        {%- comment -%}
+          Approval band (hero slider slides): a question on the dark half,
+          the approval with its shield and VTA number on the teal half.
+        {%- endcomment -%}
+        <div class="ori-hero-approval">
+          {%- if s.band_question != blank -%}
+            <p class="ori-hero-approval__ask">{{ s.band_question | newline_to_br }}</p>
+          {%- endif -%}
+          <div class="ori-hero-approval__seal">
+            <svg class="ori-hero-approval__shield" viewBox="0 0 64 74" aria-hidden="true" focusable="false">
+              <path d="M32 3 6 12v20c0 18 11.5 31.5 26 39 14.5-7.5 26-21 26-39V12L32 3Z" fill="#1d2427" stroke="#1d2427" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M32 9.5 12 16.5V32c0 14.5 8.8 25.5 20 32 11.2-6.5 20-17.5 20-32V16.5L32 9.5Z" fill="none" stroke="#3fb3ba" stroke-width="1.5" opacity=".55"/>
+              <path d="m21 37 8 8 15-17" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <p class="ori-hero-approval__text">
+              {%- if s.band_eyebrow != blank -%}<span class="ori-hero-approval__eyebrow">{{ s.band_eyebrow }}</span>{{- ' ' -}}{%- endif -%}
+              <strong class="ori-hero-approval__title">{{ s.band_title | newline_to_br }}</strong>
+              {%- if s.band_code != blank -%}{{- ' ' -}}<span class="ori-hero-approval__code">{{ s.band_code }}</span>{%- endif -%}
+            </p>
+          </div>
+        </div>
       {%- endif -%}
 
       {%- if feats_html != blank -%}
