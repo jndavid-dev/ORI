@@ -180,7 +180,7 @@
         "transparent_header": false,
         "logo": "shopify://shop_images/ORI_logo.png",
         "logo_width": 130,
-        "logo_mobile_width": 110,
+        "logo_mobile_width": 100,
         "main_menu": "main-menu",
         "mobile_menu": "main-menu",
         "menu_dropdown_color_schema": "",

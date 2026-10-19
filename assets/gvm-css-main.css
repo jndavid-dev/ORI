@@ -9901,3 +9901,23 @@ body .ori-marquee .f-promotion__item img {
     --ori-hs-top: 64px;
   }
 }
+
+/* ==========================================================
+   ORI REDESIGN — HEADER LOGO (trimmed logo file)
+   The trimmed logo has no built-in whitespace, so the header gets its
+   breathing room from padding instead: 12px above and below on desktop
+   (the theme's own 5px stays on mobile). On mobile the logo scales with
+   the screen, so the row (menu, logo, GVM badge, search, cart) fits
+   down to 320px wide.
+   ========================================================== */
+@media (min-width: 1024px) {
+  .site-header .site-logo {
+    padding: 12px 0;
+  }
+}
+
+@media (max-width: 1023.98px) {
+  .site-header .site-logo__img {
+    width: clamp(78px, 24vw, 100px);
+  }
+}
