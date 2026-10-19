@@ -1487,34 +1487,6 @@
     "ori_hero_hub": {
       "type": "ori-hero",
       "blocks": {
-        "logo_ori": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__ORI.jpg",
-            "alt": "ORI"
-          }
-        },
-        "logo_fox": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__FOX.jpg",
-            "alt": "Fox"
-          }
-        },
-        "logo_bds": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__BDS.jpg",
-            "alt": "BDS Suspension"
-          }
-        },
-        "logo_husky": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__HUSKY_LINERS.jpg",
-            "alt": "Husky Liners"
-          }
-        },
         "feature_ssm": {
           "type": "feature",
           "settings": {
@@ -1558,13 +1530,18 @@
             "link": "#installers",
             "style": "ghost"
           }
+        },
+        "logo_gvm": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/gvm-gcm-logo-white.webp",
+            "alt": "GVM & GCM Upgrades by ORI",
+            "style": "plain"
+          }
         }
       },
       "block_order": [
-        "logo_ori",
-        "logo_fox",
-        "logo_bds",
-        "logo_husky",
+        "logo_gvm",
         "feature_ssm",
         "feature_suspension",
         "feature_rego",
@@ -1582,7 +1559,7 @@
         "badge_text": "",
         "heading_1": "American Truck",
         "heading_2": "GVM & GCM Specialist",
-        "pill": "",
+        "pill": "In Australia",
         "heading_2_white": true,
         "subheading": "<p>Federally approved GVM & GCM upgrades for full-size American trucks, fitted by authorised installers across Australia.</p>",
         "heading_tag": "h1",

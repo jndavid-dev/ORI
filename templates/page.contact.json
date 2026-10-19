@@ -16,7 +16,8 @@
         "brc_text_alignment": "center",
         "padding_top": 0,
         "padding_bottom": 0
-      }
+      },
+      "disabled": true
     },
     "collage_tabs_zqCD7V": {
       "type": "collage-tabs",
@@ -63,7 +64,8 @@
         "custom_id": "",
         "custom_class": "",
         "animations": "inherit"
-      }
+      },
+      "disabled": true
     },
     "main": {
       "type": "main-page",
@@ -223,10 +225,32 @@
         "button_text": "#ffffff",
         "padding_top": 60,
         "padding_bottom": 60
+      },
+      "disabled": true
+    },
+    "ori_contact": {
+      "type": "ori-contact",
+      "settings": {
+        "eyebrow": "Get in touch",
+        "heading": "Contact Offroad Industries",
+        "intro": "",
+        "image": "shopify://shop_images/contact-form-banner.webp",
+        "business_name": "Offroad Industries",
+        "address": "3 Montefiore St, Fairfield VIC 3078",
+        "phone": "0483 930 639",
+        "email": "sales@offroadindustries.com.au",
+        "hours": "<p><strong>By appointment only.</strong></p><p>All emails will be answered within 48 hours. Email enquiries sent on a weekend or Melbourne public holidays will be answered on the next business day.</p>",
+        "map_label": "Get directions",
+        "map_link": "https://maps.app.goo.gl/iDEeeBSxpdB5H9b46",
+        "form_heading": "Get in touch with us!",
+        "form_intro": "Please leave as much information as possible, so we can best answer your enquiry.",
+        "button_label": "Submit enquiry",
+        "success_message": "Thanks! We received your enquiry and will get back to you soon."
       }
     }
   },
   "order": [
+    "ori_contact",
     "30a56383-5d1c-459a-9293-c2f96ce20c74",
     "collage_tabs_zqCD7V",
     "main",
