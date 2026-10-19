@@ -9672,3 +9672,20 @@ body .ori-marquee .f-promotion__item img {
     pointer-events: none;
   }
 }
+
+/* Slides with the approval band, desktop: the cut-out only takes the
+   space to the right of the band's text (about 600px from the copy's
+   left edge; 500px where the band is smaller below 1400px), so the
+   trucks can cover the band's faded end but never the approval or the
+   VTA number, at any width. */
+@media (min-width: 1025px) {
+  .ori-hero--slide.ori-hero--large.ori-hero--cutout:has(.ori-hero-approval) .ori-hero__media {
+    width: min(calc(var(--ori-hero-media-w, 45vw) * 0.92), 1120px, calc(100vw - 2 * var(--ori-hero-side) - 600px));
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1400px) {
+  .ori-hero--slide.ori-hero--large.ori-hero--cutout:has(.ori-hero-approval) .ori-hero__media {
+    width: min(calc(var(--ori-hero-media-w, 45vw) * 0.92), 1120px, calc(100vw - 2 * var(--ori-hero-side) - 500px));
+  }
+}
