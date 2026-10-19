@@ -1,23 +1,25 @@
 {%- comment -%}
   ORI redesign — GVM upgrades band for the home page. Dark band: heading,
   intro and vehicle tabs on the left; the selected vehicle's figures card
-  on the right (GVM / GCM old → new, towing), a stage bar showing how many
-  stages it offers, and its buttons.
+  on the right (GVM / GCM factory → top stage, towing), its stages with
+  the GVM each one is rated to, and its buttons.
+
+  Each vehicle points at its GVM collection (the vehicle page). The main
+  button opens it; the second button opens the same page at its quote form
+  (the ORI GVM Quote section's anchor, #quote by default).
 
   Figures are metafield-first: pick the vehicle's top-stage GVM product
   and the card reads its original_gvm / upgraded_gvm / original_gcm /
   upgraded_gcm / towing metafields (variant, then product; custom then
   ori namespace — same lookup as sections/ori-gvm-product.liquid). The
-  typed values are the fallback for anything the product doesn't have.
+  typed values — taken from each collection's specification table — are
+  the fallback for anything the product doesn't have.
 
   Every vehicle panel is rendered server-side; assets/ori-home.js only
   switches tabs, so there's no templating in JavaScript.
 {%- endcomment -%}
-{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
-{%- render 'ori-fonts' -%}
 {%- liquid
   assign vehicles = section.blocks | where: 'type', 'vehicle'
-  assign stage_labels = section.settings.stage_labels | split: ','
   assign uid = 'ori-hgvm-' | append: section.id
 -%}
 <div
@@ -30,6 +32,7 @@
       <h2 class="ori-h2">
         {%- if section.settings.heading_1 != blank -%}
           <span class="ori-accent">{{ section.settings.heading_1 }}</span>
+          {{- ' ' -}}
         {%- endif -%}
         {{- section.settings.heading_2 -}}
       </h2>
@@ -77,8 +80,12 @@
             assign f_gcm_new = vmf.upgraded_gcm.value | default: vmfo.upgraded_gcm.value | default: mf.upgraded_gcm.value | default: mfo.upgraded_gcm.value | default: f_gcm_new
             assign f_tow = vmf.towing.value | default: vmfo.towing.value | default: mf.towing.value | default: mfo.towing.value | default: mf.braked_towing.value | default: mfo.braked_towing.value | default: f_tow
           endif
-          assign link = block.settings.link | default: p.url
-          assign stages_on = block.settings.stages | default: 0
+          assign link = block.settings.link | default: block.settings.collection.url | default: p.url
+          assign quote_link = section.settings.ghost_link
+          if quote_link == blank and link != blank and section.settings.ghost_anchor != blank
+            assign quote_link = link | append: '#' | append: section.settings.ghost_anchor
+          endif
+          assign stage_lines = block.settings.stages | newline_to_br | split: '<br />'
         -%}
         <div
           class="ori-hgvm__panel"
@@ -121,14 +128,24 @@
                 <div class="ori-fig"><dt>Towing</dt><dd>{{ f_tow }}</dd></div>
               {%- endif -%}
             </dl>
-            {%- if stage_labels.size > 0 and stages_on > 0 -%}
-              <ol class="ori-hgvm__stages" aria-label="{{ stages_on }} of {{ stage_labels.size }} stages available">
-                {%- for label in stage_labels -%}
-                  <li{% if forloop.index <= stages_on %} class="is-on"{% endif %}>
-                    <b>Stage {{ forloop.index }}</b>{{ label | strip }}
-                  </li>
-                {%- endfor -%}
-              </ol>
+            {%- if block.settings.stages != blank -%}
+              <div class="ori-hgvm__stage-wrap">
+                {%- if section.settings.stages_label != blank -%}
+                  <p class="ori-hgvm__stages-label">{{ section.settings.stages_label }}</p>
+                {%- endif -%}
+                <ol class="ori-hgvm__stages" role="list">
+                  {%- for line in stage_lines -%}
+                    {%- assign parts = line | strip_newlines | split: '|' -%}
+                    {%- assign stage_name = parts[0] | strip -%}
+                    {%- if stage_name != blank -%}
+                      <li>
+                        <b>{{ stage_name }}</b>
+                        {%- if parts[1] != blank -%}{{ parts[1] | strip }}{%- endif -%}
+                      </li>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </ol>
+              </div>
             {%- endif -%}
             <div class="ori-hgvm__ctas">
               {%- if link != blank -%}
@@ -136,8 +153,8 @@
                   {{- section.settings.button_prefix }} {{ block.settings.name }} {{ section.settings.button_suffix -}}
                 </a>
               {%- endif -%}
-              {%- if section.settings.ghost_label != blank and section.settings.ghost_link != blank -%}
-                <a class="ori-btn ori-btn--ghost" href="{{ section.settings.ghost_link }}">{{ section.settings.ghost_label }}</a>
+              {%- if section.settings.ghost_label != blank and quote_link != blank -%}
+                <a class="ori-btn ori-btn--ghost" href="{{ quote_link }}">{{ section.settings.ghost_label }}</a>
               {%- endif -%}
             </div>
           </div>
@@ -163,17 +180,23 @@
       "label": "Intro",
       "default": "Staged, federally approved packages that raise your legal carrying and towing limits — tested to ADR and certified, not just a spring swap."
     },
-    {
-      "type": "text",
-      "id": "stage_labels",
-      "label": "Stage names",
-      "info": "Comma separated, in order. Each vehicle lights up as many as its \"Stages offered\".",
-      "default": "Springs, Shocks, Brakes, Tow rating, Full build"
-    },
+    { "type": "text", "id": "stages_label", "label": "Label above the stages", "default": "GVM by stage" },
     { "type": "text", "id": "button_prefix", "label": "Button text before vehicle name", "default": "View" },
     { "type": "text", "id": "button_suffix", "label": "Button text after vehicle name", "default": "packages" },
-    { "type": "text", "id": "ghost_label", "label": "Second button label", "default": "Book a consult" },
-    { "type": "url", "id": "ghost_link", "label": "Second button link" },
+    { "type": "text", "id": "ghost_label", "label": "Second button label", "default": "Request a quote" },
+    {
+      "type": "text",
+      "id": "ghost_anchor",
+      "label": "Second button: anchor on the vehicle page",
+      "default": "quote",
+      "info": "Opens the vehicle's page at this anchor — the ORI GVM Quote section's Anchor ID."
+    },
+    {
+      "type": "url",
+      "id": "ghost_link",
+      "label": "Second button: fixed link",
+      "info": "Optional. Sends every vehicle to this one page instead."
+    },
     { "type": "text", "id": "note", "label": "Fine print under the card" },
     { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 88 },
     { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 88 }
@@ -185,16 +208,19 @@
       "settings": [
         { "type": "text", "id": "name", "label": "Tab name", "default": "Silverado 1500" },
         { "type": "text", "id": "title", "label": "Full name", "default": "Chevrolet Silverado 1500" },
-        { "type": "text", "id": "years", "label": "Years / trims", "default": "2019 – 2026 · LTZ, Trail Boss, ZR2" },
-        { "type": "url", "id": "link", "label": "Packages link", "info": "Defaults to the GVM product below." },
+        { "type": "text", "id": "years", "label": "Years / trims" },
         {
-          "type": "range",
+          "type": "collection",
+          "id": "collection",
+          "label": "Vehicle GVM collection",
+          "info": "The vehicle page both buttons open."
+        },
+        { "type": "url", "id": "link", "label": "Packages link override", "info": "Only if the button should go somewhere other than the collection." },
+        {
+          "type": "textarea",
           "id": "stages",
-          "label": "Stages offered",
-          "min": 0,
-          "max": 5,
-          "step": 1,
-          "default": 3
+          "label": "Stages",
+          "info": "One stage per line: name | GVM, e.g. Stage 1 | 3,650 kg. Copy from the collection's specification table."
         },
         {
           "type": "header",
@@ -206,10 +232,10 @@
           "label": "GVM product (figures from metafields)",
           "info": "Usually the top stage. Its GVM/GCM/towing metafields are used first; the fields below fill any gaps."
         },
-        { "type": "text", "id": "original_gvm", "label": "Factory GVM", "placeholder": "3,493 kg" },
-        { "type": "text", "id": "upgraded_gvm", "label": "Upgraded GVM", "placeholder": "4,300 kg" },
-        { "type": "text", "id": "original_gcm", "label": "Factory GCM", "placeholder": "7,400 kg" },
-        { "type": "text", "id": "upgraded_gcm", "label": "Upgraded GCM", "placeholder": "8,750 kg" },
+        { "type": "text", "id": "original_gvm", "label": "Factory GVM", "placeholder": "3,300 kg" },
+        { "type": "text", "id": "upgraded_gvm", "label": "Upgraded GVM (top stage)", "placeholder": "4,250 kg" },
+        { "type": "text", "id": "original_gcm", "label": "Factory GCM", "placeholder": "7,160 kg" },
+        { "type": "text", "id": "upgraded_gcm", "label": "Upgraded GCM (top stage)", "placeholder": "8,750 kg" },
         { "type": "text", "id": "towing", "label": "Braked towing", "placeholder": "4,500 kg" }
       ]
     }

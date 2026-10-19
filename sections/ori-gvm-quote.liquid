@@ -303,6 +303,7 @@
 {%- else -%}
   <div
     class="ori ori-section ori-quote ori-quote--inline{% if section.settings.dark %} ori-quote--dark{% endif %}{{ custom_class }}"
+    {% if section.settings.anchor_id != blank %}id="{{ section.settings.anchor_id | handle }}"{% endif %}
     data-ori-quote
     data-form-id="{{ form_id }}"
     style="--ori-pt: {{ section.settings.padding_top }}px; --ori-pb: {{ section.settings.padding_bottom }}px;"
@@ -345,6 +346,13 @@
       "label": "Popup ID",
       "default": "ori-gvm-quote",
       "info": "Popup only. Put the same ID in ORI GVM Product › Primary button popup ID."
+    },
+    {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "Anchor ID",
+      "default": "quote",
+      "info": "In the page only. Links ending in #quote (e.g. from the home page GVM band) jump to this form."
     },
     {
       "type": "range",

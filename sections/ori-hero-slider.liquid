@@ -1,0 +1,337 @@
+{%- comment -%}
+  ORI redesign — Hero slider. Two or more ORI hero banners that cross-fade,
+  for the home page. Each slide is a block with the same options as the
+  ORI Hero section (cut-out or photo, heading lines, pill, plate badge),
+  with logos, feature points and buttons as fixed slots because blocks
+  can't hold blocks. The banner markup is snippets/ori-hero-slide.liquid,
+  shared with sections/ori-hero.liquid, so a slide looks exactly like a
+  single ORI Hero.
+
+  The first slide's heading uses the Heading level setting (H1 by default);
+  later slides use H2 so the page keeps one H1. Slides are stacked in one
+  grid cell, so the slider is as tall as its tallest slide and nothing
+  jumps when they change. assets/ori-hero-slider.js runs the arrows, dots,
+  swipe and autoplay (paused on hover, on focus, with the pause button and
+  for visitors who prefer reduced motion).
+{%- endcomment -%}
+{%- assign slides = section.blocks | where: 'type', 'slide' -%}
+{%- if slides.size > 0 -%}
+  <div
+    class="ori-hslider"
+    data-ori-hslider
+    data-autoplay="{% if section.settings.autoplay and slides.size > 1 %}{{ section.settings.autoplay_speed }}{% else %}0{% endif %}"
+    {% if slides.size > 1 %}role="region" aria-roledescription="carousel" aria-label="{{ section.settings.label | default: 'Featured' | escape }}"{% endif %}
+  >
+    <div class="ori-hslider__track">
+      {%- for block in slides -%}
+        {%- liquid
+          assign b = block.settings
+          if forloop.first
+            assign heading_tag = section.settings.heading_tag | default: 'h1'
+          else
+            assign heading_tag = 'h2'
+          endif
+        -%}
+
+        {%- capture logos_html -%}
+          {%- for i in (1..4) -%}
+            {%- assign logo_key = 'logo_' | append: i -%}
+            {%- assign logo = b[logo_key] -%}
+            {%- if logo != blank -%}
+              {{ logo | image_url: width: 120 | image_tag: width: 58, height: 58, alt: logo.alt, loading: 'eager' }}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endcapture -%}
+
+        {%- capture feats_html -%}
+          {%- for i in (1..4) -%}
+            {%- liquid
+              assign icon_key = 'feature_' | append: i | append: '_icon'
+              assign text_key = 'feature_' | append: i | append: '_text'
+            -%}
+            {%- if b[text_key] != blank -%}
+              <li class="ori-feat">
+                {%- render 'ori-icon', icon: b[icon_key] -%}
+                <span>{{ b[text_key] | newline_to_br }}</span>
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endcapture -%}
+
+        {%- capture ctas_html -%}
+          {%- for i in (1..2) -%}
+            {%- liquid
+              assign label_key = 'button_' | append: i | append: '_label'
+              assign link_key = 'button_' | append: i | append: '_link'
+              assign style_key = 'button_' | append: i | append: '_style'
+            -%}
+            {%- if b[label_key] != blank -%}
+              <a class="ori-btn ori-btn--{{ b[style_key] | default: 'teal' }}" href="{{ b[link_key] | default: '#' }}">
+                {{- b[label_key] -}}
+              </a>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endcapture -%}
+
+        <div
+          class="ori-hslider__slide{% if forloop.first %} is-active{% endif %}"
+          {% if slides.size > 1 %}role="group" aria-roledescription="slide" aria-label="{{ forloop.index }} of {{ slides.size }}"{% endif %}
+          {% unless forloop.first %}inert aria-hidden="true"{% endunless %}
+          data-ori-hslide
+          {{ block.shopify_attributes }}
+        >
+          {%- render 'ori-hero-slide',
+            s: b,
+            logos_html: logos_html,
+            feats_html: feats_html,
+            ctas_html: ctas_html,
+            heading_tag: heading_tag,
+            eager: forloop.first
+          -%}
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- if slides.size > 1 -%}
+      <div class="ori-hslider__nav">
+        <button type="button" class="ori-hslider__arrow" data-ori-hslider-prev aria-label="Previous slide">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="ori-hslider__dots">
+          {%- for block in slides -%}
+            <button
+              type="button"
+              class="ori-hslider__dot"
+              data-ori-hslider-dot="{{ forloop.index0 }}"
+              aria-label="Show slide {{ forloop.index }}"
+              {% if forloop.first %}aria-current="true"{% endif %}
+            ></button>
+          {%- endfor -%}
+        </div>
+        <button type="button" class="ori-hslider__arrow" data-ori-hslider-next aria-label="Next slide">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        {%- if section.settings.autoplay -%}
+          <button type="button" class="ori-hslider__arrow ori-hslider__pause" data-ori-hslider-pause aria-label="Pause slides" aria-pressed="false">
+            <svg class="ori-hslider__icon-pause" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M8 5v14M16 5v14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+            <svg class="ori-hslider__icon-play" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M8 5l11 7-11 7z" fill="currentColor"/></svg>
+          </button>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+  <script src="{{ 'ori-hero-slider.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "ORI Hero slider",
+  "tag": "section",
+  "class": "ori-hero-section",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "checkbox", "id": "autoplay", "label": "Change slides automatically", "default": true },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Time per slide",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "unit": "s",
+      "default": 7
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "First slide heading level",
+      "info": "Use H1 unless another section on the page already has the page's H1. Later slides use H2.",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" }
+      ],
+      "default": "h1"
+    },
+    { "type": "text", "id": "label", "label": "Name for screen readers", "default": "Featured GVM upgrades" }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "select",
+          "id": "style",
+          "label": "Style",
+          "options": [
+            { "value": "cutout", "label": "Vehicle cut-out (transparent image)" },
+            { "value": "photo", "label": "Photo, faded in from the right" },
+            { "value": "plain", "label": "Simple (no image)" }
+          ],
+          "default": "cutout"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Cut-out: transparent PNG/WebP of the vehicle, around 1600px wide. Photo: landscape, 2000px wide."
+        },
+        {
+          "type": "text",
+          "id": "image_asset",
+          "label": "Fallback image (theme asset file name)",
+          "info": "Used when no image is picked above, e.g. ori-hero-chevy-2500-cutout.webp."
+        },
+        { "type": "text", "id": "image_alt", "label": "Fallback image alt text" },
+        {
+          "type": "range",
+          "id": "media_width",
+          "label": "Cut-out width (desktop)",
+          "min": 35,
+          "max": 65,
+          "step": 1,
+          "unit": "%",
+          "default": 45
+        },
+        { "type": "checkbox", "id": "media_flush", "label": "Sit image on the bottom edge", "default": false },
+        {
+          "type": "select",
+          "id": "size",
+          "label": "Banner size (desktop)",
+          "options": [
+            { "value": "standard", "label": "Standard" },
+            { "value": "large", "label": "Large" }
+          ],
+          "default": "large"
+        },
+        {
+          "type": "range",
+          "id": "min_height",
+          "label": "Minimum height (desktop)",
+          "min": 320,
+          "max": 800,
+          "step": 20,
+          "unit": "px",
+          "default": 620
+        },
+        { "type": "header", "content": "Heading" },
+        { "type": "text", "id": "badge_text", "label": "Badge above the heading" },
+        { "type": "text", "id": "heading_1", "label": "Line 1" },
+        { "type": "checkbox", "id": "heading_1_white", "label": "Line 1 in white", "default": false },
+        { "type": "text", "id": "heading_2", "label": "Line 2" },
+        { "type": "checkbox", "id": "heading_2_white", "label": "Line 2 in white", "default": false },
+        { "type": "textarea", "id": "pill", "label": "Pill next to line 2", "info": "Line breaks are kept." },
+        { "type": "richtext", "id": "subheading", "label": "Text under the heading" },
+        { "type": "header", "content": "Plate badge (top right)" },
+        { "type": "text", "id": "badge_title", "label": "Badge", "info": "e.g. NB2. Leave empty for no badge." },
+        { "type": "text", "id": "badge_small", "label": "Badge small text" },
+        { "type": "header", "content": "Brand logos" },
+        { "type": "image_picker", "id": "logo_1", "label": "Logo 1" },
+        { "type": "image_picker", "id": "logo_2", "label": "Logo 2" },
+        { "type": "image_picker", "id": "logo_3", "label": "Logo 3" },
+        { "type": "image_picker", "id": "logo_4", "label": "Logo 4" },
+        { "type": "header", "content": "Feature points" },
+        {
+          "type": "select",
+          "id": "feature_1_icon",
+          "label": "Point 1 icon",
+          "options": [
+            { "value": "shield", "label": "Shield (approval)" },
+            { "value": "suspension", "label": "Suspension" },
+            { "value": "clipboard", "label": "Checklist" },
+            { "value": "tyre", "label": "Tyre" },
+            { "value": "award", "label": "Award" },
+            { "value": "network", "label": "Installer network (map pin)" },
+            { "value": "truck", "label": "Truck" },
+            { "value": "tow", "label": "Towing / GCM" }
+          ],
+          "default": "shield"
+        },
+        { "type": "textarea", "id": "feature_1_text", "label": "Point 1 text" },
+        {
+          "type": "select",
+          "id": "feature_2_icon",
+          "label": "Point 2 icon",
+          "options": [
+            { "value": "shield", "label": "Shield (approval)" },
+            { "value": "suspension", "label": "Suspension" },
+            { "value": "clipboard", "label": "Checklist" },
+            { "value": "tyre", "label": "Tyre" },
+            { "value": "award", "label": "Award" },
+            { "value": "network", "label": "Installer network (map pin)" },
+            { "value": "truck", "label": "Truck" },
+            { "value": "tow", "label": "Towing / GCM" }
+          ],
+          "default": "suspension"
+        },
+        { "type": "textarea", "id": "feature_2_text", "label": "Point 2 text" },
+        {
+          "type": "select",
+          "id": "feature_3_icon",
+          "label": "Point 3 icon",
+          "options": [
+            { "value": "shield", "label": "Shield (approval)" },
+            { "value": "suspension", "label": "Suspension" },
+            { "value": "clipboard", "label": "Checklist" },
+            { "value": "tyre", "label": "Tyre" },
+            { "value": "award", "label": "Award" },
+            { "value": "network", "label": "Installer network (map pin)" },
+            { "value": "truck", "label": "Truck" },
+            { "value": "tow", "label": "Towing / GCM" }
+          ],
+          "default": "clipboard"
+        },
+        { "type": "textarea", "id": "feature_3_text", "label": "Point 3 text" },
+        {
+          "type": "select",
+          "id": "feature_4_icon",
+          "label": "Point 4 icon",
+          "options": [
+            { "value": "shield", "label": "Shield (approval)" },
+            { "value": "suspension", "label": "Suspension" },
+            { "value": "clipboard", "label": "Checklist" },
+            { "value": "tyre", "label": "Tyre" },
+            { "value": "award", "label": "Award" },
+            { "value": "network", "label": "Installer network (map pin)" },
+            { "value": "truck", "label": "Truck" },
+            { "value": "tow", "label": "Towing / GCM" }
+          ],
+          "default": "tyre"
+        },
+        { "type": "textarea", "id": "feature_4_text", "label": "Point 4 text" },
+        { "type": "header", "content": "Buttons" },
+        { "type": "text", "id": "button_1_label", "label": "Button 1 label" },
+        { "type": "url", "id": "button_1_link", "label": "Button 1 link" },
+        {
+          "type": "select",
+          "id": "button_1_style",
+          "label": "Button 1 style",
+          "options": [
+            { "value": "teal", "label": "Solid teal" },
+            { "value": "ghost", "label": "White outline" }
+          ],
+          "default": "teal"
+        },
+        { "type": "text", "id": "button_2_label", "label": "Button 2 label" },
+        { "type": "url", "id": "button_2_link", "label": "Button 2 link" },
+        {
+          "type": "select",
+          "id": "button_2_style",
+          "label": "Button 2 style",
+          "options": [
+            { "value": "teal", "label": "Solid teal" },
+            { "value": "ghost", "label": "White outline" }
+          ],
+          "default": "ghost"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "ORI Hero slider",
+      "blocks": [{ "type": "slide" }, { "type": "slide" }]
+    }
+  ]
+}
+{% endschema %}

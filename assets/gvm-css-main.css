@@ -5073,9 +5073,22 @@ body .ori-recent__item > .ori-card {
   font-size: 16px;
 }
 
+/* Stages: each vehicle's real stages (3 to 8) with the GVM each is
+   rated to, from the collection's spec table. One row on desktop,
+   rows of four on phones. */
+.ori .ori-hgvm__stages-label {
+  margin: 0 0 10px;
+  color: #9fb0b4;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
 .ori-hgvm__stages {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
   gap: 6px;
   margin: 0;
   padding: 0;
@@ -5084,27 +5097,27 @@ body .ori-recent__item > .ori-card {
 
 .ori-hgvm__stages li {
   padding-top: 10px;
-  border-top: 4px solid #3a4549;
-  color: #8fa0a4;
+  border-top: 4px solid var(--ori-teal);
+  color: #b7c3c6;
   font-size: 13px;
   line-height: 1.3;
+  white-space: nowrap;
 }
 
 .ori-hgvm__stages b {
   display: block;
-  color: #7f9094;
+  color: #fff;
   font-family: var(--ori-display);
   font-size: 20px;
   font-weight: 700;
 }
 
-.ori-hgvm__stages li.is-on {
-  border-color: var(--ori-teal);
-  color: #b7c3c6;
+.ori-hgvm__stages:has(li:nth-child(7)) b {
+  font-size: 17px;
 }
 
-.ori-hgvm__stages li.is-on b {
-  color: #fff;
+.ori-hgvm__stages:has(li:nth-child(7)) li {
+  font-size: 12px;
 }
 
 .ori-hgvm__ctas {
@@ -5132,14 +5145,18 @@ body .ori-recent__item > .ori-card {
   }
 
   .ori-hgvm__stages {
-    gap: 4px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-flow: row;
+    gap: 12px 4px;
   }
 
-  .ori-hgvm__stages li {
+  .ori-hgvm__stages li,
+  .ori-hgvm__stages:has(li:nth-child(7)) li {
     font-size: 11px;
   }
 
-  .ori-hgvm__stages b {
+  .ori-hgvm__stages b,
+  .ori-hgvm__stages:has(li:nth-child(7)) b {
     font-size: 16px;
   }
 
@@ -9237,5 +9254,192 @@ a.ori-brandbar__tile:hover .ori-brandbar__logo {
 @media (max-width: 600px) {
   .ori-related {
     --ori-recent-gap: 14px;
+  }
+}
+
+/* ==========================================================
+   ORI REDESIGN — HERO SLIDER (sections/ori-hero-slider.liquid,
+   assets/ori-hero-slider.js). ORI hero banners stacked in one
+   grid cell and cross-faded, so the slider takes the height of
+   its tallest slide and nothing below moves when slides change.
+   Dots and arrows sit at the bottom centre, lifted above the
+   overlapping vehicle finder when it follows.
+   ========================================================== */
+.ori-hslider {
+  --ori-hs-nav-b: 22px;
+  position: relative;
+  background: #0d1113;
+}
+
+.shopify-section:has(+ .shopify-section .ori-finder--overlap) .ori-hslider {
+  --ori-hs-nav-b: 82px;
+}
+
+.ori-hslider__track {
+  display: grid;
+}
+
+.ori-hslider__slide {
+  display: flex;
+  grid-area: 1 / 1;
+  min-width: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.7s ease, visibility 0s linear 0.7s;
+}
+
+.ori-hslider__slide.is-active {
+  z-index: 1;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.7s ease, visibility 0s;
+}
+
+.ori-hslider__slide > .ori-hero {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.ori-hslider__slide > .ori-hero > .ori-hero__in {
+  flex: 1 1 auto;
+}
+
+.ori-hslider__nav {
+  position: absolute;
+  bottom: var(--ori-hs-nav-b);
+  left: 50%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transform: translateX(-50%);
+}
+
+.ori-hslider__dots {
+  display: flex;
+  gap: 8px;
+}
+
+.ori .ori-hslider__dot,
+.ori-hslider .ori-hslider__dot {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+  transition: width 0.25s ease, background 0.25s ease;
+}
+
+.ori-hslider .ori-hslider__dot[aria-current="true"] {
+  width: 28px;
+  background: var(--ori-teal);
+}
+
+.ori-hslider .ori-hslider__arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  background: rgba(13, 17, 19, 0.55);
+  color: #fff;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.ori-hslider .ori-hslider__arrow:hover {
+  border-color: var(--ori-teal);
+  background: var(--ori-teal);
+}
+
+.ori-hslider .ori-hslider__arrow[hidden] {
+  display: none;
+}
+
+.ori-hslider__pause .ori-hslider__icon-play,
+.ori-hslider__pause[aria-pressed="true"] .ori-hslider__icon-pause {
+  display: none;
+}
+
+.ori-hslider__pause[aria-pressed="true"] .ori-hslider__icon-play {
+  display: block;
+}
+
+/* Heading line 1 in white (a slide option), e.g. "Do you own a" over
+   the teal model line, as on the Silverado 1500 banner. */
+.ori-hero__l1--white {
+  color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ori-hslider__slide,
+  .ori-hslider__slide.is-active {
+    transition: none;
+  }
+}
+
+/* Tablet and phone: slides stack image over copy and differ in height,
+   so a shorter slide keeps its copy under the image, not centred. */
+@media (max-width: 1024px) {
+  .ori-hslider .ori-hero__in {
+    align-items: flex-start;
+  }
+}
+
+/* Phones: swipe instead of arrows. */
+@media (max-width: 767px) {
+  .ori-hslider .ori-hslider__arrow:not(.ori-hslider__pause) {
+    display: none;
+  }
+
+  .ori-hslider .ori-hslider__pause {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* The slider moves its nav above the finder, so the hero's own bottom
+   padding (sized for the finder alone) gets room for the dots too. */
+.shopify-section:has(+ .shopify-section .ori-finder--overlap) .ori-hslider .ori-hero__in {
+  padding-bottom: 150px;
+}
+
+@media (max-width: 620px) {
+  .shopify-section:has(+ .shopify-section .ori-finder--overlap) .ori-hslider {
+    --ori-hs-nav-b: 62px;
+  }
+
+  .shopify-section:has(+ .shopify-section .ori-finder--overlap) .ori-hslider .ori-hero__in {
+    padding-bottom: 112px;
+  }
+}
+
+/* ==========================================================
+   ORI REDESIGN — BRAND MARQUEE: EVEN LOGO TILES
+   Every logo sits in the same size white tile, scaled to fit
+   with padding round it, so wide logos (Husky, ADD) no longer
+   fill their tile edge to edge and square ones (BDS, Fox) don't
+   leave a narrow box. Replaces the width-follows-logo tiles above.
+   ========================================================== */
+body .ori-marquee .f-promotion__item img {
+  width: 112px;
+  max-width: none;
+  height: 56px;
+  padding: 8px 14px;
+  object-fit: contain;
+}
+
+@media (max-width: 767px) {
+  body .ori-marquee .f-promotion__item img {
+    width: 88px;
+    height: 44px;
+    padding: 6px 10px;
   }
 }

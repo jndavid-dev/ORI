@@ -12,159 +12,72 @@
 
   Blocks: brand logos, feature points (icon + text) and up to two buttons.
   Button links that start with # (e.g. #tab-4) open that hub tab.
+  The banner markup lives in snippets/ori-hero-slide.liquid, shared with
+  sections/ori-hero-slider.liquid.
 {%- endcomment -%}
-{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
-{%- render 'ori-fonts' -%}
 
 {%- liquid
   assign logos = section.blocks | where: 'type', 'logo'
   assign feats = section.blocks | where: 'type', 'feature'
   assign buttons = section.blocks | where: 'type', 'button'
   assign heading_tag = section.settings.heading_tag | default: 'h1'
-  comment
-    Image fallback: a file in the theme's assets (e.g. a cut-out shipped
-    with the theme) when nothing is picked, so the hero works on push.
-  endcomment
-  assign asset_img = section.settings.image_asset | strip
 -%}
-<div
-  class="ori ori-hero ori-hero--{{ section.settings.style }}{% if section.settings.media_flush %} ori-hero--flush{% endif %}{% if section.settings.feats_one_row %} ori-hero--feats-row{% endif %}{% if section.settings.size == 'large' %} ori-hero--large{% endif %}"
-  style="--ori-hero-h: {{ section.settings.min_height }}px;{% if section.settings.media_width %} --ori-hero-media-w: {{ section.settings.media_width }}vw;{% endif %}"
->
-  {%- if section.settings.image == blank and asset_img != blank and section.settings.style != 'plain' -%}
-    <div class="ori-hero__media">
-      {%- comment -%} Size of the bundled cut-out; CSS keeps any other asset in proportion. {%- endcomment -%}
-      <img src="{{ asset_img | asset_url }}" alt="{{ section.settings.image_alt | escape }}" width="844" height="485" fetchpriority="high">
-    </div>
-  {%- elsif section.settings.image != blank and section.settings.style != 'plain' -%}
-    <div class="ori-hero__media">
-      {%- if section.settings.style == 'cutout' -%}
-        {{
-          section.settings.image
-          | image_url: width: 1600
-          | image_tag:
-            widths: '600, 900, 1200, 1600',
-            sizes: '(min-width: 1025px) 45vw, 100vw',
-            fetchpriority: 'high',
-            alt: section.settings.image.alt
-        }}
+
+{%- capture logos_html -%}
+  {%- for block in logos -%}
+    {%- if block.settings.image != blank -%}
+      {{
+        block.settings.image
+        | image_url: width: 120
+        | image_tag: width: 58, height: 58, alt: block.settings.alt, loading: 'eager'
+      }}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- capture feats_html -%}
+  {%- for block in feats -%}
+    <li class="ori-feat" {{ block.shopify_attributes }}>
+      {%- render 'ori-icon', icon: block.settings.icon -%}
+      <span>{{ block.settings.text | newline_to_br }}</span>
+    </li>
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- capture ctas_html -%}
+  {%- for block in buttons limit: 2 -%}
+    {%- if block.settings.label != blank -%}
+      {%- if block.settings.popup_id != blank -%}
+        {%- comment -%}
+          Opens a popup section (e.g. ORI GVM Quote) with this ID through
+          the theme modal-opener, which binds to the first <button> inside.
+        {%- endcomment -%}
+        <modal-opener class="ori-hero__opener" data-modal="#PopupModal-{{ block.settings.popup_id | handle }}" {{ block.shopify_attributes }}>
+          <button type="button" class="ori-btn ori-btn--{{ block.settings.style }}" aria-haspopup="dialog">
+            {{- block.settings.label -}}
+          </button>
+        </modal-opener>
       {%- else -%}
-        {{
-          section.settings.image
-          | image_url: width: 2000
-          | image_tag:
-            widths: '800, 1200, 1600, 2000',
-            sizes: '(min-width: 1025px) 60vw, 100vw',
-            fetchpriority: 'high',
-            alt: section.settings.image.alt
-        }}
-      {%- endif -%}
-    </div>
-  {%- endif -%}
-
-  {%- if section.settings.badge_title != blank -%}
-    <div class="ori-plate-badge">
-      {{- section.settings.badge_title -}}
-      {%- if section.settings.badge_small != blank -%}<small>{{ section.settings.badge_small }}</small>{%- endif -%}
-    </div>
-  {%- endif -%}
-
-  <div class="ori-hero__in">
-    <div class="ori-hero__copy">
-      {%- if section.settings.badge_text != blank -%}
-        <span class="ori-badge ori-badge--dark">
-          {%- render 'ori-icon', icon: 'shield' -%}
-          {{- section.settings.badge_text -}}
-        </span>
-      {%- endif -%}
-
-      {%- if logos.size > 0 -%}
-        <div class="ori-hero__brands">
-          {%- for block in logos -%}
-            {%- if block.settings.image != blank -%}
-              {{
-                block.settings.image
-                | image_url: width: 120
-                | image_tag: width: 58, height: 58, alt: block.settings.alt, loading: 'eager'
-              }}
-            {%- endif -%}
-          {%- endfor -%}
-        </div>
-      {%- endif -%}
-
-      {%- if section.settings.heading_1 != blank or section.settings.heading_2 != blank -%}
-        <{{ heading_tag }} class="ori-hero__title">
-          {{- section.settings.heading_1 -}}
-          {%- comment -%}
-            The spaces below are output tags so whitespace control can't strip
-            them: without them the heading's text reads "Ford F150GVM Upgrades"
-            to search engines and screen readers, as the lines are spans.
-          {%- endcomment -%}
-          {%- if section.settings.heading_2 != blank or section.settings.pill != blank -%}
-            {{- ' ' -}}
-            <span class="ori-hero__l2{% if section.settings.heading_2_white %} ori-hero__l2--white{% endif %}">
-              {{- section.settings.heading_2 -}}
-              {%- if section.settings.pill != blank -%}
-                {{- ' ' -}}
-                <span class="ori-pill">{{ section.settings.pill | newline_to_br }}</span>
-              {%- endif -%}
-            </span>
-          {%- endif -%}
-        </{{ heading_tag }}>
-      {%- endif -%}
-
-      {%- if section.settings.subheading != blank -%}
-        <div class="ori-hero__sub">{{ section.settings.subheading }}</div>
-      {%- endif -%}
-
-      {%- if feats.size > 0 -%}
-        <ul class="ori-feats">
-          {%- for block in feats -%}
-            <li class="ori-feat" {{ block.shopify_attributes }}>
-              {%- render 'ori-icon', icon: block.settings.icon -%}
-              <span>{{ block.settings.text | newline_to_br }}</span>
-            </li>
-          {%- endfor -%}
-        </ul>
-      {%- endif -%}
-
-      {%- if buttons.size > 0 -%}
-        <div class="ori-hero__ctas">
-          {%- for block in buttons limit: 2 -%}
-            {%- if block.settings.label != blank -%}
-              {%- if block.settings.popup_id != blank -%}
-                {%- comment -%}
-                  Opens a popup section (e.g. ORI GVM Quote) with this ID through
-                  the theme modal-opener, which binds to the first <button> inside.
-                {%- endcomment -%}
-                <modal-opener class="ori-hero__opener" data-modal="#PopupModal-{{ block.settings.popup_id | handle }}" {{ block.shopify_attributes }}>
-                  <button type="button" class="ori-btn ori-btn--{{ block.settings.style }}" aria-haspopup="dialog">
-                    {{- block.settings.label -}}
-                  </button>
-                </modal-opener>
-              {%- else -%}
-                <a
-                  class="ori-btn ori-btn--{{ block.settings.style }}"
-                  href="{{ block.settings.link | default: '#' }}"
-                  {{ block.shopify_attributes }}
-                >
-                  {{- block.settings.label -}}
-                </a>
-              {%- endif -%}
-            {%- endif -%}
-          {%- endfor -%}
-        </div>
-      {%- endif -%}
-
-      {%- if section.settings.text_link_label != blank and section.settings.text_link_url != blank -%}
-        <a class="ori-hero__textlink" href="{{ section.settings.text_link_url }}">
-          {%- render 'ori-gvm-icon', icon: 'weight', class: 'ori-hero__textlink-icon', stroke: 1.6 -%}
-          <span>{{ section.settings.text_link_label }}</span>
+        <a
+          class="ori-btn ori-btn--{{ block.settings.style }}"
+          href="{{ block.settings.link | default: '#' }}"
+          {{ block.shopify_attributes }}
+        >
+          {{- block.settings.label -}}
         </a>
       {%- endif -%}
-    </div>
-  </div>
-</div>
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- render 'ori-hero-slide',
+  s: section.settings,
+  logos_html: logos_html,
+  feats_html: feats_html,
+  ctas_html: ctas_html,
+  heading_tag: heading_tag,
+  eager: true
+-%}
 
 {% schema %}
 {

@@ -1,0 +1,128 @@
+{%- comment -%}
+  ORI redesign — one hero banner's markup, shared by sections/ori-hero.liquid
+  (a single banner) and sections/ori-hero-slider.liquid (one per slide).
+
+  Accepts:
+  - s:            the settings object (section.settings or a slide block's settings)
+  - logos_html:   rendered brand logo <img> tags
+  - feats_html:   rendered feature point <li> tags
+  - ctas_html:    rendered buttons
+  - heading_tag:  h1 or h2
+  - eager:        true for the first banner on the page (the LCP image)
+  - extra_class:  optional extra classes on the banner
+  - attrs:        optional attributes, e.g. a slide block's shopify_attributes
+{%- endcomment -%}
+{%- liquid
+  assign asset_img = s.image_asset | strip
+  if eager
+    assign img_priority = 'high'
+    assign img_loading = 'eager'
+  else
+    assign img_priority = 'auto'
+    assign img_loading = 'lazy'
+  endif
+-%}
+<div
+  class="ori ori-hero ori-hero--{{ s.style }}{% if s.media_flush %} ori-hero--flush{% endif %}{% if s.feats_one_row %} ori-hero--feats-row{% endif %}{% if s.size == 'large' %} ori-hero--large{% endif %}{% if extra_class != blank %} {{ extra_class }}{% endif %}"
+  style="--ori-hero-h: {{ s.min_height | default: 600 }}px;{% if s.media_width %} --ori-hero-media-w: {{ s.media_width }}vw;{% endif %}"
+  {{ attrs }}
+>
+  {%- if s.image == blank and asset_img != blank and s.style != 'plain' -%}
+    <div class="ori-hero__media">
+      {%- comment -%} Size of the bundled cut-out; CSS keeps any other asset in proportion. {%- endcomment -%}
+      <img src="{{ asset_img | asset_url }}" alt="{{ s.image_alt | escape }}" width="844" height="485" fetchpriority="{{ img_priority }}" loading="{{ img_loading }}">
+    </div>
+  {%- elsif s.image != blank and s.style != 'plain' -%}
+    <div class="ori-hero__media">
+      {%- if s.style == 'cutout' -%}
+        {{
+          s.image
+          | image_url: width: 1600
+          | image_tag:
+            widths: '600, 900, 1200, 1600',
+            sizes: '(min-width: 1025px) 45vw, 100vw',
+            fetchpriority: img_priority,
+            loading: img_loading,
+            alt: s.image.alt
+        }}
+      {%- else -%}
+        {{
+          s.image
+          | image_url: width: 2000
+          | image_tag:
+            widths: '800, 1200, 1600, 2000',
+            sizes: '(min-width: 1025px) 60vw, 100vw',
+            fetchpriority: img_priority,
+            loading: img_loading,
+            alt: s.image.alt
+        }}
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  {%- if s.badge_title != blank -%}
+    <div class="ori-plate-badge">
+      {{- s.badge_title -}}
+      {%- if s.badge_small != blank -%}<small>{{ s.badge_small }}</small>{%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <div class="ori-hero__in">
+    <div class="ori-hero__copy">
+      {%- if s.badge_text != blank -%}
+        <span class="ori-badge ori-badge--dark">
+          {%- render 'ori-icon', icon: 'shield' -%}
+          {{- s.badge_text -}}
+        </span>
+      {%- endif -%}
+
+      {%- if logos_html != blank -%}
+        <div class="ori-hero__brands">{{ logos_html }}</div>
+      {%- endif -%}
+
+      {%- if s.heading_1 != blank or s.heading_2 != blank -%}
+        <{{ heading_tag }} class="ori-hero__title">
+          {%- if s.heading_1_white -%}
+            <span class="ori-hero__l1--white">{{ s.heading_1 }}</span>
+          {%- else -%}
+            {{- s.heading_1 -}}
+          {%- endif -%}
+          {%- comment -%}
+            The spaces below are output tags so whitespace control can't strip
+            them: without them the heading's text reads "Ford F150GVM Upgrades"
+            to search engines and screen readers, as the lines are spans.
+          {%- endcomment -%}
+          {%- if s.heading_2 != blank or s.pill != blank -%}
+            {{- ' ' -}}
+            <span class="ori-hero__l2{% if s.heading_2_white %} ori-hero__l2--white{% endif %}">
+              {{- s.heading_2 -}}
+              {%- if s.pill != blank -%}
+                {{- ' ' -}}
+                <span class="ori-pill">{{ s.pill | newline_to_br }}</span>
+              {%- endif -%}
+            </span>
+          {%- endif -%}
+        </{{ heading_tag }}>
+      {%- endif -%}
+
+      {%- if s.subheading != blank -%}
+        <div class="ori-hero__sub">{{ s.subheading }}</div>
+      {%- endif -%}
+
+      {%- if feats_html != blank -%}
+        <ul class="ori-feats">{{ feats_html }}</ul>
+      {%- endif -%}
+
+      {%- if ctas_html != blank -%}
+        <div class="ori-hero__ctas">{{ ctas_html }}</div>
+      {%- endif -%}
+
+      {%- if s.text_link_label != blank and s.text_link_url != blank -%}
+        <a class="ori-hero__textlink" href="{{ s.text_link_url }}">
+          {%- render 'ori-gvm-icon', icon: 'weight', class: 'ori-hero__textlink-icon', stroke: 1.6 -%}
+          <span>{{ s.text_link_label }}</span>
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
