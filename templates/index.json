@@ -1218,7 +1218,7 @@
             "style": "cutout",
             "image_asset": "ori-hero-silverado-1500-duo-cutout.webp",
             "image_alt": "Chevrolet Silverado 1500 ZR2 in red and Silverado 1500 LTZ in silver",
-            "media_width": 60,
+            "media_width": 65,
             "media_flush": false,
             "size": "large",
             "min_height": 620,
@@ -1249,7 +1249,8 @@
             "band_eyebrow": "ORI GVM upgrades",
             "band_title": "Federally\napproved",
             "band_code": "VTA-066635",
-            "corner_logo": "shopify://shop_images/gvm-gcm-logo-white.webp"
+            "corner_logo": "shopify://shop_images/gvm-gcm-logo-white.webp",
+            "title_size": "small"
           }
         }
       },

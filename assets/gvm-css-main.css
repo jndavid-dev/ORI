@@ -9448,44 +9448,46 @@ body .ori-marquee .f-promotion__item img {
    ORI REDESIGN — HERO: APPROVAL BAND + CORNER LOGO
    (snippets/ori-hero-slide.liquid, slider slide settings)
    The Silverado 1500 banner's approval strip, built in HTML and
-   straightened: a dark question panel, then a teal panel with a
-   shield and the approval in the display face. The corner logo
+   straightened: a dark question panel (black into charcoal), then
+   the teal approval panel, which brightens and fades out into the
+   hero on the right like the original artwork. Shield + tick on a
+   dark shield, approval in the display face. The corner logo
    (GVM & GCM Upgrades) sits top right where the plate badge goes.
    ========================================================== */
 .ori-hero-approval {
-  display: inline-flex;
+  display: flex;
   align-items: stretch;
-  max-width: 100%;
-  margin: 0 0 30px;
-  border-radius: 6px;
-  overflow: hidden;
-  box-shadow: 0 18px 40px -18px rgba(0, 0, 0, 0.7);
+  width: min(820px, 100%);
+  margin: 0 0 34px;
 }
 
 .ori .ori-hero-approval__ask {
   display: flex;
+  flex: 0 0 auto;
   align-items: center;
   margin: 0;
-  padding: 16px 26px;
-  background: linear-gradient(90deg, #0b0e0f, #22292c);
+  padding: 22px 34px;
+  background: linear-gradient(90deg, #050607, #2a3134);
   color: #fff;
-  font-size: 22px;
+  font-size: 30px;
   font-weight: 700;
-  line-height: 1.1;
+  line-height: 1.05;
 }
 
 .ori-hero-approval__seal {
   display: flex;
+  flex: 1 1 auto;
   align-items: center;
-  gap: 16px;
-  padding: 14px 28px 14px 20px;
-  background: linear-gradient(90deg, var(--ori-teal), #5cc4ca);
+  gap: 22px;
+  padding: 18px 120px 18px 28px;
+  background: linear-gradient(90deg, #2fa3aa 0%, #45b8bf 45%, #6ccdd2 72%, rgba(108, 205, 210, 0) 100%);
 }
 
 .ori-hero-approval__shield {
   flex: 0 0 auto;
-  width: 64px;
-  height: 74px;
+  width: 84px;
+  height: 97px;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.3));
 }
 
 .ori .ori-hero-approval__text {
@@ -9493,27 +9495,27 @@ body .ori-marquee .f-promotion__item img {
   margin: 0;
   font-family: var(--ori-display);
   font-weight: 800;
-  line-height: 0.92;
+  line-height: 0.9;
   text-transform: uppercase;
 }
 
 .ori-hero-approval__eyebrow {
-  margin-bottom: 4px;
+  margin-bottom: 6px;
   color: #fff;
-  font-size: 17px;
-  letter-spacing: 0.04em;
+  font-size: 22px;
+  letter-spacing: 0.03em;
 }
 
 .ori-hero-approval__title {
   color: var(--ori-ink, #15191b);
-  font-size: 34px;
+  font-size: 50px;
   font-weight: 800;
 }
 
 .ori-hero-approval__code {
-  margin-top: 4px;
+  margin-top: 6px;
   color: #fff;
-  font-size: 24px;
+  font-size: 34px;
   letter-spacing: 0.04em;
 }
 
@@ -9531,6 +9533,57 @@ body .ori-marquee .f-promotion__item img {
   height: auto;
 }
 
+/* Slider slides: "Smaller" heading for long headings, and a bigger
+   cut-out that fills the right side (the bundled group shot of the
+   two Silverados is wide and short, so the 900px cap left empty dark
+   above it). */
+@media (min-width: 1025px) {
+  .ori.ori-hero--title-sm .ori-hero__title {
+    margin-bottom: 30px;
+    font-size: clamp(42px, 4vw, 78px);
+  }
+
+  .ori-hero--slide.ori-hero--large.ori-hero--cutout .ori-hero__media {
+    width: min(calc(var(--ori-hero-media-w, 45vw) * 0.92), 1120px);
+  }
+
+  .ori-hero--slide.ori-hero--cutout:has(.ori-hero__corner-logo) .ori-hero__media {
+    right: calc(var(--ori-hero-side) - 24px);
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1400px) {
+  .ori-hero-approval {
+    width: min(680px, 100%);
+  }
+
+  .ori .ori-hero-approval__ask {
+    padding: 18px 26px;
+    font-size: 24px;
+  }
+
+  .ori-hero-approval__seal {
+    padding-right: 80px;
+  }
+
+  .ori-hero-approval__shield {
+    width: 70px;
+    height: 81px;
+  }
+
+  .ori-hero-approval__eyebrow {
+    font-size: 18px;
+  }
+
+  .ori-hero-approval__title {
+    font-size: 40px;
+  }
+
+  .ori-hero-approval__code {
+    font-size: 28px;
+  }
+}
+
 @media (max-width: 1024px) {
   .ori-hero__corner-logo {
     top: 18px;
@@ -9542,37 +9595,80 @@ body .ori-marquee .f-promotion__item img {
   .ori-hero--cutout:has(.ori-hero__corner-logo) .ori-hero__media {
     margin-top: 80px;
   }
+
+  .ori .ori-hero-approval__ask {
+    padding: 16px 22px;
+    font-size: 22px;
+  }
+
+  .ori-hero-approval__seal {
+    padding-right: 60px;
+  }
+
+  .ori-hero-approval__shield {
+    width: 62px;
+    height: 72px;
+  }
+
+  .ori-hero-approval__eyebrow {
+    font-size: 16px;
+  }
+
+  .ori-hero-approval__title {
+    font-size: 36px;
+  }
+
+  .ori-hero-approval__code {
+    font-size: 25px;
+  }
 }
 
+/* Phones: question above, approval below; the teal panel no longer
+   fades out, so the text never sits on the faded end. */
 @media (max-width: 560px) {
   .ori-hero-approval {
-    display: flex;
     flex-direction: column;
   }
 
   .ori .ori-hero-approval__ask {
-    padding: 12px 18px;
-    font-size: 18px;
+    padding: 14px 18px;
+    font-size: 20px;
+  }
+
+  .ori .ori-hero-approval__ask br {
+    display: none;
   }
 
   .ori-hero-approval__seal {
-    padding: 12px 18px;
+    gap: 16px;
+    padding: 14px 18px;
+    background: linear-gradient(90deg, #2fa3aa, #6ccdd2);
   }
 
   .ori-hero-approval__shield {
-    width: 48px;
-    height: 56px;
+    width: 54px;
+    height: 62px;
   }
 
   .ori-hero-approval__eyebrow {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .ori-hero-approval__title {
-    font-size: 27px;
+    font-size: 32px;
   }
 
   .ori-hero-approval__code {
-    font-size: 19px;
+    font-size: 22px;
+  }
+}
+
+/* Slider slides, desktop: the vehicle sits in front of the copy, so
+   the approval band's faded end runs behind the truck as in the
+   original artwork. Clicks pass through the image to the copy. */
+@media (min-width: 1025px) {
+  .ori-hero--slide .ori-hero__media {
+    z-index: 2;
+    pointer-events: none;
   }
 }
