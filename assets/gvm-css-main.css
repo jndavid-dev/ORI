@@ -12442,3 +12442,181 @@ body .f-pagination__item--current {
 .ori-page-hero--no-vehicle .ori-page-hero__intro {
   margin-inline: auto;
 }
+
+/* ==========================================================
+   ORI REDESIGN — STICKY ADD-TO-CART BAR (sections/sticky-atc-bar.liquid)
+   Dark chassis band with a teal top rule. Thumbnail on a white tile,
+   title in the body face (not the uppercase display), price in teal,
+   variant select and quantity stepper as dark fields with − / +, and
+   the teal display-face Add to cart button.
+   ========================================================== */
+body .sticky-atc-bar {
+  border-top: 3px solid var(--ori-teal);
+  background: var(--ori-chassis);
+  color: #eef1f1;
+  box-shadow: 0 -12px 28px -16px rgba(0, 0, 0, 0.5);
+}
+
+body .sticky-atc-bar__inner {
+  gap: 20px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+body .sticky-atc-bar__product {
+  gap: 14px;
+  min-width: 0;
+}
+
+body .sticky-atc-bar__product-image {
+  flex: 0 0 auto;
+  width: 56px;
+  height: 56px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #fff;
+}
+
+body .sticky-atc-bar__product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+body .sticky-atc-bar__product-info {
+  min-width: 0;
+}
+
+body .sticky-atc-bar__product-title {
+  overflow: hidden;
+  margin: 0 0 2px;
+  color: #fff;
+  font-family: var(--ori-body);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+body .sticky-atc-bar__product-info .price,
+body .sticky-atc-bar__product-info .price__regular,
+body .sticky-atc-bar__product-info .price-item {
+  color: var(--ori-teal);
+  font-family: var(--ori-display);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+body .sticky-atc-bar__product-info s,
+body .sticky-atc-bar__product-info .price-item--regular s {
+  color: #9fb0b4;
+  font-size: 15px;
+}
+
+body .sticky-atc-bar .f-product-form__buttons {
+  gap: 10px;
+}
+
+/* Variant select */
+body .sticky-atc-bar__variant-select.form-control {
+  height: 48px;
+  border: 1px solid #3a4549;
+  border-radius: 6px;
+  background-color: #232c2f;
+  color: #fff;
+}
+
+/* Quantity stepper */
+body .sticky-atc-bar .f-quantity {
+  display: inline-flex;
+  align-items: center;
+  height: 48px;
+  border: 1px solid #3a4549;
+  border-radius: 6px;
+  background: #232c2f;
+}
+
+body .sticky-atc-bar .f-quantity__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 46px;
+  color: #fff;
+}
+
+body .sticky-atc-bar .f-quantity__button:hover {
+  color: var(--ori-teal);
+}
+
+body .sticky-atc-bar .f-quantity__input {
+  width: 44px;
+  height: 46px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Add to cart */
+body .sticky-atc-bar .f-product-form__submit.btn {
+  min-width: 190px;
+  height: 48px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--ori-teal);
+  color: #fff;
+  font-family: var(--ori-display);
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+body .sticky-atc-bar .f-product-form__submit.btn:hover {
+  background: var(--ori-teal-deep);
+}
+
+/* GVM products: outline second button on dark */
+body .sticky-atc-bar .btn--outline {
+  border-color: #fff;
+  color: #fff;
+}
+
+@media (max-width: 767px) {
+  body .sticky-atc-bar__inner {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  body .sticky-atc-bar .f-product-form__submit.btn {
+    min-width: 0;
+    width: 100%;
+  }
+}
+
+body .sticky-atc-bar .sticky-atc-bar__product-title {
+  font-family: var(--ori-body) !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+}
+
+body .sticky-atc-bar .f-price-item {
+  color: var(--ori-teal);
+  font-family: var(--ori-display);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+body .sticky-atc-bar s.f-price-item,
+body .sticky-atc-bar .f-price-item--regular s {
+  color: #9fb0b4;
+  font-size: 15px;
+  font-weight: 500;
+}
