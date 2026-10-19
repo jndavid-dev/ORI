@@ -1262,7 +1262,7 @@
       "settings": {
         "autoplay": true,
         "autoplay_speed": 7,
-        "heading_tag": "h1",
+        "heading_tag": "h2",
         "label": "Featured GVM upgrades"
       }
     }
