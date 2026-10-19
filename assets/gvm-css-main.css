@@ -9385,11 +9385,32 @@ a.ori-brandbar__tile:hover .ori-brandbar__logo {
   }
 }
 
-/* Tablet and phone: slides stack image over copy and differ in height,
-   so a shorter slide keeps its copy under the image, not centred. */
+/* Tablet and phone: slides stack image over copy. The vehicle and the
+   approval band run the full content width, and each slide's content is
+   centred vertically, so a shorter slide splits its spare height above
+   and below instead of leaving it all under the button. (The slider
+   keeps one height for every slide so the page below never jumps.) */
 @media (max-width: 1024px) {
+  .ori-hslider .ori-hero {
+    justify-content: center;
+  }
+
+  .ori-hslider .ori-hero > .ori-hero__in {
+    flex: 0 0 auto;
+  }
+
   .ori-hslider .ori-hero__in {
     align-items: flex-start;
+  }
+
+  /* Full width up to 760px; on wide tablets a full-width truck made
+     the banner taller than the screen. */
+  .ori-hslider .ori-hero--cutout .ori-hero__media {
+    max-width: 760px;
+  }
+
+  .ori-hslider .ori-hero-approval {
+    width: 100%;
   }
 }
 
@@ -9713,5 +9734,21 @@ body .ori-marquee .f-promotion__item img {
 
   .ori-hero__corner-logo.ori-hero__corner-logo--2 {
     width: 92px;
+  }
+}
+
+/* Tablets: the approval on one line (phones keep two). */
+@media (min-width: 561px) and (max-width: 1024px) {
+  .ori-hero--slide .ori-hero-approval__title br {
+    display: none;
+  }
+}
+
+/* Tablets: the wide, short two-truck image (slides with the approval
+   band) can take the full content width; only tall images need the
+   760px cap above. */
+@media (max-width: 1024px) {
+  .ori-hslider .ori-hero--cutout:has(.ori-hero-approval) .ori-hero__media {
+    max-width: none;
   }
 }
