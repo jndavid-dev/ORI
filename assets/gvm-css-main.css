@@ -9921,3 +9921,783 @@ body .ori-marquee .f-promotion__item img {
     width: clamp(78px, 24vw, 100px);
   }
 }
+
+/* ==========================================================
+   ORI REDESIGN — MOBILE MENU (sections/header.liquid, .ori-mnav)
+   Dark drawer, full width on phones (max 420px). Order, top to
+   bottom: logo + round close button, GVM & GCM card (the white
+   badge reads on dark), the menu in the display face with hairline
+   dividers, account / cart icon tiles, then the help card the top
+   bar injects (.sh-mobile-info, secondary-header.liquid): "Got a
+   Question?" leads, the phone number is the main action, email and
+   support follow. Injected live mega menus keep their own card look.
+   ========================================================== */
+.f-drawer-mobile-nav {
+  --f-drawer-width: min(420px, 100vw) !important;
+}
+
+.f-drawer-mobile-nav .f-drawer__content {
+  background: var(--ori-chassis);
+  color: #eef1f1;
+}
+
+.f-drawer-mobile-nav .f-drawer__content .scroll-container {
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.f-mobile-nav.ori-mnav {
+  --mobile-row-height: 54px;
+  min-height: 100%;
+  font-family: var(--ori-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Head */
+.ori-mnav__head {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 20px;
+  border-bottom: 1px solid #2c3639;
+  background: var(--ori-chassis);
+}
+
+.ori-mnav__logo {
+  display: block;
+  width: 108px;
+  color: #fff;
+}
+
+.ori-mnav__logo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.f-drawer .f-mobile-nav .ori-mnav__close {
+  position: static !important;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px !important;
+  padding: 0;
+  border: 1px solid #3a4549;
+  border-radius: 50%;
+  background: transparent;
+  color: #fff;
+  transform: none;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.f-drawer .f-mobile-nav .ori-mnav__close:hover {
+  border-color: var(--ori-teal);
+  background: var(--ori-teal);
+}
+
+.f-drawer .f-mobile-nav .ori-mnav__close svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* GVM & GCM card */
+.ori-mnav__gvm {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 14px;
+  margin: 16px 20px 4px;
+  padding: 14px 16px;
+  border: 1px solid #334044;
+  border-left: 3px solid var(--ori-teal);
+  border-radius: 6px;
+  background: #232c2f;
+  color: #fff;
+  text-decoration: none;
+}
+
+.ori-mnav__gvm-logo {
+  display: block;
+  width: 112px;
+  height: auto;
+}
+
+.ori-mnav__gvm-text {
+  color: #b7c3c6;
+  font-size: 13px;
+  line-height: 1.3;
+}
+
+.ori-mnav__gvm-arrow {
+  color: var(--ori-teal);
+}
+
+/* Menu */
+.ori-mnav .f-mobile-nav__inner {
+  flex: 0 0 auto;
+  padding: 8px 20px 4px;
+}
+
+.ori-mnav .f-mobile-nav__item {
+  border-bottom: 1px solid #2c3639;
+}
+
+.f-mobile-nav.ori-mnav .f-mobile-nav__link {
+  color: #fff;
+  font-family: var(--ori-display);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: var(--mobile-row-height);
+}
+
+.ori-mnav .f-mobile-nav__item--current > .f-mobile-nav__link,
+.ori-mnav .f-mobile-nav__link:hover {
+  color: var(--ori-teal);
+}
+
+.ori-mnav .f-mobile-nav__arrow {
+  color: var(--ori-teal);
+}
+
+.ori-mnav .f-mobile-nav__dropdown {
+  padding: 0 0 10px 14px;
+  border-left: 2px solid #334044;
+}
+
+.ori-mnav .f-mobile-nav__sub-link {
+  color: #b7c3c6;
+  font-size: 16px;
+  line-height: 2.6;
+}
+
+.ori-mnav .f-mobile-nav__sub-link:hover {
+  color: #fff;
+}
+
+.ori-mnav .mm-mobile-toggle {
+  color: var(--ori-teal);
+}
+
+/* Account / cart tiles */
+.ori-mnav .f-mobile-nav__addons {
+  order: 3;
+  padding: 20px 20px 8px;
+}
+
+.ori-mnav__tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.ori-mnav__tile-opener {
+  display: block;
+}
+
+.ori-mnav__tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 78px;
+  padding: 12px;
+  border: 1px solid #334044;
+  border-radius: 6px;
+  background: #232c2f;
+  color: #fff;
+  font-family: var(--ori-display);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: border-color 0.15s ease;
+}
+
+.ori-mnav__tile:hover {
+  border-color: var(--ori-teal);
+  color: #fff;
+}
+
+.ori-mnav__tile svg {
+  color: var(--ori-teal);
+}
+
+.ori-mnav__tile-icon {
+  position: relative;
+  display: inline-flex;
+}
+
+.ori-mnav .ori-mnav__count {
+  position: absolute;
+  top: -6px;
+  right: -12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: var(--ori-teal);
+  color: #fff;
+  font-family: var(--ori-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.ori-mnav .ori-mnav__count.is-cart-empty {
+  display: none;
+}
+
+.ori-mnav__logout {
+  display: block;
+  margin-top: 12px;
+  color: #9fb0b4;
+  font-size: 14px;
+  text-align: center;
+  text-decoration: underline;
+}
+
+/* Help card (injected by the top bar) */
+.ori-mnav .sh-mobile-info {
+  order: 4;
+  gap: 2px;
+  margin: 12px 20px 28px;
+  padding: 16px 18px;
+  border: 1px solid #334044;
+  border-radius: 6px;
+  background: #151b1d;
+  color: #dfe6e7;
+  font-size: 15px;
+}
+
+.ori-mnav .sh-mobile-info__item {
+  gap: 12px;
+  min-height: 36px;
+}
+
+/* The text-only item ("Got a Question?") is the card's heading. */
+.ori-mnav .sh-mobile-info__item:not(:has(a)) {
+  order: -2;
+  min-height: 0;
+  margin-bottom: 6px;
+  color: #fff;
+  font-family: var(--ori-display);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* Phone first and biggest: the quickest way to a person. */
+.ori-mnav .sh-mobile-info__item:has(a[href^="tel:"]) {
+  order: -1;
+  margin-bottom: 4px;
+}
+
+.ori-mnav .sh-mobile-info__item:has(a[href^="tel:"]) .sh-mobile-info__link {
+  color: var(--ori-teal);
+  font-family: var(--ori-display);
+  font-size: 26px;
+  font-weight: 700;
+  opacity: 1;
+}
+
+.ori-mnav .sh-mobile-info__icon {
+  color: var(--ori-teal);
+  opacity: 1;
+}
+
+.ori-mnav .sh-mobile-info__svg-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.ori-mnav .sh-mobile-info__link {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* ==========================================================
+   ORI REDESIGN — CART DRAWER (snippets/cart-drawer.liquid,
+   cart-drawer-item.liquid, sections/cart-recommendations.liquid)
+   Dark header band like the mobile menu; white body so product
+   photos stay clean; items as image + details rows with a compact
+   quantity stepper and a quiet trash-icon Remove; one "pairs well
+   with" list for the newest item (was a carousel under every
+   item); footer with the subtotal in the display face and View
+   cart / Checkout side by side, Checkout the teal primary.
+   All selectors are under .f-drawer-cart.
+   ========================================================== */
+.f-drawer-cart {
+  --f-drawer-width: min(440px, 100vw) !important;
+}
+
+.f-drawer-cart .f-drawer__content {
+  background: var(--ori-paper);
+  color: var(--ori-ink);
+  font-family: var(--ori-body);
+}
+
+/* Header */
+.f-drawer.f-drawer-cart .f-drawer__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 64px;
+  margin: 0;
+  padding: 0 20px;
+  border: 0;
+  background: var(--ori-chassis);
+  box-shadow: none;
+}
+
+.f-drawer-cart .f-drawer__header-title {
+  flex: 1 1 auto;
+  margin: 0;
+  padding-right: 56px;
+  text-align: left;
+  color: #fff;
+  font-family: var(--ori-display);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.f-drawer-cart .f-drawer__header-title [data-cart-count-bubble] {
+  color: var(--ori-teal);
+}
+
+.f-drawer.f-drawer-cart .f-drawer__header .f-drawer__close {
+  inset-inline-end: 16px;
+  inset-block-start: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px !important;
+  border: 1px solid #3a4549 !important;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.f-drawer-cart .f-drawer__header .f-drawer__close:hover {
+  border-color: var(--ori-teal);
+  background: var(--ori-teal);
+}
+
+.f-drawer-cart .f-drawer__header .f-drawer__close svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Body */
+.f-drawer-cart .f-drawer__scroller {
+  padding: 4px 20px 20px;
+}
+
+.f-drawer-cart .f-cart-drawer__item {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--ori-line);
+}
+
+.f-drawer-cart .f-cart-drawer__product {
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+}
+
+.f-drawer-cart .f-cart-drawer__product-image {
+  width: 84px;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--ori-line);
+  border-radius: 6px;
+  background: var(--ori-paper);
+}
+
+.f-drawer-cart .f-cart-drawer__product-image img {
+  object-fit: contain;
+}
+
+.f-drawer-cart .f-cart-drawer__product-info {
+  min-width: 0;
+  padding: 0;
+}
+
+.f-drawer-cart .f-cart-drawer__product-header {
+  gap: 12px;
+}
+
+.f-drawer-cart .f-cart-drawer__product-name {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--ori-ink);
+  font-family: var(--ori-body);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.35;
+  text-transform: none;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+}
+
+.f-drawer-cart .f-cart-drawer__product-name:hover {
+  color: var(--ori-teal-deep);
+}
+
+.f-drawer-cart .f-cart-drawer__product-prices {
+  flex: 0 0 auto;
+  text-align: right;
+}
+
+.f-drawer-cart .f-cart-drawer__product-price {
+  color: var(--ori-ink);
+  font-size: 15px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.f-drawer-cart s.f-cart-drawer__product-price {
+  display: block;
+  color: var(--ori-steel);
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.f-drawer-cart .f-cart-drawer__product-price--discount {
+  color: var(--ori-sale);
+}
+
+.f-drawer-cart .f-cart-drawer__product-options {
+  margin-top: 4px;
+  color: var(--ori-steel);
+  font-size: 13px;
+}
+
+.f-drawer-cart .f-cart-drawer__product-tuning {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+/* Quantity stepper */
+.f-drawer-cart .f-quantity {
+  display: inline-flex;
+  align-items: center;
+  width: auto;
+  height: 38px;
+  border: 1px solid var(--ori-line);
+  border-radius: 6px;
+  background: var(--ori-paper);
+}
+
+.f-drawer-cart .f-quantity__button {
+  width: 36px;
+  height: 36px;
+  color: var(--ori-ink);
+}
+
+.f-drawer-cart .f-quantity__input {
+  width: 40px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ori-ink);
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Remove */
+.f-drawer-cart .ori-cart-remove {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 0;
+  border: 0;
+  background: none;
+  color: var(--ori-steel);
+  font-size: 13px;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.f-drawer-cart .ori-cart-remove:hover {
+  color: var(--ori-sale);
+}
+
+/* Recommendations */
+.f-drawer-cart .f-cart-recommendations {
+  display: block;
+  margin-top: 20px;
+}
+
+.f-drawer-cart .ori-crec {
+  padding: 16px;
+  border-radius: 8px;
+  background: var(--ori-bone);
+}
+
+.f-drawer-cart .ori-crec__title {
+  margin: 0 0 10px;
+  color: var(--ori-ink);
+  font-family: var(--ori-display);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.ori-crec__list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ori-crec__item {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 8px;
+  border-radius: 6px;
+  background: var(--ori-paper);
+}
+
+.ori-crec__media {
+  display: block;
+  width: 56px;
+  height: 56px;
+}
+
+.ori-crec__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.ori-crec__info {
+  display: grid;
+  min-width: 0;
+  gap: 1px;
+  line-height: 1.3;
+}
+
+.ori-crec__vendor {
+  color: var(--ori-steel);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.ori-crec__name {
+  overflow: hidden;
+  color: var(--ori-ink);
+  font-size: 14px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ori-crec__price {
+  color: var(--ori-ink);
+  font-size: 14px;
+}
+
+.f-drawer-cart .ori-crec__add {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--ori-teal);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.f-drawer-cart .ori-crec__add:hover {
+  background: var(--ori-teal-deep);
+}
+
+.f-drawer-cart .ori-crec__add.btn--loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Footer */
+.f-drawer-cart .f-drawer__footer {
+  padding: 4px 20px 20px;
+  border-top: 1px solid var(--ori-line);
+  background: var(--ori-paper);
+  box-shadow: 0 -10px 24px -18px rgba(0, 0, 0, 0.35);
+}
+
+.f-drawer-cart .f-cart-drawer__totals {
+  margin-top: 14px;
+}
+
+.f-drawer-cart .f-cart-drawer__subtotal {
+  margin: 0;
+  color: var(--ori-ink);
+  font-family: var(--ori-display);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.f-drawer-cart .f-cart-drawer__subtotal-value {
+  margin: 0;
+  color: var(--ori-ink);
+  font-family: var(--ori-display);
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.f-drawer-cart .f-cart-drawer__notice {
+  margin: 2px 0 14px;
+  color: var(--ori-steel);
+  font-size: 13px;
+}
+
+.f-drawer-cart .f-cart-drawer__form {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 10px;
+}
+
+.f-drawer-cart .f-cart-drawer__form:not(.f-cart-drawer__view-cart) {
+  grid-template-columns: 1fr;
+}
+
+.f-drawer-cart .f-cart-drawer__form .btn {
+  width: 100%;
+  min-width: 0;
+  height: 52px;
+  margin: 0;
+  border-radius: 6px;
+  font-family: var(--ori-display);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.f-drawer-cart .f-cart-drawer__form .btn--secondary {
+  border: 1px solid var(--ori-ink);
+  background: var(--ori-paper);
+  color: var(--ori-ink);
+}
+
+.f-drawer-cart .f-cart-drawer__form .btn--primary {
+  border: 0;
+  background: var(--ori-teal);
+  color: #fff;
+}
+
+.f-drawer-cart .f-cart-drawer__form .btn--primary:hover {
+  background: var(--ori-teal-deep);
+}
+
+/* Empty cart */
+.f-drawer-cart .f-cart-drawer__empty {
+  gap: 14px;
+  padding: 48px 0;
+}
+
+.f-drawer-cart .f-cart-drawer__empty-text {
+  color: var(--ori-ink);
+  font-family: var(--ori-display);
+  font-size: 24px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.f-drawer-cart .btn-cart-emtpy {
+  border-radius: 6px;
+  background: var(--ori-teal);
+  color: #fff;
+}
+
+.f-drawer-cart .ori-cart-empty__lead {
+  max-width: 280px;
+  margin: 0 auto;
+  color: var(--ori-steel);
+  font-size: 15px;
+}
+
+.f-drawer-cart .ori-cart-empty__actions {
+  display: grid;
+  gap: 10px;
+  width: 100%;
+  max-width: 300px;
+  margin: 8px auto 0;
+}
+
+.f-drawer-cart .ori-cart-empty__actions .btn,
+.f-drawer-cart .ori-cart-empty__actions .btn-cart-emtpy {
+  width: 100%;
+  height: 50px;
+  margin: 0;
+  border-radius: 6px;
+  font-family: var(--ori-display);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.f-drawer-cart .ori-cart-empty__actions .btn--primary {
+  border: 0;
+  background: var(--ori-teal);
+  color: #fff;
+}
+
+.f-drawer-cart .ori-cart-empty__actions .btn--secondary,
+.f-drawer-cart .ori-cart-empty__actions .btn-cart-emtpy {
+  border: 1px solid var(--ori-ink);
+  background: var(--ori-paper);
+  color: var(--ori-ink);
+}
+
+.f-drawer-cart .f-cart-drawer .f-drawer__header::after {
+  display: none;
+}
+
+.f-drawer-cart .ori-cart-empty__link {
+  display: block;
+  margin-top: 4px;
+  color: var(--ori-teal-deep);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

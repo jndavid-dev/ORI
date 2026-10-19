@@ -1,28 +1,47 @@
-<div class="f-cart-recommendations__wrapper">
-  <h3 class="f-cart-recommendations__title font-body-bolder h6">
-    {{ 'general.cart.cart_recommendations' | t }}
-  </h3>
-  <div class="f-cart-recommendations__items {% if recommendations.products.size == 1 %} f-cart-recommendations__items-only-product{% endif %}">
-    <flickity-component
-      data-slider-options='{"pageDots": true, "wrapAround": true, "cellSelector": ".f-cart-recommendations__item" }'
-      data-slider-columns="1"
-      data-enable-slider="true"
-      data-is-paginate-counter="true"
-      data-products-container
-    >
-      {%- for recommendation in recommendations.products -%}
-        {% render 'product-card',
-          product: recommendation,
-          custom_class: 'f-cart-recommendations__item bg-secondary',
-          is_complementary: true,
-          list_layout: true,
-          index: forloop.index,
-          image_ratio: recommendation.featured_media.aspect_ratio,
-          enable_quick_add: true,
-          enable_quick_view: false,
-          color_schema: 'background-1'
-        %}
-      {%- endfor -%}
-    </flickity-component>
-  </div>
+{%- comment -%}
+  ORI redesign — cart drawer recommendations, fetched once per drawer for the
+  newest cart item (snippets/cart-drawer.liquid). A compact list of up to
+  three rows: image, vendor, title, price and a round add button. Products
+  with a single variant add straight to the cart (add-to-cart-button in
+  assets/cart-recommendations.js); products with options link to the product
+  page so the customer picks the variant. Products already in the cart are
+  skipped. Styles: "ORI REDESIGN — CART DRAWER" in gvm-css-main.css.
+{%- endcomment -%}
+{%- assign in_cart = cart.items | map: 'product_id' -%}
+<div class="f-cart-recommendations__wrapper ori-crec">
+  <h3 class="ori-crec__title">{{ 'general.cart.cart_recommendations' | t }}</h3>
+  <ul class="ori-crec__list" role="list">
+    {%- assign shown = 0 -%}
+    {%- for product in recommendations.products -%}
+      {%- if in_cart contains product.id or shown >= 3 -%}{%- continue -%}{%- endif -%}
+      {%- assign shown = shown | plus: 1 -%}
+      {%- assign variant = product.selected_or_first_available_variant -%}
+      <li class="f-cart-recommendations__item ori-crec__item">
+        <a class="ori-crec__media" href="{{ product.url }}" tabindex="-1" aria-hidden="true">
+          {%- if product.featured_image -%}
+            {{ product.featured_image | image_url: width: 160 | image_tag: widths: '80, 160', sizes: '64px', loading: 'lazy', alt: '' }}
+          {%- endif -%}
+        </a>
+        <div class="ori-crec__info">
+          {%- if product.vendor != blank -%}<span class="ori-crec__vendor">{{ product.vendor }}</span>{%- endif -%}
+          <a class="ori-crec__name" href="{{ product.url }}">{{ product.title }}</a>
+          <span class="ori-crec__price">
+            {%- if product.price_varies -%}From {% endif -%}
+            {{- product.price | money -}}
+          </span>
+        </div>
+        {%- if product.has_only_default_variant and variant.available -%}
+          <add-to-cart-button data-variant-id="{{ variant.id }}">
+            <button type="button" class="f-cart-recommendations__item-add-to-cart ori-crec__add" aria-label="Add {{ product.title | escape }} to cart">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+            </button>
+          </add-to-cart-button>
+        {%- else -%}
+          <a class="ori-crec__add" href="{{ product.url }}" aria-label="Choose options for {{ product.title | escape }}">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        {%- endif -%}
+      </li>
+    {%- endfor -%}
+  </ul>
 </div>

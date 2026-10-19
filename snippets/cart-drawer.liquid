@@ -80,12 +80,18 @@
             <div class="f-drawer__scroller scroll-container">
               <div class="f-cart-drawer__empty flex justify-center text-center flex-col">
                 <p class="f-cart-drawer__empty-text" data-cart-empty-text>{{ 'sections.cart.empty' | t }}</p>
-                {%- if settings.collection_list -%}
-                  {% assign collection_lists = settings.collection_list %}
-                  {% for collection in collection_lists %}
-                    <a href="{{ collection.url }}" class="btn btn--secondary btn-cart-emtpy">{{ collection.title }}</a>
-                  {% endfor %}
-                {%- endif -%}
+                <p class="ori-cart-empty__lead">Find parts for your truck, or explore our federally approved GVM upgrades.</p>
+                <div class="ori-cart-empty__actions">
+                  <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary">Continue shopping</a>
+                  <a href="/pages/ori-gvm-upgrades" class="btn btn--secondary">GVM &amp; GCM upgrades</a>
+                  {%- comment -%} Featured collections from Theme settings › Cart (currently Baja Designs). {%- endcomment -%}
+                  {%- if settings.collection_list -%}
+                    {% assign collection_lists = settings.collection_list %}
+                    {% for collection in collection_lists %}
+                      <a href="{{ collection.url }}" class="ori-cart-empty__link">Shop {{ collection.title }}</a>
+                    {% endfor %}
+                  {%- endif -%}
+                </div>
               </div>
               <p class="f-cart-drawer__no-cookies-text">{{ 'sections.cart.cookies_required' | t }}</p>
               <cart-drawer-items class="f-cart-drawer__items" data-cart-items>
@@ -106,6 +112,18 @@
                     items_in_cart: items_in_cart
                   %}
                 {% endfor %}
+                {%- comment -%}
+                  One recommendations block for the newest item (Shopify lists the
+                  most recently added first), inside cart-drawer-items so it
+                  refreshes with the items. sections/cart-recommendations.liquid.
+                {%- endcomment -%}
+                {%- assign rec_item = cart.items.first -%}
+                {%- if settings.cart_recommendations_enable and rec_item and rec_item.id != gift_wrap_id -%}
+                  <cart-recommendations-component
+                    class="f-cart-recommendations"
+                    data-url="{{ routes.product_recommendations_url }}?section_id=cart-recommendations&product_id={{ rec_item.product.id }}&limit=6"
+                  ></cart-recommendations-component>
+                {%- endif -%}
                 <p id="CartDrawer-LiveRegionText" class="visually-hidden" role="status"></p>
                 <p id="CartDrawer-LineItemStatus" class="visually-hidden" aria-hidden="true" role="status">
                   {{ 'accessibility.loading' | t }}

@@ -318,18 +318,37 @@
       <div class="f-drawer__overlay" data-drawer-overlay=""></div>
       <div class="f-drawer__content focus-inset" tabindex="-1">
         <div class="scroll-container">
-          <div id="Mobile-Nav" class="f-mobile-nav" role="navigation">
-            <button
-              id="DrawerClose-Mobile-Nav"
-              class="f-drawer__close btn btn--plain"
-              aria-label="{{ 'accessibility.close' | t }}"
-            >
-              {% comment %} theme-check-disable {% endcomment %}
-              {{ 'icon-close.svg' | inline_asset_content }}
-              {% comment %} theme-check-enable {% endcomment %}
-            </button>
-            {% render 'site-logo', section: section, h1_tag: false %}
-            {% render 'header__promo-badge', section: section, mobile_mode: true %}
+          <div id="Mobile-Nav" class="f-mobile-nav ori-mnav" role="navigation">
+            {%- comment -%}
+              ORI redesign — dark menu drawer: logo + close, GVM card, the menu
+              (theme markup kept: assets/header.js injects the mega menus into
+              .f-mobile-nav__item), account / cart tiles, and the help card
+              that sections/secondary-header.liquid injects (.sh-mobile-info).
+              Styles: "ORI REDESIGN — MOBILE MENU" in gvm-css-main.css.
+            {%- endcomment -%}
+            <div class="ori-mnav__head">
+              <a href="{{ routes.root_url }}" class="ori-mnav__logo">
+                {%- if section.settings.logo != blank -%}
+                  {{ section.settings.logo | image_url: width: 300 | image_tag: widths: '150, 300', sizes: '120px', loading: 'lazy', alt: shop.name }}
+                {%- else -%}
+                  {{ shop.name }}
+                {%- endif -%}
+              </a>
+              <button
+                id="DrawerClose-Mobile-Nav"
+                class="f-drawer__close ori-mnav__close"
+                aria-label="{{ 'accessibility.close' | t }}"
+              >
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </button>
+            </div>
+            {%- if section.settings.show_promo_badge and section.settings.promo_badge_image != blank -%}
+              <a class="ori-mnav__gvm" href="{{ section.settings.promo_badge_link | default: '/pages/ori-gvm-upgrades' }}">
+                {{ section.settings.promo_badge_image | image_url: width: 320 | image_tag: widths: '160, 320', sizes: '140px', loading: 'lazy', class: 'ori-mnav__gvm-logo', alt: section.settings.promo_badge_image.alt | default: 'GVM & GCM Upgrades' }}
+                <span class="ori-mnav__gvm-text">Federally approved packages</span>
+                <svg class="ori-mnav__gvm-arrow" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            {%- endif -%}
             <div class="f-mobile-nav__inner">
               <ul class="list-none">
                 {% for link in menu_links %}
@@ -470,21 +489,31 @@
                   {% endif %}
                 </div>
               {% endif %}
-              {% if shop.customer_accounts_enabled %}
-                <a
-                  class="f-mobile-nav__addons-user-link btn btn--primary w-full"
-                  href="{{ account_url }}"
+              <div class="ori-mnav__tiles">
+                {%- if shop.customer_accounts_enabled -%}
+                  <a class="ori-mnav__tile" href="{{ account_url }}">
+                    <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                    <span>{{ account_text }}</span>
+                  </a>
+                {%- endif -%}
+                <drawer-opener
+                  class="ori-mnav__tile-opener"
+                  data-drawer="#Drawer-Cart"
+                  {% unless settings.cart_type == 'drawer' %}data-disabled="true"{% endunless %}
                 >
-                  <span>{{ account_text }}</span>
-                </a>
-              {% endif %}
+                  <a class="ori-mnav__tile" href="{{ routes.cart_url }}" role="button" aria-haspopup="dialog" data-opener>
+                    <span class="ori-mnav__tile-icon">
+                      <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L20.5 8H6.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="20" r="1.4" fill="currentColor"/><circle cx="17" cy="20" r="1.4" fill="currentColor"/></svg>
+                      <span class="ori-mnav__count cart-link__count{% if cart.item_count == 0 %} is-cart-empty{% endif %}" data-cart-count-bubble>
+                        <span data-cart-count-number>{%- if cart.item_count < 100 -%}{{- cart.item_count -}}{%- else -%}99+{%- endif -%}</span>
+                      </span>
+                    </span>
+                    <span>{{ 'layout.cart.title' | t }}</span>
+                  </a>
+                </drawer-opener>
+              </div>
               {%- if customer -%}
-                <a
-                  class="f-mobile-nav__addons-user-link btn btn--outline w-full"
-                  href="{{ routes.account_logout_url }}"
-                >
-                  <span>Log Out</span>
-                </a>
+                <a class="ori-mnav__logout" href="{{ routes.account_logout_url }}">Log out</a>
               {%- endif -%}
               {% if show_social %}
                 {% render 'social-links' %}
@@ -494,6 +523,16 @@
         </div>
       </div>
     </drawer-component>
+    <script>
+      // Cart tile: close the menu drawer first (capture runs before the
+      // theme's drawer-opener click), so only the cart drawer is open.
+      document.querySelectorAll('.ori-mnav__tile-opener').forEach(function (opener) {
+        opener.addEventListener('click', function () {
+          var nav = document.getElementById('Drawer-MobileNav');
+          if (nav && nav.isOpen && nav.isOpen() && opener.dataset.disabled !== 'true') nav.closeDrawer(false);
+        }, true);
+      });
+    </script>
   </div>
 {%- endunless -%}
 <script type="application/ld+json">
