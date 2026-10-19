@@ -12426,3 +12426,19 @@ body .f-pagination__item--current {
     font-size: 16px;
   }
 }
+
+/* Heroes without a vehicle image: title (and eyebrow / intro) centred.
+   Policy pages always; default pages when "Show vehicle cut-out" is off. */
+.shopify-policy__title h1 {
+  text-align: center;
+}
+
+.ori-page-hero--no-vehicle .ori-page-hero__copy {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.ori-page-hero--no-vehicle .ori-page-hero__intro {
+  margin-inline: auto;
+}
