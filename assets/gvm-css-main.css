@@ -9558,7 +9558,7 @@ body .ori-marquee .f-promotion__item img {
   }
 
   .ori-hero--slide .ori-hero-approval__seal {
-    padding-right: 100px;
+    padding-right: 50px;
     background: linear-gradient(90deg, #2fa3aa 0, #45b8bf 40%, #6ccdd2 calc(100% - 100px), rgba(108, 205, 210, 0) 100%);
   }
 
@@ -9609,7 +9609,7 @@ body .ori-marquee .f-promotion__item img {
   }
 
   .ori-hero--slide .ori-hero-approval__seal {
-    padding-right: 80px;
+    padding-right: 40px;
     background: linear-gradient(90deg, #2fa3aa 0, #45b8bf 40%, #6ccdd2 calc(100% - 80px), rgba(108, 205, 210, 0) 100%);
   }
 }
@@ -9878,5 +9878,26 @@ body .ori-marquee .f-promotion__item img {
 
   .ori-hslider .ori .ori-hero__title {
     font-size: 38px;
+  }
+}
+
+/* Phones and small tablets (767px and below): content starts at the top
+   instead of being centred, so the vehicle sits right under the corner
+   logos; any spare height falls below the buttons. The top gap only
+   clears what is pinned in the corner: the corner logos (short) or the
+   plate badge (taller). */
+@media (max-width: 767px) {
+  .ori-hslider .ori-hero {
+    justify-content: flex-start;
+  }
+
+  .ori-hslider .ori-hero:has(.ori-hero__corner) {
+    --ori-hs-top: 70px;
+  }
+}
+
+@media (max-width: 560px) {
+  .ori-hslider .ori-hero:has(.ori-hero__corner) {
+    --ori-hs-top: 64px;
   }
 }
