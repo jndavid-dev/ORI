@@ -5306,8 +5306,18 @@ body .ori-recent__item > .ori-card {
   color: #fff;
 }
 
-.ori-dealer__btn:hover {
-  opacity: 0.9;
+/* Explicit hover colours: a generic link hover was turning the text
+   dark on the dark button. Both invert to ink / white on teal. */
+.ori .ori-dealer__btn--light:hover,
+.ori .ori-dealer__btn--light:focus-visible {
+  background: var(--ori-ink);
+  color: #fff;
+}
+
+.ori .ori-dealer__btn--dark:hover,
+.ori .ori-dealer__btn--dark:focus-visible {
+  background: #fff;
+  color: var(--ori-ink);
 }
 
 @media (max-width: 900px) {
@@ -12094,4 +12104,142 @@ body .f-pagination__item--current {
 
 .ori-rte [style*="background"] {
   background: none !important;
+}
+
+/* ==========================================================
+   ORI REDESIGN — DEFAULT PAGE HERO v2 + HEADING ACCENTS
+   Contained hero (1360 wrap): heading block centred vertically on
+   the left, the vehicle large on the right (about 60% of the wrap)
+   standing on the bottom edge. The heading's last word (or the
+   "Accent words" setting) drops to its own teal line. Content
+   headings (h2, h3) carry a short teal bar.
+   ========================================================== */
+.ori-page-hero__in {
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: 24px;
+  align-items: center;
+  min-height: clamp(380px, 32vw, 480px);
+}
+
+.ori-page-hero__copy {
+  padding: 48px 0;
+}
+
+.ori .ori-page-hero__title {
+  font-size: clamp(42px, 4.8vw, 76px);
+  line-height: 0.95;
+}
+
+.ori-page-hero__accent {
+  display: block;
+  color: var(--ori-teal);
+}
+
+.ori-page-hero__vehicle {
+  align-self: end;
+  width: 100%;
+  margin: 24px 0 0;
+}
+
+.ori-page-hero__vehicle img {
+  width: 100%;
+  max-width: 900px;
+  margin-left: auto;
+}
+
+@media (max-width: 1024px) {
+  .ori-page-hero__in {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .ori-page-hero__copy {
+    padding: 40px 0 8px;
+  }
+
+  .ori-page-hero__vehicle {
+    max-width: 720px;
+    margin: 8px auto 0;
+  }
+}
+
+.ori-rte h3::after {
+  content: "";
+  display: block;
+  width: 36px;
+  height: 3px;
+  margin-top: 8px;
+  background: var(--ori-teal);
+}
+
+/* ==========================================================
+   ORI REDESIGN — SECTION SPACING (site-wide)
+   One vertical rhythm for every section, ORI and theme sections
+   alike: a section's top / bottom padding is its own setting, but
+   never more than --ori-space (64px desktop, easing to 40px on
+   phones). Smaller settings (0, 20, 40) still apply, so tight or
+   flush sections stay tight. Two stacked white sections therefore
+   sit at most 128px apart instead of the 160–200px seen before.
+   ========================================================== */
+:root {
+  --ori-space: clamp(40px, 5vw, 64px);
+}
+
+.ori-section {
+  padding-top: min(var(--ori-pt, 72px), var(--ori-space));
+  padding-bottom: min(var(--ori-pb, 72px), var(--ori-space));
+}
+
+@media screen and (min-width: 768px) {
+  body .f-section-padding {
+    padding-top: min(calc(var(--section-padding-top, 0) * 0.75), var(--ori-space));
+    padding-bottom: min(calc(var(--section-padding-bottom, 0) * 0.75), var(--ori-space));
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  body .f-section-padding {
+    padding-top: min(var(--section-padding-top, 0), var(--ori-space));
+    padding-bottom: min(var(--section-padding-bottom, 0), var(--ori-space));
+  }
+}
+
+/* Page body: the section after it supplies the gap below. */
+.ori-page__body {
+  padding: var(--ori-space) 0;
+}
+
+.shopify-section:has(.ori-page__body):not(:last-child) .ori-page__body {
+  padding-bottom: 0;
+}
+
+.ori-rte > :last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 1024px) {
+  .ori-page-hero__in {
+    min-height: 0;
+  }
+}
+
+/* Default page hero: the home hero's ridge-line texture over the photo
+   (under the copy and vehicle), with the teal rule on the bottom edge. */
+.ori-page-hero::after {
+  inset: auto 0 0;
+  height: 55%;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--ori-teal), var(--ori-teal)) bottom / 100% 3px no-repeat,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 400' preserveAspectRatio='none'%3E%3Cpath fill='%23161c1f' d='M0 260 120 170l70 40 110-120 90 70 60-40 150 150 90-60 120 80 110-130 140 110 80-40 130 90 120-70 110 60 100-50v360H0z'/%3E%3Cpath fill='%23121819' d='M0 320 160 250l120 50 140-80 160 90 120-40 200 70 140-60 180 60 160-50 220 70v140H0z'/%3E%3C/svg%3E") bottom / 100% 100% no-repeat;
+}
+
+.ori-page-hero::after {
+  z-index: -1;
+}
+
+.ori .ori-page-hero__title {
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: manual;
 }

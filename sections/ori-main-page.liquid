@@ -31,7 +31,35 @@
     <div class="ori-wrap ori-page-hero__in">
       <div class="ori-page-hero__copy">
         {%- if s.eyebrow != blank -%}<p class="ori-page-hero__eyebrow">{{ s.eyebrow }}</p>{%- endif -%}
-        <h1 class="ori-page-hero__title">{{ heading }}</h1>
+        {%- liquid
+          comment
+            Accent: the last word of the heading on its own teal line
+            ("Shipping &" / "Distribution"), or the "Accent words" setting
+            when it matches the end of the heading. One-word headings stay
+            white.
+          endcomment
+          assign accent = s.accent | strip
+          assign words = heading | strip | split: ' '
+          if accent == blank and words.size > 1
+            assign accent = words | last
+          endif
+          assign lead = heading | strip
+          if accent != blank
+            assign lead_size = lead.size | minus: accent.size
+            assign tail = lead | slice: lead_size, accent.size
+            if tail == accent
+              assign lead = lead | slice: 0, lead_size | strip
+            else
+              assign accent = ''
+            endif
+          endif
+        -%}
+        <h1 class="ori-page-hero__title">
+          {{- lead -}}
+          {%- if accent != blank -%}
+            {{- ' ' -}}<span class="ori-page-hero__accent">{{ accent }}</span>
+          {%- endif -%}
+        </h1>
         {%- if s.intro != blank -%}<div class="ori-page-hero__intro">{{ s.intro }}</div>{%- endif -%}
       </div>
       {%- if s.show_vehicle -%}
@@ -66,6 +94,12 @@
     { "type": "header", "content": "Hero" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "info": "Small line above the heading, e.g. Offroad Industries." },
     { "type": "text", "id": "heading", "label": "Heading (H1)", "info": "Defaults to the page title." },
+    {
+      "type": "text",
+      "id": "accent",
+      "label": "Accent words (teal line)",
+      "info": "The end of the heading to show in teal on its own line, e.g. Distribution or Terms & Conditions. Defaults to the last word."
+    },
     { "type": "richtext", "id": "intro", "label": "Intro" },
     { "type": "image_picker", "id": "bg_image", "label": "Background photo", "info": "Darkened and blurred automatically. Landscape, 1800px wide." },
     { "type": "text", "id": "bg_asset", "label": "Background fallback (theme asset)", "default": "ori-page-hero-bg.webp" },
