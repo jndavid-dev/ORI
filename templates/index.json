@@ -1250,7 +1250,8 @@
             "band_title": "Federally\napproved",
             "band_code": "VTA-066635",
             "corner_logo": "shopify://shop_images/gvm-gcm-logo-white.webp",
-            "title_size": "small"
+            "title_size": "small",
+            "logos_in_corner": true
           }
         }
       },

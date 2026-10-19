@@ -9450,9 +9450,11 @@ body .ori-marquee .f-promotion__item img {
    The Silverado 1500 banner's approval strip, built in HTML and
    straightened: a dark question panel (black into charcoal), then
    the teal approval panel, which brightens and fades out into the
-   hero on the right like the original artwork. Shield + tick on a
-   dark shield, approval in the display face. The corner logo
-   (GVM & GCM Upgrades) sits top right where the plate badge goes.
+   hero on the right like the original artwork. On desktop the band
+   runs the full content width with the approval on one line, and
+   the vehicle sits behind the copy, off the right edge.
+   The corner (top right) holds the corner logo and, optionally,
+   the brand logos beside it.
    ========================================================== */
 .ori-hero-approval {
   display: flex;
@@ -9519,11 +9521,17 @@ body .ori-marquee .f-promotion__item img {
   letter-spacing: 0.04em;
 }
 
-.ori-hero__corner-logo {
+.ori-hero__corner {
   position: absolute;
   top: 28px;
   right: var(--ori-hero-side, var(--ori-edge));
-  z-index: 1;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.ori-hero__corner-logo {
   width: clamp(150px, 15vw, 240px);
 }
 
@@ -9533,37 +9541,58 @@ body .ori-marquee .f-promotion__item img {
   height: auto;
 }
 
-/* Slider slides: "Smaller" heading for long headings, and a bigger
-   cut-out that fills the right side (the bundled group shot of the
-   two Silverados is wide and short, so the 900px cap left empty dark
-   above it). */
+.ori-hero .ori-hero__brands--corner {
+  flex-wrap: nowrap;
+  margin: 0;
+}
+
+/* Desktop, slides with the approval band (the Silverado 1500 banner). */
 @media (min-width: 1025px) {
   .ori.ori-hero--title-sm .ori-hero__title {
-    margin-bottom: 30px;
-    font-size: clamp(42px, 4vw, 78px);
+    margin-bottom: 28px;
+    font-size: clamp(38px, 3.3vw, 62px);
   }
 
-  .ori-hero--slide.ori-hero--large.ori-hero--cutout .ori-hero__media {
-    width: min(calc(var(--ori-hero-media-w, 45vw) * 0.92), 1120px);
+  .ori-hero--slide:has(.ori-hero-approval) .ori-hero__copy {
+    max-width: none;
   }
 
-  .ori-hero--slide.ori-hero--cutout:has(.ori-hero__corner-logo) .ori-hero__media {
-    right: calc(var(--ori-hero-side) - 24px);
+  /* As wide as its text, approval on one line, then a short fade
+     out to the right that the vehicle can show through. */
+  .ori-hero--slide .ori-hero-approval {
+    width: max-content;
+    max-width: 100%;
+  }
+
+  .ori-hero--slide .ori-hero-approval__seal {
+    padding-right: 190px;
+    background: linear-gradient(90deg, #2fa3aa 0, #45b8bf 40%, #6ccdd2 calc(100% - 190px), rgba(108, 205, 210, 0) 100%);
+  }
+
+  .ori-hero--slide .ori-hero-approval__title br {
+    display: none;
+  }
+
+  .ori-hero--slide .ori-hero-approval__title {
+    font-size: 58px;
+    white-space: nowrap;
+  }
+
+  /* The vehicle: behind the copy, large, raised to the middle of the
+     banner and running off the right edge (the far truck may crop). */
+  .ori-hero--slide.ori-hero--cutout:has(.ori-hero-approval) .ori-hero__media {
+    top: 50%;
+    right: -9vw;
+    bottom: auto;
+    width: min(60vw, 1200px);
+    transform: translateY(-42%);
   }
 }
 
 @media (min-width: 1025px) and (max-width: 1400px) {
-  .ori-hero-approval {
-    width: min(680px, 100%);
-  }
-
   .ori .ori-hero-approval__ask {
     padding: 18px 26px;
     font-size: 24px;
-  }
-
-  .ori-hero-approval__seal {
-    padding-right: 80px;
   }
 
   .ori-hero-approval__shield {
@@ -9575,24 +9604,38 @@ body .ori-marquee .f-promotion__item img {
     font-size: 18px;
   }
 
-  .ori-hero-approval__title {
-    font-size: 40px;
+  .ori-hero--slide .ori-hero-approval__title {
+    font-size: 44px;
   }
 
   .ori-hero-approval__code {
     font-size: 28px;
   }
+
+  .ori-hero--slide .ori-hero-approval__seal {
+    padding-right: 140px;
+    background: linear-gradient(90deg, #2fa3aa 0, #45b8bf 40%, #6ccdd2 calc(100% - 140px), rgba(108, 205, 210, 0) 100%);
+  }
 }
 
 @media (max-width: 1024px) {
-  .ori-hero__corner-logo {
+  .ori-hero__corner {
     top: 18px;
     right: var(--ori-edge);
+    gap: 12px;
+  }
+
+  .ori-hero__corner-logo {
     width: 140px;
   }
 
-  /* The stacked cut-out starts below the logo, as it does for the badge. */
-  .ori-hero--cutout:has(.ori-hero__corner-logo) .ori-hero__media {
+  .ori-hero .ori-hero__brands--corner img {
+    width: 44px;
+    height: 44px;
+  }
+
+  /* The stacked cut-out starts below the corner logos. */
+  .ori-hero--cutout:has(.ori-hero__corner) .ori-hero__media {
     margin-top: 80px;
   }
 
@@ -9661,31 +9704,13 @@ body .ori-marquee .f-promotion__item img {
   .ori-hero-approval__code {
     font-size: 22px;
   }
-}
 
-/* Slider slides, desktop: the vehicle sits in front of the copy, so
-   the approval band's faded end runs behind the truck as in the
-   original artwork. Clicks pass through the image to the copy. */
-@media (min-width: 1025px) {
-  .ori-hero--slide .ori-hero__media {
-    z-index: 2;
-    pointer-events: none;
+  .ori-hero__corner-logo {
+    width: 120px;
   }
-}
 
-/* Slides with the approval band, desktop: the cut-out only takes the
-   space to the right of the band's text (about 600px from the copy's
-   left edge; 500px where the band is smaller below 1400px), so the
-   trucks can cover the band's faded end but never the approval or the
-   VTA number, at any width. */
-@media (min-width: 1025px) {
-  .ori-hero--slide.ori-hero--large.ori-hero--cutout:has(.ori-hero-approval) .ori-hero__media {
-    width: min(calc(var(--ori-hero-media-w, 45vw) * 0.92), 1120px, calc(100vw - 2 * var(--ori-hero-side) - 600px));
-  }
-}
-
-@media (min-width: 1025px) and (max-width: 1400px) {
-  .ori-hero--slide.ori-hero--large.ori-hero--cutout:has(.ori-hero-approval) .ori-hero__media {
-    width: min(calc(var(--ori-hero-media-w, 45vw) * 0.92), 1120px, calc(100vw - 2 * var(--ori-hero-side) - 500px));
+  .ori-hero .ori-hero__brands--corner img {
+    width: 38px;
+    height: 38px;
   }
 }
