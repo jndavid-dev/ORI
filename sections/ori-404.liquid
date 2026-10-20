@@ -1,0 +1,90 @@
+{%- comment -%}
+  ORI redesign — 404 page. Uses the default page hero (.ori-page-hero:
+  toned photo, ridge texture, teal rule, vehicle cut-out) with a large
+  "404", a heading, a line of copy, a site search field and up to three
+  buttons. Styles: "ORI REDESIGN — 404" in gvm-css-main.css.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign bg_asset = s.bg_asset | strip
+  assign cut_asset = s.cutout_asset | strip
+-%}
+<div class="ori ori-page ori-404">
+  <div class="ori-page-hero">
+    <div class="ori-page-hero__bg" aria-hidden="true">
+      {%- if s.bg_image != blank -%}
+        {{ s.bg_image | image_url: width: 1800 | image_tag: widths: '800, 1200, 1800', sizes: '100vw', loading: 'eager', alt: '' }}
+      {%- elsif bg_asset != blank -%}
+        <img src="{{ bg_asset | asset_url }}" alt="" width="1600" height="1067" loading="eager">
+      {%- endif -%}
+    </div>
+    <div class="ori-wrap ori-page-hero__in">
+      <div class="ori-page-hero__copy">
+        <p class="ori-404__code" aria-hidden="true">404</p>
+        <h1 class="ori-page-hero__title">
+          {{- s.heading_1 -}}
+          {%- if s.heading_2 != blank -%}{{- ' ' -}}<span class="ori-page-hero__accent">{{ s.heading_2 }}</span>{%- endif -%}
+        </h1>
+        {%- if s.text != blank -%}<p class="ori-404__text">{{ s.text }}</p>{%- endif -%}
+
+        <form action="{{ routes.search_url }}" method="get" role="search" class="ori-404__search">
+          <label class="visually-hidden" for="Ori404Search">{{ 'general.search.search' | t }}</label>
+          <input id="Ori404Search" type="search" name="q" placeholder="{{ s.search_placeholder | escape }}" autocomplete="off">
+          <input type="hidden" name="options[prefix]" value="last">
+          <button type="submit" aria-label="{{ 'general.search.search' | t }}">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-3.6-3.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </button>
+        </form>
+
+        <div class="ori-404__ctas">
+          {%- for i in (1..3) -%}
+            {%- liquid
+              assign lk = 'button_' | append: i | append: '_label'
+              assign uk = 'button_' | append: i | append: '_link'
+            -%}
+            {%- if s[lk] != blank and s[uk] != blank -%}
+              <a class="ori-btn {% if forloop.first %}ori-btn--teal{% else %}ori-btn--ghost{% endif %}" href="{{ s[uk] }}">{{ s[lk] }}</a>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+      {%- if s.show_vehicle -%}
+        <div class="ori-page-hero__vehicle">
+          {%- if s.cutout_image != blank -%}
+            {{ s.cutout_image | image_url: width: 1400 | image_tag: widths: '600, 1000, 1400', sizes: '(min-width: 1025px) 46vw, 92vw', loading: 'eager', alt: s.cutout_image.alt }}
+          {%- elsif cut_asset != blank -%}
+            <img src="{{ cut_asset | asset_url }}" alt="" width="1285" height="490" loading="eager">
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "ORI 404",
+  "tag": "section",
+  "class": "ori-404-section",
+  "settings": [
+    { "type": "text", "id": "heading_1", "label": "Heading line 1", "default": "Gone" },
+    { "type": "text", "id": "heading_2", "label": "Heading line 2 (teal)", "default": "Off‑roading" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "The page you're looking for has taken a wrong turn. Search for a part, or head back to the shop." },
+    { "type": "text", "id": "search_placeholder", "label": "Search placeholder", "default": "Search parts, brands or vehicles" },
+    { "type": "header", "content": "Buttons" },
+    { "type": "text", "id": "button_1_label", "label": "Button 1 label", "default": "Shop all parts" },
+    { "type": "url", "id": "button_1_link", "label": "Button 1 link" },
+    { "type": "text", "id": "button_2_label", "label": "Button 2 label", "default": "GVM upgrades" },
+    { "type": "url", "id": "button_2_link", "label": "Button 2 link" },
+    { "type": "text", "id": "button_3_label", "label": "Button 3 label", "default": "Contact us" },
+    { "type": "url", "id": "button_3_link", "label": "Button 3 link" },
+    { "type": "header", "content": "Images" },
+    { "type": "image_picker", "id": "bg_image", "label": "Background photo" },
+    { "type": "text", "id": "bg_asset", "label": "Background fallback (theme asset)", "default": "ori-page-hero-bg.webp" },
+    { "type": "checkbox", "id": "show_vehicle", "label": "Show vehicle cut-out", "default": true },
+    { "type": "image_picker", "id": "cutout_image", "label": "Vehicle cut-out" },
+    { "type": "text", "id": "cutout_asset", "label": "Cut-out fallback (theme asset)", "default": "ori-page-hero-f150-cutout.webp" }
+  ],
+  "presets": [{ "name": "ORI 404" }]
+}
+{% endschema %}

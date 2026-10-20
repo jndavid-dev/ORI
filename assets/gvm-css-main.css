@@ -12620,3 +12620,96 @@ body .sticky-atc-bar .f-price-item--regular s {
   font-size: 15px;
   font-weight: 500;
 }
+
+/* ==========================================================
+   ORI REDESIGN — 404 (sections/ori-404.liquid)
+   Default page hero with an outlined "404", the heading, a search
+   field (white, teal button) and the buttons. The hero runs a little
+   taller so the copy has room beside the vehicle.
+   ========================================================== */
+.ori-404 .ori-page-hero__in {
+  min-height: clamp(480px, 40vw, 600px);
+}
+
+.ori .ori-404__code {
+  margin: 0 0 6px;
+  color: transparent;
+  font-family: var(--ori-display);
+  font-size: clamp(72px, 9vw, 140px);
+  font-weight: 800;
+  line-height: 0.85;
+  -webkit-text-stroke: 2px var(--ori-teal);
+}
+
+.ori .ori-404__text {
+  max-width: 520px;
+  margin: 16px 0 0;
+  color: #c9d3d5;
+  font-size: 18px;
+}
+
+.ori-404__search {
+  position: relative;
+  max-width: 480px;
+  margin-top: 24px;
+}
+
+.ori-404__search input[type="search"] {
+  width: 100%;
+  height: 54px;
+  padding: 0 64px 0 18px;
+  border: 1px solid #3a4549;
+  border-radius: 6px;
+  background: #fff;
+  color: var(--ori-ink);
+  font-family: var(--ori-body);
+  font-size: 16px;
+}
+
+.ori-404__search input[type="search"]:focus {
+  border-color: var(--ori-teal);
+  outline: 0;
+  box-shadow: 0 0 0 3px rgba(63, 179, 186, 0.3);
+}
+
+.ori-404__search button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 5px;
+  background: var(--ori-teal);
+  color: #fff;
+  cursor: pointer;
+}
+
+.ori-404__search button:hover {
+  background: var(--ori-teal-deep);
+}
+
+.ori-404__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+@media (max-width: 560px) {
+  .ori-404__ctas .ori-btn {
+    flex: 1 1 100%;
+  }
+}
+
+@media (min-width: 561px) {
+  .ori .ori-404__ctas .ori-btn {
+    min-height: 50px;
+    padding: 8px 20px;
+    font-size: 18px;
+  }
+}
