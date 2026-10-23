@@ -1,0 +1,641 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "ori_hero": {
+      "type": "ori-hero",
+      "blocks": {
+        "hero_1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__ORI.jpg",
+            "alt": "ORI"
+          }
+        },
+        "hero_2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__FOX.jpg",
+            "alt": "Fox"
+          }
+        },
+        "hero_3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__BDS.jpg",
+            "alt": "BDS Suspension"
+          }
+        },
+        "hero_4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__HUSKY_LINERS.jpg",
+            "alt": "Husky Liners"
+          }
+        },
+        "hero_5": {
+          "type": "feature",
+          "settings": {
+            "icon": "shield",
+            "text": "SSM federally approved\nAustralia wide"
+          }
+        },
+        "hero_6": {
+          "type": "feature",
+          "settings": {
+            "icon": "suspension",
+            "text": "Fox & BDS suspension\ncomponents"
+          }
+        },
+        "hero_7": {
+          "type": "feature",
+          "settings": {
+            "icon": "clipboard",
+            "text": "Pre-rego only"
+          }
+        },
+        "hero_8": {
+          "type": "feature",
+          "settings": {
+            "icon": "tyre",
+            "text": "35\" | 37\" tyres legal"
+          }
+        },
+        "hero_9": {
+          "type": "button",
+          "settings": {
+            "label": "View GVM packages",
+            "link": "#tab-1",
+            "style": "teal"
+          }
+        },
+        "hero_10": {
+          "type": "button",
+          "settings": {
+            "label": "Request a kit",
+            "link": "#tab-3",
+            "style": "ghost"
+          }
+        }
+      },
+      "block_order": [
+        "hero_1",
+        "hero_2",
+        "hero_3",
+        "hero_4",
+        "hero_5",
+        "hero_6",
+        "hero_7",
+        "hero_8",
+        "hero_9",
+        "hero_10"
+      ],
+      "settings": {
+        "style": "cutout",
+        "image_asset": "ori-hero-toyota-tundra-cutout.webp",
+        "image_alt": "Toyota Tundra Platinum with an ORI GVM upgrade",
+        "min_height": 600,
+        "heading_1": "Toyota Tundra",
+        "heading_2": "Platinum",
+        "pill": "GVM & GCM packages\n4300kg & 8800kg",
+        "heading_tag": "h1",
+        "badge_title": "NB1",
+        "badge_small": "Car licence"
+      }
+    },
+    "ori_intro": {
+      "type": "ori-gvm-intro",
+      "settings": {
+        "badge_text": "",
+        "heading_line_1": "",
+        "heading_line_2": "",
+        "band_heading": "Toyota Tundra Unbound: Australia’s Premier GVM & GCM Legal Evolution.",
+        "band_background": "#000000",
+        "band_text_color": "#56bdc2",
+        "body": "<p>Stop worrying about weight limits and start adventuring with absolute confidence. <strong>Offroad Industries (ORI)</strong> offers Australia’s most comprehensive, <strong>Federally Approved GVM (Gross Vehicle Mass)</strong> upgrades for the Toyota Australia Toyota Tundra 2023 - 2026 range—covering both the <strong>Limited</strong> and <strong>Platinum</strong> models.</p><p>By bundling our ORI GVM Packages with <strong>GCM testing and LS16 certification</strong>, we grant your truck true \"Super-Truck\" status. The <strong>LS16 code</strong> is our secret sauce: a specific engineering modification code for <strong>Gross Combination Mass Re-rating</strong>. This ensures your truck, your gear, and your 4.5T trailer are 100% legal together, whether registered <strong>Pre-Rego (Federal)</strong> or <strong>Post-Rego (State-based)</strong>.</p>",
+        "disclaimer": "<p>*Please note that some workshops may apply additional discretionary administration fees to the quoted installation and engineering price. Additionally, all Post-Registration GVM upgrades will incur additional local fees. Shipping is not included in the price.</p>",
+        "style": "light",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "ori_tabs": {
+      "type": "ori-gvm-tabs",
+      "blocks": {
+        "tab_1": {
+          "type": "tab_button",
+          "settings": {
+            "label": "GVM Packages",
+            "tab_id": "tab-1"
+          }
+        },
+        "tab_2": {
+          "type": "tab_button",
+          "settings": {
+            "label": "Specifications",
+            "tab_id": "tab-2"
+          }
+        },
+        "tab_3": {
+          "type": "tab_button",
+          "settings": {
+            "label": "Request a Kit",
+            "tab_id": "tab-3"
+          }
+        }
+      },
+      "block_order": [
+        "tab_1",
+        "tab_2",
+        "tab_3"
+      ],
+      "settings": {
+        "aria_label": "GVM package sections"
+      }
+    },
+    "ori_stages": {
+      "type": "ori-gvm-stages",
+      "blocks": {
+        "stage_1": {
+          "type": "stage",
+          "settings": {
+            "label": "Stage 1",
+            "tab_meta": "3850kg · $15,499*",
+            "acc_meta": "The Weekender Family Getaway · 3850kg · $15,499*",
+            "image": "shopify://shop_images/STAGE_1_Toyota_Tundra_all_products.png",
+            "eyebrow": "$15,499* · Installed & engineered",
+            "title": "The Weekender Family Getaway",
+            "subtitle": "",
+            "lead": "The perfect entry point for a legal payload boost without the need for aftermarket wheels.",
+            "gvm_label": "GVM rating",
+            "gvm": "3,850 KG (Boosting payload to <strong>1,028 KG</strong>) <strong>GCM Rating:</strong> 8,350 KG (Retains full 4.5T towing)",
+            "features": "Fox 2.5 Performance Elite suspension, ORI 150–300 KG coil packs, and heavy-duty BDS Upper Control Arms & Diff Drop.",
+            "best_for": "Daily drivers and light touring. Ideal for owners needing to clear the <strong>\"one-tonne\" mark for FBT Tax Compliance</strong> while keeping their factory wheels.",
+            "benefit": "Achieve a lifted, aggressive stance with premium USA-made shocks. This setup significantly improves stability under load without the added expense of new wheels and tyres. The Fox adjustability allows you to \"dial in\" your ride—stiffen it for the highway and soften it for the tracks with the simple turn of a knob.",
+            "part_numbers": "<p>TUN-Stage1-GVM</p>",
+            "note": "",
+            "pdf_file": "",
+            "pdf_url": "",
+            "pdf_label": "Download PDF"
+          }
+        },
+        "stage_2": {
+          "type": "stage",
+          "settings": {
+            "label": "Stage 2",
+            "tab_meta": "3850kg · $22,499*",
+            "acc_meta": "The Performance Level-Up · 3850kg · $22,499*",
+            "image": "shopify://shop_images/STAGE_2_Toyota_Tundra_all_products.png",
+            "eyebrow": "$22,499* · Installed & engineered",
+            "title": "The Performance Level-Up",
+            "subtitle": "",
+            "lead": "Going all out with Fox 3.0 Race-Bred technology while retaining your factory wheel and tyre setup.",
+            "gvm_label": "GVM rating",
+            "gvm": "3,850 KG (Boosting payload to <strong>1,028 KG</strong>) <strong>GCM Rating:</strong> 8,350 KG (Retains full 4.5T towing)",
+            "features": "Fox 3.0 Internal Bypass Race Series Shocks (Front & Rear), ORI coil package, BDS Upper Control Arms & Diff Drop.",
+            "best_for": "4WD tourers who tackle long-distance corrugations and demand elite damping without upgrading wheels or tyres.",
+            "benefit": "Stepping up to the 3.0 platform provides massive oil volume and internal bypass technology. You get a plush, \"cloud-like\" ride on the road that transforms into a bottomless, race-ready suspension when the terrain gets technical.",
+            "part_numbers": "<p>TUN-Stage2-GVM</p>",
+            "note": "",
+            "pdf_file": "",
+            "pdf_url": "",
+            "pdf_label": "Download PDF"
+          }
+        },
+        "stage_3": {
+          "type": "stage",
+          "settings": {
+            "label": "Stage 3",
+            "tab_meta": "4300kg · $20,999*",
+            "acc_meta": "The Heavy Hauler · 4300kg · $20,999*",
+            "image": "shopify://shop_images/STAGE_3Toyota_Tundra_all_products.png",
+            "eyebrow": "$20,999* · Installed & engineered",
+            "title": "The Heavy Hauler",
+            "subtitle": "",
+            "lead": "Maximum legal capacity for the most demanding builds. Ideal for Tray & Canopy conversions.",
+            "gvm_label": "GVM rating",
+            "gvm": "4,300 KG (Approx. <strong>1,478 KG payload</strong>) <strong>GCM Rating:</strong> 8,800 KG (The ultimate legal combination)",
+            "features": "Fox 2.5 Performance Elite suspension, ORI 500 KG heavy-duty coil packs.",
+            "best_for": "Fully built rigs with rear drawer systems, rooftop tents, long-range tanks, or heavy permanent canopies.",
+            "benefit": "A massive payload increase that transforms the Tundra into a true heavy-duty platform. This package solves the common \"overweight\" issue for fully kitted tourers while safely retaining its full 4.5T braked towing capacity.",
+            "part_numbers": "<p>TUN-Stage3-GVM</p>",
+            "note": "Wheels & Tyres Required: Specific wheels and tyres are required.",
+            "pdf_file": "",
+            "pdf_url": "",
+            "pdf_label": "Download PDF"
+          }
+        },
+        "stage_4": {
+          "type": "stage",
+          "settings": {
+            "label": "Stage 4",
+            "tab_meta": "4300kg · $27,999*",
+            "acc_meta": "The \"No Compromise\" Build · 4300kg · $27,999*",
+            "image": "shopify://shop_images/STAGE_4_Toyota_Tundra_all_products.png",
+            "eyebrow": "$27,999* · Installed & engineered",
+            "title": "The \"No Compromise\" Build",
+            "subtitle": "",
+            "lead": "The absolute peak of Toyota Tundra performance and legality in Australia.",
+            "gvm_label": "GVM rating",
+            "gvm": "4,300 KG (Approx. <strong>1,478 KG payload</strong>) | <strong>GCM Rating:</strong> 8,800 KG",
+            "features": "Fox 3.0 Internal Bypass Race Series Shocks (Front & Rear), ORI heavy-duty coil package and engineered for 35's",
+            "best_for": "The enthusiast who demands race-bred technology combined with maximum legal payload.",
+            "benefit": "The Fox 3.0 Bypass shocks offer unparalleled heat dissipation and damping control. This is the ultimate \"go-anywhere\" setup that remains 100% legally compliant across Australia, even when fully loaded and towing the boat or caravan.",
+            "part_numbers": "<p>TUN-Stage4-GVM</p>",
+            "note": "",
+            "pdf_file": "",
+            "pdf_url": "",
+            "pdf_label": "Download PDF"
+          }
+        }
+      },
+      "block_order": [
+        "stage_1",
+        "stage_2",
+        "stage_3",
+        "stage_4"
+      ],
+      "settings": {
+        "heading": "ORI Federally Approved\nPackages",
+        "intro": "",
+        "show_pdf": false,
+        "padding_top": 48,
+        "padding_bottom": 88,
+        "custom_class": "ori-panel ori-panel--1"
+      }
+    },
+    "ori_specs": {
+      "type": "ori-gvm-comparison",
+      "blocks": {
+        "row_1": {
+          "type": "row",
+          "settings": {
+            "label": "Gross Vehicle Mass (GVM)",
+            "values": "3536 KG | 3850 KG | 3850 KG | 4300 KG | 4300 KG",
+            "highlight": false
+          }
+        },
+        "row_2": {
+          "type": "row",
+          "settings": {
+            "label": "Braked Towing Capacity (BTC)",
+            "values": "4500 KG | 4500 KG | 4500 KG | 4500 KG | 4500 KG",
+            "highlight": false
+          }
+        },
+        "row_3": {
+          "type": "row",
+          "settings": {
+            "label": "Gross Combined Mass (GCM)",
+            "values": "7825 KG | 8350 KG | 8350 KG | 8800 KG | 8800 KG",
+            "highlight": false
+          }
+        },
+        "row_4": {
+          "type": "row",
+          "settings": {
+            "label": "Kerb Weight",
+            "values": "Limited 2792 KG, Platinum 2834 KG | Limited 2822 KG, Platinum 2864 KG | Limited 2822 KG, Platinum 2864 KG | Limited 2822 KG, Platinum 2864 KG | Limited 2822 KG, Platinum 2864 KG",
+            "highlight": false
+          }
+        },
+        "row_5": {
+          "type": "row",
+          "settings": {
+            "label": "Payload (bases on kerb weight)",
+            "values": "758 KG | Limited 1028 KG, Platinum 986 KG | Limited 1028 KG, Platinum 986 KG | Limited 1478 KG, Platinum 1436 KG | Limited 1478 KG, Platinum 1436 KG",
+            "highlight": false
+          }
+        },
+        "row_6": {
+          "type": "row",
+          "settings": {
+            "label": "Payload Increase (%)",
+            "values": " | 36% | 36% | 95% | 95%",
+            "highlight": false
+          }
+        },
+        "row_7": {
+          "type": "row",
+          "settings": {
+            "label": "Front Axle Capacity",
+            "values": "1850 KG | 1850 KG | 1850 KG | 1850 KG | 1850 KG",
+            "highlight": false
+          }
+        },
+        "row_8": {
+          "type": "row",
+          "settings": {
+            "label": "Rear Axle Capacity",
+            "values": "1850 KG | 2000 KG | 2000 KG | 2450 KG | 2450 KG",
+            "highlight": false
+          }
+        },
+        "row_9": {
+          "type": "row",
+          "settings": {
+            "label": "Wheel Offsets",
+            "values": "Pos 60 | Pos 60 | Pos 60 | Pos 40, 35, 25, 18 | Pos 40, 35, 25, 18",
+            "highlight": false
+          }
+        },
+        "row_10": {
+          "type": "row",
+          "settings": {
+            "label": "Wheel Load Rating",
+            "values": "OEM | OEM | OEM | 1225 KG | 1225 KG",
+            "highlight": false
+          }
+        },
+        "row_11": {
+          "type": "row",
+          "settings": {
+            "label": "Tyre Load Rating",
+            "values": "OEM | 110 Q | 110 Q | 116 Q | 116 Q",
+            "highlight": false
+          }
+        },
+        "row_12": {
+          "type": "row",
+          "settings": {
+            "label": "Requires Wheel/ Tyre Upgrade",
+            "values": "OEM | OEM | OEM | ✔ | ✔",
+            "highlight": false
+          }
+        },
+        "row_13": {
+          "type": "row",
+          "settings": {
+            "label": "Maximum Tyre Size",
+            "values": "265/60/r20 | 265/60/r20 | 265/60/r20 | 35x12.5x17, 35x12.5x18, 35x12.5x20 | 35x12.5x17, 35x12.5x18, 35x12.5x20",
+            "highlight": false
+          }
+        }
+      },
+      "block_order": [
+        "row_1",
+        "row_2",
+        "row_3",
+        "row_4",
+        "row_5",
+        "row_6",
+        "row_7",
+        "row_8",
+        "row_9",
+        "row_10",
+        "row_11",
+        "row_12",
+        "row_13"
+      ],
+      "settings": {
+        "heading": "Toyota Tundra Limited & Platinum\nGVM Specifications",
+        "intro": "",
+        "columns": "Factory | Stage 1 | Stage 2 | Stage 3 | Stage 4",
+        "style": "compact",
+        "mobile": "scroll",
+        "anchor_id": "specifications",
+        "corner_label": "Specification",
+        "padding_top": 48,
+        "padding_bottom": 32,
+        "custom_class": "ori-panel ori-panel--2"
+      }
+    },
+    "ori_components": {
+      "type": "ori-gvm-comparison",
+      "blocks": {
+        "row_1": {
+          "type": "row",
+          "settings": {
+            "label": "Lift Kit Height",
+            "values": " | 3\" | 2.25\" | 3\" | 2.25\"",
+            "highlight": false
+          }
+        },
+        "row_2": {
+          "type": "row",
+          "settings": {
+            "label": "BDS Control Arms",
+            "values": "BDS-128254 | ✔ | ✔ | ✔ | ✔",
+            "highlight": false
+          }
+        },
+        "row_3": {
+          "type": "row",
+          "settings": {
+            "label": "Fox 2.5 Performance Elite Coil-over (Front)",
+            "values": "884-06-218 | ✔ |  | ✔ | ",
+            "highlight": false
+          }
+        },
+        "row_4": {
+          "type": "row",
+          "settings": {
+            "label": "Fox 2.5 Performance Elite Rear Shock (Rear)",
+            "values": "883-26-139 | ✔ |  | ✔ | ",
+            "highlight": false
+          }
+        },
+        "row_5": {
+          "type": "row",
+          "settings": {
+            "label": "Fox 3.0 Factory Race Coil-over (Front)",
+            "values": "883-06-219 |  | ✔ |  | ✔",
+            "highlight": false
+          }
+        },
+        "row_6": {
+          "type": "row",
+          "settings": {
+            "label": "Fox 3.0 Factory Rear Bypass Shock (Rear)",
+            "values": "883-26-142 |  | ✔ |  | ✔",
+            "highlight": false
+          }
+        },
+        "row_7": {
+          "type": "row",
+          "settings": {
+            "label": "Husky Extenda Flare",
+            "values": "2803926 |  |  | ✔ | ✔",
+            "highlight": false
+          }
+        },
+        "row_8": {
+          "type": "row",
+          "settings": {
+            "label": "Rear Coil Options",
+            "values": "ORI-141H 100- 250 KG | ✔ | ✔ |  | ",
+            "highlight": false
+          }
+        },
+        "row_9": {
+          "type": "row",
+          "settings": {
+            "label": "",
+            "values": "KTRR-141HHD 300- 500 KG |  |  | ✔ | ✔",
+            "highlight": false
+          }
+        },
+        "row_10": {
+          "type": "row",
+          "settings": {
+            "label": "Speedo Calibration",
+            "values": "ORI-Speedo-Correct |  |  | ✔ | ✔",
+            "highlight": false
+          }
+        },
+        "row_11": {
+          "type": "row",
+          "settings": {
+            "label": "GVM Part Number",
+            "values": " | TUN-Stage1-GVM | TUN-Stage2-GVM | TUN-Stage3-GVM | TUN-Stage4-GVM",
+            "highlight": false
+          }
+        }
+      },
+      "block_order": [
+        "row_1",
+        "row_2",
+        "row_3",
+        "row_4",
+        "row_5",
+        "row_6",
+        "row_7",
+        "row_8",
+        "row_9",
+        "row_10",
+        "row_11"
+      ],
+      "settings": {
+        "heading": "",
+        "intro": "",
+        "columns": "Part Number | Stage 1 | Stage 2 | Stage 3 | Stage 4",
+        "style": "compact",
+        "mobile": "scroll",
+        "anchor_id": "components",
+        "corner_label": "Item",
+        "padding_top": 0,
+        "padding_bottom": 88,
+        "custom_class": "ori-panel ori-panel--2"
+      }
+    },
+    "ori_quote": {
+      "type": "ori-gvm-quote",
+      "settings": {
+        "display_mode": "inline",
+        "anchor_id": "quote",
+        "eyebrow": "",
+        "heading": "GVM Enquiry? Contact us Now",
+        "intro": "",
+        "button_label": "Send",
+        "kit_collection": "toyota-tundra-platinum-gvm-upgrade",
+        "padding_top": 48,
+        "padding_bottom": 88,
+        "custom_class": "ori-panel ori-panel--3"
+      }
+    },
+    "ori_enhance": {
+      "type": "ori-product-grid",
+      "settings": {
+        "heading": "Frequently Bought With",
+        "intro": "",
+        "product_list": [
+          "addictive-desert-designs-toyota-tundra-stealth-fighter-winch-bar-2022-2025",
+          "afe-momentum-gt-orange-edition-cold-air-intake-system-toyota-tundra-limited-platinum",
+          "afe-scorcher-blue-bluetooth-power-module-to-suit-toyota-tundra-22-limited-platinum",
+          "amp-research-bedstep-toyota-tundra-limited-platinum-22",
+          "ori-toyota-tundra-roller-shutter-22",
+          "amp-research-bedstep2-toyota-tundra-limited-platinum-22",
+          "bajakits-rear-sway-bar-end-links-22-toyota-tundra",
+          "bajakits-rear-shock-guards-22-toyota-tundra",
+          "realtruck-amp-research-powerstep-vision-toyota-tundra-22",
+          "realtruck-avs-weather-shield-toyota-tundra-2022"
+        ],
+        "limit": 12,
+        "button": "cart",
+        "button_label": "",
+        "view_all_label": "",
+        "show_links": true,
+        "fine_print": "",
+        "padding_top": 72,
+        "padding_bottom": 56,
+        "custom_class": ""
+      }
+    },
+    "ori_suspension": {
+      "type": "ori-brand-bar",
+      "blocks": {
+        "brand_1": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/ICONS_FOR_WEBSITE_FOX.png",
+            "collection": "fox-suspension",
+            "link": "",
+            "title": "Fox",
+            "zoom": 160
+          }
+        },
+        "brand_2": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/ICONS_FOR_WEBSITE_BDS.png",
+            "collection": "bds-suspension-australian-distributor",
+            "link": "",
+            "title": "BDS Suspension",
+            "zoom": 130
+          }
+        },
+        "brand_3": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/ICONS_FOR_WEBSITE_BUSHWACKER.png",
+            "collection": "bushwacker",
+            "link": "",
+            "title": "Bushwacker",
+            "zoom": 260
+          }
+        },
+        "brand_4": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/peak_final-copy-small.jpg",
+            "collection": "peak-suspension",
+            "link": "",
+            "title": "Peak",
+            "zoom": 100
+          }
+        }
+      },
+      "block_order": [
+        "brand_1",
+        "brand_2",
+        "brand_3",
+        "brand_4"
+      ],
+      "settings": {
+        "heading": "Your Favourite Products by ORI",
+        "text": "",
+        "show_names": false,
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    }
+  },
+  "order": [
+    "ori_hero",
+    "ori_intro",
+    "ori_tabs",
+    "ori_stages",
+    "ori_specs",
+    "ori_components",
+    "ori_quote",
+    "ori_enhance",
+    "ori_suspension"
+  ]
+}
