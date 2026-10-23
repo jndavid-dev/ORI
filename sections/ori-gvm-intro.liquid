@@ -5,7 +5,8 @@
 
   Same settings and trust_item blocks as sections/gvm-intro.liquid, so a
   hub can switch to this without re-entering content. The heading is an
-  H2 because the hero above carries the page's H1.
+  H2 because the hero above carries the page's H1. With no badge, heading
+  or trust points the head row is skipped and the section opens on the band.
 {%- endcomment -%}
 
 <div
@@ -17,6 +18,7 @@
     --ori-band-text: {{ section.settings.band_text_color }};
   "
 >
+  {%- if section.settings.badge_text != blank or section.settings.heading_line_1 != blank or section.settings.heading_line_2 != blank or section.blocks.size > 0 -%}
   <div class="ori-wrap">
     <div class="ori-intro__head">
       <div>
@@ -44,6 +46,7 @@
       {%- endif -%}
     </div>
   </div>
+  {%- endif -%}
 
   {%- if section.settings.band_heading != blank -%}
     <div class="ori-band">

@@ -1,0 +1,187 @@
+{%- comment -%}
+  ORI redesign — approved wheel grid. One section per wheel brand: an
+  optional section heading (e.g. "Offroad Industries Wheel
+  Recommendations"), a brand row (logo, eyebrow, title, text), then one
+  card per wheel with its sizes, colour and offset. Replaces the old
+  image-with-text + wheel-comparison-grid pair on GVM package pages
+  (sections/wheel-comparison-grid.liquid is unchanged for older templates).
+
+  Sizes are "|"-separated and show as pills: "18x9 | 17x8.5".
+  Cards sit in a fixed-width auto-fill grid, so a 4-wheel brand keeps the
+  same card size as a 6-wheel one instead of stretching.
+{%- endcomment -%}
+
+{%- liquid
+  assign custom_class = section.settings.custom_class
+  unless custom_class == blank
+    assign custom_class = custom_class | prepend: ' '
+  endunless
+  assign wheels = section.blocks | where: 'type', 'wheel'
+-%}
+<div
+  class="ori ori-section ori-wheels{{ custom_class }}"
+  {% if section.settings.anchor_id != blank %}id="{{ section.settings.anchor_id | handle }}"{% endif %}
+  style="--ori-pt: {{ section.settings.padding_top }}px; --ori-pb: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="ori-wrap">
+    {%- if section.settings.heading != blank or section.settings.intro != blank -%}
+      <div class="ori-head">
+        <div>
+          {%- if section.settings.heading != blank -%}
+            <h2 class="ori-h2">{{ section.settings.heading | newline_to_br }}</h2>
+          {%- endif -%}
+          {%- if section.settings.intro != blank -%}
+            <p class="ori-head__intro">{{ section.settings.intro }}</p>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.logo != blank or section.settings.title != blank -%}
+      <div class="ori-wheels__brand">
+        {%- if section.settings.logo != blank -%}
+          <div class="ori-wheels__logo">
+            {{
+              section.settings.logo
+              | image_url: width: 480
+              | image_tag: loading: 'lazy', alt: section.settings.logo.alt
+            }}
+          </div>
+        {%- endif -%}
+        <div>
+          {%- if section.settings.eyebrow != blank -%}
+            <p class="ori-wheels__eyebrow">{{ section.settings.eyebrow }}</p>
+          {%- endif -%}
+          {%- if section.settings.title != blank -%}
+            <h3 class="ori-wheels__title">{{ section.settings.title }}</h3>
+          {%- endif -%}
+          {%- if section.settings.text != blank -%}
+            <p class="ori-wheels__text">{{ section.settings.text }}</p>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- if wheels.size > 0 -%}
+      <ul class="ori-wheels__grid" role="list">
+        {%- for block in wheels -%}
+          {%- assign sizes = block.settings.sizes | split: '|' -%}
+          <li class="ori-wheel" {{ block.shopify_attributes }}>
+            <div class="ori-wheel__img">
+              {%- if block.settings.image != blank -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 600
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '300, 450, 600',
+                    sizes: '(min-width: 1025px) 220px, 50vw',
+                    alt: block.settings.image.alt
+                }}
+              {%- endif -%}
+            </div>
+            <div class="ori-wheel__body">
+              {%- if block.settings.title != blank -%}
+                <h4 class="ori-wheel__name">
+                  {%- if block.settings.link != blank -%}
+                    <a href="{{ block.settings.link }}">{{ block.settings.title }}</a>
+                  {%- else -%}
+                    {{ block.settings.title }}
+                  {%- endif -%}
+                </h4>
+              {%- endif -%}
+              {%- if sizes.size > 0 -%}
+                <ul class="ori-wheel__sizes" role="list" aria-label="Sizes">
+                  {%- for size in sizes -%}
+                    {%- assign size = size | strip -%}
+                    {%- if size != blank -%}<li>{{ size }}</li>{%- endif -%}
+                  {%- endfor -%}
+                </ul>
+              {%- endif -%}
+              <dl class="ori-wheel__spec">
+                {%- if block.settings.colour != blank -%}<div><dt>Colour</dt><dd>{{ block.settings.colour }}</dd></div>{%- endif -%}
+                {%- if block.settings.offset != blank -%}<div><dt>Offset</dt><dd>{{ block.settings.offset }}</dd></div>{%- endif -%}
+                {%- if block.settings.sku != blank -%}<div><dt>SKU</dt><dd>{{ block.settings.sku }}</dd></div>{%- endif -%}
+              </dl>
+            </div>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "ORI Wheel Grid",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Section heading",
+      "info": "Optional, above the brand row. Line breaks are kept."
+    },
+    {
+      "type": "text",
+      "id": "intro",
+      "label": "Section intro"
+    },
+    { "type": "header", "content": "Brand" },
+    { "type": "image_picker", "id": "logo", "label": "Brand logo" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Approved GVM Wheels" },
+    { "type": "text", "id": "title", "label": "Title" },
+    { "type": "text", "id": "text", "label": "Text" },
+    {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "Anchor ID",
+      "info": "Lets links jump here, e.g. wheels for #wheels."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom Class",
+      "info": "Tab grouping, e.g. ori-panel ori-panel--3"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "wheel",
+      "name": "Wheel",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "title", "label": "Model", "default": "MR305 NV" },
+        { "type": "text", "id": "sizes", "label": "Sizes", "info": "Separate with |, e.g. 18x9 | 17x8.5" },
+        { "type": "text", "id": "colour", "label": "Colour" },
+        { "type": "text", "id": "offset", "label": "Offset" },
+        { "type": "text", "id": "sku", "label": "SKU" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "ORI Wheel Grid", "blocks": [{ "type": "wheel" }] }
+  ]
+}
+{% endschema %}

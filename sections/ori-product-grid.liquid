@@ -2,7 +2,8 @@
   ORI redesign — product grid, built on snippets/ori-product-card.liquid.
   Uses the page's own collection on a collection template (so each GVM
   hub automatically shows its own kits), or the picked collection
-  anywhere else. Prices are whatever Shopify resolves for the viewer —
+  anywhere else. Picked products ("Or pick products") replace the
+  collection, in the order chosen. Prices are whatever Shopify resolves for the viewer —
   B2B catalog prices for company contacts — so nothing is calculated here.
 
   Button: "Request this kit" hands the product to the kit request form
@@ -17,8 +18,6 @@
   GVM package page; #vehicle-<pill label> in the URL opens that vehicle.
   With no Vehicle blocks the section works as a single grid, as before.
 {%- endcomment -%}
-{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
-{%- render 'ori-fonts' -%}
 
 {%- liquid
   assign custom_class = section.settings.custom_class
@@ -115,6 +114,17 @@
         {%- endfor -%}
       </div>
       <script src="{{ 'ori-product-filter.js' | asset_url }}" defer="defer"></script>
+    {%- elsif section.settings.product_list != blank -%}
+      <div class="ori-grid">
+        {%- for product in section.settings.product_list limit: section.settings.limit -%}
+          {%- render 'ori-product-card',
+            product: product,
+            link: section.settings.show_links,
+            button: section.settings.button,
+            button_label: section.settings.button_label
+          -%}
+        {%- endfor -%}
+      </div>
     {%- elsif source == blank or source.products.size == 0 -%}
       <p class="ori-head__intro">No products in this collection yet.</p>
     {%- else -%}
@@ -157,6 +167,13 @@
       "id": "collection",
       "label": "Collection",
       "info": "Leave empty on a collection page to show that collection. Ignored when Vehicle blocks are added."
+    },
+    {
+      "type": "product_list",
+      "id": "product_list",
+      "label": "Or pick products",
+      "info": "Shown instead of the collection, in this order (e.g. \"Enhance your GVM Package\").",
+      "limit": 12
     },
     {
       "type": "range",

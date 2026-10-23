@@ -7699,6 +7699,10 @@ body .ori-marquee--light .f-promotion__item img {
 .ori-brandbar__logo {
   position: relative;
   display: grid;
+  /* One fixed track, so the img's percentage max-height has a definite
+     height to resolve against — with an auto row, square logos (e.g. the
+     640×640 ICONS_FOR_WEBSITE files) overflowed and were clipped. */
+  grid-template: 100% / 100%;
   place-items: center;
   width: 100%;
   height: 104px;
@@ -12711,5 +12715,205 @@ body .sticky-atc-bar .f-price-item--regular s {
     min-height: 50px;
     padding: 8px 20px;
     font-size: 18px;
+  }
+}
+
+/* ==========================================================
+   ORI REDESIGN — WHEEL GRID (sections/ori-wheel-grid.liquid)
+   Approved load-rated wheels on GVM package pages: a brand row
+   (logo tile, eyebrow, title, text) and one card per wheel. Cards
+   use a fixed-minimum auto-fill grid, so Method's six and KMC's four
+   come out the same size. Two cards a row on phones.
+   ========================================================== */
+.ori-wheels + .ori-wheels .ori-wheels__brand {
+  padding-top: 32px;
+  border-top: 1px solid var(--ori-line);
+}
+
+.ori-wheels__brand {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin-bottom: 28px;
+}
+
+.ori-wheels__logo {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 104px;
+  padding: 16px 22px;
+  border-radius: 4px;
+  background: var(--ori-bone);
+}
+
+.ori .ori-wheels__logo img {
+  width: auto;
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.ori .ori-wheels__eyebrow {
+  color: var(--ori-teal-deep);
+  font-family: var(--ori-display);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ori .ori-wheels__title {
+  margin-top: 4px;
+  font-size: clamp(26px, 2.6vw, 34px);
+}
+
+.ori .ori-wheels__text {
+  max-width: 640px;
+  margin-top: 8px;
+  color: var(--ori-steel);
+}
+
+.ori-wheels__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ori-wheel {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--ori-line);
+  border-radius: 4px;
+  background: var(--ori-paper);
+}
+
+.ori-wheel__img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  padding: 18px;
+  border-bottom: 1px solid var(--ori-line);
+  background: #fff; /* several wheel photos have a white, not transparent, background */
+}
+
+.ori .ori-wheel__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.ori-wheel__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 18px 18px;
+}
+
+.ori .ori-wheel__name {
+  font-size: 22px;
+  line-height: 1.05;
+}
+
+.ori-wheel__name a {
+  text-decoration: none;
+}
+
+.ori-wheel__sizes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ori-wheel__sizes li {
+  margin: 0;
+  padding: 3px 10px;
+  border: 1px solid var(--ori-line);
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.ori .ori-wheel__spec {
+  display: grid;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--ori-line);
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.ori-wheel__spec div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ori-wheel__spec dt {
+  padding-top: 1px;
+  color: var(--ori-steel);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.ori-wheel__spec dd {
+  font-weight: 600;
+  text-align: right;
+}
+
+@media (max-width: 700px) {
+  .ori-wheels__brand {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .ori-wheels__logo {
+    width: 160px;
+    height: 84px;
+    padding: 12px 18px;
+  }
+
+  .ori-wheels__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .ori-wheel__img {
+    padding: 12px;
+  }
+
+  .ori-wheel__body {
+    gap: 10px;
+    padding: 12px 14px 14px;
+  }
+
+  .ori .ori-wheel__name {
+    font-size: 19px;
+  }
+
+  .ori-wheel__spec div {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .ori-wheel__spec dd {
+    text-align: left;
   }
 }

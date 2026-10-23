@@ -7,10 +7,9 @@
   Each stage's installation PDF: a Shopify file name (Content > Files,
   resolved with file_url) or an external URL. The Shopify file wins when
   both are set; with neither, a disabled "PDF coming soon" shows instead.
+  "Show installation PDF row" off hides the row (public package pages).
   Links to #stage-N anywhere on the page open that stage (and its tab).
 {%- endcomment -%}
-{{ 'gvm-css-main.css' | asset_url | stylesheet_tag }}
-{%- render 'ori-fonts' -%}
 
 {%- liquid
   assign custom_class = section.settings.custom_class
@@ -116,6 +115,7 @@
                   {%- if block.settings.note != blank -%}
                     <p class="ori-note">{{ block.settings.note }}</p>
                   {%- endif -%}
+                  {%- if section.settings.show_pdf -%}
                   <div class="ori-stage__dl">
                     {%- if pdf != blank -%}
                       <a class="ori-btn ori-btn--teal" href="{{ pdf }}" target="_blank" rel="noopener">
@@ -127,6 +127,7 @@
                     {%- endif -%}
                     <span class="ori-stage__dl-note">{{ block.settings.label }} installation instructions</span>
                   </div>
+                  {%- endif -%}
                 </div>
               </article>
             </div>
@@ -160,6 +161,13 @@
       "type": "text",
       "id": "intro",
       "label": "Intro"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pdf",
+      "label": "Show installation PDF row",
+      "info": "Turn off on public package pages — the instructions are for installers.",
+      "default": true
     },
     {
       "type": "range",
