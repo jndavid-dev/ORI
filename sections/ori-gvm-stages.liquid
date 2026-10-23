@@ -107,6 +107,16 @@
                   {%- endif -%}
                   <dl class="ori-spec">
                     {%- if block.settings.gvm != blank -%}<div><dt>{{ block.settings.gvm_label | default: 'GVM increase' }}</dt><dd>{{ block.settings.gvm }}</dd></div>{%- endif -%}
+                    {%- comment -%} Extra rows: one "Label | Value" per line; the value may contain more "|". {%- endcomment -%}
+                    {%- if block.settings.rows != blank -%}
+                      {%- assign extra_rows = block.settings.rows | newline_to_br | split: '<br />' -%}
+                      {%- for line in extra_rows -%}
+                        {%- assign line = line | strip -%}
+                        {%- assign row_label = line | split: '|' | first | strip -%}
+                        {%- assign row_value = line | remove_first: row_label | strip | remove_first: '|' | strip -%}
+                        {%- if row_label != blank and row_value != blank -%}<div><dt>{{ row_label }}</dt><dd>{{ row_value }}</dd></div>{%- endif -%}
+                      {%- endfor -%}
+                    {%- endif -%}
                     {%- if block.settings.features != blank -%}<div><dt>Key features</dt><dd>{{ block.settings.features }}</dd></div>{%- endif -%}
                     {%- if block.settings.best_for != blank -%}<div><dt>Best for</dt><dd>{{ block.settings.best_for }}</dd></div>{%- endif -%}
                     {%- if block.settings.benefit != blank -%}<div><dt>Benefit</dt><dd>{{ block.settings.benefit }}</dd></div>{%- endif -%}
@@ -212,6 +222,7 @@
         { "type": "header", "content": "Specs" },
         { "type": "text", "id": "gvm_label", "label": "GVM row label", "default": "GVM increase", "info": "e.g. GVM rating" },
         { "type": "inline_richtext", "id": "gvm", "label": "GVM increase" },
+        { "type": "textarea", "id": "rows", "label": "Extra rows", "info": "Shown after the GVM row. One per line: Label | Value, e.g. Payload | 1680 KG" },
         { "type": "inline_richtext", "id": "features", "label": "Key features" },
         { "type": "inline_richtext", "id": "best_for", "label": "Best for" },
         { "type": "inline_richtext", "id": "benefit", "label": "Benefit" },

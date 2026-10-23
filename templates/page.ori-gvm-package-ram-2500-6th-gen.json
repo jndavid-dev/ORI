@@ -1,0 +1,765 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "ori_hero": {
+      "type": "ori-hero",
+      "blocks": {
+        "hero_1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__ORI.jpg",
+            "alt": "ORI"
+          }
+        },
+        "hero_2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__FOX.jpg",
+            "alt": "Fox"
+          }
+        },
+        "hero_3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__BDS.jpg",
+            "alt": "BDS Suspension"
+          }
+        },
+        "hero_4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__HUSKY_LINERS.jpg",
+            "alt": "Husky Liners"
+          }
+        },
+        "hero_5": {
+          "type": "feature",
+          "settings": {
+            "icon": "shield",
+            "text": "SSM federally approved\nAustralia wide"
+          }
+        },
+        "hero_6": {
+          "type": "feature",
+          "settings": {
+            "icon": "suspension",
+            "text": "Fox & BDS suspension\ncomponents"
+          }
+        },
+        "hero_7": {
+          "type": "feature",
+          "settings": {
+            "icon": "clipboard",
+            "text": "Pre-rego only"
+          }
+        },
+        "hero_8": {
+          "type": "feature",
+          "settings": {
+            "icon": "tyre",
+            "text": "35\" | 37\" tyres legal"
+          }
+        },
+        "hero_9": {
+          "type": "button",
+          "settings": {
+            "label": "View GVM packages",
+            "link": "#tab-1",
+            "style": "teal"
+          }
+        },
+        "hero_10": {
+          "type": "button",
+          "settings": {
+            "label": "Request a kit",
+            "link": "#tab-3",
+            "style": "ghost"
+          }
+        }
+      },
+      "block_order": [
+        "hero_1",
+        "hero_2",
+        "hero_3",
+        "hero_4",
+        "hero_5",
+        "hero_6",
+        "hero_7",
+        "hero_8",
+        "hero_9",
+        "hero_10"
+      ],
+      "settings": {
+        "style": "cutout",
+        "image_asset": "ori-hero-ram-2500-6th-cutout.webp",
+        "image_alt": "RAM 2500 6th Gen with an ORI GVM upgrade",
+        "min_height": 600,
+        "heading_1": "RAM 2500",
+        "heading_2": "6th Gen",
+        "pill": "3\" to 6.0\" packages\nNew package coming soon!",
+        "heading_tag": "h1",
+        "badge_title": "NB2",
+        "badge_small": "Truck licence"
+      }
+    },
+    "ori_intro": {
+      "type": "ori-gvm-intro",
+      "settings": {
+        "badge_text": "",
+        "heading_line_1": "",
+        "heading_line_2": "",
+        "band_heading": "Unleash the Full Potential of Your RAM 2500 6th Gen in Australia",
+        "band_background": "#000000",
+        "band_text_color": "#56bdc2",
+        "body": "<p>While the RAM 2500 6th Gen is an absolute powerhouse straight from the factory, adding heavy accessories, towing large trailers, or installing a custom tray and canopy can easily push you past Australia's strict road limits. An ORI GVM upgrade is the ultimate solution.</p><p>Offroad Industries (ORI) is a Federally Approved Second Stage Manufacturer (SSM) delivering the most comprehensive GVM upgrade packages available for the RAM 2500 6th Gen. Fully engineered and completely compliant with Australian Design Rules, our kits have you covered for both Pre-Rego (Federal) and Post-Rego (State-based) applications. Designed specifically to maximize the 6th Gen platform, our upgrades unlock massive payload capacity, elevate your suspension handling, and keep your rig 100% legal on the road.</p><p>Our packages are currently going through federal approval a with view to be approved September 2026. This only applies for Ram Australia delivered vehicles.</p>",
+        "disclaimer": "",
+        "style": "light",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "ori_tabs": {
+      "type": "ori-gvm-tabs",
+      "blocks": {
+        "tab_1": {
+          "type": "tab_button",
+          "settings": {
+            "label": "GVM Packages",
+            "tab_id": "tab-1"
+          }
+        },
+        "tab_2": {
+          "type": "tab_button",
+          "settings": {
+            "label": "Specifications",
+            "tab_id": "tab-2"
+          }
+        },
+        "tab_3": {
+          "type": "tab_button",
+          "settings": {
+            "label": "Request a Kit",
+            "tab_id": "tab-3"
+          }
+        }
+      },
+      "block_order": [
+        "tab_1",
+        "tab_2",
+        "tab_3"
+      ],
+      "settings": {
+        "aria_label": "GVM package sections"
+      }
+    },
+    "ori_stages": {
+      "type": "ori-gvm-stages",
+      "blocks": {
+        "stage_1": {
+          "type": "stage",
+          "settings": {
+            "label": "Stage 1",
+            "tab_meta": "5500kg · $14,499",
+            "acc_meta": "The Weekender — 2\" Lift on 35s · 5500kg · $14,499",
+            "image": "shopify://shop_images/STAGE_1_RAM_2500_6th_GEN_all_products_16f29f83-ce00-4ba8-91fc-3ceef0e5e488.png",
+            "eyebrow": "$14,499 · Installed & engineered",
+            "title": "The Weekender — 2\" Lift on 35s",
+            "subtitle": "",
+            "lead": "The entry point to the 6th Gen programme, lifting GVM to 5500 KG on a modest two inch lift.",
+            "gvm_label": "GVM",
+            "gvm": "5500 KG | <strong>GCM:</strong> 12,750 KG | <strong>Braked Towing:</strong> 4500 KG",
+            "rows": "Lift & Tyres | 2\" lift, running up to 35x12.5 R18 or 35x12.5 R20.",
+            "features": "Fox 2.5 Performance Series HTO shocks, Husky Colour coded leaf packs.",
+            "best_for": "Daily drivers and light tourers who safe payload.",
+            "benefit": "",
+            "part_numbers": "",
+            "note": "",
+            "pdf_file": "",
+            "pdf_url": "",
+            "pdf_label": "Download PDF"
+          }
+        },
+        "stage_2": {
+          "type": "stage",
+          "settings": {
+            "label": "Stage 2",
+            "tab_meta": "5890kg · $19,499",
+            "acc_meta": "Apex Series — 2\" Lift on 35s · 5890kg · $19,499",
+            "image": "shopify://shop_images/STAGE_2_RAM_2500_6th_GEN_all_products_4043c4df-d035-47b7-a9f1-26e8860a9cb3.png",
+            "eyebrow": "$19,499 · Installed & engineered",
+            "title": "Apex Series — 2\" Lift on 35s",
+            "subtitle": "",
+            "lead": "The same two inch stance, stepping up to ORI coils front and rear and the full 5890 KG GVM.",
+            "gvm_label": "GVM",
+            "gvm": "5890 KG | <strong>GCM:</strong> 12,750 KG | <strong>Braked Towing:</strong> 4500 KG",
+            "rows": "Lift & Tyres | 2\" lift, running up to 35x12.5 R18 or 35x12.5 R20.",
+            "features": "ORI front coils, ORI rear coils, Husky Extenda flares, ORI mud flap brackets.",
+            "best_for": "Owners carrying weight day to day who want maximum legal capacity.",
+            "benefit": "",
+            "part_numbers": "",
+            "note": "",
+            "pdf_file": "",
+            "pdf_url": "",
+            "pdf_label": "Download PDF"
+          }
+        },
+        "stage_3": {
+          "type": "stage",
+          "settings": {
+            "label": "Stage 3",
+            "tab_meta": "5890kg · $22,999",
+            "acc_meta": "The Tourer — 3\" Lift on 37s · 5890kg · $22,999",
+            "image": "shopify://shop_images/STAGE_3_RAM_2500_6th_GEN_all_products_0e38cef8-5c4e-4da0-8501-e9f1389a5323.png",
+            "eyebrow": "$22,999 · Installed & engineered",
+            "title": "The Tourer — 3\" Lift on 37s",
+            "subtitle": "",
+            "lead": "Three inches of lift with the geometry corrected, and the first stage to run 37 inch tyres.",
+            "gvm_label": "GVM",
+            "gvm": "5890 KG | <strong>GCM:</strong> 12,750 KG | <strong>Braked Towing:</strong> 4500 KG",
+            "rows": "Lift & Tyres | 3\" lift, running up to 37x12.5 R18 or 37x12.5 R20.",
+            "features": "BDS 3\" radius arm kit, Husky Extenda flares, ORI mud flap brackets.",
+            "best_for": "Tourers who want genuine clearance and a 37 inch tyre while staying on factory rated wheels.",
+            "benefit": "",
+            "part_numbers": "",
+            "note": "",
+            "pdf_file": "",
+            "pdf_url": "",
+            "pdf_label": "Download PDF"
+          }
+        },
+        "stage_4": {
+          "type": "stage",
+          "settings": {
+            "label": "Stage 4",
+            "tab_meta": "5890kg · $28,999",
+            "acc_meta": "The Heavy Hauler — 4\" Lift on 37s · 5890kg · $28,999",
+            "image": "shopify://shop_images/STAGE_4_RAM_2500_6th_GEN_ALL_PRODUCTS_5aa07569-e573-4ef3-bd6a-1803bbcb787c.png",
+            "eyebrow": "$28,999 · Installed & engineered",
+            "title": "The Heavy Hauler — 4\" Lift on 37s",
+            "subtitle": "",
+            "lead": "Four inches of lift with the rear air bags deleted in favour of a coil setup built to carry.",
+            "gvm_label": "GVM",
+            "gvm": "5890 KG | <strong>GCM:</strong> 12,750 KG | <strong>Braked Towing:</strong> 4500 KG",
+            "rows": "Lift & Tyres | 4\" lift, running up to 37x12.5 R18 or 37x12.5 R20.",
+            "features": "BDS 4\" radius arm kit, Logic IQ air bag coil delete, Husky Extenda flares, ORI mud flap brackets.",
+            "best_for": "Tray and canopy builds, long range tanks, and anyone running permanent weight over the rear axle.",
+            "benefit": "",
+            "part_numbers": "",
+            "note": "",
+            "pdf_file": "",
+            "pdf_url": "",
+            "pdf_label": "Download PDF"
+          }
+        },
+        "stage_5": {
+          "type": "stage",
+          "settings": {
+            "label": "Stage 5",
+            "tab_meta": "5890kg · $28,999",
+            "acc_meta": "The Six Inch Build — 6\" Lift on 37s · 5890kg · $28,999",
+            "image": "shopify://shop_images/STAGE_5_RAM_2500_6th_GEN_ALL_PRODUCTS_4fa72062-f693-41db-84b5-7f057ab36e4f.png",
+            "eyebrow": "$28,999 · Installed & engineered",
+            "title": "The Six Inch Build — 6\" Lift on 37s",
+            "subtitle": "",
+            "lead": "The full six inches, engineered and certified as one package rather than stacked together.",
+            "gvm_label": "GVM",
+            "gvm": "5890 KG | <strong>GCM:</strong> 12,750 KG | <strong>Braked Towing:</strong> 4500 KG",
+            "rows": "Lift & Tyres | 6\" lift, running up to 37x12.5 R18 or 37x12.5 R20.",
+            "features": "BDS 6\" radius arm kit, Logic IQ air bag coil delete, Husky Extenda flares, ORI mud flap brackets.",
+            "best_for": "Owners who want the biggest lift in the range with the payload and towing left intact.",
+            "benefit": "",
+            "part_numbers": "",
+            "note": "",
+            "pdf_file": "",
+            "pdf_url": "",
+            "pdf_label": "Download PDF"
+          }
+        },
+        "stage_6": {
+          "type": "stage",
+          "settings": {
+            "label": "Stage 6",
+            "tab_meta": "5890kg · $35,999",
+            "acc_meta": "The Six Inch Build — Top of the Range · 5890kg · $35,999",
+            "image": "shopify://shop_images/STAGE_6_RAM_2500_6th_GEN_ALL_PRODUCTS-2_fe22d150-db58-418f-9747-a4c86d4a32fb.png",
+            "eyebrow": "$35,999 · Installed & engineered",
+            "title": "The Six Inch Build — Top of the Range",
+            "subtitle": "",
+            "lead": "The peak of the 6th Gen programme, on the same six inch platform as Stage 5.",
+            "gvm_label": "GVM",
+            "gvm": "5890 KG | <strong>GCM:</strong> 12,750 KG | <strong>Braked Towing:</strong> 4500 KG",
+            "rows": "Lift & Tyres | 6\" lift, running up to 40x13.5R17",
+            "features": "BDS 6\" radius arm kit, Logic IQ air bag coil delete, AEV Flares, ORI mud flap brackets.",
+            "best_for": "The most heavily built rigs in the range, fully compliant and federally engineered.",
+            "benefit": "",
+            "part_numbers": "",
+            "note": "Note: Load rated wheels and tyres with a 1650 KG tyre load rating are required for this stage.",
+            "pdf_file": "",
+            "pdf_url": "",
+            "pdf_label": "Download PDF"
+          }
+        }
+      },
+      "block_order": [
+        "stage_1",
+        "stage_2",
+        "stage_3",
+        "stage_4",
+        "stage_5",
+        "stage_6"
+      ],
+      "settings": {
+        "heading": "ORI GVM Package\nRAM 2500 6th Gen",
+        "intro": "",
+        "show_pdf": false,
+        "padding_top": 48,
+        "padding_bottom": 88,
+        "custom_class": "ori-panel ori-panel--1"
+      }
+    },
+    "ori_specs": {
+      "type": "ori-gvm-comparison",
+      "blocks": {
+        "row_1": {
+          "type": "row",
+          "settings": {
+            "label": "Gross Vehicle Mass (GVM)",
+            "values": "4495 KG NB1 | 5500 KG | 5890 KG | 5890 KG | 5890 KG | 5890 KG | 5800 KG",
+            "highlight": false
+          }
+        },
+        "row_2": {
+          "type": "row",
+          "settings": {
+            "label": "Braked Towing Capacity (BTC)",
+            "values": "4500 KG | 4500 KG | 4500 KG | 4500 KG | 4500 KG | 4500 KG | 4500 KG",
+            "highlight": false
+          }
+        },
+        "row_3": {
+          "type": "row",
+          "settings": {
+            "label": "Gross Combined Mass (GCM)",
+            "values": "12,750 KG | 12,750 KG | 12,750 KG | 12,750 KG | 12,750 KG | 12,750 KG | 12,750 KG",
+            "highlight": false
+          }
+        },
+        "row_4": {
+          "type": "row",
+          "settings": {
+            "label": "Kerb Weight",
+            "values": "3710 KG | 3760 KG | 3770 KG | 3830 KG | 3830 KG | 3830 KG | 3830 KG",
+            "highlight": false
+          }
+        },
+        "row_5": {
+          "type": "row",
+          "settings": {
+            "label": "Payload (based on kerb weight)",
+            "values": "886 KG | 1740 KG | 2120 KG | 2060 KG | 2060 KG | 2060 KG | 2060 KG",
+            "highlight": false
+          }
+        },
+        "row_6": {
+          "type": "row",
+          "settings": {
+            "label": "Front Axle Capacity",
+            "values": "2722 KG | 2722 KG | 2722 KG | 2722 KG | 2722 KG | 2722 KG | 2722 KG",
+            "highlight": false
+          }
+        },
+        "row_7": {
+          "type": "row",
+          "settings": {
+            "label": "Rear Axle Capacity",
+            "values": "2740 KG | 3175 KG | 3175 KG | 3175 KG | 3175 KG | 3175 KG | 3075 KG",
+            "highlight": false
+          }
+        },
+        "row_8": {
+          "type": "row",
+          "settings": {
+            "label": "Wheel Offsets",
+            "values": "POS 47 | Pos 18 | Pos 18 | Pos 18 | Pos 18 | Pos 18 | Pos 12 / Zero / -11",
+            "highlight": false
+          }
+        },
+        "row_9": {
+          "type": "row",
+          "settings": {
+            "label": "Wheel Load Rating",
+            "values": "1587 KG | 1600 KG | 1600 KG | 1600 KG | 1600 KG | 1600 KG | 1600 KG",
+            "highlight": false
+          }
+        },
+        "row_10": {
+          "type": "row",
+          "settings": {
+            "label": "Minimum Tyre Load Rating",
+            "values": " | 124 Q | 124 Q | 124 Q | 124 Q | 124 Q | 124 Q",
+            "highlight": false
+          }
+        },
+        "row_11": {
+          "type": "row",
+          "settings": {
+            "label": "Requires Wheel/ Tyre Upgrade",
+            "values": "OEM | ✔ | ✔ | ✔ | ✔ | ✔ | ✔",
+            "highlight": false
+          }
+        },
+        "row_12": {
+          "type": "row",
+          "settings": {
+            "label": "Maximum Tyre Size",
+            "values": " | 35x12.5xR18, 35x12.5xR20 | 35x12.5xR18, 35x12.5xR20 | 37x12.5xR18, 37x12.5xR20 | 37x12.5xR18, 37x12.5xR20 | 37x12.5xR18, 37x12.5xR20 | 40x13.5R17 / 40x13.5R18 / 40x13.5R20",
+            "highlight": false
+          }
+        }
+      },
+      "block_order": [
+        "row_1",
+        "row_2",
+        "row_3",
+        "row_4",
+        "row_5",
+        "row_6",
+        "row_7",
+        "row_8",
+        "row_9",
+        "row_10",
+        "row_11",
+        "row_12"
+      ],
+      "settings": {
+        "heading": "RAM 2500 6th Gen\nGVM Specifications",
+        "intro": "",
+        "columns": "OEM | Stage 1 | Stage 2 | Stage 3 | Stage 4 | Stage 5 | Stage 6",
+        "style": "compact",
+        "mobile": "scroll",
+        "anchor_id": "specifications",
+        "corner_label": "Specification",
+        "padding_top": 48,
+        "padding_bottom": 32,
+        "custom_class": "ori-panel ori-panel--2"
+      }
+    },
+    "ori_components": {
+      "type": "ori-gvm-comparison",
+      "blocks": {
+        "row_1": {
+          "type": "row",
+          "settings": {
+            "label": "Lift Height",
+            "values": " | 2\" | 2\" | 3\" | 4\" | 6\" | 6\"",
+            "highlight": false
+          }
+        },
+        "row_2": {
+          "type": "row",
+          "settings": {
+            "label": "Fox 2.5 Performance Series HTO (Front)",
+            "values": "987-24-045 | ✔ |  |  |  |  | ",
+            "highlight": false
+          }
+        },
+        "row_3": {
+          "type": "row",
+          "settings": {
+            "label": "Fox 2.5 Performance Series HTO (Rear)",
+            "values": "987-24-005 | ✔ |  |  |  |  | ",
+            "highlight": false
+          }
+        },
+        "row_4": {
+          "type": "row",
+          "settings": {
+            "label": "Fox 2.5 Performance Elite Series (Front)",
+            "values": "883-26-062 |  | ✔ |  |  |  | ",
+            "highlight": false
+          }
+        },
+        "row_5": {
+          "type": "row",
+          "settings": {
+            "label": "Fox 2.5 Performance Elite Series (Rear)",
+            "values": "883-26-065 |  | ✔ |  |  |  | ",
+            "highlight": false
+          }
+        },
+        "row_6": {
+          "type": "row",
+          "settings": {
+            "label": "ORI Front Coils",
+            "values": "ORI-400H |  | ✔ |  |  |  | ",
+            "highlight": false
+          }
+        },
+        "row_7": {
+          "type": "row",
+          "settings": {
+            "label": "ORI Rear Coils",
+            "values": "ORI-401HH |  | ✔ |  |  |  | ",
+            "highlight": false
+          }
+        },
+        "row_8": {
+          "type": "row",
+          "settings": {
+            "label": "BDS 3\" Radius Arm Kit",
+            "values": "BDS1624FPE |  |  | ✔ |  |  | ",
+            "highlight": false
+          }
+        },
+        "row_9": {
+          "type": "row",
+          "settings": {
+            "label": "BDS 4\" Radius Arm Kit",
+            "values": "BDS2143FPE |  |  |  | ✔ |  | ",
+            "highlight": false
+          }
+        },
+        "row_10": {
+          "type": "row",
+          "settings": {
+            "label": "BDS 6\" Radius Arm Kit",
+            "values": "BDS2135FPE |  |  |  |  | ✔ | ",
+            "highlight": false
+          }
+        },
+        "row_11": {
+          "type": "row",
+          "settings": {
+            "label": "Husky Extenda Flare",
+            "values": "2805931 | ✔ | ✔ | ✔ | ✔ | ✔ | ✔",
+            "highlight": false
+          }
+        },
+        "row_12": {
+          "type": "row",
+          "settings": {
+            "label": "Husky DRT Flare",
+            "values": "2805938 | O | O | O | O | O | O",
+            "highlight": false
+          }
+        },
+        "row_13": {
+          "type": "row",
+          "settings": {
+            "label": "AEV HighMark Fender Flares",
+            "values": "40408003AC |  |  |  |  |  | ✔",
+            "highlight": false
+          }
+        },
+        "row_14": {
+          "type": "row",
+          "settings": {
+            "label": "ORI Mud Flap Brackets",
+            "values": "ORI-RAM2500-Mudflaps | ✔ | ✔ | ✔ | ✔ | ✔ | ✔",
+            "highlight": false
+          }
+        },
+        "row_15": {
+          "type": "row",
+          "settings": {
+            "label": "Logic IQ Air Bag Coil Delete",
+            "values": "89-12140 |  |  |  | ✔ | ✔ | ✔",
+            "highlight": false
+          }
+        },
+        "row_16": {
+          "type": "row",
+          "settings": {
+            "label": "Fox Steering Stabiliser (optional)",
+            "values": "983-02-158 | O | O | O | O | O | O",
+            "highlight": false
+          }
+        },
+        "row_17": {
+          "type": "row",
+          "settings": {
+            "label": "BDS Twin Steering Stabiliser (optional)",
+            "values": "BDS2031DF |  |  | O | O | O | O",
+            "highlight": false
+          }
+        },
+        "row_18": {
+          "type": "row",
+          "settings": {
+            "label": "GVM Part Number",
+            "values": " | RAM-2500-6G-Stage1-GVM | RAM-2500-6G-Stage2-GVM | RAM-2500-6G-Stage3-GVM | RAM-2500-6G-Stage4-GVM | RAM-2500-6G-Stage5-GVM | RAM-2500-6G-Stage6-GVM",
+            "highlight": false
+          }
+        }
+      },
+      "block_order": [
+        "row_1",
+        "row_2",
+        "row_3",
+        "row_4",
+        "row_5",
+        "row_6",
+        "row_7",
+        "row_8",
+        "row_9",
+        "row_10",
+        "row_11",
+        "row_12",
+        "row_13",
+        "row_14",
+        "row_15",
+        "row_16",
+        "row_17",
+        "row_18"
+      ],
+      "settings": {
+        "heading": "",
+        "intro": "",
+        "columns": "Part Number | Stage 1 | Stage 2 | Stage 3 | Stage 4 | Stage 5 | Stage 6",
+        "style": "compact",
+        "mobile": "scroll",
+        "anchor_id": "components",
+        "corner_label": "Item",
+        "padding_top": 0,
+        "padding_bottom": 88,
+        "custom_class": "ori-panel ori-panel--2"
+      }
+    },
+    "ori_quote": {
+      "type": "ori-gvm-quote",
+      "settings": {
+        "display_mode": "inline",
+        "anchor_id": "quote",
+        "eyebrow": "",
+        "heading": "GVM Enquiry? Contact Us Now",
+        "intro": "",
+        "button_label": "Send",
+        "kit_collection": "ram-2500-gvm-6th-gen-gvm",
+        "padding_top": 48,
+        "padding_bottom": 88,
+        "custom_class": "ori-panel ori-panel--3"
+      }
+    },
+    "ori_enhance": {
+      "type": "ori-product-grid",
+      "settings": {
+        "heading": "Frequently Bought With",
+        "intro": "",
+        "product_list": [
+          "amp-research-xl-power-steps-ram-2500-3500-hd-crew-2025-6th-gen",
+          "ori-ram-2500-roller-shutter-with-rambox",
+          "dual-steering-stabilizer-kit-w-fox-2-0-performance-shocks-t-style-steering-ram-2500-19-25-and-3500-19-24-4wd",
+          "fox-factory-race-series-2-0-ats-stabilizer-ram-2500-3500",
+          "amp-research-bedstep-2019-ram-2500-3500-75324-01a",
+          "amp-research-power-steps-ram-2500-3500-hd-amp-powerstep-25",
+          "titan-gen-7-xxl-fuel-tank-2025-ram-cummins-short-bed-4x4"
+        ],
+        "limit": 12,
+        "button": "cart",
+        "button_label": "",
+        "view_all_label": "",
+        "show_links": true,
+        "fine_print": "",
+        "padding_top": 72,
+        "padding_bottom": 56,
+        "custom_class": ""
+      }
+    },
+    "ori_content": {
+      "type": "ori-collection-content",
+      "settings": {
+        "eyebrow": "About the range",
+        "show_title": false,
+        "help_text": "Not sure what fits your truck? Our team can help you choose.",
+        "help_label": "Contact our team",
+        "help_link": "#tab-3",
+        "text": "<h2>RAM 2500 6th Gen GVM Upgrades — Carry More, Tow Better, Go Further</h2><p>The RAM 2500 6th Gen is one of the most capable heavy-duty trucks ever delivered to Australian shores, but its factory GVM rating can still limit what you can legally carry when you're fully kitted out with accessories, a loaded tray, and a trailer in tow. That's where an ORI GVM upgrade comes in.</p><p>A GVM upgrade isn't just a number change on paper — it's a complete engineering solution that gives your RAM 2500 the legal capacity to carry the gear you actually need, with the suspension components to back it up. Whether you're hauling tools for work, touring Australia with a heavy van, or running a tray and canopy conversion, our stage packages give you a fully certified, legal, and capable platform.</p><h2>RAM 2500 6th Gen GVM Upgrade — Compliant & Certified for Australia</h2><p>When you upgrade your RAM 2500 6th Gen's GVM with Offroad Industries, you get complete legal coverage across Australia. ORI is a Federally Approved Second Stage Manufacturer (SSM), which means your upgrade is recorded on the official Federal database — giving you true legal status whether you're registering Pre-Rego or Post-Rego.</p><p>Every package includes engineering certification and all relevant documentation. Our GVM kits use only the best components from world-leading brands including Fox Suspension and BDS, all specifically engineered and tested for the RAM 2500 6th Gen platform — nothing generic, nothing untested.</p><h2>How to Choose the Right GVM Stage for Your RAM 2500 6th Gen</h2><p>Choosing the right GVM stage comes down to what you carry, what you tow, and what you plan to do with your truck. Stages 1, 2 and 3 all take GVM to 5300 KG on your factory wheels and tyres, so the choice between them is really about the suspension package and how much lift you want, with Stage 3 adding a 3-inch lift and a BDS radius arm kit to keep the front geometry correct.</p><p>Stage 4 and Stage 5 take GVM to 5550 KG for the biggest legal payload in the range, 1914 KG and 1905 KG respectively. Both need load-rated wheels and tyres, and both hold the full 4500 KG braked towing capacity, which makes them the pick for tray conversions, permanent canopies, long-range fuel systems, and heavy towing.</p><p>Not sure which stage suits you? Contact our GVM experts and we’ll help you find the right fit.</p><h2>RAM 2500 6th Gen GVM Upgrade — Compliance, Insurance & Registration</h2><p>One of the most important aspects of any GVM upgrade is compliance. All ORI GVM packages for the RAM 2500 6th Gen are engineered to meet Australian Design Rules (ADR) and are registered through our SSM approval — meaning your upgrade is legal to drive in any Australian state or territory.</p><p>Because our upgrades go through proper federal engineering channels, your vehicle remains insured and your warranty position is clearly documented. We handle the paperwork and certification so you can focus on the road ahead. If you have questions about the process, our team is happy to walk you through exactly what's involved.</p><h2>Why Choose ORI for Your RAM 2500 6th Gen GVM Upgrade?</h2><p>Offroad Industries has engineered GVM upgrade systems for some of Australia's most demanding drivers across some of the country's harshest terrain. Our RAM 2500 6th Gen packages were developed specifically for this platform — not adapted from another vehicle — with components tested under Australian conditions.</p><p>With Fox Suspension and BDS as our key partners, every stage delivers premium ride quality, long-term durability, and genuine compliance. From installation and engineering through to certification and handover, ORI takes care of everything. Explore the package range above or get in touch with our team to start your upgrade journey.</p>",
+        "collapse": true,
+        "collapsed_height": 420,
+        "more_label": "Read more",
+        "less_label": "Read less",
+        "tinted": true,
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "ori_suspension": {
+      "type": "ori-brand-bar",
+      "blocks": {
+        "brand_1": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/ICONS_FOR_WEBSITE_FOX.png",
+            "collection": "fox-suspension",
+            "link": "",
+            "title": "Fox",
+            "zoom": 160
+          }
+        },
+        "brand_2": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/ICONS_FOR_WEBSITE_BDS.png",
+            "collection": "bds-suspension-australian-distributor",
+            "link": "",
+            "title": "BDS Suspension",
+            "zoom": 130
+          }
+        },
+        "brand_3": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/ICONS_FOR_WEBSITE_BUSHWACKER.png",
+            "collection": "bushwacker",
+            "link": "",
+            "title": "Bushwacker",
+            "zoom": 260
+          }
+        },
+        "brand_4": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/peak_final-copy-small.jpg",
+            "collection": "peak-suspension",
+            "link": "",
+            "title": "Peak",
+            "zoom": 100
+          }
+        }
+      },
+      "block_order": [
+        "brand_1",
+        "brand_2",
+        "brand_3",
+        "brand_4"
+      ],
+      "settings": {
+        "heading": "ORI's Suspension Collection",
+        "text": "",
+        "show_names": false,
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    }
+  },
+  "order": [
+    "ori_hero",
+    "ori_intro",
+    "ori_tabs",
+    "ori_stages",
+    "ori_specs",
+    "ori_components",
+    "ori_quote",
+    "ori_enhance",
+    "ori_content",
+    "ori_suspension"
+  ]
+}

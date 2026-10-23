@@ -1,0 +1,648 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "ori_hero": {
+      "type": "ori-hero",
+      "blocks": {
+        "hero_1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__ORI.jpg",
+            "alt": "ORI"
+          }
+        },
+        "hero_2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__FOX.jpg",
+            "alt": "Fox"
+          }
+        },
+        "hero_3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__BDS.jpg",
+            "alt": "BDS Suspension"
+          }
+        },
+        "hero_4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__HUSKY_LINERS.jpg",
+            "alt": "Husky Liners"
+          }
+        },
+        "hero_5": {
+          "type": "feature",
+          "settings": {
+            "icon": "shield",
+            "text": "SSM federally approved\nAustralia wide"
+          }
+        },
+        "hero_6": {
+          "type": "feature",
+          "settings": {
+            "icon": "suspension",
+            "text": "Fox components"
+          }
+        },
+        "hero_7": {
+          "type": "feature",
+          "settings": {
+            "icon": "clipboard",
+            "text": "Pre & Post\nRego only"
+          }
+        },
+        "hero_8": {
+          "type": "feature",
+          "settings": {
+            "icon": "tyre",
+            "text": "35\" tyres legal"
+          }
+        },
+        "hero_9": {
+          "type": "button",
+          "settings": {
+            "label": "View GVM packages",
+            "link": "#tab-1",
+            "style": "teal"
+          }
+        },
+        "hero_10": {
+          "type": "button",
+          "settings": {
+            "label": "Request a kit",
+            "link": "#tab-3",
+            "style": "ghost"
+          }
+        }
+      },
+      "block_order": [
+        "hero_1",
+        "hero_2",
+        "hero_3",
+        "hero_4",
+        "hero_5",
+        "hero_6",
+        "hero_7",
+        "hero_8",
+        "hero_9",
+        "hero_10"
+      ],
+      "settings": {
+        "style": "cutout",
+        "image_asset": "ori-hero-ram-2500-5th-cutout.webp",
+        "image_alt": "RAM 2500 HD 5th Gen with an ORI GVM upgrade",
+        "min_height": 600,
+        "heading_1": "RAM 2500 HD 5th Gen",
+        "heading_2": "2019 - 2024",
+        "pill": "2\" to 3\" packages\n5550kg GVM",
+        "heading_tag": "h1",
+        "badge_title": "NB2",
+        "badge_small": "Truck licence"
+      }
+    },
+    "ori_intro": {
+      "type": "ori-gvm-intro",
+      "settings": {
+        "badge_text": "",
+        "heading_line_1": "",
+        "heading_line_2": "",
+        "band_heading": "Unlock Your RAM 5th Gen 2500HD’s True Potential with an ORI GVM Upgrade",
+        "band_background": "#000000",
+        "band_text_color": "#56bdc2",
+        "body": "<p>The 5th Gen RAM 2500HD is undeniably one of the most capable heavy-duty trucks ever built. However, once you start loading up with heavy accessories or running a full tray and canopy conversion, Australia's strict payload limits can quickly hold you back.</p><p>That changes with an <strong>Offroad Industries (ORI) GVM upgrade</strong>.</p><p>As a Federally Approved Second Stage Manufacturer (SSM), ORI is leading the industry in GVM upgrades for the RAM 2500HD. We specialize in the critical <strong>NB1 to NB2 category pathway</strong>, delivering a massive payload increase alongside complete legal peace of mind.</p><ul><li><strong>The NB1 to NB2 Pathway:</strong> By officially reclassifying your RAM 2500HD from the NB1 to the NB2 vehicle category, our engineered upgrade safely and legally unlocks a significantly higher payload capacity for all your heavy-duty builds.</li><li><strong>Premium FOX & BDS Components:</strong> We don't just increase your load limits; we upgrade your entire ride. Our packages feature top-tier suspension components from <strong>FOX</strong> and <strong>BDS</strong>, ensuring unmatched performance, durability, and ride quality whether you're on the highway or off the grid.</li><li><strong>Pre-Rego & Post-Rego Flexibility:</strong> Whether you are upgrading a brand-new vehicle prior to its first registration (Federal compliance) or modifying a truck that is already on the road (State-based compliance), our packages are fully backed and recognized.</li></ul><p><strong>Important Note:</strong> This GVM upgrade is exclusively available for official RAM Trucks Australia delivered and converted vehicles.</p><p>Upgrade your RAM 2500 5th Gen with a package designed specifically for the platform. Experience a massive payload increase, superior suspension performance, and the confidence that your truck is 100% road-legal across Australia.</p>",
+        "disclaimer": "",
+        "style": "light",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "ori_tabs": {
+      "type": "ori-gvm-tabs",
+      "blocks": {
+        "tab_1": {
+          "type": "tab_button",
+          "settings": {
+            "label": "GVM Packages",
+            "tab_id": "tab-1"
+          }
+        },
+        "tab_2": {
+          "type": "tab_button",
+          "settings": {
+            "label": "Specifications",
+            "tab_id": "tab-2"
+          }
+        },
+        "tab_3": {
+          "type": "tab_button",
+          "settings": {
+            "label": "Request a Kit",
+            "tab_id": "tab-3"
+          }
+        }
+      },
+      "block_order": [
+        "tab_1",
+        "tab_2",
+        "tab_3"
+      ],
+      "settings": {
+        "aria_label": "GVM package sections"
+      }
+    },
+    "ori_stages": {
+      "type": "ori-gvm-stages",
+      "blocks": {
+        "stage_1": {
+          "type": "stage",
+          "settings": {
+            "label": "Stage 1",
+            "tab_meta": "5300kg · $10,499",
+            "acc_meta": "2\" Lift | Fox 2.5 | 5300 GVM · 5300kg · $10,499",
+            "image": "shopify://shop_images/STAGE_1_RAM_2500_5th_GEN_all_products.png",
+            "eyebrow": "$10,499 · Installed & engineered",
+            "title": "2\" Lift | Fox 2.5 | 5300 GVM",
+            "subtitle": "",
+            "lead": "RAM 2500 HD 5th generation 2019 - 2024. NB2 truck licence.",
+            "gvm_label": "GVM",
+            "gvm": "5300 KG | <strong>GCM:</strong> 12,695 KG | <strong>Braked Towing:</strong> 4500 KG",
+            "rows": "Payload | 1680 KG, a 90% increase on the factory 886 KG.\nLift | 2\" lift.\nIncluded | Fox 2.5 HTO Performance Series shocks, ORI load rated coils, Husky flares colour coded to suit your vehicle.\nCompliance | SSM federally approved Australia wide, Pre and Post rego only (VTA-064942).",
+            "features": "",
+            "best_for": "",
+            "benefit": "",
+            "part_numbers": "",
+            "note": "Note: Load rated wheels and tyres are required for this stage. Wheels and tyres not included.",
+            "pdf_file": "",
+            "pdf_url": "",
+            "pdf_label": "Download PDF"
+          }
+        },
+        "stage_2": {
+          "type": "stage",
+          "settings": {
+            "label": "Stage 2",
+            "tab_meta": "5550kg · $15,999",
+            "acc_meta": "2\" Lift | Fox 2.5 | 5550 GVM · 5550kg · $15,999",
+            "image": "shopify://shop_images/STAGE_2_RAM_2500_5th_GEN_all_products.png",
+            "eyebrow": "$15,999 · Installed & engineered",
+            "title": "2\" Lift | Fox 2.5 | 5550 GVM",
+            "subtitle": "",
+            "lead": "RAM 2500 HD 5th generation 2019 - 2024. NB2 truck licence.",
+            "gvm_label": "GVM",
+            "gvm": "5550 KG | <strong>GCM:</strong> 12,695 KG | <strong>Braked Towing:</strong> 4500 KG",
+            "rows": "Payload | 1661 KG, an 87.5% increase on the factory 886 KG.\nLift & Tyres | 2\" lift, 35\" tyres legal.\nIncluded | Fox 2.5 Performance Elite Series reservoir shocks, ORI load rated coils, Husky flares colour coded to suit your vehicle.\nCompliance | SSM federally approved Australia wide, Pre and Post rego only (VTA-064942).",
+            "features": "",
+            "best_for": "",
+            "benefit": "",
+            "part_numbers": "",
+            "note": "Note: Load rated wheels and tyres are required for this stage. Wheels and tyres not included.",
+            "pdf_file": "",
+            "pdf_url": "",
+            "pdf_label": "Download PDF"
+          }
+        },
+        "stage_3": {
+          "type": "stage",
+          "settings": {
+            "label": "Stage 3",
+            "tab_meta": "5550kg · $19,999",
+            "acc_meta": "3\" BDS | Fox 2.5 | 5550 GVM · 5550kg · $19,999",
+            "image": "shopify://shop_images/STAGE_3_RAM_2500_5th_GEN_all_products.png",
+            "eyebrow": "$19,999 · Installed & engineered",
+            "title": "3\" BDS | Fox 2.5 | 5550 GVM",
+            "subtitle": "",
+            "lead": "RAM 2500 HD 5th generation 2019 - 2024. NB2 truck licence.",
+            "gvm_label": "GVM",
+            "gvm": "5550 KG | <strong>GCM:</strong> 12,695 KG | <strong>Braked Towing:</strong> 4500 KG",
+            "rows": "Payload | 1655 KG, an 86.8% increase on the factory 886 KG.\nLift & Tyres | 3\" BDS lift, 35\" tyres legal.\nIncluded | Fox 2.5 Performance Elite Series reservoir shocks, BDS 3\" lift kit with radius arms, ORI load rated coils, Husky flares colour coded to suit your vehicle.\nCompliance | SSM federally approved Australia wide, Fox and BDS Suspension components, Pre and Post rego only (VTA-064942).",
+            "features": "",
+            "best_for": "",
+            "benefit": "",
+            "part_numbers": "",
+            "note": "Note: Load rated wheels and tyres are required for this stage. Wheels and tyres not included.",
+            "pdf_file": "",
+            "pdf_url": "",
+            "pdf_label": "Download PDF"
+          }
+        }
+      },
+      "block_order": [
+        "stage_1",
+        "stage_2",
+        "stage_3"
+      ],
+      "settings": {
+        "heading": "ORI GVM Package\nRAM 2500 5th Gen",
+        "intro": "",
+        "show_pdf": false,
+        "padding_top": 48,
+        "padding_bottom": 88,
+        "custom_class": "ori-panel ori-panel--1"
+      }
+    },
+    "ori_specs": {
+      "type": "ori-gvm-comparison",
+      "blocks": {
+        "row_1": {
+          "type": "row",
+          "settings": {
+            "label": "Gross Vehicle Mass (GVM)",
+            "values": "4495 KG NB1 | 5300 KG | 5550 KG | 5550 KG",
+            "highlight": false
+          }
+        },
+        "row_2": {
+          "type": "row",
+          "settings": {
+            "label": "Braked Towing Capacity (BTC)",
+            "values": "4500 KG | 4500 KG | 4500 KG | 4500 KG",
+            "highlight": false
+          }
+        },
+        "row_3": {
+          "type": "row",
+          "settings": {
+            "label": "Gross Combined Mass (GCM)",
+            "values": "12,695 KG | 12,695 KG | 12,695 KG | 12,695 KG",
+            "highlight": false
+          }
+        },
+        "row_4": {
+          "type": "row",
+          "settings": {
+            "label": "Kerb Weight",
+            "values": "3609 KG | 3620 KG | 3639 KG | 3645 KG",
+            "highlight": false
+          }
+        },
+        "row_5": {
+          "type": "row",
+          "settings": {
+            "label": "Payload (based on kerb weight)",
+            "values": "886 KG | 1680 KG | 1661 KG | 1655 KG",
+            "highlight": false
+          }
+        },
+        "row_6": {
+          "type": "row",
+          "settings": {
+            "label": "Payload Increase (%)",
+            "values": " | 90% | 87.50% | 86.80%",
+            "highlight": false
+          }
+        },
+        "row_7": {
+          "type": "row",
+          "settings": {
+            "label": "Front Axle Capacity",
+            "values": "2722 KG | 2720 KG | 2720 KG | 2720 KG",
+            "highlight": false
+          }
+        },
+        "row_8": {
+          "type": "row",
+          "settings": {
+            "label": "Rear Axle Capacity",
+            "values": "2740 KG | 2840 KG | 2840 KG | 2840 KG",
+            "highlight": false
+          }
+        },
+        "row_9": {
+          "type": "row",
+          "settings": {
+            "label": "Wheel Offsets",
+            "values": "POS 47 | Pos 18 | Pos 18 | Pos 18",
+            "highlight": false
+          }
+        },
+        "row_10": {
+          "type": "row",
+          "settings": {
+            "label": "Wheel Load Rating",
+            "values": "1587 KG | 1450 KG | 1450 KG | 1450 KG",
+            "highlight": false
+          }
+        },
+        "row_11": {
+          "type": "row",
+          "settings": {
+            "label": "Tyre Load Rating",
+            "values": "OEM | 124 Q | 124 Q | 124 Q",
+            "highlight": false
+          }
+        },
+        "row_12": {
+          "type": "row",
+          "settings": {
+            "label": "Requires Wheel/ Tyre Upgrade",
+            "values": " | ✔ | ✔ | ✔",
+            "highlight": false
+          }
+        },
+        "row_13": {
+          "type": "row",
+          "settings": {
+            "label": "Maximum Tyre Size",
+            "values": " | 35x12.5xR18, 35x12.5xR20 | 35x12.5xR18, 35x12.5xR20 | 35x12.5xR18, 35x12.5xR20",
+            "highlight": false
+          }
+        }
+      },
+      "block_order": [
+        "row_1",
+        "row_2",
+        "row_3",
+        "row_4",
+        "row_5",
+        "row_6",
+        "row_7",
+        "row_8",
+        "row_9",
+        "row_10",
+        "row_11",
+        "row_12",
+        "row_13"
+      ],
+      "settings": {
+        "heading": "RAM 2500 5th Gen\nGVM Specifications",
+        "intro": "",
+        "columns": "OEM | Stage 1 | Stage 2 | Stage 3",
+        "style": "compact",
+        "mobile": "scroll",
+        "anchor_id": "specifications",
+        "corner_label": "Specification",
+        "padding_top": 48,
+        "padding_bottom": 32,
+        "custom_class": "ori-panel ori-panel--2"
+      }
+    },
+    "ori_components": {
+      "type": "ori-gvm-comparison",
+      "blocks": {
+        "row_1": {
+          "type": "row",
+          "settings": {
+            "label": "Lift Height",
+            "values": " | 2\" | 2\" | 3\"",
+            "highlight": false
+          }
+        },
+        "row_2": {
+          "type": "row",
+          "settings": {
+            "label": "Fox 2.5 HTO Performance Series (Front)",
+            "values": "987-24-004 | ✔ |  | ",
+            "highlight": false
+          }
+        },
+        "row_3": {
+          "type": "row",
+          "settings": {
+            "label": "Fox 2.5 HTO Performance Series (Rear)",
+            "values": "987-24-005 | ✔ |  | ",
+            "highlight": false
+          }
+        },
+        "row_4": {
+          "type": "row",
+          "settings": {
+            "label": "Fox 2.5 Performance Elite Series (Front)",
+            "values": "883-26-062 |  | ✔ | ✔",
+            "highlight": false
+          }
+        },
+        "row_5": {
+          "type": "row",
+          "settings": {
+            "label": "Fox 2.5 Performance Elite Series (Rear)",
+            "values": "883-26-065 |  | ✔ | ✔",
+            "highlight": false
+          }
+        },
+        "row_6": {
+          "type": "row",
+          "settings": {
+            "label": "ORI Front Coils",
+            "values": "ORI-400H | ✔ | ✔ | ",
+            "highlight": false
+          }
+        },
+        "row_7": {
+          "type": "row",
+          "settings": {
+            "label": "ORI Rear Coils",
+            "values": "ORI-401HH | ✔ | ✔ | ✔",
+            "highlight": false
+          }
+        },
+        "row_8": {
+          "type": "row",
+          "settings": {
+            "label": "BDS 3\" Radius Arm Kit",
+            "values": "BDS1653FPE |  |  | ✔",
+            "highlight": false
+          }
+        },
+        "row_9": {
+          "type": "row",
+          "settings": {
+            "label": "Husky Extenda Flare",
+            "values": "2805931 | ✔ | ✔ | ✔",
+            "highlight": false
+          }
+        },
+        "row_10": {
+          "type": "row",
+          "settings": {
+            "label": "GVM Part Number",
+            "values": " | RAM-2500-5G-Stage1-GVM | RAM-2500-5G-Stage2-GVM | RAM-2500-5G-Stage3-GVM",
+            "highlight": false
+          }
+        },
+        "row_11": {
+          "type": "row",
+          "settings": {
+            "label": "Fox Steering Stabiliser (optional)",
+            "values": " | O | O | O",
+            "highlight": false
+          }
+        },
+        "row_12": {
+          "type": "row",
+          "settings": {
+            "label": "BDS Twin Steering Stabiliser (optional)",
+            "values": " |  |  | O",
+            "highlight": false
+          }
+        }
+      },
+      "block_order": [
+        "row_1",
+        "row_2",
+        "row_3",
+        "row_4",
+        "row_5",
+        "row_6",
+        "row_7",
+        "row_8",
+        "row_9",
+        "row_10",
+        "row_11",
+        "row_12"
+      ],
+      "settings": {
+        "heading": "",
+        "intro": "",
+        "columns": "Part Number | Stage 1 | Stage 2 | Stage 3",
+        "style": "compact",
+        "mobile": "scroll",
+        "anchor_id": "components",
+        "corner_label": "Item",
+        "padding_top": 0,
+        "padding_bottom": 88,
+        "custom_class": "ori-panel ori-panel--2"
+      }
+    },
+    "ori_quote": {
+      "type": "ori-gvm-quote",
+      "settings": {
+        "display_mode": "inline",
+        "anchor_id": "quote",
+        "eyebrow": "",
+        "heading": "GVM Enquiry? Contact Us Now",
+        "intro": "",
+        "button_label": "Send",
+        "kit_collection": "ram-2500-gvm-5th-gen-gvm",
+        "padding_top": 48,
+        "padding_bottom": 88,
+        "custom_class": "ori-panel ori-panel--3"
+      }
+    },
+    "ori_enhance": {
+      "type": "ori-product-grid",
+      "settings": {
+        "heading": "Frequently Bought With",
+        "intro": "",
+        "product_list": [
+          "addictive-desert-designs-toyota-tundra-stealth-fighter-winch-bar-2022-2025",
+          "afe-momentum-gt-orange-edition-cold-air-intake-system-toyota-tundra-limited-platinum",
+          "afe-scorcher-blue-bluetooth-power-module-to-suit-toyota-tundra-22-limited-platinum",
+          "amp-research-bedstep-toyota-tundra-limited-platinum-22",
+          "ori-toyota-tundra-roller-shutter-22",
+          "amp-research-bedstep2-toyota-tundra-limited-platinum-22",
+          "bajakits-rear-sway-bar-end-links-22-toyota-tundra",
+          "bajakits-rear-shock-guards-22-toyota-tundra",
+          "realtruck-amp-research-powerstep-vision-toyota-tundra-22",
+          "realtruck-avs-weather-shield-toyota-tundra-2022"
+        ],
+        "limit": 12,
+        "button": "cart",
+        "button_label": "",
+        "view_all_label": "",
+        "show_links": true,
+        "fine_print": "",
+        "padding_top": 72,
+        "padding_bottom": 56,
+        "custom_class": ""
+      }
+    },
+    "ori_content": {
+      "type": "ori-collection-content",
+      "settings": {
+        "eyebrow": "About the range",
+        "show_title": false,
+        "help_text": "Not sure what fits your truck? Our team can help you choose.",
+        "help_label": "Contact our team",
+        "help_link": "#tab-3",
+        "text": "<h2>RAM 2500 5th Gen GVM Upgrades — Carry More, Tow Better, Go Further</h2><p>The RAM 2500 5th Gen is one of the most capable heavy-duty trucks ever delivered to Australian shores, but its factory GVM rating can still limit what you can legally carry when you're fully kitted out with accessories, a loaded tray, and a trailer in tow. That's where an ORI GVM upgrade comes in.</p><p>A GVM upgrade isn't just a number change on paper — it's a complete engineering solution that gives your RAM 2500 the legal capacity to carry the gear you actually need, with the suspension components to back it up. Whether you're hauling tools for work, touring Australia with a heavy van, or running a tray and canopy conversion, our stage packages give you a fully certified, legal, and capable platform.</p><h2>RAM 2500 5th Gen GVM Upgrade — Compliant & Certified for Australia</h2><p>When you upgrade your RAM 2500 5th Gen's GVM with Offroad Industries, you get complete legal coverage across Australia. ORI is a Federally Approved Second Stage Manufacturer (SSM), which means your upgrade is recorded on the official Federal database — giving you true legal status whether you're registering Pre-Rego or Post-Rego.</p><p>Every package includes engineering certification and all relevant documentation. Our GVM kits use only the best components from world-leading brands including Fox Suspension and BDS, all specifically engineered and tested for the RAM 2500 5th Gen platform — nothing generic, nothing untested.</p><h2>How to Choose the Right GVM Stage for Your RAM 2500 5th Gen</h2><p>Choosing the right GVM stage comes down to what you carry, what you tow, and how much lift you want. All three 5th Gen stages hold the full 4500 KG braked towing capacity and a 12,474 KG GCM, and all three run up to 35x12.5 R18 or 35x12.5 R20 tyres.</p><p>Stage 1 takes GVM to 5300 KG for a payload of 1680 KG, a 90% increase on the factory 886 KG, on a 2 inch lift with Fox 2.5 HTO Performance Series shocks and ORI load rated coils. Stage 2 keeps the same 2 inch stance and steps up to Fox 2.5 Performance Elite Series reservoir shocks, taking GVM to 5550 KG for a payload of 1661 KG. Stage 3 runs that same 5550 KG GVM on a BDS 3 inch lift kit with radius arms to keep the front geometry correct, for a payload of 1655 KG.</p><p>All three stages require load rated wheels and tyres, and move the wheel offset from POS 47 to Pos 18, so budget for a wheel and tyre package alongside the upgrade. Not sure which stage suits you? Contact our GVM experts and we’ll help you find the right fit.</p><h2>RAM 2500 5th Gen GVM Upgrade — Compliance, Insurance & Registration</h2><p>One of the most important aspects of any GVM upgrade is compliance. All ORI GVM packages for the RAM 2500 5th Gen are engineered to meet Australian Design Rules (ADR) and are registered through our SSM approval — meaning your upgrade is legal to drive in any Australian state or territory.</p><p>Because our upgrades go through proper federal engineering channels, your vehicle remains insured and your warranty position is clearly documented. We handle the paperwork and certification so you can focus on the road ahead. If you have questions about the process, our team is happy to walk you through exactly what's involved.</p><h2>Why Choose ORI for Your RAM 2500 5th Gen GVM Upgrade?</h2><p>Offroad Industries has engineered GVM upgrade systems for some of Australia's most demanding drivers across some of the country's harshest terrain. Our RAM 2500 5th Gen packages were developed specifically for this platform — not adapted from another vehicle — with components tested under Australian conditions.</p><p>With Fox Suspension and BDS as our key partners, every stage delivers premium ride quality, long-term durability, and genuine compliance. From installation and engineering through to certification and handover, ORI takes care of everything. Explore the package range above or get in touch with our team to start your upgrade journey.</p>",
+        "collapse": true,
+        "collapsed_height": 420,
+        "more_label": "Read more",
+        "less_label": "Read less",
+        "tinted": true,
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "ori_suspension": {
+      "type": "ori-brand-bar",
+      "blocks": {
+        "brand_1": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/ICONS_FOR_WEBSITE_FOX.png",
+            "collection": "fox-suspension",
+            "link": "",
+            "title": "Fox",
+            "zoom": 160
+          }
+        },
+        "brand_2": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/ICONS_FOR_WEBSITE_BDS.png",
+            "collection": "bds-suspension-australian-distributor",
+            "link": "",
+            "title": "BDS Suspension",
+            "zoom": 130
+          }
+        },
+        "brand_3": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/ICONS_FOR_WEBSITE_BUSHWACKER.png",
+            "collection": "bushwacker",
+            "link": "",
+            "title": "Bushwacker",
+            "zoom": 260
+          }
+        },
+        "brand_4": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/peak_final-copy-small.jpg",
+            "collection": "peak-suspension",
+            "link": "",
+            "title": "Peak",
+            "zoom": 100
+          }
+        }
+      },
+      "block_order": [
+        "brand_1",
+        "brand_2",
+        "brand_3",
+        "brand_4"
+      ],
+      "settings": {
+        "heading": "ORI's Suspension Collection",
+        "text": "",
+        "show_names": false,
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    }
+  },
+  "order": [
+    "ori_hero",
+    "ori_intro",
+    "ori_tabs",
+    "ori_stages",
+    "ori_specs",
+    "ori_components",
+    "ori_quote",
+    "ori_enhance",
+    "ori_content",
+    "ori_suspension"
+  ]
+}
