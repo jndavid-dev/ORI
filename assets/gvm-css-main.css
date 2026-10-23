@@ -2169,7 +2169,7 @@
 
 /* --- Light style (public GVM package pages, under a dark hero) ---
    ≥1025px: heading full width with a teal rule; body copy in two
-   balanced columns (lists are never split across them);
+   balanced columns (bullets are never split across them);
    fine print full width under a hairline.
    ≤1024px: one column — two would be too narrow to read. */
 .ori-intro--light {
@@ -2208,8 +2208,16 @@
   margin: 0;
 }
 
-.ori-intro--light .ori-rte > :is(ul, ol) {
+/* Bullets stay whole, but a list may continue in the next column — keeping
+   the whole list together left the RAM 5th Gen left column half empty. */
+.ori-intro--light .ori-rte li {
   break-inside: avoid;
+}
+
+/* A heading in the body (RAM 5th Gen) never ends a column on its own. */
+.ori-intro--light .ori-rte > :is(h2, h3, h4) {
+  break-inside: avoid;
+  break-after: avoid;
 }
 
 .ori-intro--light .ori-fine {
@@ -12986,4 +12994,14 @@ body .sticky-atc-bar .f-price-item--regular s {
   .ori-wheel__spec dd {
     text-align: left;
   }
+}
+
+/* ==========================================================
+   ORI REDESIGN — HERO: BALANCED HEADING LINES
+   A long first line ("RAM 2500 HD 5th Gen" at 360px) wrapped with one
+   word alone ("GEN"). Balancing evens the wrapped lines; headings that
+   fit on one line are unchanged. Browsers without support ignore it.
+   ========================================================== */
+.ori .ori-hero__title {
+  text-wrap: balance;
 }
