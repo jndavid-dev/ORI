@@ -7,10 +7,13 @@
   hub can switch to this without re-entering content. The heading is an
   H2 because the hero above carries the page's H1. With no badge, heading
   or trust points the head row is skipped and the section opens on the band.
+  Style "Light" (public package pages, under a dark hero): the band heading
+  becomes a plain heading with a teal rule, the body runs in two balanced
+  columns and the fine print sits full width underneath.
 {%- endcomment -%}
 
 <div
-  class="ori ori-intro"
+  class="ori ori-intro{% if section.settings.style == 'light' %} ori-intro--light{% endif %}"
   style="
     --ori-pt: {{ section.settings.padding_top }}px;
     --ori-pb: {{ section.settings.padding_bottom }}px;
@@ -99,6 +102,17 @@
       "type": "text",
       "id": "band_heading",
       "label": "Band heading"
+    },
+    {
+      "type": "select",
+      "id": "style",
+      "label": "Style",
+      "options": [
+        { "value": "band", "label": "Dark band (GVM hub)" },
+        { "value": "light", "label": "Light, two-column body" }
+      ],
+      "default": "band",
+      "info": "Light suits a page whose hero is already dark. Band colours apply to Dark band only."
     },
     {
       "type": "color",

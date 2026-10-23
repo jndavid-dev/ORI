@@ -2167,6 +2167,65 @@
   }
 }
 
+/* --- Light style (public GVM package pages, under a dark hero) ---
+   ≥1025px: heading full width with a teal rule; body copy in two
+   balanced columns (lists are never split across them);
+   fine print full width under a hairline.
+   ≤1024px: one column — two would be too narrow to read. */
+.ori-intro--light {
+  background: var(--ori-paper);
+}
+
+.ori-intro--light .ori-band {
+  background: none;
+  color: var(--ori-ink);
+}
+
+.ori.ori-intro--light .ori-band__title {
+  max-width: 1040px;
+  padding: 0;
+  font-size: clamp(30px, 3.4vw, 48px);
+  line-height: 1;
+}
+
+.ori-intro--light .ori-band__title::after {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 4px;
+  margin-top: 22px;
+  background: var(--ori-teal);
+}
+
+.ori-intro--light .ori-intro__body {
+  display: block;
+  padding: 32px 0 var(--ori-pb, 64px);
+}
+
+/* The default-page block caps every .ori-rte at 760px, centred. */
+.ori-intro--light .ori-intro__body .ori-rte {
+  max-width: none;
+  margin: 0;
+}
+
+.ori-intro--light .ori-rte > :is(ul, ol) {
+  break-inside: avoid;
+}
+
+.ori-intro--light .ori-fine {
+  margin-top: 28px;
+  padding: 18px 0 0;
+  border-top: 1px solid var(--ori-line);
+  border-left: 0;
+}
+
+@media (min-width: 1025px) {
+  .ori-intro--light .ori-intro__body .ori-rte {
+    column-count: 2;
+    column-gap: 64px;
+  }
+}
+
 /* ==========================================================
    ORI REDESIGN — HUB TABS (sections/ori-gvm-tabs.liquid,
    assets/ori-gvm-tabs.js)

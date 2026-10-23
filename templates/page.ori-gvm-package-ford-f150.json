@@ -1,0 +1,751 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "ori_hero": {
+      "type": "ori-hero",
+      "blocks": {
+        "hero_1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__ORI.jpg",
+            "alt": "ORI"
+          }
+        },
+        "hero_2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__FOX.jpg",
+            "alt": "Fox"
+          }
+        },
+        "hero_3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__BDS.jpg",
+            "alt": "BDS Suspension"
+          }
+        },
+        "hero_4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__HUSKY_LINERS.jpg",
+            "alt": "Husky Liners"
+          }
+        },
+        "hero_5": {
+          "type": "feature",
+          "settings": {
+            "icon": "shield",
+            "text": "SSM federally approved\nAustralia wide"
+          }
+        },
+        "hero_6": {
+          "type": "feature",
+          "settings": {
+            "icon": "suspension",
+            "text": "Fox & BDS suspension\ncomponents"
+          }
+        },
+        "hero_7": {
+          "type": "feature",
+          "settings": {
+            "icon": "clipboard",
+            "text": "Pre-rego only"
+          }
+        },
+        "hero_8": {
+          "type": "feature",
+          "settings": {
+            "icon": "tyre",
+            "text": "35\" | 37\" tyres legal"
+          }
+        },
+        "hero_9": {
+          "type": "button",
+          "settings": {
+            "label": "View GVM packages",
+            "link": "#tab-1",
+            "style": "teal"
+          }
+        },
+        "hero_10": {
+          "type": "button",
+          "settings": {
+            "label": "Request a kit",
+            "link": "#tab-3",
+            "style": "ghost"
+          }
+        }
+      },
+      "block_order": [
+        "hero_1",
+        "hero_2",
+        "hero_3",
+        "hero_4",
+        "hero_5",
+        "hero_6",
+        "hero_7",
+        "hero_8",
+        "hero_9",
+        "hero_10"
+      ],
+      "settings": {
+        "style": "cutout",
+        "image_asset": "ori-hero-gvm-hub-f150.webp",
+        "image_alt": "Ford F150 with an ORI GVM upgrade",
+        "min_height": 600,
+        "heading_1": "Ford F150",
+        "heading_2": "Platinum, Lariat, XLT",
+        "pill": "2\" to 6\" packages\nGVM & GCM upgrades",
+        "heading_tag": "h1",
+        "badge_title": "NB1",
+        "badge_small": "Car licence"
+      }
+    },
+    "ori_intro": {
+      "type": "ori-gvm-intro",
+      "settings": {
+        "badge_text": "",
+        "heading_line_1": "",
+        "heading_line_2": "",
+        "band_heading": "Unleash the Full Potential of Your Ford F150 in Australia 2021 - 2026",
+        "band_background": "#000000",
+        "band_text_color": "#56bdc2",
+        "body": "<p>Stop worrying about weight limits and start adventuring with absolute confidence. Offroad Industries (ORI) offers Australia’s most comprehensive, Federally Approved GVM (Gross Vehicle Mass) upgrades for the Ford F150 range—including Platinum, Lariat, XLT SWB, and LWB models with lift kits ranging from 2” to our monster 6” package with 37” tyres.</p><p>By bundling our ORI GVM Packages with GCM testing and LS16 certification, we grant your truck true \"Super-Truck\" status. The LS16 code is our secret sauce: a specific engineering modification code for Gross Combination Mass Re-rating. This ensures your truck, your gear, and your 4.5T trailer are 100% legal together, whether registered Pre-Rego (Federal) or Post-Rego (State-based).</p><p>ORI SSM approval only apply to Ford Australia Delivered vehicles, Ford F150, SWB, LWB Platinum, Lariat, XLT vehicles.</p><p><strong>* Please also note that for the F-150 Platinum, additional fitting fees will apply. The factory electric side steps extend beyond the cab and will require modification (shortening) by our workshop to accommodate the installation of fender flares.</strong></p><p><strong>*** Attention Ford F150 Platinum Owners ***</strong></p><p>Struggling to get your drive modes working? Because Forscan programming isn't supported by all workshops, ORI is now offering a dedicated ECU Module to handle the job perfectly. This elegant, plug-and-play solution ensures your F150 Platinum's drive modes function flawlessly and is available moving forward for an additional $1,499 for any GVM package.</p>",
+        "disclaimer": "<p>*Please note that some workshops may apply additional discretionary administration fees to the quoted installation and engineering price. Additionally, all Post-Registration GVM upgrades will incur additional local fees. Shipping is not included in the price.</p>",
+        "style": "light",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "ori_tabs": {
+      "type": "ori-gvm-tabs",
+      "blocks": {
+        "tab_1": {
+          "type": "tab_button",
+          "settings": {
+            "label": "GVM Packages",
+            "tab_id": "tab-1"
+          }
+        },
+        "tab_2": {
+          "type": "tab_button",
+          "settings": {
+            "label": "Specifications",
+            "tab_id": "tab-2"
+          }
+        },
+        "tab_3": {
+          "type": "tab_button",
+          "settings": {
+            "label": "Request a Kit",
+            "tab_id": "tab-3"
+          }
+        }
+      },
+      "block_order": [
+        "tab_1",
+        "tab_2",
+        "tab_3"
+      ],
+      "settings": {
+        "aria_label": "GVM package sections"
+      }
+    },
+    "ori_stages": {
+      "type": "ori-gvm-stages",
+      "blocks": {
+        "stage_1": {
+          "type": "stage",
+          "settings": {
+            "label": "Stage 1",
+            "tab_meta": "3700kg · $11,999*",
+            "acc_meta": "The Weekender Family Getaway · 3700kg · $11,999*",
+            "image": "shopify://shop_images/STAGE_1_FORD_F150_all_products.png",
+            "eyebrow": "$11,999* · Installed & engineered",
+            "title": "The Weekender Family Getaway",
+            "subtitle": "",
+            "lead": "The perfect entry point for a legal payload boost without the need for aftermarket wheels.",
+            "gvm_label": "GVM rating",
+            "gvm": "3700 KG (Approx. 1224 KG payload) | <strong>GCM:</strong> 8200 KG",
+            "features": "New Fox 2.5 Performance Series HTO shocks, ORI 200 KG heavy-duty leaf packs, and heavy-duty BDS Control Arms.",
+            "best_for": "Daily drivers and light touring. Ideal for owners needing to clear the \"one-tonne\" mark for ATO Tax Compliance while keeping their factory wheels.",
+            "benefit": "",
+            "part_numbers": "<p>FRD-F150-Stage1-GVM</p>",
+            "note": "",
+            "pdf_file": "",
+            "pdf_url": "",
+            "pdf_label": "Download PDF"
+          }
+        },
+        "stage_2": {
+          "type": "stage",
+          "settings": {
+            "label": "Stage 2",
+            "tab_meta": "3700kg · $15,499*",
+            "acc_meta": "The Performance Level-Up · 3700kg · $15,499*",
+            "image": "shopify://shop_images/STAGE_2_FORD_F150_all_products.png",
+            "eyebrow": "$15,499* · Installed & engineered",
+            "title": "The Performance Level-Up",
+            "subtitle": "",
+            "lead": "Increased strength and a legal one-tonne payload, upgrading to Fox 2.5 DSC suspension while retaining OE wheels and tyres.",
+            "gvm_label": "GVM rating",
+            "gvm": "3700 KG (Approx. 1224 KG payload) | <strong>GCM:</strong> 8200 KG (Retains 4.5T towing)",
+            "features": "Fox 2.5 Performance Elite Suspension, ORI 200 KG heavy-duty leaf packs, and heavy-duty BDS Control Arms.",
+            "best_for": "4WD tourers who drive long distances on corrugated roads, heavily loaded with a bull bar and high tow-ball weight. Perfect for maximising performance without upgrading wheels or tyres.",
+            "benefit": "",
+            "part_numbers": "<p>FRD-F150-Stage2-GVM</p>",
+            "note": "",
+            "pdf_file": "",
+            "pdf_url": "",
+            "pdf_label": "Download PDF"
+          }
+        },
+        "stage_3": {
+          "type": "stage",
+          "settings": {
+            "label": "Stage 3",
+            "tab_meta": "4300kg · $16,999*",
+            "acc_meta": "The Heavy Hauler · 4300kg · $16,999*",
+            "image": "shopify://shop_images/STAGE_3_FORD_F150_all_products.png",
+            "eyebrow": "$16,999* · Installed & engineered",
+            "title": "The Heavy Hauler",
+            "subtitle": "",
+            "lead": "Maximum legal capacity for the most demanding builds. Ideal for Tray & Canopy conversions, legally delivering a huge GVM with 4.5T towing capacity.",
+            "gvm_label": "GVM rating",
+            "gvm": "4300 KG (Approx. 1819 KG payload) | <strong>GCM:</strong> 8800 KG",
+            "features": "Fox 2.5 Performance Elite suspension, ORI 200 and or 400 KG leaf packs, and will be re required to source load-rated wheels & tyres specifications listed below.",
+            "best_for": "Fully built rigs with rear drawer systems, rooftop tents, long-range tanks, or heavy permanent canopies.",
+            "benefit": "",
+            "part_numbers": "<p>200 KG Leaf Pack: FRD-F150-Stage3-GVM-200</p><p>400 KG Leaf Pack: FRD-F150-Stage3-GVM-400</p>",
+            "note": "",
+            "pdf_file": "",
+            "pdf_url": "",
+            "pdf_label": "Download PDF"
+          }
+        },
+        "stage_4": {
+          "type": "stage",
+          "settings": {
+            "label": "Stage 4",
+            "tab_meta": "4300kg · $26,999*",
+            "acc_meta": "The \"No Compromise\" Build · 4300kg · $26,999*",
+            "image": "shopify://shop_images/STAGE_4_FORD_F150_all_products.png",
+            "eyebrow": "$26,999* · Installed & engineered",
+            "title": "The \"No Compromise\" Build",
+            "subtitle": "",
+            "lead": "The absolute peak Ford F150 powerhouse in Australia.",
+            "gvm_label": "GVM rating",
+            "gvm": "4300 KG (Approx. 1819 KG payload) | <strong>GCM:</strong> 8800 KG",
+            "features": "Fox 3.0 Internal Bypass Race Series Shocks (Front & Rear).",
+            "best_for": "The enthusiast who demands race-bred technology combined with maximum legal payload.",
+            "benefit": "",
+            "part_numbers": "<p>200 KG Leaf Pack: FRD-F150-Stage4-GVM-200</p><p>400 KG Leaf Pack: FRD-F150-Stage4-GVM-400</p>",
+            "note": "",
+            "pdf_file": "",
+            "pdf_url": "",
+            "pdf_label": "Download PDF"
+          }
+        },
+        "stage_5": {
+          "type": "stage",
+          "settings": {
+            "label": "Stage 5",
+            "tab_meta": "4000kg · $24,999*",
+            "acc_meta": "The \"Lifted & Loaded\" · 4000kg · $24,999*",
+            "image": "shopify://shop_images/STAGE_5_FORD_F150_all_products.png",
+            "eyebrow": "$24,999* · Installed & engineered · XLT, Lariat, Platinum",
+            "title": "The \"Lifted & Loaded\" (4-Inch Lift)",
+            "subtitle": "",
+            "lead": "For drivers wanting a commanding stance and bigger tyres—100% legal Australia-wide (Pre-Rego only).",
+            "gvm_label": "GVM rating",
+            "gvm": "4000 KG (Approx. 1519 KG payload) | <strong>GCM:</strong> 8500 KG",
+            "features": "Fox 2.5 Performance Elite with BDS Lift Kit Technology (4-Inch Suspension Lift).",
+            "best_for": "Enthusiasts who want the functionality of a huge GVM and maximum legal payload, while retaining a 4.5T towing capacity and a massive on-road presence.",
+            "benefit": "",
+            "part_numbers": "<p>200 KG Leaf Pack: FRD-F150-Stage5-GVM-200</p><p>400 KG Leaf Pack: FRD-F150-Stage5-GVM-400</p>",
+            "note": "",
+            "pdf_file": "",
+            "pdf_url": "",
+            "pdf_label": "Download PDF"
+          }
+        },
+        "stage_6": {
+          "type": "stage",
+          "settings": {
+            "label": "Stage 6",
+            "tab_meta": "3700kg · $24,999*",
+            "acc_meta": "The \"Monster\" Build · 3700kg · $24,999*",
+            "image": "shopify://shop_images/STAGE_6_FORD_F150_all_products.png",
+            "eyebrow": "$24,999* · Installed & engineered · Platinum, Lariat, XLT",
+            "title": "The \"Monster\" Build (6-Inch Lift)",
+            "subtitle": "",
+            "lead": "Ever wondered how these monsters get around legally? ORI Stage 6 makes the dream a reality.",
+            "gvm_label": "GVM rating",
+            "gvm": "3700 KG (Approx. 1219 KG payload) | <strong>GCM:</strong> 8200 KG",
+            "features": "Fox 2.5 Performance Elite with BDS Lift Kit Technology (6-Inch Suspension Lift for 37\" Tyres).",
+            "best_for": "The hardcore enthusiast who demands an absolute monster of a truck that still delivers heavy-duty payload and 4.5T towing capacity.",
+            "benefit": "",
+            "part_numbers": "<p>FRD-F150-Stage6-GVM</p>",
+            "note": "",
+            "pdf_file": "",
+            "pdf_url": "",
+            "pdf_label": "Download PDF"
+          }
+        }
+      },
+      "block_order": [
+        "stage_1",
+        "stage_2",
+        "stage_3",
+        "stage_4",
+        "stage_5",
+        "stage_6"
+      ],
+      "settings": {
+        "heading": "ORI GVM Package\nFord F150",
+        "intro": "",
+        "show_pdf": false,
+        "padding_top": 48,
+        "padding_bottom": 88,
+        "custom_class": "ori-panel ori-panel--1"
+      }
+    },
+    "ori_specs": {
+      "type": "ori-gvm-comparison",
+      "blocks": {
+        "row_1": {
+          "type": "row",
+          "settings": {
+            "label": "Gross Vehicle Mass (GVM)",
+            "values": "3220 KG | 3700 KG | 3700 KG | 4300 KG | 4300 KG | 4000 KG | 3700 KG",
+            "highlight": false
+          }
+        },
+        "row_2": {
+          "type": "row",
+          "settings": {
+            "label": "Braked Towing Capacity (BTC)",
+            "values": "4500 KG | 4500 KG | 4500 KG | 4500 KG | 4500 KG | 4500 KG | 4500 KG",
+            "highlight": false
+          }
+        },
+        "row_3": {
+          "type": "row",
+          "settings": {
+            "label": "Gross Combined Mass (GCM)",
+            "values": "7720 KG | 8200 KG | 8200 KG | 8800 KG | 8800 KG | 8500 KG | 7720 KG",
+            "highlight": false
+          }
+        },
+        "row_4": {
+          "type": "row",
+          "settings": {
+            "label": "Kerb Weight",
+            "values": "2451 KG | 2476 KG | 2481 KG | 2481 KG | 2481 KG | 2491 KG | 2491 KG",
+            "highlight": false
+          }
+        },
+        "row_5": {
+          "type": "row",
+          "settings": {
+            "label": "Payload (bases on kerb weight)",
+            "values": "769 KG | 1224 KG | 1219 KG | 1819 KG | 1819 KG | 1509 KG | 1209 KG",
+            "highlight": false
+          }
+        },
+        "row_6": {
+          "type": "row",
+          "settings": {
+            "label": "Payload Increase (%)",
+            "values": "0% | 59.18% | 58.52 % | 136.54% | 136.54% | 96.22% | 57.52 %",
+            "highlight": false
+          }
+        },
+        "row_7": {
+          "type": "row",
+          "settings": {
+            "label": "Front Axle Capacity",
+            "values": "1565 KG | 1700 KG | 1700 KG | 1850 KG | 1850 KG | 1700 KG | 1700 KG",
+            "highlight": false
+          }
+        },
+        "row_8": {
+          "type": "row",
+          "settings": {
+            "label": "Rear Axle Capacity",
+            "values": "1565 KG | 2000 KG | 2000 KG | 2450 KG | 2450 KG | 2300 KG | 2000 KG",
+            "highlight": false
+          }
+        },
+        "row_9": {
+          "type": "row",
+          "settings": {
+            "label": "Wheel Offsets",
+            "values": "44 | 44 | 44 | 35 30 25 18 12 0 | 35 30 25 18 12 0 | Pos 18 12 | Pos 18 12",
+            "highlight": false
+          }
+        },
+        "row_10": {
+          "type": "row",
+          "settings": {
+            "label": "Wheel Load Rating",
+            "values": "1050 KG | 1050 KG | 1074.5 KG | 1250 KG | 1250 KG | 1250 KG | 1200.0 KG",
+            "highlight": false
+          }
+        },
+        "row_11": {
+          "type": "row",
+          "settings": {
+            "label": "Minimum Tyre Rating",
+            "values": "1050 KG | 110 Q | 110 Q | 116 Q | 116 Q | 116 Q | 116 Q",
+            "highlight": false
+          }
+        },
+        "row_12": {
+          "type": "row",
+          "settings": {
+            "label": "Requires Wheel/ Tyre Upgrade",
+            "values": "OEM | OEM | OEM | ✔ | ✔ | ✔ | ✔",
+            "highlight": false
+          }
+        },
+        "row_13": {
+          "type": "row",
+          "settings": {
+            "label": "Maximum Tyre Size",
+            "values": "275/60 R20 | 275/60 R20 | 275/60 R20 | 35x12.5xR18, 35x12.5xR20 | 35x12.5xR18, 35x12.5xR20 | 35x12.5xR18, 35x12.5xR20 | 37x13.5xR18, 37x13.5xR20",
+            "highlight": false
+          }
+        }
+      },
+      "block_order": [
+        "row_1",
+        "row_2",
+        "row_3",
+        "row_4",
+        "row_5",
+        "row_6",
+        "row_7",
+        "row_8",
+        "row_9",
+        "row_10",
+        "row_11",
+        "row_12",
+        "row_13"
+      ],
+      "settings": {
+        "heading": "Ford F150, Platinum,\nLariat, XLT Specs",
+        "intro": "Note: Tare weight is based off SWB XLT, other variants Lariat, Platinum models have different weight which will give different % increases below. If you want a specific KG increase please contact us.",
+        "columns": "OEM | Stage 1 | Stage 2 | Stage 3 | Stage 4 | Stage 5 | Stage 6",
+        "style": "compact",
+        "mobile": "scroll",
+        "anchor_id": "specifications",
+        "corner_label": "Specification",
+        "padding_top": 48,
+        "padding_bottom": 32,
+        "custom_class": "ori-panel ori-panel--2"
+      }
+    },
+    "ori_components": {
+      "type": "ori-gvm-comparison",
+      "blocks": {
+        "row_1": {
+          "type": "row",
+          "settings": {
+            "label": "Lift Size",
+            "values": " | 2.5\" | 2\" | 2\" | 2.5 | 4\" | 6\"",
+            "highlight": false
+          }
+        },
+        "row_2": {
+          "type": "row",
+          "settings": {
+            "label": "Fox Performance Series 2.5 Coilovers (Front)",
+            "values": "987-02-013 | ✔ |  |  |  |  | ",
+            "highlight": false
+          }
+        },
+        "row_3": {
+          "type": "row",
+          "settings": {
+            "label": "Fox Performance Series 2.5 Shock (Rear)",
+            "values": "987-24-065 | ✔ |  |  |  |  | ",
+            "highlight": false
+          }
+        },
+        "row_4": {
+          "type": "row",
+          "settings": {
+            "label": "Fox Performance Elite Series 2.5 Coil-Over (Front)",
+            "values": "883-06-199 |  | ✔ | ✔ |  |  | ",
+            "highlight": false
+          }
+        },
+        "row_5": {
+          "type": "row",
+          "settings": {
+            "label": "Fox Performance Elite Series 2.5 Shock (Rear)",
+            "values": "883-26-122 |  | ✔ | ✔ |  |  | ",
+            "highlight": false
+          }
+        },
+        "row_6": {
+          "type": "row",
+          "settings": {
+            "label": "Fox Bypass Race Series Shock 3.0 Coilover (Front)",
+            "values": "883-06-191 |  |  |  | ✔ |  | ",
+            "highlight": false
+          }
+        },
+        "row_7": {
+          "type": "row",
+          "settings": {
+            "label": "Fox Bypass Race Series 3.0 Shock (Rear)",
+            "values": "883-26-121 |  |  |  | ✔ |  | ",
+            "highlight": false
+          }
+        },
+        "row_8": {
+          "type": "row",
+          "settings": {
+            "label": "BDS Upper Control Arms",
+            "values": "BDS123262 | ✔ | ✔ | ✔ | ✔ | ✔ | ✔",
+            "highlight": false
+          }
+        },
+        "row_9": {
+          "type": "row",
+          "settings": {
+            "label": "BDS 4\" Suspension Kit with Fox 2.5 Performance Elite",
+            "values": "BDS1584FPE |  |  |  |  | ✔ | ",
+            "highlight": false
+          }
+        },
+        "row_10": {
+          "type": "row",
+          "settings": {
+            "label": "BDS 6\" Suspension Kit with Fox 2.5 Performance Elite",
+            "values": "BDS1585FPE |  |  |  |  |  | ✔",
+            "highlight": false
+          }
+        },
+        "row_11": {
+          "type": "row",
+          "settings": {
+            "label": "Cat 6 Indicators *SWB Only",
+            "values": "77ACM2 | ✔ | ✔ | ✔ | ✔ | ✔ | ✔",
+            "highlight": false
+          }
+        },
+        "row_12": {
+          "type": "row",
+          "settings": {
+            "label": "Husky Extenda Flare",
+            "values": "2802964 |  |  | o | o | ✔ | ✔",
+            "highlight": false
+          }
+        },
+        "row_13": {
+          "type": "row",
+          "settings": {
+            "label": "ORI 200 KG Leaf Packs",
+            "values": "ORI-FRD-200KG | ✔ | ✔ | ✔ | ✔ | ✔ | ✔",
+            "highlight": false
+          }
+        },
+        "row_14": {
+          "type": "row",
+          "settings": {
+            "label": "ORI 400 KG Leaf Packs",
+            "values": "ORI-FRD-400KG |  |  | ✔ | ✔ | ✔ | ",
+            "highlight": false
+          }
+        },
+        "row_15": {
+          "type": "row",
+          "settings": {
+            "label": "ORI Mud Flaps & Brackets (Front & Rear)",
+            "values": "ORI-MUD-F150-BRK |  |  | ✔ | ✔ | ✔ | ✔",
+            "highlight": false
+          }
+        },
+        "row_16": {
+          "type": "row",
+          "settings": {
+            "label": "GVM Part Numbers",
+            "values": " | FRD-F150-Stage1-GVM | FRD-F150-Stage2-GVM | FRD-F150-Stage3-GVM-200, FRD-F150-Stage3-GVM-400 | FRD-F150-Stage4-GVM-200, FRD-F150-Stage4-GVM-400 | FRD-F150-Stage5-GVM-200, FRD-F150-Stage5-GVM-400 | FRD-F150-Stage6-GVM",
+            "highlight": false
+          }
+        }
+      },
+      "block_order": [
+        "row_1",
+        "row_2",
+        "row_3",
+        "row_4",
+        "row_5",
+        "row_6",
+        "row_7",
+        "row_8",
+        "row_9",
+        "row_10",
+        "row_11",
+        "row_12",
+        "row_13",
+        "row_14",
+        "row_15",
+        "row_16"
+      ],
+      "settings": {
+        "heading": "",
+        "intro": "",
+        "columns": "Part Number | Stage 1 | Stage 2 | Stage 3 | Stage 4 | Stage 5 | Stage 6",
+        "style": "compact",
+        "mobile": "scroll",
+        "anchor_id": "components",
+        "corner_label": "Item",
+        "padding_top": 0,
+        "padding_bottom": 88,
+        "custom_class": "ori-panel ori-panel--2"
+      }
+    },
+    "ori_quote": {
+      "type": "ori-gvm-quote",
+      "settings": {
+        "display_mode": "inline",
+        "anchor_id": "quote",
+        "eyebrow": "",
+        "heading": "GVM Enquiry? Contact us Now",
+        "intro": "",
+        "button_label": "Send",
+        "kit_collection": "ford-f150-platinum-lariat-xlt-gvm-upgrade",
+        "padding_top": 48,
+        "padding_bottom": 88,
+        "custom_class": "ori-panel ori-panel--3"
+      }
+    },
+    "ori_enhance": {
+      "type": "ori-product-grid",
+      "settings": {
+        "heading": "Frequently Bought With",
+        "intro": "",
+        "product_list": [
+          "amp-research-power-step-ford-f150-2021",
+          "recoil-traction-bar-kit-ford-f150-21-23",
+          "ori-electronic-roller-shutter-ford-f150-2015-2022",
+          "addoffroad-ford-f-150-raptor-add-high-mount-intercooler-upgrade-kit-by-afe",
+          "addictive-desert-designs-ford-f150-stealth-bar",
+          "addictive-desert-designs-ford-f-150-stealth-fighter-21-23",
+          "avs-weather-shields-ford-f150",
+          "husky-liners-weatherbeater-floor-liners-ford-f150-2021"
+        ],
+        "limit": 12,
+        "button": "cart",
+        "button_label": "",
+        "view_all_label": "",
+        "show_links": true,
+        "fine_print": "",
+        "padding_top": 72,
+        "padding_bottom": 56,
+        "custom_class": ""
+      }
+    },
+    "ori_content": {
+      "type": "ori-collection-content",
+      "settings": {
+        "eyebrow": "About the range",
+        "show_title": false,
+        "help_text": "Not sure what fits your truck? Our team can help you choose.",
+        "help_label": "Contact our team",
+        "help_link": "#tab-3",
+        "text": "<h2>Ford F-150 GVM Upgrades – Enhance Your Vehicle’s Capability</h2><p>If you own a Ford F150, you already know they’re made for serious work and play. They’ve got an impressive setup and are ideal for offroading, but if you’re finding your adventures are stretching the capabilities of your truck, a Ford F150 GVM upgrade might be what you need. When you want to go beyond what the factory settings offer you, whether that’s because you’ve stacked on a few extras like bulls bars and <a href=\"/collections/winches-recovery-accessories\">winches</a> or need to throw a trailer on the back to haul your boat, you’ll need more payload.</p><p>When you get a professionally engineered GVM upgrade, there’s a whole lot of benefits and depending on the stage you opt for, you can improve anything from the payload you can haul to the ground clearance of your Ford. You can load up, head out, and take everything with you knowing that you have the power and support you need to get there without compromising control or the structure of your vehicle.</p><p>Our packages include top-quality aftermarket components spanning <a href=\"/collections/suspension\">suspension kits</a> and coils to rugged control arms, ensuring you get something road-safe, legal, and powerful. Explore the Ford F150 GVM upgrade range today and find the best option for your needs, or <a href=\"/pages/contact-us\">contact us</a> for a personal recommendation.</p><h2>Ford F-150 GVM Upgrade Options for Australian Conditions</h2><p>Australia is a diverse country with unique landscapes and driving conditions, especially when you’re heading off the beaten path. Between long highway distances, dry and dusty outback tracks, salty coastal trails and the intense heat or blistering cold, there’s a lot you need to be able to navigate. When you’re heading out, you need all the appropriate gear with you, which is where that extra hauling potential and rugged aftermarket parts come in.</p><p>Our range was made for extremes, both in terms of terrain but also when it comes to payload potential. With parts from top brands including the likes of <a href=\"/collections/bds-suspension-australian-distributor\">BDS</a> and <a href=\"/collections/fox-suspension\">Fox</a>, the suspension, coil-overs, control arms, and shocks are all rugged enough to handle everything you and our unique conditions throw their way.</p><p>No matter whether you want to load up a caravan and do a lap of Australia, take the boat to the coast on the trailer, or need something heavy-duty for the farm with a winch in tow, the right GVM upgrade helps. It ensures your vehicle stays balanced, stable and capable under load, no matter where the journey takes you.</p><h2>How to Upgrade GVM on a Ford F-150 in Australia</h2><p>When it comes to a comprehensive, effective, and street-legal Ford F150 GVM upgrade, it takes more than just some new shocks. You need a fully engineered upgrade that supports the frame, boosts your ground clearance, and supports a smooth ride and handling even when you’re at maximum capacity. At ORI, we’ve done all the hard work and have put together kits that are compatible with your Ford F150, making it easy to find the package that works for you.</p><p>When you order from us, the cost includes engineering and installation, making it easy to get things done properly. From there, you just need the relevant paperwork to show you’re compliant with the local regulations and you’re ready to head out and tackle your next big adventure.</p><h2>Ford F-150 GVM Upgrade Packages and Compliance Info</h2><p>As with any form of upgrade, when it comes to something as serious as changing the structure and legal payload, there are strict engineering and compliance requirements when you get a <a href=\"/pages/ori-gvm-upgrades\">GVM upgrade</a>. Most professionally engineered systems, like the ones you’ll find here at Offroad Industries, are approved through recognised compliance schemes and come with certification and you’ll also need to get documentation after installation has been completed.</p><p>This ensures that your Ford F150 GVM upgrade is compliant with Australian Design Rules and state registration requirements, while also protecting insurance and warranty considerations.</p><h2>Your Guide to Ford F-150 GVM Australia Upgrades and Benefits</h2><p>There’s no shortage of benefits when you get a Ford F150 GVM upgrade. Along with personalising the look and feel of your truck, you’re also maximising its potential while still maintaining the road safety, control, and comfort you’d expect from your vehicle.</p><p>Increasing the payload with ORI can give you anywhere up to a 136% increase in how much weight you can take with you. Whether you want to load up with a <a href=\"/collections/titan-fuel-tanks\">long range fuel tank</a> for those remote journeys, need to be able to attach a caravan for family trips, or put all your gear for work in the tub, you can do it all with Offroad Industries. With the right setup, your Ford F150 becomes a properly engineered platform for towing, touring and tackling Australia’s toughest conditions.</p>",
+        "collapse": true,
+        "collapsed_height": 420,
+        "more_label": "Read more",
+        "less_label": "Read less",
+        "tinted": true,
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "ori_suspension": {
+      "type": "ori-brand-bar",
+      "blocks": {
+        "brand_1": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/ICONS_FOR_WEBSITE_FOX.png",
+            "collection": "fox-suspension",
+            "link": "",
+            "title": "Fox",
+            "zoom": 160
+          }
+        },
+        "brand_2": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/ICONS_FOR_WEBSITE_BDS.png",
+            "collection": "bds-suspension-australian-distributor",
+            "link": "",
+            "title": "BDS Suspension",
+            "zoom": 130
+          }
+        },
+        "brand_3": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/ICONS_FOR_WEBSITE_BUSHWACKER.png",
+            "collection": "bushwacker",
+            "link": "",
+            "title": "Bushwacker",
+            "zoom": 260
+          }
+        },
+        "brand_4": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/peak_final-copy-small.jpg",
+            "collection": "peak-suspension",
+            "link": "",
+            "title": "Peak",
+            "zoom": 100
+          }
+        }
+      },
+      "block_order": [
+        "brand_1",
+        "brand_2",
+        "brand_3",
+        "brand_4"
+      ],
+      "settings": {
+        "heading": "ORI's Suspension Collection",
+        "text": "",
+        "show_names": false,
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    }
+  },
+  "order": [
+    "ori_hero",
+    "ori_intro",
+    "ori_tabs",
+    "ori_stages",
+    "ori_specs",
+    "ori_components",
+    "ori_quote",
+    "ori_enhance",
+    "ori_content",
+    "ori_suspension"
+  ]
+}
