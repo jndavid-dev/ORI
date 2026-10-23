@@ -106,7 +106,7 @@
                     <p class="ori-lead">{{ block.settings.lead }}</p>
                   {%- endif -%}
                   <dl class="ori-spec">
-                    {%- if block.settings.gvm != blank -%}<div><dt>GVM increase</dt><dd>{{ block.settings.gvm }}</dd></div>{%- endif -%}
+                    {%- if block.settings.gvm != blank -%}<div><dt>{{ block.settings.gvm_label | default: 'GVM increase' }}</dt><dd>{{ block.settings.gvm }}</dd></div>{%- endif -%}
                     {%- if block.settings.features != blank -%}<div><dt>Key features</dt><dd>{{ block.settings.features }}</dd></div>{%- endif -%}
                     {%- if block.settings.best_for != blank -%}<div><dt>Best for</dt><dd>{{ block.settings.best_for }}</dd></div>{%- endif -%}
                     {%- if block.settings.benefit != blank -%}<div><dt>Benefit</dt><dd>{{ block.settings.benefit }}</dd></div>{%- endif -%}
@@ -210,6 +210,7 @@
         { "type": "text", "id": "subtitle", "label": "Subtitle", "info": "e.g. 3650 KG GVM + GCM 8150 KG" },
         { "type": "text", "id": "lead", "label": "Lead line (italic)" },
         { "type": "header", "content": "Specs" },
+        { "type": "text", "id": "gvm_label", "label": "GVM row label", "default": "GVM increase", "info": "e.g. GVM rating" },
         { "type": "inline_richtext", "id": "gvm", "label": "GVM increase" },
         { "type": "inline_richtext", "id": "features", "label": "Key features" },
         { "type": "inline_richtext", "id": "best_for", "label": "Best for" },

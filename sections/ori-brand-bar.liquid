@@ -7,6 +7,8 @@
 
   Each brand block takes a logo, a link (a collection or any URL) and a
   name, used as the alt text and shown under the logo when switched on.
+  "Logo zoom" scales a padded logo file up inside its tile (CSS only), so
+  square icon files with built-in whitespace match trimmed logos.
 {%- endcomment -%}
 {%- assign brands = section.blocks | where: 'type', 'brand' -%}
 {%- if brands.size > 0 -%}
@@ -53,6 +55,7 @@
                   width="{{ logo_w }}"
                   height="{{ logo_h }}"
                   loading="lazy"
+                  {% if block.settings.zoom != 100 %}style="--ori-logo-zoom: {{ block.settings.zoom | divided_by: 100.0 }};"{% endif %}
                 >
               {%- else -%}
                 <span class="ori-brandbar__wordmark">{{ brand_name }}</span>
@@ -87,7 +90,18 @@
         { "type": "image_picker", "id": "image", "label": "Logo", "info": "Square or wide logo on a white or transparent background." },
         { "type": "collection", "id": "collection", "label": "Brand collection" },
         { "type": "url", "id": "link", "label": "Link", "info": "Overrides the collection link." },
-        { "type": "text", "id": "title", "label": "Name", "info": "Empty uses the collection title." }
+        { "type": "text", "id": "title", "label": "Name", "info": "Empty uses the collection title." },
+        {
+          "type": "range",
+          "id": "zoom",
+          "label": "Logo zoom",
+          "info": "Enlarges a logo whose file has empty space around it; the tile crops the excess.",
+          "min": 100,
+          "max": 300,
+          "step": 10,
+          "unit": "%",
+          "default": 100
+        }
       ]
     }
   ],

@@ -102,6 +102,10 @@
                 {%- if block.settings.colour != blank -%}<div><dt>Colour</dt><dd>{{ block.settings.colour }}</dd></div>{%- endif -%}
                 {%- if block.settings.offset != blank -%}<div><dt>Offset</dt><dd>{{ block.settings.offset }}</dd></div>{%- endif -%}
                 {%- if block.settings.sku != blank -%}<div><dt>SKU</dt><dd>{{ block.settings.sku }}</dd></div>{%- endif -%}
+                {%- comment -%} Inside the list so every card's specs still end on the card's bottom edge. {%- endcomment -%}
+                {%- if block.settings.note != blank -%}
+                  <div class="ori-wheel__note"><dt class="ori-sr">Note</dt><dd>{{ block.settings.note }}</dd></div>
+                {%- endif -%}
               </dl>
             </div>
           </li>
@@ -176,6 +180,7 @@
         { "type": "text", "id": "colour", "label": "Colour" },
         { "type": "text", "id": "offset", "label": "Offset" },
         { "type": "text", "id": "sku", "label": "SKU" },
+        { "type": "text", "id": "note", "label": "Note", "info": "Small print under the specs, e.g. fitment notes." },
         { "type": "url", "id": "link", "label": "Link" }
       ]
     }
