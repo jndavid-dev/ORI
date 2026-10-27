@@ -957,7 +957,7 @@
         "tile_000o": {
           "type": "tile",
           "settings": {
-            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__BAK.png",
+            "image": "",
             "label": "BAK",
             "link": "/collections/bak"
           }
