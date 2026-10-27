@@ -1,0 +1,607 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "ori_hero": {
+      "type": "ori-hero",
+      "blocks": {
+        "hero_1": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__ORI.jpg",
+            "alt": "ORI"
+          }
+        },
+        "hero_2": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__FOX.jpg",
+            "alt": "Fox"
+          }
+        },
+        "hero_3": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__BDS.jpg",
+            "alt": "BDS Suspension"
+          }
+        },
+        "hero_4": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__HUSKY_LINERS.jpg",
+            "alt": "Husky Liners"
+          }
+        },
+        "hero_5": {
+          "type": "feature",
+          "settings": {
+            "icon": "shield",
+            "text": "SSM federally approved\nAustralia wide"
+          }
+        },
+        "hero_6": {
+          "type": "feature",
+          "settings": {
+            "icon": "suspension",
+            "text": "Fox & BDS suspension\ncomponents"
+          }
+        },
+        "hero_7": {
+          "type": "feature",
+          "settings": {
+            "icon": "clipboard",
+            "text": "Pre-rego only"
+          }
+        },
+        "hero_8": {
+          "type": "feature",
+          "settings": {
+            "icon": "tyre",
+            "text": "35\" | 37\" tyres legal"
+          }
+        },
+        "hero_9": {
+          "type": "button",
+          "settings": {
+            "label": "View SSM packages",
+            "link": "#tab-1",
+            "style": "teal"
+          }
+        },
+        "hero_10": {
+          "type": "button",
+          "settings": {
+            "label": "Request a kit",
+            "link": "#tab-3",
+            "style": "ghost"
+          }
+        }
+      },
+      "block_order": [
+        "hero_1",
+        "hero_2",
+        "hero_3",
+        "hero_4",
+        "hero_5",
+        "hero_6",
+        "hero_7",
+        "hero_8",
+        "hero_9",
+        "hero_10"
+      ],
+      "settings": {
+        "style": "cutout",
+        "image_asset": "ori-hero-silverado-1500-cutout.webp",
+        "image_alt": "Chevrolet Silverado 1500 with an ORI SSM lift package",
+        "min_height": 600,
+        "heading_1": "Chevrolet Silverado",
+        "heading_2": "1500 LTZ & ZR2",
+        "pill": "2\" to 6\" SSM lift packages\n3650kg GVM",
+        "heading_tag": "h1",
+        "badge_title": "NB1",
+        "badge_small": "Car licence"
+      }
+    },
+    "ori_intro": {
+      "type": "ori-gvm-intro",
+      "settings": {
+        "badge_text": "",
+        "heading_line_1": "",
+        "heading_line_2": "",
+        "band_heading": "Go Big. Stay Legal: Federally Approved Lift Packages for Your Silverado 1500 Pre rego ONLY",
+        "band_background": "#000000",
+        "band_text_color": "#56bdc2",
+        "body": "<p>You didn’t buy a Chevy Silverado 1500 to blend in. But if you want to run massive tyres, lift it to the sky, and actually <em>use</em> it for serious towing and payload—all while staying completely legal on Australian roads—factory suspension just won't cut it.</p><p>Enter our <strong>Federally Approved Second Stage Manufacture (SSM) Packages</strong>.</p><p>Engineered exclusively for the Australian market, these comprehensive upgrades combine premium <strong>BDS Suspension</strong> lifts with race-proven <strong>Fox Shocks</strong>. Whether you are looking for an aggressive daily driver or a towering off-road monster on 37s, we have a pre-registration package to match your vision.</p><p>Say goodbye to the factory 757 KG payload limit. Every stage below includes a fully certified GVM upgrade, bumping your payload.</p><p>Choose your stance.</p><p>Contact an Authorised ORI GVM Installer.</p>",
+        "disclaimer": "",
+        "style": "light",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "ori_tabs": {
+      "type": "ori-gvm-tabs",
+      "blocks": {
+        "tab_1": {
+          "type": "tab_button",
+          "settings": {
+            "label": "SSM Packages",
+            "tab_id": "tab-1"
+          }
+        },
+        "tab_2": {
+          "type": "tab_button",
+          "settings": {
+            "label": "Specifications",
+            "tab_id": "tab-2"
+          }
+        },
+        "tab_3": {
+          "type": "tab_button",
+          "settings": {
+            "label": "Request a Kit",
+            "tab_id": "tab-3"
+          }
+        }
+      },
+      "block_order": [
+        "tab_1",
+        "tab_2",
+        "tab_3"
+      ],
+      "settings": {
+        "aria_label": "GVM package sections"
+      }
+    },
+    "ori_stages": {
+      "type": "ori-gvm-stages",
+      "blocks": {
+        "stage_1": {
+          "type": "stage",
+          "settings": {
+            "label": "Stage 1 LTZ",
+            "tab_meta": "3650kg · $21,499",
+            "acc_meta": "4\" BDS Lift | 3650 GVM | 35\" Tyres Legal · 3650kg · $21,499",
+            "image": "shopify://shop_images/STAGE_1_CHEVY_1500_LTZ.png",
+            "eyebrow": "$21,499 · Installed & engineered",
+            "title": "4\" BDS Lift | 3650 GVM | 35\" Tyres Legal",
+            "subtitle": "",
+            "lead": "Chevrolet Silverado 1500 LTZ.",
+            "gvm_label": "GVM",
+            "gvm": "3650 KG | <strong>GCM:</strong> 8150 KG | <strong>Braked Towing:</strong> 4500 KG",
+            "rows": "Lift & Tyres | 4\" BDS lift, 35\" tyres legal, running up to 35x12.5 R18 or 35x12.5 R20.\nIncluded | BDS 4\" suspension kit with Fox 2.5 Performance Elite (BDS1757FPE), BDS control arm upgrade for front-end strength (BDS121260), Husky Extenda Flare, ORI rear mud flap.\nWheels | A load rated wheel and tyre upgrade is required, see details below\nCompliance | SSM federally approved Australia wide, Fox and BDS suspension components, PRE rego only (VTA-064440).",
+            "features": "",
+            "best_for": "LTZ owners who want the lifted stance and 35s without giving up any towing capacity, and who want the extra payload for touring and work loads, have perfect cv angles.",
+            "benefit": "",
+            "part_numbers": "<p>CHV-NB1-Stage1-LTZ</p>",
+            "note": "Wheels and tyres not included.",
+            "pdf_file": "",
+            "pdf_url": "",
+            "pdf_label": "Download PDF"
+          }
+        },
+        "stage_2": {
+          "type": "stage",
+          "settings": {
+            "label": "Stage 2 ZR2",
+            "tab_meta": "3650kg · $21,499",
+            "acc_meta": "2\" BDS Lift | 3650 GVM | 35\" Tyres Legal · 3650kg · $21,499",
+            "image": "shopify://shop_images/STAGE_2_CHEVY_1500_ZR2.png",
+            "eyebrow": "$21,499 · Installed & engineered",
+            "title": "2\" BDS Lift | 3650 GVM | 35\" Tyres Legal",
+            "subtitle": "",
+            "lead": "Chevrolet Silverado 1500 ZR2.",
+            "gvm_label": "GVM",
+            "gvm": "3650 KG | <strong>GCM:</strong> 7850 KG | <strong>Braked Towing:</strong> 4200 KG",
+            "rows": "Lift & Tyres | This kit provides an additional 2\" of lift, 35\" tyres legal, running up to 35x12.5 R18 or 35x12.5 R20.\nIncluded | BDS 2\" suspension kit with Fox 2.5 Performance Elite (BDS1757FPE), BDS control arm upgrade for front-end strength (BDS121260), Rough Country SF1 flares specific for the zr2, ORI rear mud flap.\nWheels | A load rated wheel and tyre upgrade is required.\nCompliance | SSM federally approved Australia wide, Fox and BDS suspension components, PRE rego only (VTA-064440).",
+            "features": "",
+            "best_for": "ZR2 owners, who already sit higher from the factory and need less lift to clear the same 35\" tyre.",
+            "benefit": "",
+            "part_numbers": "<p>CHV-NB1-Stage2-ZR2</p>",
+            "note": "Note: The ZR2 tows 4200 KG from the factory, which is why this stage is rated to 4.2T rather than 4.5T. Wheels and tyres not included.",
+            "pdf_file": "",
+            "pdf_url": "",
+            "pdf_label": "Download PDF"
+          }
+        },
+        "stage_3": {
+          "type": "stage",
+          "settings": {
+            "label": "Stage 3 LTZ",
+            "tab_meta": "3650kg · $24,999",
+            "acc_meta": "6\" BDS Lift | 3650 GVM | 37\" Tyres Legal · 3650kg · $24,999",
+            "image": "shopify://shop_images/STAGE_3_CHEVY_1500_LTZ.png",
+            "eyebrow": "$24,999 · Installed & engineered",
+            "title": "6\" BDS Lift | 3650 GVM | 37\" Tyres Legal",
+            "subtitle": "",
+            "lead": "Chevrolet Silverado 1500 LTZ.",
+            "gvm_label": "GVM",
+            "gvm": "3650 KG | <strong>GCM:</strong> 7160 KG | <strong>Braked Towing:</strong> 4500 KG",
+            "rows": "Lift & Tyres | 6\" BDS lift, 37\" tyres legal, running up to 37x12.5 R18 or 37x12.5 R20.\nIncluded | BDS 6\" suspension kit with Fox 2.5 Performance Elite (BDS782FPE), BDS control arm upgrade for front-end strength (BDS121260), Husky Extenda Flare, ORI rear mud flap.\nWheels | A load rated wheel and tyre upgrade is required, 20x9 (+12 or zero) or 18x9 (-12), rated to 1100 KG.\nCompliance | SSM federally approved Australia wide, Fox and BDS suspension components, PRE rego only (VTA-064440).",
+            "features": "",
+            "best_for": "LTZ owners who want the biggest lift and the biggest tyre in the programme, fully compliant and covered under our SSM approval.",
+            "benefit": "",
+            "part_numbers": "<p>CHV-NB1-Stage3-LTZ</p>",
+            "note": "Note: Gross Combined Mass stays at the factory 7160 KG on this stage. Wheels and tyres not included.",
+            "pdf_file": "",
+            "pdf_url": "",
+            "pdf_label": "Download PDF"
+          }
+        },
+        "stage_4": {
+          "type": "stage",
+          "settings": {
+            "label": "Stage 4 ZR2",
+            "tab_meta": "3650kg · $24,999",
+            "acc_meta": "4\" BDS Lift | 3650 GVM | 37\" Tyres Legal · 3650kg · $24,999",
+            "image": "shopify://shop_images/STAGE_4_CHEVY_1500_ZR2.png",
+            "eyebrow": "$24,999 · Installed & engineered",
+            "title": "4\" BDS Lift | 3650 GVM | 37\" Tyres Legal",
+            "subtitle": "",
+            "lead": "Chevrolet Silverado 1500 ZR2.",
+            "gvm_label": "GVM",
+            "gvm": "3650 KG | <strong>GCM:</strong> 7160 KG | <strong>Braked Towing:</strong> 4200 KG",
+            "rows": "Lift & Tyres | 4\" BDS lift, 37\" tyres legal, running up to 37x12.5 R18 or 37x12.5 R20.\nIncluded | BDS 4\" suspension kit (6\" Kit overall) with Fox 2.5 Performance Elite (BDS782FPE), BDS control arm upgrade for front-end strength (BDS121260), Rough Country SF1 flares, ORI rear mud flap.\nWheels | A load rated wheel and tyre upgrade is required.\nCompliance | SSM federally approved Australia wide, Fox and BDS suspension components, PRE rego only (VTA-064440).",
+            "features": "",
+            "best_for": "ZR2 owners chasing the 37\" tyre package on a build that is legal to drive away.",
+            "benefit": "",
+            "part_numbers": "<p>CHV-NB1-Stage4-ZR2</p>",
+            "note": "Note: The ZR2 tows 4200 KG from the factory, which is why this stage is rated to 4.2T rather than 4.5T. Wheels and tyres not included.",
+            "pdf_file": "",
+            "pdf_url": "",
+            "pdf_label": "Download PDF"
+          }
+        }
+      },
+      "block_order": [
+        "stage_1",
+        "stage_2",
+        "stage_3",
+        "stage_4"
+      ],
+      "settings": {
+        "heading": "Look Tough, Work Harder: 100% Legal\nSilverado Lift & GVM Upgrades",
+        "intro": "",
+        "show_pdf": false,
+        "padding_top": 48,
+        "padding_bottom": 88,
+        "custom_class": "ori-panel ori-panel--1"
+      }
+    },
+    "ori_specs": {
+      "type": "ori-gvm-comparison",
+      "blocks": {
+        "row_1": {
+          "type": "row",
+          "settings": {
+            "label": "Gross Vehicle Mass (GVM)",
+            "values": "3300 KG | 3650 KG | 3650 KG | 3650 KG | 3650 KG",
+            "highlight": false
+          }
+        },
+        "row_2": {
+          "type": "row",
+          "settings": {
+            "label": "Braked Towing Capacity (BTC)",
+            "values": "4500 KG | 4500 KG | 4200 KG | 4500 KG | 4200 KG",
+            "highlight": false
+          }
+        },
+        "row_3": {
+          "type": "row",
+          "settings": {
+            "label": "Gross Combined Mass (GCM)",
+            "values": "7160 KG | 8150 KG | 7850 KG | 7160 KG | 7160 KG",
+            "highlight": false
+          }
+        },
+        "row_4": {
+          "type": "row",
+          "settings": {
+            "label": "Kerb Weight",
+            "values": "2543 KG | 2721 KG | 2721 KG | 2721 KG | 2721 KG",
+            "highlight": false
+          }
+        },
+        "row_5": {
+          "type": "row",
+          "settings": {
+            "label": "Payload (bases on kerb weight)",
+            "values": "757 KG | 929 KG | 929 KG | 929 KG | 929 KG",
+            "highlight": false
+          }
+        },
+        "row_6": {
+          "type": "row",
+          "settings": {
+            "label": "Front Axle Capacity",
+            "values": "1724 KG | 1724 KG | 1724 KG | 1724 KG | 1724 KG",
+            "highlight": false
+          }
+        },
+        "row_7": {
+          "type": "row",
+          "settings": {
+            "label": "Rear Axle Capacity",
+            "values": "1724 KG | 1926 KG | 1926 KG | 1926 KG | 1926 KG",
+            "highlight": false
+          }
+        },
+        "row_8": {
+          "type": "row",
+          "settings": {
+            "label": "Wheel Offsets",
+            "values": "28 | 20x9 ( +12 / zero), 18x9 (-12) | 20x9 ( +12 / zero), 18x9 (-12) | 20x9 ( +12 / zero), 18x9 (-12) | 20x9 ( +12 / zero), 18x9 (-12)",
+            "highlight": false
+          }
+        },
+        "row_9": {
+          "type": "row",
+          "settings": {
+            "label": "Wheel Load Rating",
+            "values": "862 KG | 1100 KG | 1100 KG | 1100 KG | 1100 KG",
+            "highlight": false
+          }
+        },
+        "row_10": {
+          "type": "row",
+          "settings": {
+            "label": "Tyre Load Rating",
+            "values": "862 KG | 121 Q | 121 Q | 121 Q | 121 Q",
+            "highlight": false
+          }
+        },
+        "row_11": {
+          "type": "row",
+          "settings": {
+            "label": "Requires Wheel/ Tyre Upgrade",
+            "values": "OEM | ✔ | ✔ | ✔ | ✔",
+            "highlight": false
+          }
+        },
+        "row_12": {
+          "type": "row",
+          "settings": {
+            "label": "Maximum Tyre Size",
+            "values": "275/60 R20 | 35x12.5R18, 35x12.5R20 | 35x12.5R18, 35x12.5R20 | 37x12.5R18, 37x12.5R20 | 37x12.5R18, 37x12.5R20",
+            "highlight": false
+          }
+        }
+      },
+      "block_order": [
+        "row_1",
+        "row_2",
+        "row_3",
+        "row_4",
+        "row_5",
+        "row_6",
+        "row_7",
+        "row_8",
+        "row_9",
+        "row_10",
+        "row_11",
+        "row_12"
+      ],
+      "settings": {
+        "heading": "ORI Chevy Silverado 1500\nPre Rego Specifications.",
+        "intro": "",
+        "columns": "OEM | Stage 1 LTZ | Stage 2 ZR2 | Stage 3 LTZ | Stage 4 ZR2",
+        "style": "compact",
+        "mobile": "scroll",
+        "anchor_id": "specifications",
+        "corner_label": "Specification",
+        "padding_top": 48,
+        "padding_bottom": 32,
+        "custom_class": "ori-panel ori-panel--2"
+      }
+    },
+    "ori_components": {
+      "type": "ori-gvm-comparison",
+      "blocks": {
+        "row_1": {
+          "type": "row",
+          "settings": {
+            "label": "Lift Height",
+            "values": " | 4\" | 2\" | 6\" | 4\"",
+            "highlight": false
+          }
+        },
+        "row_2": {
+          "type": "row",
+          "settings": {
+            "label": "BDS Control Arms",
+            "values": "BDS121260 | ✔ | ✔ | ✔ | ✔",
+            "highlight": false
+          }
+        },
+        "row_3": {
+          "type": "row",
+          "settings": {
+            "label": "BDS 4\" Suspension Kit with Fox 2.5 Performance Elite",
+            "values": "BDS1757FPE | ✔ | ✔ |  | ",
+            "highlight": false
+          }
+        },
+        "row_4": {
+          "type": "row",
+          "settings": {
+            "label": "BDS 6\" Suspension Kit with Fox 2.5 Performance Elite",
+            "values": "BDS782FPE |  |  | ✔ | ✔",
+            "highlight": false
+          }
+        },
+        "row_5": {
+          "type": "row",
+          "settings": {
+            "label": "Rough Country SF1 Flares (ZR2)",
+            "values": "F-C319201A-ZR2 | ✔ | ✔ | ✔ | ✔",
+            "highlight": false
+          }
+        },
+        "row_6": {
+          "type": "row",
+          "settings": {
+            "label": "Bushwacker Extenda Flare (LTZ)",
+            "values": "2804994 | ✔ |  |  | ",
+            "highlight": false
+          }
+        },
+        "row_7": {
+          "type": "row",
+          "settings": {
+            "label": "ORI rear mud flap",
+            "values": "ORI-SIL-1500-Rear | ✔ | ✔ |  | ",
+            "highlight": false
+          }
+        },
+        "row_8": {
+          "type": "row",
+          "settings": {
+            "label": "ORI Front and Rear Mud flaps",
+            "values": "ORI-SIL-1500-FR&RR |  |  | ✔ | ✔",
+            "highlight": false
+          }
+        },
+        "row_9": {
+          "type": "row",
+          "settings": {
+            "label": "Speedo Correction Tool",
+            "values": "90050 |  |  | ✔ | ✔",
+            "highlight": false
+          }
+        },
+        "row_10": {
+          "type": "row",
+          "settings": {
+            "label": "BDS Recoil Traction Bars",
+            "values": "BDS2303 | O | O | O | O",
+            "highlight": false
+          }
+        },
+        "row_11": {
+          "type": "row",
+          "settings": {
+            "label": "GVM Part Numbers",
+            "values": " | CHV-NB1-Stage1-LTZ | CHV-NB1-Stage2-ZR2 | CHV-NB1-Stage3-LTZ | CHV-NB1-Stage4-ZR2",
+            "highlight": false
+          }
+        }
+      },
+      "block_order": [
+        "row_1",
+        "row_2",
+        "row_3",
+        "row_4",
+        "row_5",
+        "row_6",
+        "row_7",
+        "row_8",
+        "row_9",
+        "row_10",
+        "row_11"
+      ],
+      "settings": {
+        "heading": "",
+        "intro": "",
+        "columns": "Part Number | Stage 1 | Stage 2 | Stage 3 | Stage 4",
+        "style": "compact",
+        "mobile": "scroll",
+        "anchor_id": "components",
+        "corner_label": "Item",
+        "padding_top": 0,
+        "padding_bottom": 88,
+        "custom_class": "ori-panel ori-panel--2"
+      }
+    },
+    "ori_quote": {
+      "type": "ori-gvm-quote",
+      "settings": {
+        "display_mode": "inline",
+        "anchor_id": "quote",
+        "eyebrow": "",
+        "heading": "GVM Enquiry? Contact us Now",
+        "intro": "",
+        "button_label": "Send",
+        "kit_collection": "nb1-chevy-silverado-1500-4-and-6-lifts",
+        "padding_top": 48,
+        "padding_bottom": 88,
+        "custom_class": "ori-panel ori-panel--3"
+      }
+    },
+    "ori_suspension": {
+      "type": "ori-brand-bar",
+      "blocks": {
+        "brand_1": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/ICONS_FOR_WEBSITE_FOX.png",
+            "collection": "fox-suspension",
+            "link": "",
+            "title": "Fox",
+            "zoom": 160
+          }
+        },
+        "brand_2": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/ICONS_FOR_WEBSITE_BDS.png",
+            "collection": "bds-suspension-australian-distributor",
+            "link": "",
+            "title": "BDS Suspension",
+            "zoom": 130
+          }
+        },
+        "brand_3": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/ICONS_FOR_WEBSITE_BUSHWACKER.png",
+            "collection": "bushwacker",
+            "link": "",
+            "title": "Bushwacker",
+            "zoom": 260
+          }
+        },
+        "brand_4": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/peak_final-copy-small.jpg",
+            "collection": "peak-suspension",
+            "link": "",
+            "title": "Peak",
+            "zoom": 100
+          }
+        }
+      },
+      "block_order": [
+        "brand_1",
+        "brand_2",
+        "brand_3",
+        "brand_4"
+      ],
+      "settings": {
+        "heading": "ORI's Suspension Collection",
+        "text": "",
+        "show_names": false,
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    }
+  },
+  "order": [
+    "ori_hero",
+    "ori_intro",
+    "ori_tabs",
+    "ori_stages",
+    "ori_specs",
+    "ori_components",
+    "ori_quote",
+    "ori_suspension"
+  ]
+}
