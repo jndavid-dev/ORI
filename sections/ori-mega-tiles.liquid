@@ -1,0 +1,152 @@
+{%- comment -%}
+  ORI mega menu: tiles (Brands, ORI GVM Upgrades, ORI Lifted Solutions).
+  assets/header.js moves this panel under the main menu item whose title
+  matches "Menu item" and clones it into the mobile drawer.
+  Styles: "ORI REDESIGN — MEGA MENU" in gvm-css-main.css.
+{%- endcomment -%}
+{%- liquid
+  assign parent_title = section.settings.parent | strip
+  assign style = section.settings.style
+  assign show_labels = section.settings.show_labels
+-%}
+
+{%- if parent_title != blank -%}
+  <div
+    class="mega-menu-container ori-mm ori-mm--tiles ori-mm--{{ style }}{% if section.settings.compact %} ori-mm--compact{% endif %}"
+    data-mega-menu-parent="{{ parent_title | escape }}"
+  >
+    <div class="ori-mm__in">
+      {%- if section.settings.pill != blank or section.settings.heading != blank or section.settings.button_1_label != blank or section.settings.button_2_label != blank -%}
+        <div class="ori-mm__head">
+          <div>
+            {%- if section.settings.pill != blank -%}
+              <span class="ori-mm__pill">{{ section.settings.pill | escape }}</span>
+            {%- endif -%}
+            {%- if section.settings.heading != blank -%}
+              <p class="ori-mm__title">{{ section.settings.heading | escape }}</p>
+            {%- endif -%}
+          </div>
+          {%- if section.settings.button_1_label != blank or section.settings.button_2_label != blank -%}
+            <div class="ori-mm__btns">
+              {%- if section.settings.button_1_label != blank -%}
+                <a class="ori-mm__btn ori-mm__btn--line" href="{{ section.settings.button_1_link | default: '#' }}">{{ section.settings.button_1_label | escape }}</a>
+              {%- endif -%}
+              {%- if section.settings.button_2_label != blank -%}
+                <a class="ori-mm__btn ori-mm__btn--teal" href="{{ section.settings.button_2_link | default: '#' }}">{{ section.settings.button_2_label | escape }}</a>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      <ul class="ori-mm__tiles" role="list" style="--ori-mm-cols: {{ section.settings.columns }};">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign image = block.settings.image
+            assign label = block.settings.label | strip
+            if label == blank and image != blank
+              assign label = image.alt | strip
+            endif
+          -%}
+          <li {{ block.shopify_attributes }}>
+            <a class="ori-mm__tile" href="{{ block.settings.link | default: '#' }}">
+              <span class="ori-mm__tile-img">
+                {%- if image != blank -%}
+                  {{ image | image_url: width: 480 | image_tag: widths: '160, 240, 320, 480', sizes: '(min-width: 1024px) 200px, 33vw', loading: 'lazy', alt: label }}
+                {%- else -%}
+                  <span class="ori-mm__tile-ph">{{ label | escape }}</span>
+                {%- endif -%}
+              </span>
+              {%- if show_labels and label != blank -%}
+                <span class="ori-mm__tile-label">{{ label | escape }}</span>
+              {%- endif -%}
+            </a>
+          </li>
+        {%- endfor -%}
+        {%- if section.settings.all_label != blank -%}
+          <li>
+            <a class="ori-mm__tile ori-mm__tile--all" href="{{ section.settings.all_link | default: '#' }}">
+              <span class="ori-mm__tile-img">{{ section.settings.all_label | escape }} <span aria-hidden="true">→</span></span>
+            </a>
+          </li>
+        {%- endif -%}
+      </ul>
+    </div>
+  </div>
+  {%- if section.settings.compact -%}
+    <script src="{{ 'ori-mega-menu.js' | asset_url }}" defer="defer"></script>
+  {%- endif -%}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "ORI mega menu: tiles",
+  "tag": "section",
+  "class": "shopify-section--mega-menu",
+  "enabled_on": { "groups": ["header"] },
+  "max_blocks": 40,
+  "settings": [
+    {
+      "type": "text",
+      "id": "parent",
+      "label": "Menu item",
+      "info": "Title of the main menu item this panel opens under, e.g. Brands. Case doesn't matter."
+    },
+    {
+      "type": "select",
+      "id": "style",
+      "label": "Tile style",
+      "default": "logos",
+      "options": [
+        { "value": "logos", "label": "Logos (small square tiles)" },
+        { "value": "images", "label": "Images (larger picture tiles)" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "Tiles per row on desktop",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "default": 10
+    },
+    {
+      "type": "checkbox",
+      "id": "show_labels",
+      "label": "Show names under tiles",
+      "info": "Turn off when the name is already in the image.",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "compact",
+      "label": "Compact dropdown",
+      "info": "Opens as a small panel under the menu item instead of full width. Use for 2–4 tiles.",
+      "default": false
+    },
+    { "type": "header", "content": "Heading" },
+    { "type": "text", "id": "pill", "label": "Badge" },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "text", "id": "button_1_label", "label": "Button 1 label" },
+    { "type": "url", "id": "button_1_link", "label": "Button 1 link" },
+    { "type": "text", "id": "button_2_label", "label": "Button 2 label" },
+    { "type": "url", "id": "button_2_link", "label": "Button 2 link" },
+    { "type": "header", "content": "View all tile" },
+    { "type": "text", "id": "all_label", "label": "Label", "info": "Adds a last tile, e.g. All brands. Leave empty to hide." },
+    { "type": "url", "id": "all_link", "label": "Link" }
+  ],
+  "blocks": [
+    {
+      "type": "tile",
+      "name": "Tile",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "label", "label": "Name", "info": "Shown under the tile and used as the image alt text." },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "ORI mega menu: tiles" }]
+}
+{% endschema %}

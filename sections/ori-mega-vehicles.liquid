@@ -1,0 +1,168 @@
+{%- comment -%}
+  ORI mega menu: vehicles (American Trucks).
+  One "Make" block per make: a rail on the left switches between makes
+  (assets/ori-mega-menu.js). Each make picks up to 3 menus from
+  Content > Menus; every menu is one column, headed by the menu's title.
+  A menu item with its own sub-links becomes its own column too, so one
+  nested menu per make also works.
+  On mobile the panel is cloned into the drawer by assets/header.js and
+  each make becomes an accordion.
+  Styles: "ORI REDESIGN — MEGA MENU" in gvm-css-main.css.
+{%- endcomment -%}
+{%- liquid
+  assign parent_title = section.settings.parent | strip
+  assign menu_keys = 'menu_1,menu_2,menu_3' | split: ','
+-%}
+
+{%- if parent_title != blank and section.blocks.size > 0 -%}
+  <div
+    class="mega-menu-container ori-mm ori-mm--vehicles"
+    data-mega-menu-parent="{{ parent_title | escape }}"
+  >
+    <div class="ori-mm__in ori-mmv">
+      <ul class="ori-mmv__rail" role="tablist" aria-label="{{ parent_title | escape }}">
+        {%- for block in section.blocks -%}
+          <li role="presentation">
+            <button
+              type="button"
+              class="ori-mmv__make"
+              role="tab"
+              id="OriMmvTab-{{ block.id }}"
+              aria-controls="OriMmvPane-{{ block.id }}"
+              aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+              {{ block.shopify_attributes }}
+            >
+              <span>{{ block.settings.title | escape }}</span>
+              <svg width="8" height="12" viewBox="0 0 8 12" aria-hidden="true" focusable="false"><path d="M1 1l5 5-5 5" stroke="currentColor" stroke-width="1.8" fill="none"/></svg>
+            </button>
+          </li>
+        {%- endfor -%}
+      </ul>
+
+      <div class="ori-mmv__panes">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign shop_link = block.settings.link
+            assign shop_label = block.settings.link_label | strip
+            if shop_label == blank
+              assign shop_label = 'Shop all ' | append: block.settings.title
+            endif
+          -%}
+          <div
+            class="ori-mmv__pane{% if forloop.first %} is-active{% endif %}"
+            id="OriMmvPane-{{ block.id }}"
+            role="tabpanel"
+            aria-labelledby="OriMmvTab-{{ block.id }}"
+          >
+            <div class="ori-mmv__head">
+              <p class="ori-mm__title">{{ block.settings.title | escape }}</p>
+              {%- if shop_link != blank -%}
+                <a class="ori-mm__all" href="{{ shop_link }}"><span>{{ shop_label | escape }}</span> <span aria-hidden="true">→</span></a>
+              {%- endif -%}
+            </div>
+            <div class="ori-mmv__cols">
+              {%- for key in menu_keys -%}
+                {%- assign menu = linklists[block.settings[key]] -%}
+                {%- if block.settings[key] == blank or menu.links == blank -%}{%- continue -%}{%- endif -%}
+
+                {%- liquid
+                  assign flat = 0
+                  for link in menu.links
+                    if link.links == blank
+                      assign flat = flat | plus: 1
+                    endif
+                  endfor
+                -%}
+                {%- if flat > 0 -%}
+                  <div class="ori-mm__col">
+                    <p class="ori-mm__h">{{ menu.title | escape }}</p>
+                    <ul class="ori-mm__list" role="list">
+                      {%- for link in menu.links -%}
+                        {%- if link.links == blank -%}
+                          <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </ul>
+                  </div>
+                {%- endif -%}
+                {%- for link in menu.links -%}
+                  {%- if link.links != blank -%}
+                    <div class="ori-mm__col">
+                      <p class="ori-mm__h">
+                        {%- if link.url != blank and link.url != '/' and link.url != '#' -%}
+                          <a href="{{ link.url }}">{{ link.title | escape }}</a>
+                        {%- else -%}
+                          {{ link.title | escape }}
+                        {%- endif -%}
+                      </p>
+                      <ul class="ori-mm__list" role="list">
+                        {%- for child in link.links -%}
+                          <li><a href="{{ child.url }}">{{ child.title | escape }}</a></li>
+                        {%- endfor -%}
+                      </ul>
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- endfor -%}
+            </div>
+            {%- if block.settings.image != blank -%}
+              {%- liquid
+                assign shot_tag = 'div'
+                if shop_link != blank
+                  assign shot_tag = 'a'
+                endif
+              -%}
+              <{{ shot_tag }} class="ori-mmv__shot"{% if shot_tag == 'a' %} href="{{ shop_link }}" tabindex="-1" aria-hidden="true"{% endif %}>
+                {{ block.settings.image | image_url: width: 800 | image_tag: widths: '400, 600, 800', sizes: '360px', loading: 'lazy', alt: '' }}
+              </{{ shot_tag }}>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+  <script src="{{ 'ori-mega-menu.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "ORI mega menu: vehicles",
+  "tag": "section",
+  "class": "shopify-section--mega-menu",
+  "enabled_on": { "groups": ["header"] },
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "text",
+      "id": "parent",
+      "label": "Menu item",
+      "info": "Title of the main menu item this panel opens under, e.g. American Trucks. Case doesn't matter.",
+      "default": "American Trucks"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "make",
+      "name": "Make",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Make", "default": "Chevrolet" },
+        { "type": "image_picker", "id": "image", "label": "Vehicle image", "info": "White or transparent background works best." },
+        { "type": "url", "id": "link", "label": "Shop all link", "info": "Also used for the image." },
+        { "type": "text", "id": "link_label", "label": "Shop all label", "info": "Defaults to \"Shop all\" + make." },
+        {
+          "type": "header",
+          "content": "Model links"
+        },
+        {
+          "type": "paragraph",
+          "content": "Each menu becomes one column, headed by the menu's title. Build the menus in Content > Menus."
+        },
+        { "type": "link_list", "id": "menu_1", "label": "Menu 1" },
+        { "type": "link_list", "id": "menu_2", "label": "Menu 2" },
+        { "type": "link_list", "id": "menu_3", "label": "Menu 3" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "ORI mega menu: vehicles" }]
+}
+{% endschema %}

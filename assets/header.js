@@ -27,6 +27,9 @@ class BasicHeader extends HTMLElement {
 
   handleMegaItemActive(dropdown) {
     if (!dropdown) return;
+    // ORI mega menu panels bring their own white background; the header keeps
+    // its own colour scheme and gets no full-width backdrop
+    if (dropdown.classList.contains("ori-mm")) return;
 
     const rect = dropdown.getBoundingClientRect();
     this.style.setProperty("--f-dropdown-height", Math.ceil(rect.height) + "px");
@@ -554,6 +557,9 @@ customElements.define("site-nav", SiteNav);
     if (!sources.length) return;
 
     sources.forEach((src) => {
+      // ORI link-column panels keep the theme's own nested mobile menu
+      if (src.getAttribute("data-mobile") === "native") return;
+
       const parent = normalizeText(src.getAttribute("data-mega-menu-parent"));
       if (!parent) return;
 
@@ -581,6 +587,8 @@ customElements.define("site-nav", SiteNav);
       clone.classList.add("mega-menu-container--mobile");
       clone.setAttribute("data-legacy-moved", "true");
       clone.style.display = "block";
+      // The desktop panel keeps the ids; drop them from the copy
+      clone.querySelectorAll("[id]").forEach((el) => el.removeAttribute("id"));
 
       // Convert column layout to accordion in mobile
       if (clone.classList.contains("mega-menu-container--columns")) {

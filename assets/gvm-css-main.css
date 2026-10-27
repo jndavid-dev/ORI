@@ -13005,3 +13005,764 @@ body .sticky-atc-bar .f-price-item--regular s {
 .ori .ori-hero__title {
   text-wrap: balance;
 }
+
+/* ==========================================================
+   ORI REDESIGN — MEGA MENU
+   sections/ori-mega-vehicles / ori-mega-links / ori-mega-tiles
+   (+ assets/ori-mega-menu.js). assets/header.js moves each panel
+   under the matching main menu item and clones the vehicles and
+   tiles panels into the mobile drawer; links panels keep the
+   theme's own nested mobile menu (data-mobile="native").
+
+   Spec
+   - Desktop (nav shows from 1024px): white panel straight under the
+     dark header, full width, content on the 1360 wrap. Images are
+     white-background shots/logos, so they sit on white or bone
+     with no boxes. Compact tiles panels drop under their own item.
+   - 1280px+: as designed. Vehicles: rail | model columns | truck
+     image. Products: list | columns | promo 330. Logos: "Tiles per
+     row" setting. Images: one row.
+   - 1024-1279: vehicles and products drop the image / promo; logos
+     auto-fill (about 8 per row); image tiles max 6 per row.
+   - The panel is never taller than the viewport under the header:
+     it scrolls inside.
+   - Drawer (under 1024): dark, no card. Tiles: logos 3 per row,
+     images 2 per row, buttons full width. Vehicles: the rail is
+     hidden, each make is an accordion row with its links inside.
+   ========================================================== */
+.mega-menu-container.ori-mm {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-height: calc(100vh - var(--f-header-height, 120px));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--ori-paper);
+  background-image: none;
+  color: var(--ori-ink);
+  font-family: var(--ori-body);
+  border-bottom: 1px solid var(--ori-line);
+  box-shadow: 0 28px 50px -28px rgba(0, 0, 0, 0.55);
+  text-align: left;
+}
+
+.mega-menu-container.ori-mm::before {
+  display: none;
+}
+
+.mega-menu-container.ori-mm a {
+  color: inherit;
+  text-decoration: none;
+  white-space: normal;
+}
+
+.mega-menu-container.ori-mm img {
+  display: block;
+  max-width: 100%;
+}
+
+.ori-mm__in {
+  max-width: var(--ori-wrap);
+  margin: 0 auto;
+  padding: 32px 32px 36px;
+}
+
+/* Shared type */
+.ori-mm__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 22px;
+}
+
+.ori-mm .ori-mm__title {
+  margin: 0;
+  font-family: var(--ori-display);
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--ori-ink);
+}
+
+.ori-mm__pill {
+  display: inline-flex;
+  margin-bottom: 10px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  background: rgba(63, 179, 186, 0.12);
+  color: var(--ori-teal-deep);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.ori-mm .ori-mm__h {
+  margin: 0 0 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--ori-line);
+  font-family: var(--ori-display);
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: var(--ori-ink);
+}
+
+.mega-menu-container.ori-mm .ori-mm__h a:hover {
+  color: var(--ori-teal-deep);
+}
+
+.ori-mm__list {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ori-mm__list--2col {
+  display: block;
+  columns: 2;
+  column-gap: 28px;
+}
+
+.ori-mm__list--2col li {
+  break-inside: avoid;
+}
+
+.mega-menu-container.ori-mm .ori-mm__list a {
+  display: block;
+  padding: 5px 0;
+  color: var(--ori-steel);
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.mega-menu-container.ori-mm .ori-mm__list a:hover {
+  color: var(--ori-ink);
+  text-decoration: underline;
+  text-decoration-color: var(--ori-teal);
+  text-underline-offset: 3px;
+}
+
+.mega-menu-container.ori-mm .ori-mm__all {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.ori-mm__all > span:first-child {
+  padding-bottom: 1px;
+  border-bottom: 2px solid var(--ori-teal);
+}
+
+.mega-menu-container.ori-mm .ori-mm__all:hover {
+  color: var(--ori-teal-deep);
+}
+
+.ori-mm__btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.mega-menu-container.ori-mm .ori-mm__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 6px 20px;
+  border: 2px solid var(--ori-ink);
+  border-radius: 4px;
+  font-family: var(--ori-display);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.mega-menu-container.ori-mm .ori-mm__btn--line:hover {
+  background: var(--ori-ink);
+  color: #fff;
+}
+
+.mega-menu-container.ori-mm .ori-mm__btn--teal {
+  border-color: var(--ori-teal);
+  background: var(--ori-teal);
+  color: #fff;
+}
+
+.mega-menu-container.ori-mm .ori-mm__btn--teal:hover {
+  border-color: var(--ori-teal-deep);
+  background: var(--ori-teal-deep);
+}
+
+/* Vehicles: make rail + panes */
+.ori-mmv {
+  display: grid;
+  grid-template-columns: 230px minmax(0, 1fr);
+  min-height: 330px;
+}
+
+.ori-mmv__rail {
+  display: grid;
+  align-content: start;
+  gap: 4px;
+  margin: 0;
+  padding: 0 24px 0 0;
+  border-right: 1px solid var(--ori-line);
+  list-style: none;
+}
+
+.ori-mm .ori-mmv__make {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 0;
+  margin: 0;
+  padding: 11px 14px;
+  border: 0;
+  border-radius: 4px;
+  background: none;
+  color: var(--ori-steel);
+  /* brand-guidelines.css forces every <button> to the body face */
+  font-family: var(--ori-display) !important;
+  font-size: 23px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: left;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.ori-mmv__make::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 0;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--ori-teal);
+  transform: scaleY(0);
+  transition: transform 0.15s;
+}
+
+.ori-mmv__make svg {
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.ori-mm .ori-mmv__make[aria-selected="true"] {
+  background: var(--ori-bone);
+  color: var(--ori-ink);
+}
+
+.ori-mmv__make[aria-selected="true"]::before {
+  transform: none;
+}
+
+.ori-mmv__make[aria-selected="true"] svg {
+  opacity: 1;
+}
+
+.ori-mmv__pane {
+  display: none;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1.15fr);
+  grid-template-rows: auto 1fr;
+  column-gap: 36px;
+  row-gap: 22px;
+  padding-left: 36px;
+}
+
+.ori-mmv__pane.is-active {
+  display: grid;
+}
+
+.ori-mmv__head {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.ori-mmv__cols {
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  gap: 36px;
+  align-content: start;
+}
+
+.ori-mmv__shot {
+  display: grid;
+  place-items: center;
+  align-self: start;
+  padding: 18px;
+  border-radius: 6px;
+  background: var(--ori-bone);
+}
+
+.ori-mmv__shot img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  transition: transform 0.25s;
+}
+
+.ori-mmv__shot:hover img {
+  transform: scale(1.04);
+}
+
+/* Links: list column + sub-link columns + promo */
+.ori-mm__links {
+  display: flex;
+  gap: 36px;
+}
+
+.ori-mm__links > .ori-mm__col {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.ori-mm__links > .ori-mm__col--wide {
+  flex-grow: 2;
+}
+
+.ori-mm__promo {
+  position: relative;
+  display: flex;
+  flex: 0 0 330px;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 260px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--ori-ink);
+}
+
+.mega-menu-container.ori-mm .ori-mm__promo {
+  color: #fff;
+}
+
+.mega-menu-container.ori-mm .ori-mm__promo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 28% 50%;
+  transition: transform 0.3s;
+}
+
+.ori-mm__promo:hover img {
+  transform: scale(1.04);
+}
+
+.ori-mm__promo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10, 13, 14, 0.9), rgba(10, 13, 14, 0) 62%);
+}
+
+.ori-mm__promo-copy {
+  position: relative;
+  z-index: 1;
+  display: block;
+  padding: 20px 22px;
+}
+
+.ori-mm__promo-copy b {
+  display: block;
+  font-family: var(--ori-display);
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.ori-mm__promo-copy > span {
+  display: block;
+  margin-top: 4px;
+  color: var(--ori-teal);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* Tiles */
+.ori-mm__tiles {
+  display: grid;
+  grid-template-columns: repeat(var(--ori-mm-cols, 10), minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ori-mm--images .ori-mm__tiles {
+  gap: 16px;
+}
+
+.mega-menu-container.ori-mm .ori-mm__tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  height: 100%;
+  text-align: center;
+}
+
+.ori-mm__tile-img {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid var(--ori-line);
+  border-radius: 6px;
+  background: #fff;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+
+.ori-mm__tile-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.ori-mm--images .ori-mm__tile-img img {
+  object-fit: cover;
+}
+
+.ori-mm__tile:hover .ori-mm__tile-img {
+  border-color: var(--ori-teal);
+  box-shadow: 0 12px 24px -15px rgba(0, 0, 0, 0.45);
+  transform: translateY(-2px);
+}
+
+.ori-mm__tile-label {
+  color: var(--ori-steel);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.ori-mm__tile:hover .ori-mm__tile-label {
+  color: var(--ori-ink);
+}
+
+.ori-mm__tile-ph {
+  padding: 8px;
+  color: var(--ori-steel);
+  font-family: var(--ori-display);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.ori-mm__tile--all .ori-mm__tile-img {
+  padding: 10px;
+  border-style: dashed;
+  background: var(--ori-bone);
+  font-family: var(--ori-display);
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.05;
+  text-transform: uppercase;
+  color: var(--ori-ink);
+}
+
+/* Compact: small dropdown under its own menu item. Same top as the
+   full-width panels; assets/ori-mega-menu.js sets --ori-mm-left so it
+   centres on its item (kept inside the viewport). */
+.mega-menu-container.ori-mm--compact {
+  left: var(--ori-mm-left, 50%);
+  right: auto;
+  width: max-content;
+  max-width: calc(100vw - 32px);
+  border: 1px solid var(--ori-line);
+  border-top: 0;
+  border-radius: 0 0 6px 6px;
+}
+
+.ori-mm--compact .ori-mm__in {
+  padding: 24px;
+}
+
+.ori-mm--compact .ori-mm__head {
+  margin-bottom: 16px;
+}
+
+.ori-mm--compact .ori-mm__tiles {
+  grid-template-columns: repeat(var(--ori-mm-cols, 2), 210px);
+  gap: 16px;
+}
+
+.ori-mm-editor-note {
+  margin: 0;
+  padding: 8px 16px;
+  background: #fff4d6;
+  color: #5c4500;
+  font-size: 13px;
+}
+
+/* 1024-1279: drop the image / promo, let logos auto-fill */
+@media (max-width: 1279.98px) {
+  .ori-mm__in {
+    padding: 28px 24px 32px;
+  }
+
+  .ori-mmv {
+    grid-template-columns: 200px minmax(0, 1fr);
+  }
+
+  .ori-mmv__pane {
+    grid-template-columns: minmax(0, 1fr);
+    padding-left: 28px;
+  }
+
+  .ori-mmv__shot,
+  .ori-mm__promo {
+    display: none;
+  }
+
+  .ori-mm__links,
+  .ori-mmv__cols {
+    gap: 28px;
+  }
+
+  .ori-mm--logos:not(.ori-mm--compact) .ori-mm__tiles {
+    grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+  }
+}
+
+/* Drawer copy (under 1024px, cloned by assets/header.js) */
+.f-mobile-nav .mega-menu-container--mobile.ori-mm {
+  width: auto;
+  max-width: none;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: #eef1f1;
+  max-height: none;
+}
+
+.f-mobile-nav .ori-mm .ori-mm__in {
+  display: flex;
+  flex-direction: column;
+  max-width: none;
+  padding: 6px 0 14px;
+}
+
+/* Tiles first, buttons after them */
+.f-mobile-nav .ori-mm .ori-mm__head {
+  display: block;
+  order: 2;
+  margin: 14px 0 0;
+}
+
+.f-mobile-nav .ori-mm .ori-mm__head .ori-mm__title,
+.f-mobile-nav .ori-mm .ori-mm__pill {
+  display: none;
+}
+
+.f-mobile-nav .ori-mm .ori-mm__btns {
+  display: grid;
+  gap: 10px;
+}
+
+.f-mobile-nav .mega-menu-container.ori-mm .ori-mm__btn {
+  width: 100%;
+  border-color: #fff;
+  color: #fff;
+}
+
+.f-mobile-nav .mega-menu-container.ori-mm .ori-mm__btn--teal {
+  border-color: var(--ori-teal);
+}
+
+.f-mobile-nav .ori-mm .ori-mm__tiles,
+.f-mobile-nav .ori-mm--compact .ori-mm__tiles {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.f-mobile-nav .ori-mm--logos .ori-mm__tiles {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px 8px;
+}
+
+.f-mobile-nav .ori-mm--images .ori-mm__tiles,
+.f-mobile-nav .ori-mm--images.ori-mm--compact .ori-mm__tiles {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.f-mobile-nav .ori-mm__tile-img {
+  border-color: transparent;
+}
+
+.f-mobile-nav .ori-mm__tile-label {
+  color: #b7c3c6;
+  font-size: 12px;
+}
+
+.f-mobile-nav .ori-mm__tile--all .ori-mm__tile-img {
+  border-color: #3a4549;
+  background: #232c2f;
+  color: #fff;
+  font-size: 17px;
+}
+
+.f-mobile-nav .ori-mm .ori-mmv {
+  display: block;
+  min-height: 0;
+}
+
+.f-mobile-nav .ori-mm .ori-mmv__rail,
+.f-mobile-nav .ori-mm .ori-mmv__shot {
+  display: none;
+}
+
+.f-mobile-nav .ori-mm .ori-mmv__pane {
+  display: block;
+  padding: 0;
+  border-bottom: 1px solid #2c3639;
+}
+
+.f-mobile-nav .ori-mm .ori-mmv__pane:last-child {
+  border-bottom: 0;
+}
+
+.f-mobile-nav .ori-mm .ori-mmv__head {
+  flex-wrap: wrap;
+  gap: 0;
+}
+
+.f-mobile-nav .ori-mm .ori-mmv__head .ori-mm__title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px 0;
+  color: #fff;
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+}
+
+.f-mobile-nav .ori-mm .ori-mmv__head .ori-mm__title::after {
+  content: "+";
+  color: var(--ori-teal);
+  font-family: var(--ori-body);
+  font-size: 22px;
+  font-weight: 400;
+}
+
+.f-mobile-nav .ori-mm .ori-mmv__pane.is-open .ori-mm__title::after {
+  content: "\2212";
+}
+
+.f-mobile-nav .ori-mm .ori-mmv__head .ori-mm__all,
+.f-mobile-nav .ori-mm .ori-mmv__cols {
+  display: none;
+}
+
+.f-mobile-nav .ori-mm .ori-mmv__pane.is-open .ori-mm__all {
+  display: inline-flex;
+  margin-bottom: 12px;
+  color: #fff;
+}
+
+.f-mobile-nav .ori-mm .ori-mmv__pane.is-open .ori-mmv__cols {
+  display: grid;
+  grid-auto-flow: row;
+  gap: 14px;
+  padding-bottom: 14px;
+}
+
+.f-mobile-nav .ori-mm .ori-mm__h {
+  margin-bottom: 4px;
+  padding-bottom: 6px;
+  border-color: #2c3639;
+  color: #8fa0a4;
+  font-size: 14px;
+}
+
+.f-mobile-nav .mega-menu-container.ori-mm .ori-mm__list a {
+  padding: 7px 0;
+  color: #d5dcdd;
+  font-size: 16px;
+}
+
+/* ==========================================================
+   ORI REDESIGN — HEADER: NAV FIT
+   The live main menu has 7 items (American Trucks ... Domestic
+   Vehicles) which need ~930px at 15px. Spec, desktop header:
+   - 1536px+: 15px items, GVM & GCM badge shown.
+   - 1440-1535: 14px items, tighter padding, badge shown.
+   - 1280-1439: same nav, badge hidden (the GVM item is in the nav).
+   - Under 1280: hamburger + drawer, as on tablets.
+   The badge keeps its default (light) image while a mega menu is
+   open: the ORI panels leave the header dark.
+   ========================================================== */
+body .site-header__top-v6:has(.f-site-nav__item:hover) .header-promo-badge__img--default,
+body .site-header__top-v6:has(.f-site-nav__item:focus-within) .header-promo-badge__img--default,
+body .site-header__top-v6:has(.f-site-nav__item.f-menu__item-active) .header-promo-badge__img--default {
+  opacity: 1;
+}
+
+body .site-header__top-v6:has(.f-site-nav__item:hover) .header-promo-badge__img--hover,
+body .site-header__top-v6:has(.f-site-nav__item:focus-within) .header-promo-badge__img--hover,
+body .site-header__top-v6:has(.f-site-nav__item.f-menu__item-active) .header-promo-badge__img--hover {
+  opacity: 0;
+}
+
+@media (max-width: 1535.98px) {
+  body .site-header--design-6 .f-site-nav {
+    --nav-item-px: 8px;
+  }
+
+  body .site-header--design-6 .f-site-nav__link {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 1439.98px) {
+  body .site-header--design-6 .site-header__top-v6 > .header-promo-badge {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1279.98px) {
+  body .site-header--design-6 .site-header__top-nav-v6 {
+    display: none;
+  }
+
+  body .site-header--design-6 .site-header__top-v6 > .mobile-nav-toggle {
+    display: flex;
+  }
+
+  body .site-header--design-6 .site-header__top-right-v6 {
+    margin-left: auto;
+  }
+}

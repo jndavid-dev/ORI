@@ -309,7 +309,8 @@
       "settings": {
         "bg_color": "#15191b",
         "text_color": "#ffffff"
-      }
+      },
+      "disabled": true
     },
     "mega_menu_1_9eGFTp": {
       "type": "mega-menu-1",
@@ -430,7 +431,8 @@
         "mm_bg_color": "#0b0b0b",
         "mm_bg_opacity": 85,
         "mm_text_color": "#ffffff"
-      }
+      },
+      "disabled": true
     },
     "mega_menu_1_3iAP83": {
       "type": "mega-menu-1",
@@ -608,7 +610,8 @@
         "mm_bg_color": "#0b0b0b",
         "mm_bg_opacity": 85,
         "mm_text_color": "#ffffff"
-      }
+      },
+      "disabled": true
     },
     "mega_menu_1_pQJFf4": {
       "type": "mega-menu-1",
@@ -678,7 +681,8 @@
         "mm_bg_color": "#0b0b0b",
         "mm_bg_opacity": 85,
         "mm_text_color": "#ffffff"
-      }
+      },
+      "disabled": true
     },
     "mega_menu_1_QA7MGf": {
       "type": "mega-menu-1",
@@ -712,6 +716,416 @@
         "mm_bg_color": "#0b0b0b",
         "mm_bg_opacity": 85,
         "mm_text_color": "#ffffff"
+      },
+      "disabled": true
+    },
+    "ori_mega_vehicles": {
+      "type": "ori-mega-vehicles",
+      "blocks": {
+        "make_0001": {
+          "type": "make",
+          "settings": {
+            "title": "Chevrolet",
+            "image": "shopify://shop_images/2024-Chevy-Silverado-2500-Phantom-Winch-Front-Bumper-3.png",
+            "link": "shopify://collections/chevy",
+            "link_label": "",
+            "menu_1": "chevrolet",
+            "menu_2": "chevrolet-silverado-2500-3500hd",
+            "menu_3": ""
+          }
+        },
+        "make_0002": {
+          "type": "make",
+          "settings": {
+            "title": "Ford",
+            "image": "shopify://shop_images/2023-Ford-F-250-350-Phantom-Winch-Front-Bumper-Studio-3_1800x1800_1.png",
+            "link": "",
+            "link_label": "",
+            "menu_1": "ford-f150",
+            "menu_2": "ford-f250-f350-f450",
+            "menu_3": ""
+          }
+        },
+        "make_0003": {
+          "type": "make",
+          "settings": {
+            "title": "Ram",
+            "image": "shopify://shop_images/dodge-ram-rebel-1500-trx_1800x1800_0ce02a9b-9e79-46b0-8c66-5f58ee143be9.png",
+            "link": "",
+            "link_label": "",
+            "menu_1": "ram-1500",
+            "menu_2": "ram-2500-3500",
+            "menu_3": ""
+          }
+        },
+        "make_0004": {
+          "type": "make",
+          "settings": {
+            "title": "GMC",
+            "image": "shopify://shop_images/gmc-hd-phantom-winch-front-bumper-studio-8.png",
+            "link": "",
+            "link_label": "",
+            "menu_1": "gmc",
+            "menu_2": "",
+            "menu_3": ""
+          }
+        },
+        "make_0005": {
+          "type": "make",
+          "settings": {
+            "title": "Toyota",
+            "image": "shopify://shop_images/4th-gen-toyota-tundra-winch-front-bumper-stealth-fighter_1800x1800_49541ff7-4fd2-432b-89e5-dbe39398aa87.png",
+            "link": "",
+            "link_label": "",
+            "menu_1": "toyota-tundra",
+            "menu_2": "",
+            "menu_3": ""
+          }
+        }
+      },
+      "block_order": [
+        "make_0001",
+        "make_0002",
+        "make_0003",
+        "make_0004",
+        "make_0005"
+      ],
+      "settings": {
+        "parent": "American Trucks"
+      }
+    },
+    "ori_mega_products": {
+      "type": "ori-mega-links",
+      "settings": {
+        "parent": "Products",
+        "menu": "main-menu",
+        "singles": "list",
+        "singles_heading": "Shop by category",
+        "promo_image": "shopify://shop_images/2000x560_-_Banks_Power_Cold_Air_Intake_1.png",
+        "promo_title": "Banks now stocking",
+        "promo_link_label": "Shop Banks",
+        "promo_link": "shopify://collections/banks-power-cold-air-intakes"
+      }
+    },
+    "ori_mega_brands": {
+      "type": "ori-mega-tiles",
+      "blocks": {
+        "tile_0006": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__ADD.jpg",
+            "label": "ADD Offroad",
+            "link": "shopify://collections/addictive-desert-designs"
+          }
+        },
+        "tile_0007": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__BDS.jpg",
+            "label": "BDS",
+            "link": "shopify://collections/bds-suspension-australian-distributor"
+          }
+        },
+        "tile_0008": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__FOX.jpg",
+            "label": "FOX",
+            "link": "shopify://collections/fox-suspension"
+          }
+        },
+        "tile_0009": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/ICONS_FOR_WEBSITE_BUSHWACKER.png",
+            "label": "Bushwacker",
+            "link": "shopify://collections/bushwacker"
+          }
+        },
+        "tile_000a": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__ORI.jpg",
+            "label": "ORI",
+            "link": "shopify://collections/ori"
+          }
+        },
+        "tile_000b": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__AFE.jpg",
+            "label": "AFE Power",
+            "link": "shopify://collections/afe"
+          }
+        },
+        "tile_000c": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__TITAN.jpg",
+            "label": "Titan Fuel Tanks",
+            "link": "shopify://collections/titan-fuel-tanks"
+          }
+        },
+        "tile_000d": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__BAJA_DESIGNS.jpg",
+            "label": "Baja Designs",
+            "link": "shopify://collections/baja-designs"
+          }
+        },
+        "tile_000e": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__HUSKY_LINERS.jpg",
+            "label": "Husky Liners",
+            "link": "shopify://collections/husky"
+          }
+        },
+        "tile_000f": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__BAJAKITS.jpg",
+            "label": "Baja Kits",
+            "link": "shopify://collections/baja-suspension-kits"
+          }
+        },
+        "tile_000g": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__CARLI.jpg",
+            "label": "Carli",
+            "link": "shopify://collections/carli-suspension"
+          }
+        },
+        "tile_000h": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__ZONE_OFFROAD.jpg",
+            "label": "Zone Offroad",
+            "link": "shopify://collections/zone-offroad"
+          }
+        },
+        "tile_000i": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__BANKS_POWER.jpg",
+            "label": "Banks",
+            "link": "shopify://collections/banks-power-cold-air-intakes"
+          }
+        },
+        "tile_000j": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/AMP-RESEARCH-LOGO_-_white_BG.png",
+            "label": "AMP Power Steps",
+            "link": "shopify://collections/amp-research-power-steps-bed-steps-bed-guard-australia"
+          }
+        },
+        "tile_000k": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__SWITCH_PRO.jpg",
+            "label": "Switch Pros",
+            "link": "shopify://collections/switch-pros"
+          }
+        },
+        "tile_000l": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__ROUGH_COUNTRY.jpg",
+            "label": "Rough Country",
+            "link": "shopify://collections/rough-country-1"
+          }
+        },
+        "tile_000m": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__PEAK.jpg",
+            "label": "Peak",
+            "link": "shopify://collections/peak-suspension"
+          }
+        },
+        "tile_000n": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__METHOD.jpg",
+            "label": "Method Race Wheels",
+            "link": "/collections/method-race-wheels"
+          }
+        },
+        "tile_000o": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/420_x_420px_MEGA_MENU_ICON__BAK.png",
+            "label": "BAK",
+            "link": "/collections/bak"
+          }
+        }
+      },
+      "block_order": [
+        "tile_0006",
+        "tile_0007",
+        "tile_0008",
+        "tile_0009",
+        "tile_000a",
+        "tile_000b",
+        "tile_000c",
+        "tile_000d",
+        "tile_000e",
+        "tile_000f",
+        "tile_000g",
+        "tile_000h",
+        "tile_000i",
+        "tile_000j",
+        "tile_000k",
+        "tile_000l",
+        "tile_000m",
+        "tile_000n",
+        "tile_000o"
+      ],
+      "settings": {
+        "pill": "",
+        "heading": "",
+        "button_1_label": "",
+        "button_1_link": "",
+        "button_2_label": "",
+        "button_2_link": "",
+        "all_label": "All brands",
+        "all_link": "/collections",
+        "parent": "Brands",
+        "style": "logos",
+        "columns": 10,
+        "show_labels": true,
+        "compact": false
+      }
+    },
+    "ori_mega_gvm": {
+      "type": "ori-mega-tiles",
+      "blocks": {
+        "tile_000p": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/SILVERADO_1500_copy_4_fb4ac951-398c-43ed-8574-f5703c47c0a4.jpg",
+            "label": "Chevy Silverado 1500",
+            "link": "/pages/chevrolet-silverado-1500-gvm-package"
+          }
+        },
+        "tile_000q": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/SILVERADO_2500_copy_4_1f45335a-303d-4bc6-af62-83ff8ee85a8a.jpg",
+            "label": "Chevy Silverado 2500",
+            "link": "/pages/chevy-silverado-2500hd-gvm-packages"
+          }
+        },
+        "tile_000r": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/F150_copy_3_301d0aa8-a172-4a72-93dd-92c3038fbfc6.jpg",
+            "label": "Ford 150",
+            "link": "/pages/ford-150-gvm-packages"
+          }
+        },
+        "tile_000s": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/TOYOTA_TUNDRA_copy_742153b9-e2db-4219-9a69-f8603b238408.jpg",
+            "label": "Toyota Tundra",
+            "link": "/pages/toyota-tundra"
+          }
+        },
+        "tile_000t": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/RAM-2500-5th-gen-MENU-ICON.png",
+            "label": "RAM 2500HD 5th GEN",
+            "link": "/pages/ram-2500hd-5th-gen-gvm"
+          }
+        },
+        "tile_000u": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/RAM-2500-6th-gen-MENU-ICON.png",
+            "label": "RAM 2500 6th Gen",
+            "link": "/pages/ram-2500-6th-gen-gvm"
+          }
+        }
+      },
+      "block_order": [
+        "tile_000p",
+        "tile_000q",
+        "tile_000r",
+        "tile_000s",
+        "tile_000t",
+        "tile_000u"
+      ],
+      "settings": {
+        "pill": "Federally approved",
+        "heading": "ORI GVM Upgrades",
+        "button_1_label": "View all GVM upgrades",
+        "button_1_link": "shopify://pages/ori-gvm-upgrades",
+        "button_2_label": "Find an installer",
+        "button_2_link": "shopify://pages/gvm-approves",
+        "all_label": "",
+        "all_link": "",
+        "parent": "ORI GVM Upgrades",
+        "style": "images",
+        "columns": 6,
+        "show_labels": false,
+        "compact": false
+      }
+    },
+    "ori_mega_lifted": {
+      "type": "ori-mega-tiles",
+      "blocks": {
+        "tile_000v": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/image_-_2026-06-10T181239.479.png",
+            "label": "Silverado 2500",
+            "link": "/pages/ssm-legal-nb1-chevy-2500hd"
+          }
+        },
+        "tile_000w": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/CHEVY-1500-LTZ-ZR2-MENU-ICON.png",
+            "label": "Silverado 1500",
+            "link": "/pages/ssm-legal-nb1-chevy-1500"
+          }
+        }
+      },
+      "block_order": [
+        "tile_000v",
+        "tile_000w"
+      ],
+      "settings": {
+        "pill": "NB1 legal builds",
+        "heading": "ORI Lifted Solutions",
+        "button_1_label": "",
+        "button_1_link": "",
+        "button_2_label": "",
+        "button_2_link": "",
+        "all_label": "",
+        "all_link": "",
+        "parent": "ORI Lifted Solutions",
+        "style": "images",
+        "columns": 2,
+        "show_labels": false,
+        "compact": true
+      }
+    },
+    "ori_mega_domestic": {
+      "type": "ori-mega-links",
+      "settings": {
+        "parent": "Domestic Vehicles",
+        "menu": "main-menu",
+        "singles": "headings",
+        "singles_heading": "",
+        "promo_title": "",
+        "promo_link_label": "",
+        "promo_link": ""
       }
     }
   },
@@ -719,6 +1133,12 @@
     "announcement-bar",
     "secondary-header",
     "header",
+    "ori_mega_vehicles",
+    "ori_mega_products",
+    "ori_mega_brands",
+    "ori_mega_gvm",
+    "ori_mega_lifted",
+    "ori_mega_domestic",
     "gvm-subnav",
     "mega_menu_1_9eGFTp",
     "mega_menu_1_3iAP83",

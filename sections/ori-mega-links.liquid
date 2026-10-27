@@ -1,0 +1,156 @@
+{%- comment -%}
+  ORI mega menu: link columns (Products, Domestic Vehicles).
+  Links come from the navigation menu itself (Content > Menus), so there is
+  nothing to keep in sync: under the matching menu item, every child with
+  its own sub-links becomes a column; children without sub-links are
+  gathered into one list column (or each becomes a heading, see "Single
+  links"). Only the promo card lives here.
+  data-mobile="native": the drawer keeps the theme's own nested menu for
+  this item (assets/header.js skips the clone).
+  Styles: "ORI REDESIGN — MEGA MENU" in gvm-css-main.css.
+{%- endcomment -%}
+{%- liquid
+  assign parent_title = section.settings.parent | strip
+  assign parent_handle = parent_title | handleize
+  assign menu_handle = section.settings.menu | default: 'main-menu'
+  assign parent_link = nil
+  for link in linklists[menu_handle].links
+    assign link_handle = link.title | handleize
+    if link_handle == parent_handle
+      assign parent_link = link
+      break
+    endif
+  endfor
+
+  assign singles = 0
+  assign groups = 0
+  if parent_link
+    for child in parent_link.links
+      if child.links != blank
+        assign groups = groups | plus: 1
+      else
+        assign singles = singles | plus: 1
+      endif
+    endfor
+  endif
+  assign as_headings = false
+  if section.settings.singles == 'headings'
+    assign as_headings = true
+  endif
+  assign has_promo = false
+  if section.settings.promo_image != blank or section.settings.promo_title != blank
+    assign has_promo = true
+  endif
+-%}
+
+{%- if parent_link and parent_link.links != blank -%}
+  <div
+    class="mega-menu-container ori-mm ori-mm--links{% if has_promo %} ori-mm--has-promo{% endif %}"
+    data-mega-menu-parent="{{ parent_title | escape }}"
+    data-mobile="native"
+  >
+    <div class="ori-mm__in ori-mm__links">
+      {%- if singles > 0 and as_headings == false -%}
+        <div class="ori-mm__col ori-mm__col--wide">
+          {%- if section.settings.singles_heading != blank -%}
+            <p class="ori-mm__h">{{ section.settings.singles_heading | escape }}</p>
+          {%- endif -%}
+          <ul class="ori-mm__list{% if singles > 6 %} ori-mm__list--2col{% endif %}" role="list">
+            {%- for child in parent_link.links -%}
+              {%- if child.links == blank -%}
+                <li><a href="{{ child.url }}">{{ child.title | escape }}</a></li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+
+      {%- for child in parent_link.links -%}
+        {%- if child.links != blank or as_headings -%}
+          <div class="ori-mm__col">
+            <p class="ori-mm__h">
+              {%- if child.url != blank and child.url != '/' and child.url != '#' -%}
+                <a href="{{ child.url }}">{{ child.title | escape }}</a>
+              {%- else -%}
+                {{ child.title | escape }}
+              {%- endif -%}
+            </p>
+            {%- if child.links != blank -%}
+              <ul class="ori-mm__list" role="list">
+                {%- for grandchild in child.links -%}
+                  <li><a href="{{ grandchild.url }}">{{ grandchild.title | escape }}</a></li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+
+      {%- if has_promo -%}
+        {%- liquid
+          assign promo_tag = 'div'
+          if section.settings.promo_link != blank
+            assign promo_tag = 'a'
+          endif
+        -%}
+        <{{ promo_tag }} class="ori-mm__promo"{% if promo_tag == 'a' %} href="{{ section.settings.promo_link }}"{% endif %}>
+          {%- if section.settings.promo_image != blank -%}
+            {{ section.settings.promo_image | image_url: width: 900 | image_tag: widths: '330, 660, 900', sizes: '330px', loading: 'lazy', alt: '' }}
+          {%- endif -%}
+          <span class="ori-mm__promo-copy">
+            {%- if section.settings.promo_title != blank -%}
+              <b>{{ section.settings.promo_title | escape }}</b>
+            {%- endif -%}
+            {%- if section.settings.promo_link_label != blank -%}
+              <span>{{ section.settings.promo_link_label | escape }} <span aria-hidden="true">→</span></span>
+            {%- endif -%}
+          </span>
+        </{{ promo_tag }}>
+      {%- endif -%}
+    </div>
+  </div>
+{%- elsif request.design_mode -%}
+  <p class="ori-mm-editor-note">ORI mega menu: no menu item called "{{ parent_title | escape }}" with sub-links in the {{ menu_handle }} menu.</p>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "ORI mega menu: links",
+  "tag": "section",
+  "class": "shopify-section--mega-menu",
+  "enabled_on": { "groups": ["header"] },
+  "settings": [
+    {
+      "type": "text",
+      "id": "parent",
+      "label": "Menu item",
+      "info": "Title of the main menu item this panel opens under, e.g. Products. Edit the links themselves in Content > Menus."
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "info": "Defaults to the main menu.",
+      "default": "main-menu"
+    },
+    {
+      "type": "select",
+      "id": "singles",
+      "label": "Single links",
+      "info": "Links without sub-links.",
+      "default": "list",
+      "options": [
+        { "value": "list", "label": "Gather into one list" },
+        { "value": "headings", "label": "Show each as a column heading" }
+      ]
+    },
+    { "type": "text", "id": "singles_heading", "label": "List heading", "default": "Shop by category" },
+    { "type": "header", "content": "Promo card" },
+    { "type": "image_picker", "id": "promo_image", "label": "Image" },
+    { "type": "text", "id": "promo_title", "label": "Title" },
+    { "type": "text", "id": "promo_link_label", "label": "Link label" },
+    { "type": "url", "id": "promo_link", "label": "Link" }
+  ],
+  "presets": [{ "name": "ORI mega menu: links" }]
+}
+{% endschema %}
